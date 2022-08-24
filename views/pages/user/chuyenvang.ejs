@@ -1,0 +1,263 @@
+<div class="container" id="userBody">
+    <div class="row">
+        <div class="col-lg-3">
+
+            <style>
+                @media (min-width: 1199.98px) {
+                    .col-lg-3 {
+                        padding-right: 0px;
+                    }
+
+                    .col-lg-9 {
+                        padding-left: 10px;
+                    }
+                }
+
+                @media (max-width: 1199.98px) {
+                    .col-lg-9 {
+                        margin-top: 25px;
+                    }
+                }
+
+                .userHeader li {
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid #f2f2f2;
+                }
+
+                .userHeader_Title {
+                    margin-bottom: 0px;
+                }
+
+                .userHeader_Gach {
+                    background-color: #32c5d2;
+                    height: 2px;
+                    width: 50px;
+                    text-align: left;
+                    display: inline-block;
+                }
+
+                #th_dmk:hover {
+                    cursor: pointer;
+                }
+
+                #userBody {
+                    margin-top: 35px;
+                }
+            </style>
+            <!--
+  <div class="userHeader" style="font-family: 'Roboto';">
+    <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+      <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+    </div>
+    <div>
+      <ul style="list-style-type: none; padding-left: 0px">
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+      </ul>
+    </div>
+  </div>
+  -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+            <link
+                href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+                rel="stylesheet">
+
+
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+            <div class="userHeader" roboto";"="">
+                <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+                    <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+                </div>
+                <div>
+                    <ul style="list-style-type: none; padding-left: 0px">
+                        <%- menu %>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+
+            <h4 class="userHeader_Title">CHUYỂN TIỀN</h4>
+            <hr class="userHeader_Gach">
+            <div class="alert alert-info" role="alert" style="margin-bottom: 25px; margin-top: 15px">
+                <strong>Bạn chỉ có thể chuyển tới những người chơi ở <span style="color: red">Server <%=data.server%>
+                    </span></strong>
+            </div>
+            <form id="form">
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Tài khoản:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" style="color: red" type="text"
+                            value="<%=data.name%> - Server <%=data.server%>" readonly="">
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Số dư:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" style="color: red" type="text"
+                            value="<%=String(data.vang).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>" readonly="">
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Cách thức:</label>
+                    <div class="col-lg-8">
+                      <select class="form-control" id="type" name="type">
+                        <option value="0">Tên hiển thị</option>
+                        <option value="1">Tài khoản đăng nhập</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-1"></div>
+                  </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Người nhận:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" name="to" id="to" type="text" value="">
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Số vàng:</label>
+                    <div class="col-lg-8">
+                        <select id="gold" name="gold" class="form-control">
+                            <option value="0">10,000,000 vàng</option>
+                            <option value="1">20,000,000 vàng</option>
+                            <option value="2">50,000,000 vàng</option>
+                            <option value="3">100,000,000 vàng</option>
+                            <option value="4">200,000,000 vàng</option>
+                            <option value="5">500,000,000 vàng</option>
+                        </select>
+                        <small>Số vàng bạn muốn chuyển cho người chơi khác</small>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Mật khẩu:</label>
+                    <div class="col-lg-8">
+                        <input type="password" class="form-control" name="password" id="password" type="text" value="">
+                        <small>Nhập mật khẩu để tiếp tục</small>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                
+
+                
+                <% if(ishanmuc){ %>
+                    <div class="form-group row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-8">
+                    <div role="alert" class="fade font-weight-bold alert alert-info show">Hạn mức của bạn: <span class="text-danger"><%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng</span>
+                      <br><span class="text-danger"><%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></span> <span>là số vàng bạn có thể chuyển</span>
+                      <br><span class="text-danger">Hạn mức sẽ về 0 vào cuối ngày (00h00)</span>
+                      <br><span class="text-danger">Đặt cược để tăng hạn mức nhé</span>
+                    </div>
+                </div>
+                    </div>
+                    <% } %>
+                <div class="form-group row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-8">
+                        <div id="alert"></div>
+                        <button type="button" class="btn btn-info form-control font-weight-bold" id="btn"><span
+                                class="fas fa-exchange-alt"></span> Chuyển ngay</button>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="row" id="lichSuRutTien" style="margin-top: 30px">
+        <div class="col" style="padding: 0">
+            <div class="alert alert-primary" role="alert" style="color: Brown; margin-bottom: 3px;">
+                <strong>LỊCH SỬ CHUYỂN VÀNG</strong>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover  text-center" id="tableCard" style="display: table;">
+                    <thead class="bg bg-info text-white">
+                        <tr>
+                            <th scope="col" style="white-space:nowrap;">Thời gian</th>
+                            <th scope="col" style="white-space:nowrap;">Nội dung</th>
+                            <th scope="col" style="white-space:nowrap;">Số vàng</th>
+                            <th scope="col" style="white-space:nowrap;">Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+
+                            <%if(table!=""){%>
+                                <%-table%>
+                            <%}else{%>
+                                <tr> <td colspan="4">Bạn chưa giao dịch nào</td> </tr>
+                             <%}%>
+                       
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    #lichSuRutTien td {
+        padding-top: 7px;
+        padding-bottom: 7px;
+        white-space: nowrap;
+    }
+</style>
+<script>
+    var table = document.getElementById("tableCard");
+    var tb = document.getElementById("alert");
+    var btn = document.getElementById("btn");
+    btn.addEventListener("click", function () {
+        tb.innerHTML = "";
+        tb.innerHTML = "";
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+
+
+
+        $.ajax({
+            url: "user/chuyenvang",
+            type: "post",
+            dataType: "text",
+            data: $("#form").serialize(),
+            success: function (result) {
+                var response = JSON.parse(result);
+                console.log(response.error)
+                if (response.error === 1) {
+                    tb.innerHTML = thongbao("danger", response.message);
+                }
+                else {
+                    tb.innerHTML = thongbao("success", response.message);
+                    document.getElementById("form").reset();
+                    if (table.innerHTML.includes("Bạn chưa giao dịch nào")) {
+                        table.innerHTML = response.table;
+                        
+                    }
+                    else
+                    table.innerHTML = response.table + table.innerHTML;
+                }
+                btn.disabled = false;
+                btn.innerHTML = '<span class="fas fa-exchange-alt"></span> Chuyển ngay';
+            }
+        });
+
+
+
+
+
+
+    });
+</script>

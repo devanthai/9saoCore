@@ -1,0 +1,295 @@
+body {
+    overflow-x: hidden;
+}
+
+
+#showCl,
+#showTx {
+    position: absolute;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 3px 15px;
+    margin-top: 4%;
+    left: 12.5%;
+    white-space: nowrap;
+    z-index: 49;
+    display: none;
+    font-weight: bold;
+
+}
+
+#chatGlobal {
+    height: 647px;
+    overflow: auto;
+}
+
+#top1 td {
+    font-size: 21px !important;
+    color: #ff0000;
+
+}
+
+#top2 td {
+    font-size: 17px !important;
+    color: #ff4000;
+
+}
+
+#top3 td {
+    font-size: 15px !important;
+    color: #ff5000;
+
+}
+
+#divNhanVang {
+    display: block;
+    position: fixed;
+    bottom: 25px;
+    left: 15px;
+    width: 10%;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+#divBangHoi {
+    display: block;
+    position: fixed;
+    bottom: 15px;
+    left: 5px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+
+@media (max-width: 991.98px) {
+    #cardBodyKetQua {
+        padding-left: 15px;
+    }
+
+    #link-group-facebook {
+        margin-top: 7px;
+    }
+
+    #divNhanVang {
+        width: 20%;
+    }
+}
+
+#lichsugd td {
+    white-space: nowrap;
+    padding: 7px;
+}
+
+#vongquay {
+    width: 70%;
+    position: relative;
+    transition: transform .5s;
+    transition-duration: 7s;
+}
+
+#btnStart {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    margin-top: -66px;
+    margin-left: -50px;
+}
+
+#imgStart {
+    max-width: 100px;
+}
+
+@media (max-width: 720px) {
+    #vongquay {
+        width: 100%;
+    }
+
+    #imgStart {
+        width: 60%;
+        height: 60%;
+    }
+
+    #btnStart {
+        left: 50%;
+        top: 50%;
+        margin-top: -40px;
+    }
+}
+
+#diemDanhCard {
+    margin-top: 0.5rem;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+#diemDanhCard {
+    margin-top: 0.5rem;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+#diemDanhCard .body {
+    padding: 1rem;
+}
+
+.color-main {
+    background-color: #f39c12 !important;
+    color: white;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+#ptItemBieuTuong {
+    overflow-y: auto;
+    height: 195px;
+    overflow-x: hidden;
+}
+
+#ptHeader {
+    padding: 7px 0;
+    text-align: center;
+}
+
+.ptBtnHeader {
+    background-color: #EEEBE6;
+    border: none;
+    width: 70px;
+    padding: 0;
+}
+
+#ptTitle {
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #501c04;
+    margin: 0;
+}
+
+.ptIcon {
+    background-color: rgb(133, 70, 7);
+    text-align: center;
+    padding: 0;
+}
+
+.ptItem {
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid #D9C8B4;
+    background-color: #EEEBE6;
+    cursor: pointer;
+}
+
+.ptName {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    color: rgb(46, 43, 38);
+}
+
+.ptPoint {
+    color: royalblue;
+}
+
+.ptAlert {
+    padding-top: 5px;
+    text-align: center;
+    background-color: #FEE4C6;
+    width: 96%;
+    border-radius: 7px;
+    border: 1px black solid;
+    z-index: 999;
+    position: absolute;
+    top: 130px;
+    left: 2%;
+}
+
+.ptAlertTitle {
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.ptAlertInput {
+    border: none;
+    border-radius: 5px;
+    padding: 3px 10px;
+    width: 85%;
+}
+
+.ptAlertFooter {
+    margin-top: 10px;
+    padding-bottom: 15px;
+}
+
+.ptAlertBtn {
+    border-radius: 7px;
+    border: 1px black solid;
+    background-color: #E17B3A;
+    font-weight: bold;
+    color: #532905;
+    width: 75px;
+}
+
+.ptBieuTuongGold {
+    padding-top: 15px;
+    cursor: pointer;
+}
+
+.ptBieuTuongGold:hover {
+    color: red;
+}
+
+.alertInfoContent {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 7px;
+
+}
+
+.alertInfo {
+    z-index: 999;
+    position: absolute;
+    width: 80%;
+    left: 2%;
+    top: 20%;
+}
+
+.ptScreenName {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+.ptScrenText {
+    color: black;
+}
+
+.ptItemBtn {
+    border-radius: 5px;
+    background-color: #cc7e49;
+    color: #532905;
+    font-weight: bold;
+    padding: 3px 7px;
+    border: 1px solid #532905;
+}
+.pushable {
+    background: hsl(187deg 69% 43%);
+
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+}
+.front {
+    display: block;
+
+    background: #00bcd4;
+    color: white;
+    transform: translateY(-6px);
+}
+.pushable:active .front {
+    transform: translateY(-2px);
+}

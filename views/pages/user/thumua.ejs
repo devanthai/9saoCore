@@ -1,0 +1,107 @@
+
+  <div class="container">
+    <h2 class="text-center" style="margin-top: 30px;">Tiệm cầm đồ 9SAO</h2>
+    <hr style="width: 15%; height: 1px" class="bg-danger">
+  
+
+    <div class="row m-4">
+      <div class="col text-center">
+          <a class="btn btn-primary font-weight-bold collapsed" data-toggle="collapse" href="#showthumua" role="button" aria-expanded="false" aria-controls="showthumua">
+              Bấm vào đây để cầm đồ </a>
+      </div>
+  </div>
+
+  <div class=" collapse" id="showthumua" style="">
+    <div class="alert alert-info" style="margin-top: 20px">
+        <strong>Thông báo!</strong> Hệ thống nhập nick giá tốt, giao dịch tự động 100% và hoạt động 24/24<br>
+        Hệ thống chỉ chấp nhận <strong>nick ảo</strong>, nick trên <strong>500tr sức mạnh</strong> (<strong>phải có đệ tử</strong>)
+    </div>
+    <div class="row" style="padding-top: 25px">
+      <div class="col-lg-5">
+  
+        <div class="card border-info">
+          
+          <div class="card-body border-info">
+            <form id="form">
+              
+              <div class="form-group">
+                <label>Máy chủ</label>
+                <select class="form-control" id="server" name="server">
+                  <option value="0">Chọn máy chủ</option>
+                  <option value="1">Máy chủ 1</option>
+                  <option value="2">Máy chủ 2</option>
+                  <option value="3">Máy chủ 3</option>
+                  <option value="4">Máy chủ 4</option>
+                  <option value="5">Máy chủ 5</option>
+                  <option value="6">Máy chủ 6</option>
+                  <option value="7">Máy chủ 7</option>
+                  <option value="8">Máy chủ 8</option>
+                  <option value="9">Máy chủ 9</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tài khoản</label>
+                <input type="text" name="taikhoan" id="taikhoan" class="form-control" placeholder="Nhập tài khoản">
+              </div>
+              <div id="formLoad">
+                <div class="form-group">
+                  <label>Mật khẩu</label>
+                  <input type="text" name="matkhau" id="matkhau" class="form-control" placeholder="Nhập mật khẩu">
+  
+                </div>
+              </div>
+              <div id="alert"></div>
+              <div class="form-group">
+                <button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btndinhgia">Định giá nick ngay</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7" id="vitri">
+      <div class="jumbotron" style="font-size: 15px; padding-top: 25px; padding-bottom: 25px;">
+				<h4>9SAO.ME</h4>
+
+				Nhập nick giá tốt, <strong class="text-danger">định giá 5 Phút</strong> là nhận được tiền về tài khoản<br><br>
+
+				<strong class="text-primary">+ BƯỚC 1:</strong> Điền tài khoản, mật khẩu, server nick muốn bán<br>
+				<strong class="text-primary">+ BƯỚC 2:</strong> Chờ 5 Phút shop tiến hành check thông tin, định giá nick và tự động cộng tiền vào tài khoản<br><br>
+
+				<strong class="text-danger">LƯU Ý:</strong> Shop thu mua nick <strong class="text-danger">tự động 100%</strong> nên khi bán nick cho shop, hệ thống sẽ tự định giá và cộng tiền vô tài khoản của bạn luôn, nên bạn phải đồng ý với giá mua của shop<br><br>
+
+				Cam kết nhập nick giá tốt, shop có đầy đủ hình thức rút tiền về Atm/Ví hoặc mua thẻ cào, thẻ game...<br><br>
+
+			</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="alert alert-info col" style="margin-top: 25px; margin-bottom: 5px">
+        <h5 class="font-weight-bold">LỊCH SỬ GIAO DỊCH</h5>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-response text-center">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" hidden="">ID</th>
+              <th scope="col">Server</th>
+              <th scope="col">Nhân vật</th>
+              <th scope="col" id="headerGold">Số vàng</th>
+              <th scope="col">Tình trạng</th>
+              <th scope="col">Thời gian</th>
+              <th scope="col" style="white-space:nowrap;">Điều khiển</th>
+            </tr>
+          </thead>
+          <tbody id="lichsugd">
+  
+  
+            
+  
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  </div>

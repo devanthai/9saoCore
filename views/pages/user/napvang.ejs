@@ -1,0 +1,325 @@
+<style>
+  @media (min-width: 991.98px) {
+    #btnGroupDrop1 {
+      display: none;
+    }
+  }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400&amp;display=swap">
+
+<div class="container">
+
+
+  <h2 class="text-center" style="margin-top: 30px;">NẠP VÀNG</h2>
+  <hr style="width: 15%; height: 1px" class="bg-danger">
+  <div class="text-center">
+    <div class="btn-group mt-2" role="group">
+      <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle mt-3" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Chức năng
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+        <a class="dropdown-item" href="/user/napcard">Mua vàng</a>
+                <a class="dropdown-item" href="/user/napvang">Nạp vàng</a>
+                <a class="dropdown-item" href="/user/rutvang">Rút vàng</a>
+                <a class="dropdown-item" href="/user/vongquay">Vòng quay may mắn</a>
+                <a class="dropdown-item" href="/user/gifcode">Nhập Gift Code</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+                <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-info" style="margin-top: 20px">
+    <strong>Hệ thống nạp vàng tự động</strong><br>
+    <strong>Bước 1: </strong><strong>Đặt đơn nạp vàng</strong> trên website<br>
+    <strong>Bước 2: </strong>Vào <strong>đúng địa điểm</strong> gặp nhân vật nhận hàng để giao dịch <br>
+    Sau khi <strong>giao dịch thành công</strong> bạn sẽ được <strong>cộng vàng</strong> trên website sau <strong>3
+      giây</strong><br>
+    - Tỷ lệ nạp <strong>100%</strong>, <strong>nạp 100tr được 100tr</strong><br>
+    <strong class="text-danger">Hệ thống tự động hủy đơn</strong> sau <strong class="text-danger">15 phút</strong> nếu
+    <strong class="text-danger">chưa giao dịch thành công</strong>
+  </div>
+  <div class="row" style="padding-top: 25px">
+    <div class="col-lg-5">
+
+      <div class="card border-info">
+        <div class="card-header bg-info text-light border-info text-center font-weight-bold">
+          <span id="sodu"><span class="fas fa-coins"></span> Số dư: <%= data.vang%>$</span>
+        </div>
+        <div class="card-body border-info">
+          <form id="form">
+            <div class="form-group">
+              <label>Máy chủ</label>
+              <input type="text" class="form-control readonly" value="Server <%= data.server%> sao" readonly="">
+            </div>
+            <div class="form-group">
+              <label>Hình thức nạp</label>
+              <select class="form-control" id="type" name="type">
+                <option value="1">Giao dịch vàng</option>
+                <option value="2">Giao dịch thỏi vàng</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Nhân vật</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Nhập tên nhân vật">
+            </div>
+            <div id="formLoad">
+              <div class="form-group">
+                <label>Số vàng cần nạp</label>
+                <input type="text" name="gold" id="gold" class="form-control"
+                  placeholder="Nhập chính xác số vàng bằng số">
+
+              </div>
+            </div>
+            <div id="alert"></div>
+            <div class="form-group">
+              <button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btn"> Nạp
+                ngay</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-7" id="vitri">
+      <div class="form-group">
+        <a class="btn btn-info form-control font-weight-bold text-white readonly">Ví trí nhân vật nhận vàng</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-response text-center table-striped">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Server</th>
+              <th scope="col">Nhân vật</th>
+              <th scope="col">Địa điểm</th>
+              <th scope="col">KV</th>
+              <th scope="col" id="headerGold2">Số vàng</th>
+            </tr>
+          </thead>
+          <tbody id="goldvitri">
+
+
+
+            <% if (getBotnap.length<=0) { %>
+              <tr>
+                <td colspan="5">Không tìm thấy bot</td>
+              </tr>
+              <% } %>
+                <% for (var i=0; i < getBotnap.length; i++) { %>
+  
+  
+                  <tr>
+                    <td scope="col">
+                      <%= getBotnap[i].Server%>
+                    </td>
+                    <td scope="col">
+                      <%= getBotnap[i].Name%>
+                    </td>
+                    <td scope="col">
+                      Vách núi kkr
+                    </td>
+                    <td scope="col">
+                      <%= getBotnap[i].Zone %>
+                    </td>
+                    <td scope="col">
+                      <%= String(getBotnap[i].Gold).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                    </td>
+  
+                  </tr>
+  
+  
+                  <% } %>
+
+
+
+
+            
+            <tr>
+              <td colspan="5" style="font-size: 15px;"><span style="color: red;">Vui lòng kiễm tra kĩ đúng 100% tên nhân vật bot mới được giao dịch
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="alert alert-info col" style="margin-top: 25px; margin-bottom: 5px">
+      <h5 class="font-weight-bold">LỊCH SỬ GIAO DỊCH</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-response text-center">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" hidden="">ID</th>
+            <th scope="col">Server</th>
+            <th scope="col">Nhân vật</th>
+            <th scope="col" id="headerGold">Số vàng</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Thời gian</th>
+            <th scope="col" style="white-space:nowrap;">Điều khiển</th>
+          </tr>
+        </thead>
+        <tbody id="lichsugd">
+
+
+          <% if (lsnap.length<=0) { %>
+            <tr>
+              <td colspan="7">Bạn chưa thực hiện giao dịch nào</td>
+            </tr>
+            <% } %>
+              <% for (var i=0; i < lsnap.length; i++) { %>
+
+
+                <tr>
+                  <td hidden=""><%=lsnap[i]._id%></td>
+                  <td scope="col">
+                    <%= lsnap[i].server%>
+                  </td>
+                  <td scope="col">
+                    <%= lsnap[i].tnv %>
+                  </td>
+                  <td scope="col">
+                    <%= String(lsnap[i].sovang).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                  </td>
+
+                  <td scope="col">
+                    <%- (lsnap[i].status==0 ? '<span class="badge badge-warning text-white">Chưa giao dịch</span>' :
+                      (lsnap[i].status==1 ? '<span class="badge badge-success text-white">Giao dịch thành công</span>'
+                      : '<span class="badge badge-danger text-white">Đã hủy</span>' ))%>
+                  </td>
+                  <td scope="col">
+                    <%= new Date(Date.parse(lsnap[i].time)).toLocaleString()%>
+                  </td>
+                  <td scope="col">
+                    <%- (lsnap[i].status==0 ? '<i class="fas fa-trash-alt" onclick="return remove(this);"></i>' : '' )
+                      %>
+                  </td>
+                </tr>
+
+
+                <% } %>
+
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<style>
+  #goldvitri td,
+  #lichsugd td {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+</style>
+
+<script>
+  var name = document.getElementById("name");
+  var gold = document.getElementById("gold");
+  var type = document.getElementById("type");
+  var divAlert = document.getElementById("alert");
+  var lichsugd = document.getElementById("lichsugd");
+  var btn = document.getElementById("btn");
+  btn.addEventListener("click", function () {
+    divAlert.innerHTML = "";
+    var type = $('#type').val();
+    var tnv = $('#name').val();
+    var gold = $('#gold').val();
+    $.ajax({
+      url: "user/napvang",
+      type: "post",
+      dataType: "text",
+      data: {
+        add: "Bug sml",
+        type: type,
+        gold: gold,
+        tnv: tnv
+      },
+      success: function (result) {
+        var response = JSON.parse(result);
+
+        if (response.error == 1) {
+          divAlert.innerHTML = thongbao('danger', response.message);
+        }
+        else {
+          divAlert.innerHTML = thongbao('success', response.message);
+          if (lichsugd.innerHTML.includes("Bạn chưa thực hiện giao dịch nào")) {
+            lichsugd.innerHTML = response.table;
+            return;
+          }
+          lichsugd.innerHTML = response.table + lichsugd.innerHTML;
+        }
+      }
+    });
+  });
+
+  function remove(a) {
+    if (!confirm("Bạn chắc chắn muốn hủy đơn hàng này?")) {
+      return;
+    }
+
+    var tr = a.parentElement.parentElement;
+    var id = tr.children[0].innerHTML;
+
+    $.ajax({
+      url: "user/napvang",
+      type: "post",
+      dataType: "text",
+      data: {
+        remove: $("#type").val(),
+        id: id
+      },
+      success: function (result) {
+        tr.innerHTML = result;
+      }
+    });
+
+    return;
+  }
+
+  $("#type").change(function () {
+    $.ajax({
+      url: "user/napvang",
+      type: "post",
+      dataType: "text",
+      data: {
+        type: $("#type").val(),
+        changetype: "kkkk"
+
+      },
+      success: function (result) {
+        var json = JSON.parse(result);
+        for (var i = 0; i < json.data.length; i += 2) {
+          $("#" + json.data[i]).html(json.data[i + 1]);
+        }
+        $("body").append(json.js);
+        //  console.log(json.data);
+      }
+    });
+
+  })
+
+  var golds = $("#golds");
+  golds.keyup(function () {
+
+    console.log($("#type").val())
+    $("#gold").val(formatNumber(golds.val() * 37000000));
+
+  });
+
+  function formatNumber(number) {
+    var amount = number.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+    return amount.replace("$", "").replace(".00", "");
+  }
+
+</script>
+<script>
+
+
+
+</script>

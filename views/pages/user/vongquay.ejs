@@ -1,0 +1,237 @@
+<style>
+    #vongquay {
+        width: 50%;
+        position: relative;
+        transition: transform .5s;
+        transition-duration: 7s;
+    }
+
+    #btnStart {
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        margin-top: -66px;
+        margin-left: -50px;
+    }
+
+    #imgStart {
+        max-width: 100px;
+    }
+
+    @media (max-width: 720px) {
+        #vongquay {
+            width: 75%;
+        }
+
+        #imgStart {
+            width: 60%;
+            height: 60%;
+        }
+
+        #btnStart {
+            left: 50%;
+            top: 50%;
+            margin-top: -40px;
+        }
+    }
+</style>
+<style>
+    @media (min-width: 991.98px) {
+        #btnGroupDrop1 {
+            display: none;
+        }
+    }
+</style>
+<div class="container">
+    <h2 class="text-center" style="margin-top: 30px;">VÒNG QUAY MAY MẮN</h2>
+    <hr style="width: 15%; height: 1px;" class="bg-danger mb-4">
+    <div class="text-center mt-3">
+        <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Chức năng
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="/user/napcard">Mua vàng</a>
+                <a class="dropdown-item" href="/user/napvang">Nạp vàng</a>
+                <a class="dropdown-item" href="/user/rutvang">Rút vàng</a>
+                <a class="dropdown-item" href="/user/vongquay">Vòng quay may mắn</a>
+                <a class="dropdown-item" href="/user/gifcode">Nhập Gift Code</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+                <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
+          </div>
+    </div>
+    <div class="alert alert-info" style="margin-top: 20px">
+        <strong>Vòng Quay May Mắn</strong> tích điểm<br>
+        <strong>Quay là trúng</strong>, tỉ lệ trúng <strong>100%</strong><br>
+        Kiếm <strong style="color: green">kim cương</strong> bằng cách <a href="/user/napcard">mua
+            vàng</a><br>
+        <strong style="color: green">10 kim cương</strong> đổi được <strong style="color: green">1 lượt
+            quay</strong><br>
+        <strong style="color: red"><span class="fas fa-gem"></span> Hiện có: <%=data.kimcuong%> kim cương</strong>
+    </div>
+    <div style="position: relative;" class="text-center">
+        <img src="images/vongquay.jpg" class="img-responsive rounded-circle"
+            alt="nrochanle.com chẳn lẻ tài xỉu ngọc rồng|vanmay.me|nro.club" id="vongquay">
+        <a id="btnStart" href="javascript:"><img src="images/quayngay.png?ccc=cc" class="img-responsive"
+                alt="nrochanle.com chẳn lẻ tài xỉu ngọc rồng|vanmay.me|nro.club" id="imgStart"></a>
+    </div>
+    <div class="text-center">
+        <p class="font-weight-bold text-danger mt-4">Bạn có <span id="luotquay">
+                <%=data.kimcuong/10%>
+            </span> lượt quay</p>
+        <div class="card border-info" style="margin-top: 30px;">
+            <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                    class="fas fa-history"></span> LỊCH SỬ NHẬN THƯỞNG</div>
+            <div class="card-body text-seccond" style="padding: 0;">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Thời gian</th>
+                            <th scope="col">Tên nhân vật</th>
+                            <th scope="col">Phần thưởng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lichsu">
+                        <tr>
+                            <td>02/08/2021 09:55</td>
+                            <td>vietanhlsls123</td>
+                            <td>100 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:55</td>
+                            <td>haikpro</td>
+                            <td>50 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:55</td>
+                            <td>haikpro</td>
+                            <td>1 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:53</td>
+                            <td>chienplayy</td>
+                            <td>50 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:51</td>
+                            <td>thoinghi</td>
+                            <td>250 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:50</td>
+                            <td>ailenhuy90</td>
+                            <td>100 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:50</td>
+                            <td>i3ieberr</td>
+                            <td>10 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:50</td>
+                            <td>i3ieberr</td>
+                            <td>50 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:49</td>
+                            <td>daicahiccc</td>
+                            <td>50 triệu vàng</td>
+                        </tr>
+                        <tr>
+                            <td>02/08/2021 09:49</td>
+                            <td>lrytuananh</td>
+                            <td>1 triệu vàng</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col offset-lg-10 offset-6">
+            <label>Hiện thị:</label>
+            <select id="record" class="form-control">
+                <option value="0">Tất cả</option>
+                <option value="1">Chỉ mình tôi</option>
+            </select>
+        </div>
+    </div>
+    <div id="divModal">
+        <div class="modal fade" tabindex="-1" id="modal" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="color: red"><strong>Thất bại! kim cương không đủ</strong><br>Bạn cần thêm ít nhất 9
+                            kim cương nữa</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var count = 1;
+    var disable = false;
+    var image = document.getElementById("vongquay");
+    var btn = document.getElementById("btnStart");
+    btn.addEventListener("click", function () {
+        if (disable) {
+            return;
+        }
+        disable = true;
+        $.ajax({
+            url: "/user/vongquay",
+            type: "post",
+            data: { count: count, action: 'submit' },
+            success: function (res) {
+                var json = (res);
+                if (res.status <= 0) {
+                    disable = false;
+                    $("#divModal").html(res.modal);
+                    $("body").append(res.script);
+                    return;
+                }
+                if (res.status > 0) {
+                    image.style.transform = res.transform;
+                    count += 1;
+                    $("#luotquay").html(Number($("#luotquay").html()) - 1);
+                    setTimeout(function () {
+                        disable = false;
+                        $("#divModal").html(res.modal);
+                        $("body").append(res.script);
+                    }, 7000);
+                }
+            }
+        });
+    });
+
+
+
+    var record = document.getElementById("record");
+    record.addEventListener("change", function() {
+      loadHistory();
+    });
+    loadHistory();
+    function loadHistory() {
+        $.ajax({
+            url: "/user/vongquay",
+            type: "post",
+            data: {record:record.value, action: 'loadls' },
+            success: function (res) {
+
+                $("#lichsu").html(res);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,364 @@
+<div class="container" id="userBody">
+    <div class="row">
+        <div class="col-lg-3">
+
+            <style>
+                @media (min-width: 1199.98px) {
+                    .col-lg-3 {
+                        padding-right: 0px;
+                    }
+
+                    .col-lg-9 {
+                        padding-left: 10px;
+                    }
+                }
+
+                @media (max-width: 1199.98px) {
+                    .col-lg-9 {
+                        margin-top: 25px;
+                    }
+                }
+
+                .userHeader li {
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid #f2f2f2;
+                }
+
+                .userHeader_Title {
+                    margin-bottom: 0px;
+                }
+
+                .userHeader_Gach {
+                    background-color: #32c5d2;
+                    height: 2px;
+                    width: 50px;
+                    text-align: left;
+                    display: inline-block;
+                }
+
+                #th_dmk:hover {
+                    cursor: pointer;
+                }
+
+                #userBody {
+                    margin-top: 35px;
+                }
+
+                #tableCard td {
+                    white-space: nowrap;
+                }
+            </style>
+            <!--
+  <div class="userHeader" style="font-family: 'Roboto';">
+    <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+      <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+    </div>
+    <div>
+      <ul style="list-style-type: none; padding-left: 0px">
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+      </ul>
+    </div>
+  </div>
+  -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+            <link
+                href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+                rel="stylesheet">
+
+
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+            <div class="userHeader" roboto";"="">
+                <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+                    <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+                </div>
+                <div>
+                    <ul style="list-style-type: none; padding-left: 0px">
+                        <%- menu %>
+                           
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <h4 class="userHeader_Title">NẠP THẺ CÀO</h4>
+            <hr class="userHeader_Gach">
+            <div class="alert alert-info" role="alert" style="margin-bottom: 25px; margin-top: 15px">
+                <strong style="color: red">Tỉ lệ nạp thẻ cào <%= tile %>% <br>Nạp 100k nhận <%= 100*tile/1000 %>tr
+                            vàng</strong><br>
+                <strong style="color: blue">Tặng ngẫu nhiên</strong> từ <strong style="color: blue">2tr tới
+                    250tr</strong> cho mỗi lượt nạp thẻ cào<br>
+                Mỗi <strong>lượt nạp</strong> được <strong style="color: red">tặng kim cương</strong><br>
+                Kim cương <strong style="color: red">đổi lượt quay</strong> vàng <a href="/user/vongquay"> tại đây </a>
+            </div>
+            <form id="form" class="mt-1">
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Tài khoản:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" style="color: red" type="text"
+                            value="<%= data.name %> - Server <%= data.server %>" readonly="">
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Loại thẻ:</label>
+                    <div class="col-lg-8">
+                        <select name="name" class="form-control">
+                            <option value="VIETTEL">VIETTEL</option>
+                            <option value="MOBIFONE">MOBIFONE</option>
+                            <option value="VINAPHONE">VINAPHONE</option>
+                            <!-- <option value="GATE">Gate</option>
+                            <option value="ZING">Zing</option>
+                            <option value="MEGACARD">Megacard</option>
+                            <option value="BIT">BIT</option>
+                            <option value="GARENA">Garena</option> -->
+                        </select>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Mệnh giá:</label>
+                    <div class="col-lg-8">
+                        <select name="declared" id="declared" class="form-control">
+                            <option value="0" selected="" disabled="">CHỌN ĐÚNG MỆNH GIÁ, NẾU SAI SẼ MẤT THẺ</option>
+                            <option value="10000">10,000 VNĐ</option>
+                            <option value="20000">20,000 VNĐ</option>
+                            <option value="30000">30,000 VNĐ</option>
+                            <option value="50000">50,000 VNĐ</option>
+                            <option value="100000">100,000 VNĐ</option>
+                            <option value="200000">200,000 VNĐ</option>
+                            <option value="500000">500,000 VNĐ</option>
+                            <option value="1000000">1,000,000 VNĐ</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Mã thẻ:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" name="code" type="text" value="">
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-1"></div>
+                    <label class="col-form-label col-lg-2">Số Serial:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" name="serial" type="text" value="">
+                        <small>Vui lòng kiễm tra kĩ mệnh giá thẻ nạp</small>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-8">
+                        <div id="alert"></div>
+                        <button type="button" class="btn btn-info form-control font-weight-bold" id="btn"><span
+                                class="fas fa-key"></span> NẠP NGAY</button>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="row" id="lichSuRutTien" style="margin-top: 30px">
+        <div class="col" style="padding: 0">
+            <div class="alert alert-primary" role="alert" style="color: Brown; margin-bottom: 3px;">
+                <strong>HỆ THỐNG NẠP THẺ TỰ ĐỘNG 100%</strong>
+            </div>
+            <table class="table table-striped table-bordered table-responsive-sm table-hover text-center">
+                <thead class="bg bg-info text-white">
+                    <tr>
+                        <th scope="col" style="white-space:nowrap;">Tình trạng</th>
+                        <th scope="col" style="white-space:nowrap;">Thời gian</th>
+                        <th scope="col" style="white-space:nowrap;">Nhà Mạng</th>
+                        <th scope="col" style="white-space:nowrap;">Mã thẻ/Serial</th>
+                        <th scope="col" style="white-space:nowrap;">Mệnh giá</th>
+                        <th scope="col" style="white-space:nowrap;">Thực nhận</th>
+                    </tr>
+                </thead>
+                <tbody id="tableCard">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade show" id="modalThongBaoVip" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-modal="true" style="padding-right: 17px; display: block;">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                Mua vàng tích tiền lên <strong class="text-danger">thành viên VIP</strong><br>
+                <table class="table table-sm text-center mt-1" style="width:100%">
+                    <tbody>
+                        <tr class="bg bg-danger text-white">
+                            <th>VIP</th>
+                            <th>Số tiền</th>
+                            <th>Số vàng nhận</th>
+                        </tr>
+                        <tr>
+                            <td>VIP 1</td>
+                            <td>100.000đ</td>
+                            <td>2 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 2</td>
+                            <td>500.000đ</td>
+                            <td>14 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 3</td>
+                            <td>2.000.000đ</td>
+                            <td>70 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 4</td>
+                            <td>5.000.000đ</td>
+                            <td>200 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 5</td>
+                            <td>10.000.000đ</td>
+                            <td>450 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 6</td>
+                            <td>20.000.000đ</td>
+                            <td>1000 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 7</td>
+                            <td>50.000.000đ</td>
+                            <td>4000 triệu / 1 ngày</td>
+                        </tr>
+                        <tr>
+                            <td>VIP 8</td>
+                            <td>100.000.000đ</td>
+                            <td>10000 triệu / 1 ngày</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <strong class="text-danger">Lưu ý:</strong> <br>
+                - VIP sẽ có hạn sử dụng 30 ngày.<br>
+                - Áp dụng cho nạp thẻ cào và ví <br>
+                - Khi lên VIP bạn sẽ trông ngầu hơn khi chém gió và đặc biệt rất dễ tán gái nhé
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    #lichSuRutTien td {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+</style>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#modalThongBaoVip").modal("show");
+    });
+
+    var table = document.getElementById("tableCard");
+    var tb = document.getElementById("alert");
+    var btn = document.getElementById("btn");
+    btn.addEventListener("click", function () {
+        tb.innerHTML = "";
+        var menhgia = document.getElementById("declared").value;
+        if (menhgia == 0) {
+            tb.innerHTML = '<div class="alert alert-danger" role="alert"><strong>Thất bại!</strong> Vui lòng xem lại mệnh giá thẻ!</div>';
+            return;
+        }
+        tb.innerHTML = "";
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        var http = new XMLHttpRequest();
+        var url = "/user/napcard";
+        var params = $("#form").serialize();
+        http.open('POST', url, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                var response = JSON.parse(http.responseText);
+
+                if (response.error == 0) {
+                    tb.innerHTML = thongbao("success", response.message);
+
+                    table.innerHTML = response.table + table.innerHTML;
+                }
+                else {
+                    tb.innerHTML = thongbao("danger", response.message);
+                }
+                btn.disabled = false;
+                btn.innerHTML = '<span class="fas fa-key"></span> NẠP NGAY';
+                document.getElementById("form").reset();
+            }
+        }
+        http.send(params);
+    });
+
+    load = () => {
+        $.ajax({
+            url: "/user/napcard",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                type: "get"
+            }),
+            success: function (res) {
+                console.log(res)
+
+                var tablez = "";
+                if (res.length > 0) {
+                    res.forEach(function (data, index) {
+                        var mess = "";
+                        //     console.log(data.status)
+                        if (data.status === 0) {
+
+                            mess = '<span class="badge badge-warning" style="padding: 5px">' + (data.message == "PENDING" ? "Đang chờ duyệt" : data.message) + '</span>'
+                        }
+                        else if (data.status === 1) {
+                            mess = '<span class="badge badge-success" style="padding: 5px">' + (data.message == "CARD_CORRECT" ? "Thành công" : data.message) + '</span>'
+                        }
+                        else if (data.status === 2) {
+                            mess = '<span class="badge badge-danger" style="padding: 5px">' + (data.message == "CARD_INVALID" ? "Thẻ lỗi" : data.message) + '</span>'
+                        }
+                        tablez = "<tr> <td>" + mess + "</td> <td>" + new Date(Date.parse(data.time)).toLocaleString() + "</td> <td>" + data.loaithe + "</td> <td>" + "MT:" + data.code + " SR:" + data.serial + "</td> <td>" + numberWithCommas(data.menhgia) + "đ" + "</td> <td>" + numberWithCommas(data.nhan) + "$</td>  </tr>" + tablez;
+
+                    })
+                }
+                if (res.length == 0) {
+                    tablez = '<tr class="text-center"> <td colspan="6">Bạn chưa thực hiện giao dịch nào</td> </tr>'
+                }
+                table.innerHTML = tablez
+            }
+        })
+    }
+    setInterval(() => {
+        load()
+    }, 5000)
+    load()
+</script>

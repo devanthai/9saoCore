@@ -1,0 +1,145 @@
+<style>
+    @media (min-width: 991.98px) {
+        #btnGroupDrop1 {
+            display: none;
+        }
+    }
+</style>
+<div class="container">
+    <h2 class="text-center" style="margin-top: 30px;">NHẬN QUÀ</h2>
+    <hr style="width: 15%; height: 1px" class="bg-danger">
+    <div class="text-center mt-3">
+        <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Chức năng
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="/user/napcard">Mua vàng</a>
+            <a class="dropdown-item" href="/user/napvang">Nạp vàng</a>
+            <a class="dropdown-item" href="/user/rutvang">Rút vàng</a>
+            <a class="dropdown-item" href="/user/vongquay">Vòng quay may mắn</a>
+            <a class="dropdown-item" href="/user/gifcode">Nhập Gift Code</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+            <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
+        </div>
+    </div>
+    <div class="alert alert-info" style="margin-top: 20px">
+        <strong>NHẬP MÃ NHẬN VÀNG</strong><br>
+        <strong>Gift code</strong> sẽ hiện <strong>ngẫu nhiên</strong> ở Box Chat<br>
+        Thời gian từ <strong>5 phút tới 15 phút</strong> 1 lần<br>
+        Giá trị ngẫu nhiên từ <strong>1 triệu tới 10 triệu vàng</strong><br>
+        Chỉ dành cho <strong class="text-danger">thành viên VIP</strong>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <form id="form">
+                <div class="form-group">
+                    <label>Máy chủ</label>
+                    <input type="text" class="form-control readonly" value="Server <%=data.server%> sao" readonly="">
+                </div>
+                <div class="form-group">
+                    <label>Mã nhận thưởng</label>
+                    <input type="text" name="code" id="code" class="form-control" placeholder="Nhập gift code">
+                </div>
+                <div class="form-group ">
+                    <label for="">Mã captcha: </label>
+
+                    <img onclick="changeimg()" src="/user/imageGen" id="captchaThai" width="140" height="30"
+                        alt="captcha" class="img-thumbnail mb-1">
+                    <input type="captcha" class="form-control" id="captcha" name="captcha"
+                        placeholder="Nhập mã captcha">
+                </div>
+                <div id="alert"></div>
+                <div class="form-group">
+                    <button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btn">
+                        NHẬN NGAY</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-7">
+            <div class="text-center">
+                <div class="card border-info" style="margin-top: 30px;">
+                    <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                            class="fas fa-history"></span> LỊCH SỬ NHẬN THƯỞNG</div>
+                    <div class="card-body text-seccond" style="padding: 0;">
+                        <div class="table-responsive ">
+                            <table class="table table-borderless" style="display: table;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Thời gian</th>
+                                        <th scope="col">Tên nhân vật</th>
+                                        <th scope="col">Gift code</th>
+                                        <th scope="col">Phần thưởng</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lichsu">
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col offset-lg-8 offset-6">
+                    <label>Hiện thị:</label>
+                    <select id="record" class="form-control">
+                        <option value="0">Tất cả</option>
+                        <option value="1">Chỉ mình tôi</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changeimg() {
+        var id = Math.random();
+        $("#captchaThai").replaceWith('<img onclick="changeimg()" src="/user/imageGen?' + id + '" id="captchaThai" width="140" height="30" alt="captcha" class="img-thumbnail mb-1">');
+    }
+
+    $("#btn").click(function () {
+        $("#alert").html("");
+        $.ajax({
+            url: "/user/gifcode",
+            type: "post",
+            data: $("#form").serialize(),
+            success: function (res) {
+                var json = (res);
+                changeimg()
+                if (json.error == 1) {
+                    $("#alert").html(thongbao("danger", json.message));
+                }
+                else {
+                    $("#alert").html(thongbao("success", json.message));
+                    loadHistory();
+                }
+            }
+        });
+    });
+
+    var record = document.getElementById("record");
+    record.addEventListener("change", function () {
+        loadHistory();
+    });
+    
+
+    function loadHistory() {
+        $.ajax({
+            url: "/user/gifcode",
+            type: "post",
+            data: {gethistory:"đù má mày",type:record.value},
+            success: function (res) {
+                $("#lichsu").html(res);
+            }
+        });
+    }
+    setInterval(()=>{
+        loadHistory();
+
+    },4000)
+</script>

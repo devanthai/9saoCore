@@ -1,0 +1,958 @@
+<style>
+    #khung_id55 {
+        width: 75%;
+    }
+
+    #khung_id55 .button-top {
+        right: 0%;
+        top: 0%;
+        z-index: 2;
+        width: 7.5%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    #khung_id55 .button-top img {
+        width: 120%;
+        cursor: pointer;
+        z-index: 100;
+        position: absolute;
+        margin-left: -20%;
+    }
+
+    #khung_id55 .hu {
+        text-shadow: 0px 0px 4px black, 0px 0px 4px black, 0px 0px 4px black;
+        position: absolute;
+        width: 56%;
+        height: 10%;
+        margin-left: 22%;
+        margin-top: 9%;
+        color: yellow;
+    }
+
+    #khung_id55 .hu span {
+        display: none;
+    }
+
+    #khung_id55 .hu span:first-child {
+        display: block;
+    }
+
+    #khung_id55 .hu div {
+        position: absolute;
+    }
+
+    #khung_id55 .choncuoc-group {
+        width: 10%;
+        height: 100%;
+        position: absolute;
+    }
+
+    #khung_id55 .choncuoc-group .btn-choncuoc {
+        width: 100%;
+        height: 11.39%;
+        background: transparent;
+        border: none;
+        color: #fff;
+        padding: 0px;
+        margin: 0px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 100%;
+        display: block;
+        cursor: pointer;
+        background-image: url(/phucsinh/chon_muc_cuoc.png);
+        background-size: 100% 100%;
+        position: absolute;
+        margin-left: 10%;
+    }
+
+    #khung_id55 .choncuoc-group .btn-choncuoc.active {
+        background-image: url(/phucsinh/chon_muc_cuoc_active.png)
+    }
+
+    #khung_id55 .player,
+    #khung_id55 .player2,
+    #khung_id55 .player3 {
+        position: absolute;
+        margin-top: 21.6%;
+        width: 52.8%;
+        height: 59.6%;
+        margin-left: 24%;
+    }
+
+    #khung_id55 .player .group {
+        width: 33.3%;
+        height: 100%;
+        float: left;
+        opacity: 0;
+        color: #fff
+    }
+
+    #khung_id55 .player .group.active {
+        opacity: 1;
+    }
+
+    #khung_id55 .player3 .group {
+        width: 11%;
+        height: 100%;
+        margin-left: -12%;
+        margin-right: -13%;
+    }
+
+    #khung_id55 .player3 .group .item {
+        width: 100%;
+        height: 10%;
+        cursor: pointer;
+    }
+
+    #khung_id55 .player3 .group .item .number {
+        width: 85%;
+        height: 85%;
+        position: relative;
+        background: #fdf69f;
+        cursor: pointer;
+        border-radius: 100%;
+        z-index: 2;
+    }
+
+    #khung_id55 .player3 .group .item.chose .number {
+        background: rgb(182, 59, 231);
+        color: #fff;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(1):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(1).active .number {
+        background: #008509;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(2):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(2).active .number {
+        background: #de0000;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(3):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(3).active .number {
+        background: #00bea5;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(4):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(4).active .number {
+        background: #0096e7;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(5):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(5).active .number {
+        background: #b63be7;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(6):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(6).active .number {
+        background: #6d2efe;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(7):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(7).active .number {
+        background: #ec1093;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(8):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(8).active .number {
+        background: #1150fe;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(9):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(9).active .number {
+        background: #fc8703;
+    }
+
+    #khung_id55 .player3 .group.f_l .item:nth-child(10):hover .number,
+    #khung_id55 .player3 .group.f_l .item:nth-child(10).active .number {
+        background: #a1b600;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(1):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(1).active .number {
+        background: #ff5742;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(2):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(2).active .number {
+        background: #d8e82a;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(3):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(3).active .number {
+        background: #52c40d;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(4):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(4).active .number {
+        background: #034922;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(5):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(5).active .number {
+        background: #0d5f5c;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(6):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(6).active .number {
+        background: #00c6ff;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(7):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(7).active .number {
+        background: #a803aa;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(8):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(8).active .number {
+        background: #ff3cb3;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(9):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(9).active .number {
+        background: #bd0035;
+    }
+
+    #khung_id55 .player3 .group.f_r .item:nth-child(10):hover .number,
+    #khung_id55 .player3 .group.f_r .item:nth-child(10).active .number {
+        background: #65553e;
+    }
+
+    #khung_id55 .player3 .group .item .line {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -7%;
+        display: none;
+    }
+
+    #khung_id55 .player3 .group.f_r .item .line {
+        left: 7%;
+    }
+
+    #khung_id55 .player3 .group .item:hover .line,
+    #khung_id55 .player3 .group .item.active .line {
+        display: block;
+    }
+
+    #khung_id55 .player3 .group .item:hover .line {
+        z-index: 1;
+    }
+
+    #khung_id55 .player3 .group .item:hover .number,
+    #khung_id55 .player3 .group .item.active .number {
+        color: #fff;
+    }
+
+    #khung_id55 .player .item {
+        background: url(/phucsinh/card.png) 0% 0% / cover;
+        width: 100%;
+        height: 33.3%;
+        float: left;
+        border-radius: 100%;
+    }
+
+    #khung_id55 .player2 .item {
+        width: 33.3%;
+        height: 100%;
+        float: left;
+        background: url(/phucsinh/slide.png) 0% 0% / cover;
+        opacity: 0;
+
+    }
+
+    #khung_id55 .player2 .item.active {
+        opacity: 1;
+        animation: slidey 0.8s linear 0s infinite;
+        -webkit-animation: slidey 0.8s linear 0s infinite;
+        -moz-animation: slidey 0.8s linear 0s infinite;
+        -ms-animation: slidey 0.8s linear 0s infinite;
+        -o-animation: slidey 0.8s linear 0s infinite;
+    }
+
+    #khung_id55 .tuquay {
+        background: url(/phucsinh/0.png) 0% 0% /100% 100%;
+        width: 26%;
+        padding-bottom: 10%;
+        height: 0%;
+        margin-top: 78%;
+        margin-left: 65%;
+        white-space: nowrap;
+        color: white;
+        text-shadow: 0px 0px 8px black, 0px 0px 8px black;
+
+    }
+
+    #khung_id55 .tuquay.active {
+        background: url(/phucsinh/2btn.png) 0% 0% /100% 100%;
+    }
+
+    #khung_id55 .tuquay.active div:after {
+        content: "Hủy Quay";
+    }
+
+    #khung_id55 .tuquay div:after {
+        content: "Tự Quay";
+    }
+
+    #khung_id55 .chondong {
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 5;
+        color: black;
+        margin-left: 9%;
+        margin-top: 14.5%;
+        padding: 2%;
+        display: none;
+    }
+
+    #khung_id55 .chondong .group {
+        width: 100%;
+        height: 20%;
+    }
+
+    #khung_id55 .chondong .item {
+        width: 20%;
+        height: 75%;
+        float: left;
+        position: relative;
+
+    }
+
+    #khung_id55 .chondong .line {
+        height: 40.8%;
+        width: 30%;
+        float: left;
+        background-color: #ef9501;
+        position: absolute;
+        top: 0;
+        left: 2.5%;
+        border-radius: 3px;
+    }
+
+    #khung_id55 .chondong .icon {
+        padding-bottom: 65%;
+        width: 65%;
+        float: left;
+        background: url(/phucsinh/line.png?) 0% 0% /cover;
+        background-color: #ef9501;
+        position: absolute;
+        top: 0;
+        left: 35%;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #khung_id55 .chondong .item.active .icon,
+    #khung_id55 .chondong .item.active .line {
+        background-color: #5dbb00;
+    }
+
+    #khung_id55 .chondongx,
+    #khung_id55 .playgame {
+        width: 26%;
+        padding-bottom: 10%;
+        height: 0%;
+        margin-top: 78%;
+        margin-left: 7%;
+        white-space: nowrap;
+        background: url(/phucsinh/1btn.png) 0% 0% /100% 100%;
+        color: white;
+        text-shadow: 0px 0px 8px black, 0px 0px 8px black;
+    }
+
+    #khung_id55 .playgame {
+        margin-left: 36%;
+        background-image: url(/phucsinh/3btn.png)
+    }
+
+    #khung_id55 .dongnon,
+    #khung_id55 .dongall,
+    #khung_id55 .dongchan,
+    #khung_id55 .dongle {
+        width: 25%;
+        height: 70%;
+        margin-top: 3%;
+        float: left;
+        background: url(/phucsinh/9btn.png) 0% 0% /100% 100%;
+        color: white;
+        font-weight: bolder;
+        position: relative;
+        text-shadow: 0px 0px 8px black, 0px 0px 8px black;
+        white-space: nowrap;
+    }
+</style>
+<div id="khung_id55" class="khung_game_show actigame">
+    <div class="font_size_30 block_game">
+        <div class="button-top">
+            <img class="clogame" src="/phucsinh/btn_close.png" style="margin-left: -115%;width: 130%;margin-top: 66%;">
+            <img class="hisgame" src="/phucsinh/btn_info.png" style="margin-top: 375%;">
+            <img class="guigame" src="/phucsinh/btn_help.png" style="margin-top: 525%;">
+            <img class="wingame" src="/phucsinh/btn_xh.png" style="margin-top: 675%;">
+        </div>
+        <div class="hu">
+            <div class="middle">100.000</div>
+        </div>
+        <div class="choncuoc-group">
+            <span class="muccuoc" style="display: none;">1</span>
+            <button class="btn-choncuoc font_size_20 active" style="margin-top: 200%;">100</button>
+            <button class="btn-choncuoc font_size_20" style="margin-top: 320%;">1K</button>
+            <button class="btn-choncuoc font_size_20" style="margin-top: 440%;">5K</button>
+            <button class="btn-choncuoc font_size_20" style="margin-top: 560%;">10K</button>
+        </div>
+        <div class="player">
+            <div class="group active">
+                <div class="item" style="background-position-x: 83.333%;"></div>
+                <div class="item" style="background-position-x: 83.333%;"></div>
+                <div class="item" style="background-position-x: 66.666%;"></div>
+            </div>
+            <div class="group active">
+                <div class="item" style="background-position-x: 66.666%;"></div>
+                <div class="item" style="background-position-x: 16.666%;"></div>
+                <div class="item" style="background-position-x: 50%;"></div>
+            </div>
+            <div class="group active">
+                <div class="item" style="background-position-x: 66.666%;"></div>
+                <div class="item" style="background-position-x: 33.333%;"></div>
+                <div class="item" style="background-position-x: 66.666%;"></div>
+            </div>
+        </div>
+        <div class="player3 font_size_21">
+            <div class="group f_l">
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">1</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line1.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">2</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line2.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">3</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line3.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">4</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line4.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">5</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line5.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">6</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line6.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">7</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line7.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">8</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line8.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">9</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line9.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">10</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line10.png" width="100%">
+                    </div>
+                </div>
+            </div>
+            <div class="group f_r">
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">11</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line11.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">12</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line12.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">13</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line13.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">14</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line14.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">15</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line15.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">16</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line16.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">17</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line17.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">18</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line18.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">19</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line19.png" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="number">
+                        <div class="middle po_a">20</div>
+                    </div>
+                    <div class="line">
+                        <img src="/phucsinh/line20.png" width="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="player2">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="po_a zoom-hove active chondongx">
+            <div class="middle po_a font_size_25"> <span>1</span> Dòng </div>
+        </div>
+        <div class="po_a zoom-hove active playgame">
+            <div class="middle po_a font_size_25"> Quay </div>
+        </div>
+        <div class="po_a zoom-hove tuquay">
+            <div class="middle po_a font_size_25"></div>
+        </div>
+        <div class="note_tb" style="
+    position: absolute;
+    width: 53%;
+    height: 40%;
+    top: 24%;    display: flex;
+    margin-left: 24%;
+"></div>
+        <div class="trunghu" style="
+    display: none;
+    position: absolute;
+    right: 0%;
+    top: 9%;
+    width: 90%;
+    height: 90%;
+    background-image: url(/phucsinh/hu.gif),url(/phucsinh/hu.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: 100;
+    color: #13dec4;
+    font-weight: bolder;
+    text-shadow: 0px 0px 8px black, 0px 0px 8px black, 0px 0px 8px black;
+    animation: hvr-up 0.3s infinite alternate;
+    -webkit-animation: hvr-up 0.3s infinite alternate;
+    -moz-animation: hvr-up 0.3s infinite alternate;
+    -ms-animation: hvr-up 0.3s infinite alternate;
+    -o-animation: hvr-up 0.3s infinite alternate;
+">
+            <div class="middle font_size_50" style="
+    position: absolute;
+    margin-top: -20%;
+">100.000.000</div>
+        </div>
+        <div class="chondong font_size_22">
+            <div class="group">
+                <div class="item active">
+                    <div class="line">
+                        <div class="middle po_a">1</div>
+                    </div>
+                    <div class="icon"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">2</div>
+                    </div>
+                    <div class="icon" style="background-position-x: 5.26%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">3</div>
+                    </div>
+                    <div class="icon" style="background-position-x: 10.52%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">4</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 15.78%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">5</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 21.04%;"></div>
+                </div>
+            </div>
+            <div class="group">
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">6</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 26.30%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">7</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 31.56%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">8</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 36.82%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">9</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 42.08%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">10</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 47.34%;"></div>
+                </div>
+            </div>
+            <div class="group">
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">11</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 52.60%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">12</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 57.86%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">13</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 63.12%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">14</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 68.38%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">15</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 73.64%;"></div>
+                </div>
+            </div>
+            <div class="group">
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">16</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 78.90%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">17</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 84.16%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">18</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 89.42%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">19</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 94.68%;"></div>
+                </div>
+                <div class="item">
+                    <div class="line">
+                        <div class="middle po_a">20</div>
+                    </div>
+                    <div class="icon" style=" background-position-x: 100%;"></div>
+                </div>
+            </div>
+            <div class="group font_size_30">
+                <div class="zoom-hove dongle">
+                    <div class="middle po_a">Chẵn</div>
+                </div>
+                <div class="zoom-hove dongchan">
+                    <div class="middle po_a">Lẽ</div>
+                </div>
+                <div class="zoom-hove dongall">
+                    <div class="middle po_a">Tất Cả</div>
+                </div>
+                <div class="zoom-hove dongnon">
+                    <div class="middle po_a">Hủy</div>
+                </div>
+            </div>
+            <div
+                style="width: 100%;height: 12%;position:absolute;top:-12%;left: 0%;background:rgba(0, 0, 0, 1);color: white;">
+                <div class="middle po_a  font_size_30">Chọn Dòng</div>
+                <img class="clodedong" src="/phucsinh/btn_close.png"
+                    style="margin-left: -5%;height: 100%;margin-top: 0%;position: absolute;cursor: pointer;">
+            </div>
+        </div>
+        <img src="/phucsinh/bkg.png" width="100%">
+    </div>
+</div>
+<script>
+    khunggame = [], hugame = [], gid = []
+    gid[5] = '#khung_id55';
+    hugame["501"] = 693211;
+    hugame["502"] = 5761936;
+    hugame["503"] = 37634866;
+    hugame["504"] = 64811926;
+    hugame["500"] = 1;
+
+
+    function checkabc_phucsinh(x) {
+        var d = x;
+        $(gid[5] + '.chondong .item').each(function () {
+            if (d > 0) {
+                $(this).addClass('active');
+                d--;
+            } else {
+                $(this).removeClass('active');
+                d++;
+            }
+
+        });
+
+    }
+
+    function checkcuoc_phucsinh() {
+        var d = 0, g = 0;
+        var e = '';
+        $(gid[5] + '.chondong .item').each(function () {
+            if ($(this).hasClass("active") == true) {
+                $(gid[5] + '.player3 .group .item').eq(g).addClass('chose');
+                e = e + $(this).find(".line .middle").html() + ','; d++;
+            } else {
+                $(gid[5] + '.player3 .group .item').eq(g).removeClass('chose');
+            }
+            g++;
+            $(gid[5] + '.chondongx span').html(d);
+        });
+        $(gid[5] + '.chondong').val(e)
+    }
+
+    function play_phucsinh(xx) {
+        checkcuoc_phucsinh();
+        /*
+        var i;
+        for (i = 0; i < 50; i++) {
+        $.ajax({type:'post',url:'./user-play', data:{
+                  play_phucsinh: true,
+                  play_dat: $(gid[5]+'.muccuoc').html(),	
+                  play_dong: $(gid[5]+'.chondong').val(),			  
+                },success:function(s){}});
+        }
+        
+        */
+
+        if (xx.hasClass("active") == false) {
+            return true;
+        }
+        if ($('#khung_id55').hasClass("playgame") == true) {
+            thong_bao('Thông Báo', 'Vui Lòng Đợi Quay Xong'); return true;
+        }
+        $('#khung_id55').addClass("playgame");
+        $.ajax({
+            type: 'post', url: '/phucsinh/data.html', data: {
+                play_phucsinh: true,
+                play_dat: $(gid[5] + '.muccuoc').html(),
+                play_dong: $(gid[5] + '.chondong').val(),
+            }, success: function (s) {
+                var obj = JSON.parse(s);
+                if (obj.error == 0) {
+                    thong_bao(obj.tb, obj.ms);
+                } else {
+                    $(gid[5] + '.player3 .item.active').removeClass('active');
+                    setTimeout(function () {
+                        $(gid[5] + '.player .group').eq(0).removeClass('active');
+                        $(gid[5] + '.player2 .item').eq(0).addClass('active');
+                        setTimeout(function () {
+                            $(gid[5] + '.player .group').eq(1).removeClass('active');
+                            $(gid[5] + '.player2 .item').eq(1).addClass('active');
+                            setTimeout(function () {
+                                $(gid[5] + '.player .group').eq(2).removeClass('active');
+                                $(gid[5] + '.player2 .item').eq(2).addClass('active');
+                                var k;
+                                for (k = 0; k < 9; k++) {
+                                    $(gid[5] + '.player .item').eq(k).css({ 'background-position-x': set_img(obj.rd[k + 1], 6) + '%' });
+
+                                }
+
+                            }, 200);
+                        }, 200);
+                    }, 200);
+
+
+
+                    setTimeout(function () {
+                        $(gid[5] + '.player .group').eq(0).addClass('active');
+                        $(gid[5] + '.player2 .item').eq(0).removeClass('active');
+                        setTimeout(function () {
+                            $(gid[5] + '.player .group').eq(1).addClass('active');
+                            $(gid[5] + '.player2 .item').eq(1).removeClass('active');
+                            setTimeout(function () {
+                                $(gid[5] + '.player .group').eq(2).addClass('active');
+                                $(gid[5] + '.player2 .item').eq(2).removeClass('active');
+
+                                for (k = 0; k < 20; k++) {
+                                    if (obj[k + 1] != 0 && obj[k + 1] > 0) {
+                                        $(gid[5] + '.player3 .item').eq(k).addClass('active');
+                                    }
+                                }
+                                $('#khung_id55').removeClass("playgame");
+                                setTimeout(function () {
+                                    if ($(gid[5] + '.tuquay').hasClass("active") == true) {
+                                        play_phucsinh(xx);
+                                    }
+                                    check_all(0);
+                                }, 1500);
+                                if (obj.win > 0) {
+                                    note_play('#khung_id55 .note_tb', 'Thắng ' + njs(obj.win), '0bc9f7');
+                                }
+                                if (obj.trunghu > 0) {
+                                    $(gid[5] + '.trunghu .middle').html(njs(obj.trunghu))
+                                    $(gid[5] + '.trunghu').show();
+                                    setTimeout(function () { $(gid[5] + '.trunghu').hide(); }, 5000);
+                                }
+
+                            }, 200);
+                        }, 200);
+                    }, 1500);
+                }
+            }
+        })
+
+
+    }
+
+    function choncuoc_phucsinh(x, y) {
+        hugame['500'] = y;
+        $(gid[5] + '.choncuoc-group .active').removeClass('active');
+        x.addClass('active');
+        x = x.html().replace(/\K/g, "000").replace(/\M/g, "000000");
+        $(gid[5] + '.muccuoc').html(y);
+        numanimate($(gid[5] + '.hu div'), hugame['50' + y]);
+    }
+    numanimate($(gid[5] + '.hu div'), hugame['50' + hugame['500']]);
+    $("#khung_id55").draggable({
+        start: function () {
+            $('.actigame').removeClass('actigame')
+            $(this).addClass('actigame');
+        }
+    });
+
+
+    $(gid[5] + ".clogame").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { $('#khung_id55').hide('fade', {}, 500); } });
+    $(gid[5] + ".hisgame").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { showlichsu('phuc-sinh'); } });
+    $(gid[5] + ".guigame").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { showlichsu('phuc-sinh-2'); } });
+    $(gid[5] + ".wingame").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { showwinner('phuc-sinh'); } });
+    $(gid[5] + ".chondongx").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { $('#khung_id55 .chondong').show('fade', {}, 500); } });
+    $(gid[5] + ".chondong .item").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { $(this).toggleClass('active'); } });
+    $(gid[5] + ".clodedong").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { $('#khung_id55 .chondong').hide('fade', {}, 500); checkcuoc_phucsinh(); } });
+    $(gid[5] + ".dongle").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { checkabc_phucsinh(0); } });
+    $(gid[5] + ".dongchan").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { checkabc_phucsinh(1); } });
+    $(gid[5] + ".dongall").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { checkabc_phucsinh(100); } });
+    $(gid[5] + ".dongnon").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { checkabc_phucsinh(-100); } });
+    $(gid[5] + ".tuquay").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { $(this).toggleClass('active'); play_phucsinh($(this)); } });
+    $(gid[5] + ".playgame").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { play_phucsinh($(this)); } });
+    $(gid[5] + ".choncuoc-group .btn-choncuoc").on("click touchstart mousedown touchend", function () { if (check_click($(this)) == true) { choncuoc_phucsinh($(this), $(this).index()); } });
+
+</script>

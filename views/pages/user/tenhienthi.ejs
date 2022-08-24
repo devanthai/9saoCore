@@ -1,0 +1,44 @@
+<div class="container">
+    <h2 class="text-center" style="margin-top: 30px;">TÊN HIỂN THỊ</h2>
+    <hr style="width: 15%; height: 1px" class="bg-danger">
+    <div class="alert alert-info" style="margin-top: 35px;">
+        <strong>Nhằm tăng độ bảo mật</strong>, tránh bị kẻ gian dò mật khẩu<br> <strong>Website nâng cấp thêm tính năng
+            <span style="color: red">Tên hiển thị</span></strong><br>
+        Vui lòng cập nhật <strong>tên hiển thị</strong> của bạn vào bên dưới<br>
+        Tên hiển thị sẽ được <strong>hiển thị ở phần khung chat, lịch sử đặt cược</strong> <strong>thay vì hiển thị tài
+            khoản như trước đây</strong><br>
+        Tên hiển thị chỉ được <strong>cập nhật 1 lần duy nhất</strong>
+    </div>
+    <div id="alert"></div>
+    <div class="form-group">
+        <label>Tên hiển thị:</label>
+        <input class="form-control" id="name" name="name" type="text">
+        <small>Tên hiển thị gồm các kí tự từ a-z, 0-9 có độ dài từ 6-16 kí tự</small>
+    </div>
+    <button class="btn btn-info form-control font-weight-bold text-uppercase" id="btn">Lưu</button>
+</div>
+<script>
+
+    document.getElementById("btn").addEventListener("click", function () {
+        var divAlert = document.getElementById("alert");
+        divAlert.innerHTML = "";
+        var name = document.getElementById("name");
+        var http = new XMLHttpRequest();
+        var url = "/user/setname";
+        var params = "name=" + name.value;
+        http.open('POST', url, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                var response = JSON.parse(http.responseText);
+                if (response.status == 1) {
+                    window.location.href = "?";
+                    return;
+                }
+                divAlert.innerHTML = response.message;
+            }
+        }
+        http.send(params);
+    });
+
+</script>

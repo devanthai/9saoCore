@@ -1,0 +1,518 @@
+<style>
+    .banbc {
+        position: absolute;
+
+    }
+
+    @media (min-width: 0px) and (max-width: 480px) {
+        .banbc .font_size_20 {
+            font-size: 3.2vw !important;
+        }
+    }
+
+    #game-baucua #khungbaucua {
+        position: relative;
+        margin: auto;
+       
+    }
+
+    @media(min-width:0px) and (max-width:480px) {
+        .khungbaucua {
+            width: 100% !important
+            
+        }
+
+        .chat-wrap {
+            width: 100% !important;
+            max-width: 250px !important;
+            display: none !important
+        }
+
+        .khungbaucua .font_size_35 {
+            font-size: 5.5vw !important;
+            font-weight: 700
+        }
+
+        .khungbaucua .font_size_25 {
+            font-size: 4.2vw !important;
+            font-weight: 700
+        }
+
+        .khungbaucua .font_size_18 {
+            font-size: 3.7vw !important;
+            font-weight: 700
+        }
+
+        .khungbaucua .font_size_100 {
+            font-size: 18.5vw !important;
+            font-weight: 700
+        }
+    }
+
+    .khungbaucua {
+        width: 55%;
+        display: block;
+        margin-bottom: 11%;
+        max-width: 800px;
+        position: relative;
+        float: left;
+        margin-right: -3%
+    }
+
+    .khungbaucua .button-top {
+        right: 0;
+        top: 0;
+        z-index: 2;
+        width: 7.5%;
+        position: absolute;
+        cursor: pointer
+    }
+
+    .khungbaucua .button-top img {
+        width: 100%;
+        cursor: pointer;
+        z-index: 100;
+        position: absolute
+    }
+
+    #game-baucua {
+
+        height: 0;
+        width: 100%;
+        font-weight: 700;
+        opacity: 1;
+    }
+
+    #game-baucua #khungbaucua {
+        position: relative;
+        margin: auto
+    }
+
+    .khungbaucua {
+        width: 55%;
+        display: block;
+        margin-bottom: 11%;
+        max-width: 800px;
+        position: relative;
+        float: left;
+        margin-right: -3%;
+    }
+
+    .cuadat {
+        position: absolute;
+        width: 51%;
+        height: 63%;
+        margin-top: 16%;
+        margin-left: 39.7%;
+    }
+
+    .khungbaucua .cuadat .item {
+        z-index: 50;
+
+        float: left;
+        width: 30.8%;
+        height: 46%;
+        margin: 1%;
+        position: relative;
+    }
+
+    .cuadat .item div,
+    .cuadat .item button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        font-weight: 900;
+        color: black;
+        text-shadow: 0px 0px 2px #ffffff, 0px 0px 2px #ffffff, 0px 0px 2px #ffffff;
+    }
+
+    .cuadat .item div .c-cuoc {
+
+        text-align: center;
+        top: 80%;
+        position: absolute;
+        width: 100%;
+    }
+
+    .cuadat .item .a-cuoc {
+
+        text-align: center;
+        top: 57%;
+        position: absolute;
+        width: 100%;
+    }
+
+    .khungbaucua .cuadat .item div,
+    .khungbaucua .cuadat .item button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        font-weight: 900;
+        color: black;
+        text-shadow: 0px 0px 2px #ffffff, 0px 0px 2px #ffffff, 0px 0px 2px #ffffff;
+    }
+
+    .khungbaucua .note_tb {
+        z-index: 100000000;
+        position: absolute;
+        width: 100%;
+        top: 50%;
+    }
+
+    .khungbaucua .note_tb .note_here {
+        color: white;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .khungbaucua .cuadat .item {
+        transition: transform .2s;
+    }
+
+    .khungbaucua .cuadat .item:hover {
+        transform: scale(1.05);
+    }
+
+    .khungbaucua .closebc {
+        margin-top: 181%;
+        margin-left: -51%;
+    }
+
+    .khungbaucua .soicaubc {
+        margin-top: 334%;
+        margin-left: 12%;
+    }
+
+    .khungbaucua .hisbc {
+        margin-top: 494%;
+        margin-left: 15%;
+    }
+
+    .khungbaucua .cachchoibc {
+        margin-top: 626%;
+        margin-left: -36%;
+    }
+
+    .khungbaucua .diabc {
+        position: absolute;
+        width: 45%;
+        height: 76.63%;
+        margin-top: 7.4%;
+        margin-left: 0.7%;
+        background: url(./baucua/dia_baucua.png) 0% 100% / cover no-repeat;
+
+    }
+
+    .khungbaucua .dice {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        /* opacity: 0; */
+        background: url(./baucua/bc_3_1.png) 0% 0% / cover no-repeat;
+    }
+
+    .khungbaucua .effectbc {
+        width: 101%;
+        position: absolute;
+        height: 100%;
+
+        margin-top: 5%;
+        background: url(./baucua/ef-baucua.png) 0% 0% / cover no-repeat;
+        border-radius: 100%;
+        opacity: 0;
+    }
+
+    .khungbaucua .chebc {
+        margin-top: 22%;
+        margin-left: 13%;
+        position: absolute;
+        width: 76%;
+        height: 74%;
+        background: url(./images/taixiu/bat.png) 0 0 / cover no-repeat;
+        border: 0 solid #fff;
+        z-index: 100000;
+        cursor: pointer;
+        display: none;
+    }
+
+    .khungbaucua .chebc .vung_numberbc {
+        display: table;
+        width: 30%;
+        height: 30%;
+        background: #000;
+        border-radius: 50%;
+        color: #fff;
+        margin-top: 50%;
+        margin-left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+    }
+
+    .khungbaucua .chebc .vung_numberbc span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    #khungbaucua .clock-big1 {
+        position: absolute;
+        top: 54%;
+        left: 24%;
+        text-shadow: 0 0 8px black, 0 0 8px #000;
+        font-weight: 900;
+        font-family: "Titan One", cursive;
+        color: white;
+    }
+
+    @media (min-width: 0px) and (max-width: 480px) {
+        #khungbaucua .clock-big1 {
+            font-family: 'Courier New', Courier, monospace;
+            top: 57%;
+        }
+
+        .cuadat .item div .c-cuoc {
+            top: 79%;
+        }
+    }
+</style>
+<!-- gọi thông báo bầu cua
+note_play('.note_tb .note_here', "ccc", 'ff0000'); -->
+
+<div id="game-baucua" style="display: none;" class="khung_game_show ui-draggable actigame">
+    <div id="khungbaucua">
+        <div class="khungbaucua">
+            <div class="move-here ui-draggable-handle" style="position:absolute;width: 100%;height: 100%;z-index: 1;">
+
+            </div>
+
+            <div class="note_tb">
+                <center class="note_here"></center>
+            </div>
+
+            <div class="button-top">
+                <img class="closebc" onclick="$('#game-baucua')['hide']('fade', {}, 500);" src="/baucua/c9648184-a060-425b-8715-02a95a3fa1de.png">
+                <img class="soicaubc" onclick="getGamebc();$('#modalgamebaucua').modal()"
+                    src="/baucua/3ee61306-568a-4a84-bb28-2007f3c550e1.png">
+                <img onclick="getCuocbc();$('#modallscuocbc').modal()" class="hisbc"
+                    src="/baucua/2d2af684-043b-4158-99a0-6e5d045bc4c3.png">
+                <img class="cachchoibc" src="/baucua/282ae9f8-d835-4b0d-9518-a32fe3234d70.png">
+            </div>
+            <div class="">
+
+            </div>
+
+
+            <div class="time">
+
+                <div class="clock-big1 font_size_100 middle" style="display: block;"></div>
+
+            </div>
+
+
+            <div class="diabc">
+                <div class="chebc ui-draggable ui-draggable-handle" style="display: none; left: 0px; top: 0px;">
+                    <div class="vung_numberbc"><span></span></div>
+                </div>
+
+                <div class="effectbc" style="background-position-y: 0%;"></div>
+                <div class="dice active">
+                </div>
+
+            </div>
+
+
+
+            <div class="font_size_20" style="position:absolute;width: 100%;height: 100%;">
+
+                <div class="cuadat font_size_13">
+                    <div class="item">
+                        <div style="background-image: url(./baucua/f88ead68-0f07-4204-bfd1-d4475de852d4.png);"><span
+                                class="itemx"></span>
+                        </div>
+                        <div>
+
+
+                            <span class="c-cuoc" id="moneyhuu">0</span>
+                        </div><button onclick="DATCUOC(1)"></button>
+                    </div>
+                    <div class="item">
+                        <div style="background-image: url(./baucua/62c53f73-413c-4409-9f85-7252868efaa9.png);"><span
+                                class="itemx"></span>
+                        </div>
+                        <div>
+
+
+                            <span class="c-cuoc" id="moneybau"> 0</span>
+                        </div><button onclick="DATCUOC(2)"> </button>
+                    </div>
+
+                    <div class="item">
+                        <div style="background-image: url(./baucua/85f55d36-194c-4de7-8386-ddf803b6f0bb.png);"><span
+                                class="itemx"></span></div>
+                        <div>
+
+
+                            <span class="c-cuoc" id="moneyga">0</span>
+                        </div><button onclick="DATCUOC(3)"></button>
+                    </div>
+                    <div class="item">
+                        <div style="background-image: url(./baucua/e618e257-a1e3-4644-837c-e9bb8f8e6cd1.png);"><span
+                                class="itemx"></span>
+                        </div>
+                        <div>
+
+
+                            <span class="c-cuoc" id="moneyca">0</span>
+                        </div><button onclick="DATCUOC(4)"></button>
+                    </div>
+                    <div class="item">
+                        <div style="background-image: url(./baucua/01ba8fb2-f539-4d05-9afa-d6b1169e214f.png);"><span
+                                class="itemx"></span>
+                        </div>
+                        <div>
+
+
+                            <span class="c-cuoc" id="moneycua">0</span>
+                        </div><button onclick="DATCUOC(5)"></button>
+                    </div>
+                    <div class="item">
+                        <div style="background-image: url(./baucua/7163f3a9-30ca-425a-a213-64e1ded7ae11.png);"><span
+                                class="itemx"></span></div>
+                        <div>
+
+
+                            <span class="c-cuoc" id="moneytom">0</span>
+                        </div><button onclick="DATCUOC(6)"></button>
+                    </div>
+                </div>
+            </div>
+            <img src="/baucua/banbc.png" width="100%">
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalcuocbc" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <div id="typecuoc">
+
+                </div>
+
+                <div class="input-group form-group">
+                    <span class="input-group-prepend" style="border-right: 1px solid red;">
+                        <div class="input-group-text bg-light border-right-1"><i style="color: red;"
+                                class="fa fa-coins"></i>
+                        </div>
+                    </span>
+                    <input class="form-control py-2 border-left-0 border" style="font-weight: bold;" type="search"
+                        value="" id="goldbaucua" placeholder="Nhập số vàng đặt cược">
+                </div>
+                <div class="col text-center">
+                    <button onclick="SelectGold(1)" class="btn btn-sm btn-primary font-weight-bold">
+                        1M</button>
+                    <button onclick="SelectGold(2)" class="btn btn-sm btn-primary font-weight-bold">
+                        10M</button>
+                    <button onclick="SelectGold(3)" class="btn btn-sm btn-primary font-weight-bold">
+                        50M</button>
+                    <button onclick="SelectGold(4)" class="btn btn-sm btn-primary font-weight-bold">
+                        100M</button>
+                    <button onclick="SelectGold(5)" class="btn btn-sm btn-primary font-weight-bold">
+                        500M</button>
+                    <button onclick="SelectGold(6)" class="btn btn-sm btn-danger font-weight-bold">
+                        Xóa</button>
+                </div>
+                <div class="col  mt-2 text-center">
+                    <button onclick="SelectGold(7)" class="col-lg-5 btn btn-sm btn-warning text-white font-weight-bold">
+                        Đặt ngay</button>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .my-custom-scrollbar {
+        position: relative;
+        height: 300px;
+        overflow: auto;
+    }
+
+    .my-custom-scrollbarbc {
+        position: relative;
+        height: 200px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+</style>
+<div class="modal fade" id="modallscuocbc" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-sm text-center mt-1" style="width:100%">
+                        <tbody id="tablecuocbaucua">
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalgamebaucua" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbarbc">
+                    <table class="table table-sm text-center mt-1" style="width:100%">
+                        <tbody id="tablegamebaucua">
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- <script src="taixiu/bc.js?tt=tt"></script> -->

@@ -1,0 +1,1222 @@
+<link rel="stylesheet" href="/css/main.css?v=999">
+
+
+<%- include('../taixiu/taixiuthai'); %>
+
+    <div id="ChanLe"></div>
+    <div id="BauCua"></div>
+    <div id="Poker"></div>
+    <div class="container">
+        <h5 class="text-center mt-4 text-dark" style="margin: 0px;" id="darkMode1">HỆ THỐNG MINI GAME NRO</h5>
+        <p class="text-center text-dark" style="margin-bottom: 5px;" id="darkMode2">Được đảm bảo uy tín từ <br><span
+                class="font-weight-bold"><span id="content">Giao dịch nhanh gọn</span></span> </p>
+
+        <hr style="width: 15%; height: 1px" class="bg-danger">
+        <div class="text-center" style="margin-top: 20px">
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Chức năng
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                    <a class="dropdown-item" href="/user/napcard">Mua vàng</a>
+                    <a class="dropdown-item" href="/user/napvang">Nạp vàng</a>
+                    <a class="dropdown-item" href="/user/rutvang">Rút vàng</a>
+                    <a class="dropdown-item" href="/user/vongquay">Vòng quay may mắn</a>
+                    <a class="dropdown-item" href="/user/gifcode">Nhập Gift Code</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+                    <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalHuongDan">Xem hướng
+                dẫn</button>
+
+
+
+            <a class="btn btn-primary" id="link-group-facebook" href="https://www.facebook.com/groups/9sao.me"
+                target="_blank"><i class="fab fa-facebook"></i> Group Facebook</a>
+            <button class="btn btn-primary" id="diemdanh" type="button" data-toggle="collapse"
+                data-target="#diemDanhCard" aria-expanded="true" aria-controls="diemDanhCard">
+                <span class="far fa-hand-spock"></span> Điểm Danh
+            </button>
+
+
+        </div>
+        <div class="modal fade" id="modalDiemDanh" tabindex="-1" role="dialog" style="overflow: scroll; display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalTitle">Xác nhận điểm danh
+                        </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group ">
+
+                            <button type="button" class="mt-1 btn color-main font-weight-bold btn-sm"
+                                onclick="thamgiadiemdanh()"><i class="far fa-hand-spock"></i> ĐIỂM DANH NGAY <i
+                                    class="far fa-hand-spock"></i></button>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-control custom-switch text-center mt-2 ">
+            <input type="checkbox" class="custom-control-input" id="darkMode">
+            <label class="custom-control-label text-dark" id="darkMode3" for="darkMode">Giao diện tối</label>
+        </div>
+        <div class="row collapse" id="diemDanhCard" style="">
+            <div class="col-lg-12">
+                <div class="body">
+                    <div class="text-center">
+                        <h6>ĐIỂM DANH NHẬN VÀNG/KIM CƯƠNG</h6>
+                        <div id="dBtnDiemDanh" style="display: unset;">
+                            <button data-toggle="modal" data-target="#modalDiemDanh" type="button"
+                                class="btn color-main font-weight-bold btn-sm"
+                                onclick="//changeImageCaptchaDiemDanh()"><i class="far fa-hand-spock"></i> BẤM ĐỂ
+                                ĐIỂM DANH <i class="far fa-hand-spock"></i></button>
+                            <br>
+                        </div>
+                        <div id="dBtnWait" style="display: none;">
+                            <button type="button" class="btn color-main font-weight-bold btn-sm" disabled=""><span
+                                    class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                CHỜ ĐIỂM DANH (<span id="ends">15s</span>)
+                            </button><br>
+                            <small class="text-danger">Giữ nguyên trình duyệt để xác nhận điểm danh <br></small>
+                        </div>
+                        <div><small id="musterText" class="text-danger"></small></div>
+                        <div id="dBtnSuccess" style="display: none;">
+                            <button class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-check-circle"></i>
+                                BẠN ĐÃ ĐIỂM DANH </button>
+                            <br>
+                        </div>
+                        <small>Đang có <span id="countMuster" class="text-danger font-weight-bold">0</span>
+                            người điểm danh</small><br>
+                        <small>Còn <span id="timeMuster" class="text-danger font-weight-bold">14:55s</span> nữa
+                            trao quà</small><br>
+                        <small>Người may mắn <span id="textLuckOld" style="display: unset;">trước đó</span>:
+                            <span id="winnerMuster" class="text-danger font-weight-bold"
+                                style="word-break: break-word;    display: inline-block;">---</span></small>
+                        <br>
+                        <button class="btn color-main btn-sm font-weight-bold" data-toggle="modal"
+                            data-target="#modalDiemDanh">Cách tham gia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalDiemDanh" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Hướng dẫn điểm danh</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Điểm danh <b style="color: red">hoàn toàn miễn phí</b> ai cũng có thể tham gia với
+                            phần quà ngẫu nhiên là <b style="color: red">vàng</b> hoặc <b style="color: red">kim
+                                cương</b> </strong>
+                        <br>
+                        Trao giải <b style="color: red">15 phút</b> 1 lần cho <b style="color: red">2 -&gt; 10</b>
+                        người may mắn
+                        <br>
+                        Quy định khi tham gia như sau:
+                        <ul>
+
+
+                            <li>Không giới hạn số lần tham gia</li>
+                            <li>Hệ thống sẽ trao giải nếu có từ <b style="color: red">100 người</b> điểm danh trở
+                                lên</li>
+                        </ul>
+                        Chúc bạn may mắn !
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 mb-lg-4">
+            <div class="col text-center" id="listBtnSv">
+                <button type="button" class="btn btn-info font-weight-bold btn-sv" data-server="1">Server 1</button>
+                <button type="button" class="btn border-info font-weight-bold text-info btn-sv" data-server="2">Server
+                    2</button>
+                <button type="button" class="btn border-info font-weight-bold text-info btn-sv" data-server="3">Server
+                    3</button><button type="button" class="btn border-info font-weight-bold text-info btn-sv"
+                    data-server="4">Server 4</button><button type="button"
+                    class="btn border-info font-weight-bold text-info btn-sv" data-server="5">Server
+                    5</button><button type="button" class="btn border-info font-weight-bold text-info btn-sv"
+                    data-server="6">Server
+                    6</button><button type="button" class="btn border-info font-weight-bold text-info btn-sv"
+                    data-server="7">Server 7</button><button type="button"
+                    class="btn border-info font-weight-bold text-info btn-sv" data-server="8">Server 8</button>
+                <button type="button" class="btn border-info font-weight-bold text-info btn-sv" data-server="9">Server
+                    9</button>
+                <button type="button" class="btn border-info font-weight-bold text-info btn-sv" data-server="10">Server
+                    24/24</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col text-center">
+                <button onclick="openTaixiu()" type="button" class="btn border-info font-weight-bold text-info ">Tài
+                    xỉu <img src="/images/hot2.gif" border="0"></button>
+                <button onclick="openChanLe()" type="button" class="btn border-info font-weight-bold text-info ">Chẵn Lẻ
+                    <img src="/images/new.gif" border="0"></button>
+                <button onclick="openBauCua()" type="button" class="btn border-info font-weight-bold text-info ">Bầu
+                    cua <img src="/images/hot2.gif" border="0"></button>
+            </div>
+        </div>
+
+
+        <div style="display: block;" class="row mt-3">
+            <div class="col text-center">
+                <button onclick="openPoker()" type="button" class="btn border-info font-weight-bold text-info "><img
+                        src="/images/new.gif" border="0"> Mini Poker <img src="/images/hot2.gif" border="0"></button>
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <div class="col text-center">
+                <button onclick="location.href='/user/xosokeno'" type="button"
+                    class="btn border-info font-weight-bold text-info "><img src="/images/new.gif" border="0"> CLTX Keno
+                    <img src="/images/new.gif" border="0"></button>
+
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-lg-6" id="index-box-ketqua" style="padding: 0px 5px !important">
+                <div class="card border-info">
+                    <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                            class="fas fa-history"></span> KẾT QUẢ</div>
+                    <div class="card-body bg-light text-dark" id="cardBodyKetQua">
+                        <iframe src="http://localhost:2005/" title="Trade 9sao" style="background: rgb(255, 255, 255);
+                        height: 250px;
+                        width: 100%;
+                        overflow: scroll;
+                        border: none;
+                        visibility: visible;
+                        bottom: 0px;
+                        left: 0px;
+                        transform-origin: 0px 100% 0px;
+                        opacity: 1;">
+                        </iframe>
+
+                        <p class="card-text">
+                            Giá BTC: <span id="ahihi" class="font-weight-bold text-danger">#LOADING</span><br>
+
+                        </p>
+
+
+                        <p class="card-text">
+                            Mã phiên: <span id="idCsmm" class="font-weight-bold text-danger">#LOADING</span><br>
+                            Máy chủ: <span id="server" class="font-weight-bold text-danger">1</span> sao<br>Kết quả
+                            trước
+                            đó:
+                            <span class="text-danger font-weight-bold" id="result">LOADING</span><br>
+                            Thời gian còn: <span class="text-danger font-weight-bold"><span id="seccond">LOADING</span>
+                                giây</span>
+                            <img id="loadding" style="margin-left: 3px;" src="images/loading2.gif" alt="" width="auto"
+                                height="20px" hidden=""><br>
+                            Chẵn: <span id="goldChan" class="font-weight-bold text-danger">0</span> - Lẻ: <span
+                                id="goldLe" class="font-weight-bold text-primary">0</span><br>
+                            Tài: <span id="goldTai" class="font-weight-bold text-danger">0</span> - Xỉu: <span
+                                id="goldXiu" class="font-weight-bold text-primary">0</span><br>
+                            BOM: <span id="nohu" class="font-weight-bold text-danger">LOADING</span>
+                            -
+                            <span data-toggle="modal" data-target="#modalnohu" id="chitiethu"
+                                class="font-weight-bold text-primary" style="cursor: pointer;">Chi
+                                Tiết</span>
+                            <span id="time" style="display: none;">Chi Tiết</span>
+                        </p>
+                        <p style="margin-bottom: 7px;">
+                            CL: <span id="resultCL" onmouseout="hide_roll()"></span>
+                        </p>
+                        <p style="margin-bottom: 7px;">
+                            TX: <span id="resultTX" onmouseout="hide_roll()"></span>
+                        </p>
+                    </div>
+                    <div class="card-body bg-light text-dark" id="cardTradeBTC">
+                        <div id="chartBtc">
+
+                        </div>
+                        <p class="card-text">
+                            Giá BTC hiện tại: <span id="amountBTC"
+                                class="font-weight-bold text-danger">#LOADING</span><br>
+                        </p>
+                    </div>
+                </div>
+                <div class="card border-info" style="margin-top: 25px;">
+                    <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                            class="fas fa-gavel"></span> ĐẶT CƯỢC</div>
+                    <div class="card-body border-seccond bg-light text-dark" style="padding: 30px 15px"
+                        id="cardDatCuoc">
+                        <div class="input-group form-group">
+                            <span class="input-group-prepend">
+                                <div class="input-group-text bg-light border-right-0" style="color: green;"><i
+                                        class="fa fa-coins"></i></div>
+                            </span>
+                            <% if(data.isLogin){ %>
+                                <input class="form-control py-2 border-left-0 border"
+                                    style="font-weight: bold; color: green" type="search" value="<%= data.vang %>"
+                                    id="goldUser" readonly="">
+                                <% } else{ %>
+                                    <input class="form-control py-2 border-left-0 border"
+                                        style="font-weight: bold; color: green" type="search" value="0" id="goldUser"
+                                        readonly="">
+                                    <% } %>
+
+
+                        </div>
+                        <form id="form">
+                           
+                            <div class="form-group" id="divValue">
+                                <div class="btn-group" style="width: 100%;">
+                                    <div class="input-group" style="width: 100%;">
+                                        <div class="col-6">
+                                            <button type="button"
+                                                class="btn btn-success form-control rounded font-weight-bold text-uppercase"
+                                                onclick="btnShortLong(0, this)" style="opacity: 0.5;">Mua (Lên)
+                                            </button>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <button type="button"
+                                                class="btn btn-danger form-control rounded font-weight-bold text-uppercase text-white"
+                                                style="opacity: 0.5;" onclick="btnShortLong(1, this)">Bán (Xuống)
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group form-group">
+                                <span class="input-group-prepend" style="border-right: 1px solid red;">
+                                    <div class="input-group-text bg-light border-right-1"><i class="fa fa-gavel"></i>
+                                    </div>
+                                </span>
+                                <input class="form-control py-2 border-left-0 border" style="font-weight: bold;"
+                                    type="search" value="" id="gold" placeholder="Nhập số vàng đầu tư">
+                            </div>
+
+                        </form>
+                        <script>
+                            var valueDatCuoc = -1;
+                            function btnShortLong(id, t) {
+                                valueDatCuoc = id;
+                                var btnCurr = t;
+                                btnCurr.style.opacity = "1";
+                                if (!btnCurr.innerHTML.includes('<span class="fas fa-check-circle"></span>')) {
+                                    btnCurr.innerHTML = btnCurr.innerHTML += ' <span class="fas fa-check-circle"></span>';
+                                }
+                                var listBtn = t.parentElement.parentElement.children;
+                                for (var i = 0; i < listBtn.length; i++) {
+                                    if (i != id) {
+                                        var btnLast = listBtn[i].children[0];
+                                        btnLast.style.opacity = "0.5";
+                                        btnLast.innerHTML = btnLast.innerHTML.replace('<span class="fas fa-check-circle"></span>', "");
+                                    }
+                                }
+                            }
+                        </script>
+                        <div id="alert"></div>
+
+                        <% if(data.isLogin){ %>
+                            <button class="btn btn-info font-weight-bold text-uppercase form-control" type="button"
+                                id="btnDatCuoc">Đặt lệnh ngay</button>
+                            <% } else{ %>
+
+                                <a class="btn btn-danger font-weight-bold text-uppercase form-control"
+                                    href="/user/login"><span class="fas fa-sign-in-alt" id="btnDatCuoc"></span> ĐĂNG
+                                    NHẬP
+                                    ĐỂ THỰC HIỆN</a>
+
+                                <% } %>
+
+
+                    </div>
+                    <div hidden class="card-body border-seccond bg-light text-dark" style="padding: 30px 15px"
+                        id="cardDatCuoc">
+                        <div class="input-group form-group">
+                            <span class="input-group-prepend">
+                                <div class="input-group-text bg-light border-right-0" style="color: green;"><i
+                                        class="fa fa-coins"></i></div>
+                            </span>
+                            <% if(data.isLogin){ %>
+                                <input class="form-control py-2 border-left-0 border"
+                                    style="font-weight: bold; color: green" type="search" value="<%= data.vang %>"
+                                    id="goldUser" readonly="">
+                                <% } else{ %>
+                                    <input class="form-control py-2 border-left-0 border"
+                                        style="font-weight: bold; color: green" type="search" value="0" id="goldUser"
+                                        readonly="">
+                                    <% } %>
+
+
+                        </div>
+                        <form id="form">
+                            <div class="input-group form-group">
+                                <span class="input-group-prepend" style="border-right: 1px solid red;">
+                                    <div class="input-group-text bg-light border-right-1"
+                                        style="color: red; padding: 6px 10px">
+                                        <i class="fa fa-gamepad"></i>
+                                    </div>
+                                </span>
+                                <select class="form-control py-2 border-left-0 border" style="color: red" id="type"
+                                    name="type">
+                                    <option value="0" selected="">Chẵn lẻ - Tài xỉu (10tr ăn <%= setting.tile.cltx*10 %>
+                                            tr)</option>
+                                    <!-- <option value="3">Tài xỉu (10 triệu ăn 19 triệu)</option> -->
+                                    <option value="4">Xiên (10tr ăn <%= setting.tile.xien*10 %>tr)</option>
+                                    <option value="2">Dự đoán kết quả (10tr ăn <%= setting.tile.dudoankq*10 %>tr)
+                                    </option>
+                                </select>
+                            </div>
+
+                            <label>Kết quả dự đoán:</label>
+                            <div class="form-group" id="divValue">
+                                <div class="btn-group" style="width: 100%;">
+                                    <div class="input-group" style="width: 100%;">
+                                        <div class="col-6">
+                                            <button type="button"
+                                                class="btn btn-info form-control rounded font-weight-bold text-uppercase"
+                                                onclick="btnDuDoanKetQua(0, this)" style="opacity: 0.5;">Chẵn
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button"
+                                                class="btn btn-warning form-control rounded font-weight-bold text-uppercase text-white"
+                                                style="opacity: 0.5;" onclick="btnDuDoanKetQua(1, this)">Lẻ
+                                            </button>
+                                        </div>
+                                        <div class="col-6 mt-3">
+                                            <button type="button"
+                                                class="btn btn-success form-control rounded font-weight-bold text-uppercase"
+                                                onclick="btnDuDoanKetQua(2, this)" style="opacity: 0.5;">Tài
+                                            </button>
+                                        </div>
+                                        <div class="col-6 mt-3">
+                                            <button type="button"
+                                                class="btn btn-danger form-control rounded font-weight-bold text-uppercase text-white"
+                                                style="opacity: 0.5;" onclick="btnDuDoanKetQua(3, this)">Xỉu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group form-group">
+                                <span class="input-group-prepend" style="border-right: 1px solid red;">
+                                    <div class="input-group-text bg-light border-right-1"><i class="fa fa-gavel"></i>
+                                    </div>
+                                </span>
+                                <input class="form-control py-2 border-left-0 border" style="font-weight: bold;"
+                                    type="search" value="" id="gold" placeholder="Nhập số tiền đặt cược">
+                            </div>
+
+                        </form>
+                        <div id="alert"></div>
+
+                        <% if(data.isLogin){ %>
+                            <button class="btn btn-info font-weight-bold text-uppercase form-control" type="button"
+                                id="btnDatCuoc">Đặt ngay</button>
+                            <% } else{ %>
+
+                                <a class="btn btn-danger font-weight-bold text-uppercase form-control"
+                                    href="/user/login"><span class="fas fa-sign-in-alt" id="btnDatCuoc"></span> ĐĂNG
+                                    NHẬP
+                                    ĐỂ THỰC HIỆN</a>
+
+                                <% } %>
+
+
+                    </div>
+
+
+                    <div class="card-body border-seccond bg-light text-dark" style="padding: 30px 15px;display: none;""
+                            id=" cardBetBTC">
+                        <div class="modal-body">
+
+                            <div id="typecuoc"><b>Đặt cược con </b><img
+                                    src="/baucua/528e2080-fd95-4de1-96ba-d4d27a00e593.png" alt=""> <img
+                                    src="/baucua/528e2080-fd95-4de1-96ba-d4d27a00e593.png" alt=""><img
+                                    src="/baucua/528e2080-fd95-4de1-96ba-d4d27a00e593.png" alt=""></div>
+
+                            <div class="input-group form-group">
+                                <span class="input-group-prepend" style="border-right: 1px solid red;">
+                                    <div class="input-group-text bg-light border-right-1"><i style="color: red;"
+                                            class="fa fa-coins"></i>
+                                    </div>
+                                </span>
+                                <input class="form-control py-2 border-left-0 border" style="font-weight: bold;"
+                                    type="search" value="" id="goldbaucua" placeholder="Nhập số vàng đặt cược">
+                            </div>
+                            <div class="col text-center">
+                                <button onclick="SelectGold(1)" class="btn btn-sm btn-primary font-weight-bold">
+                                    1M</button>
+                                <button onclick="SelectGold(2)" class="btn btn-sm btn-primary font-weight-bold">
+                                    10M</button>
+                                <button onclick="SelectGold(3)" class="btn btn-sm btn-primary font-weight-bold">
+                                    50M</button>
+                                <button onclick="SelectGold(4)" class="btn btn-sm btn-primary font-weight-bold">
+                                    100M</button>
+                                <button onclick="SelectGold(5)" class="btn btn-sm btn-primary font-weight-bold">
+                                    500M</button>
+                                <button onclick="SelectGold(6)" class="btn btn-sm btn-danger font-weight-bold">
+                                    Xóa</button>
+                            </div>
+                            <div class="col  mt-2 text-center">
+                                <button onclick="SelectGold(7)"
+                                    class="col-lg-5 btn btn-sm btn-warning text-white font-weight-bold">
+                                    Đặt ngay</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6" style="padding: 0px 5px !important">
+                <div class="card border-info">
+                    <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                            class="fas fa-comments"></span> BOX CHAT</div>
+                    <div class="card-body text-seccond bg-light text-dark" id="chatGlobal">
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 0;margin-left: 2px;">
+
+                            <div class="text-left" style="
+    margin-bottom: 2px;
+">
+                                <button class="btn btn-sm btn-primary font-weight-bold"
+                                    style="margin-right: 0px; opacity: 1;" id="btnChatBox"><i class="fas fa-box"></i>
+                                    Box</button>
+                                <button class="btn btn-sm btn-success font-weight-bold" id="btnChatAll"
+                                    style="opacity: 0.5;"><i class="fas fa-globe-americas"></i> All</button>
+                                <!-- <button id="btnChatBox" class="btn btn-sm btn-primary font-weight-bold"><i
+                                            class="fas fa-user"></i>
+                                        Online: <span id="online">0</span></button> -->
+                            </div>
+
+                        </div>
+                        <div style="margin-right:19px;">
+                            <div class="text-right" style="border: none">
+                                <button class="btn btn-danger btn-sm font-weight-bold" type="button" data-toggle="modal"
+                                    data-target="#modalpickme" id="btnpickme"> <span id="timePickme">PickMe
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr style="width:100%;text-align:left;margin-left:0" class="btn-primary">
+                    <div class="btn-group btn-group-toggle" style="padding: 0;margin: 4px;">
+                        <input type="text" id="chatContent" class="form-control" style="margin-bottom: 0px;"
+                            placeholder="Nhập nội dung chat">
+                        <button class="btn btn-primary form-control font-weight" id="chatButton" style="
+              max-width: 20%;
+          ">Gửi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div onclick="nhanvang()" id="divNhanVang" style="display: none;">
+            <center><img class="" src="images/qua.png" width="100%" style=""></center>
+        </div>
+
+
+        <div class="row m-4">
+            <div class="col text-center">
+                <button class="btn btn-sm btn-danger font-weight-bold text-uppercase" type="button" data-toggle="modal"
+                    data-target="#modalNhanVang2" onclick="changeImageCaptchaDiemDanh();" style="
+    margin-top: 5px;
+"><span class="fas fa-coins"></span> Nhận vàng VIP</button>
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="text-center font-weight-bold" style="margin-top: 10px; margin-bottom: 3px; width: 100%">
+                <h4 id="darkMode4" class="text-dark">Lịch sử đặt cược</h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover text-center">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th scope="col" style="white-space:nowrap;">Server</th>
+                            <th scope="col" style="white-space:nowrap;">Nhân vật</th>
+                            <th scope="col" style="white-space:nowrap;">Vàng đặt</th>
+                            <th scope="col" style="white-space:nowrap;">Thể loại</th>
+                            <th scope="col" style="white-space:nowrap;">Dự đoán</th>
+                            <th scope="col" style="white-space:nowrap;">Kết quả</th>
+                            <th scope="col" style="white-space:nowrap;">Vàng nhận</th>
+                            <th scope="col" style="white-space:nowrap;">Tình trạng</th>
+                            <th scope="col" style="white-space:nowrap;">Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lichsugd" class="text-dark">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col text-dark" id="darkMode7">
+                <label>Hiện thị:</label>
+                <select id="isMe" class="form-control">
+                    <option value="0">Tất cả</option>
+                    <option value="1">Mình tôi</option>
+                </select>
+            </div>
+            <div class="col offset-lg-8 col text-dark" id="darkMode6">
+                <label>Bản ghi:</label>
+                <select id="record" class="form-control">
+                    <option value="10">10 bản ghi</option>
+                    <option value="20">20 bản ghi</option>
+                    <option value="30">30 bản ghi</option>
+                    <option value="50">50 bản ghi</option>
+                    <option value="100">100 bản ghi</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="text-center font-weight-bold" style="margin-top: 50px; margin-bottom: 3px; width: 100%">
+                <h5 id="darkMode8" class="text-dark">BANG HỘI VÕ LÂM CÁI THẾ </h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover text-center">
+                    <thead class="bg bg-warning text-white">
+                        <tr>
+                            <th scope="col" style="white-space:nowrap;">Bang kì</th>
+                            <th scope="col" style="white-space:nowrap;">Bang hội</th>
+                            <th scope="col" style="white-space:nowrap;">Thành viên</th>
+                            <th scope="col" style="white-space:nowrap;">Điểm</th>
+                            <th scope="col" style="white-space:nowrap;">Giải thưởng</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-dark" id="bodyRankPt">
+
+
+                        <%-topclan%>
+
+
+                            <tr>
+                                <td colspan="10" style="color: red" class="font-weight-bold">Hệ thống tự động cộng
+                                    vàng
+                                    vào
+                                    tài
+                                    khoản lúc 23h59p59s</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="text-center font-weight-bold" style="margin-top: 25px; margin-bottom: 3px; width: 100%">
+                <h5 id="darkMode5" class="text-dark">BẢNG XẾP HẠNG TRONG NGÀY</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover text-center" id="bxh">
+                    <thead class="bg bg-danger text-white">
+                        <tr>
+                            <th scope="col" style="white-space:nowrap;">STT</th>
+                            <th scope="col" style="white-space:nowrap;">Server</th>
+                            <th scope="col" style="white-space:nowrap;">Nhận vật</th>
+                            <th scope="col" style="white-space:nowrap;">Số vàng đã chơi</th>
+                            <th scope="col" style="white-space:nowrap;">Phần thưởng (vàng)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-dark" id="bodyBXH">
+                        <%-topbxh%>
+                            <tr>
+                                <td colspan="10" style="color: red" class="font-weight-bold">Hệ thống tự động cộng
+                                    vàng
+                                    vào
+                                    tài
+                                    khoản lúc 23h59p59s</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row m-4">
+            <div class="col text-center">
+                <a class="btn btn-info font-weight-bold text-uppercase" data-toggle="collapse" href="#batnhac"
+                    role="button" aria-expanded="true" aria-controls="batnhac">
+                    Nghe nhạc </a>
+            </div>
+        </div>
+
+        <div class="row collapse " id="batnhac">
+            <div class="col-lg-12">
+                <div class="card border-info">
+                    <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                            class="fas fa-comments"></span> Nghe nhạc</div>
+                    <div class="card-body text-seccond">
+
+
+                        <iframe width="100%" height="315"
+                            src="https://www.youtube.com/embed/videoseries?list=PL9FNPKbAwBzM3gwx5QJ83lr6mQVu9Q1iH"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalKeoBuaBao" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Thách đấu kéo búa bao</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formKeoBuaBao">
+                            <div id="alertKeoBuaBao"></div>
+                            <div class="form-group">
+                                <label>Số tiền thách đấu</label>
+                                <select class="form-control" id="goldKeoBuaBao" name="goldKeoBuaBao">
+                                    <option value="0">10,000,000 vàng</option>
+                                    <option value="1">20,000,000 vàng</option>
+                                    <option value="2">50,000,000 vàng</option>
+                                    <option value="3">100,000,000 vàng</option>
+                                    <option value="4">200,000,000 vàng</option>
+                                    <option value="5">500,000,000 vàng</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Bạn chọn</label>
+                                <select class="form-control" id="chooseKeoBuaBao" name="chooseKeoBuaBao">
+                                    <option value="0">Kéo</option>
+                                    <option value="1">Búa</option>
+                                    <option value="2">Bao</option>
+                                </select>
+                            </div>
+                            <small>Bạn sẽ mời thách đấu kéo búa bao với các người chơi khác cùng <strong>Server
+                                </strong></small><br>
+                            <small>Tỉ lệ x1.9 - Thách đấu 10tr thắng được 19tr vàng</small>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-danger font-weight-bold text-uppercase form-control" href="/user/login"><span
+                                class="fas fa-sign-in-alt" id="btnSubmit"></span> ĐĂNG
+                            NHẬP
+                            ĐỂ THỰC HIỆN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalKeoBuaBaoAccept" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Thách đấu kéo búa bao</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="alertKeoBuaBaoAccpet"></div>
+                        <div class="form-group">
+                            <label>Đối thủ</label>
+                            <input type="text" readonly="" id="nameDoiThu" value="" class="readonly form-control"
+                                style="color: red;">
+                        </div>
+                        <div class="form-group">
+                            <label>Số vàng cược</label>
+                            <input type="text" readonly="" id="goldDoiThu" value="" class="readonly form-control"
+                                style="color: red;">
+                        </div>
+                        <div class="form-group">
+                            <label>Bạn chọn</label>
+                            <select class="form-control" id="confirmChoose" name="confirmChoose">
+                                <option value="0">Kéo</option>
+                                <option value="1">Búa</option>
+                                <option value="2">Bao</option>
+                            </select>
+                        </div>
+                        <input type="hidden" value="" id="idChoose">
+                        <small>Tỉ lệ x1.9 - Thách đấu 10tr thắng được 19tr vàng</small>
+                    </div>
+                    <div class="modal-footer" id="modalKeoBuaBaoAcceptFooter">
+                        <a class="btn btn-danger font-weight-bold text-uppercase form-control" href="/user/login"><span
+                                class="fas fa-sign-in-alt" id="btnSubmit"></span> ĐĂNG
+                            NHẬP
+                            ĐỂ THỰC HIỆN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalGiveGift" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <a href="/user/register" style="color: red;">
+                            <strong><img src="images/hot.gif"
+                                    alt="nrochanle.com chẳn lẻ tài xỉu ngọc rồng|vanmay.me|nro.club "
+                                    style="width:40px;">
+                                ĐĂNG
+                                KÍ TÀI KHOẢN CHƠI THỬ<br> <img src="images/hot.gif"
+                                    alt="nrochanle.com chẳn lẻ tài xỉu ngọc rồng|vanmay.me|nro.club "
+                                    style="width:40px;"><span>
+                                    NHẬN NGAY 1,000,000 VÀNG</span> <br> <img src="images/hot.gif"
+                                    alt="nrochanle.com chẳn lẻ tài xỉu ngọc rồng|vanmay.me|nro.club "
+                                    style="width:40px;"><span>
+                                    HOÀN TOÀN MIỄN PHÍ</span></strong><br>
+                        </a>
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/user/register" class="btn btn-danger font-weight-bold"><span
+                                class="fas fa-user-plus"></span> ĐĂNG KÍ NGAY</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalThongBao" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+
+                        <%-setting.thongbao%>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalHuongDan" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Hướng dẫn</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Hệ thống chẳn lẻ Game Ngọc Rồng Online<br>
+                            Lấy chức năng "Con số may mắn" trong game làm kết quả<br>
+                            Bạn đều có thể đặt cược, lấy kết quả ở Server tùy thích
+                        </strong><br>
+                        <strong style="color: red">Thể lệ gồm các trò chơi:</strong><br>
+                        - <strong style="color: red">Dữ đoán chẵn lẻ</strong>: kết quả <strong>số chẵn</strong> hoặc
+                        <strong>số
+                            lẻ</strong><br>
+                        <strong style="color: green">Tỷ lệ: x1.9 (đặt 10tr được 19tr vàng)</strong><br>
+                        <strong>Ví dụ</strong> con số may mắn là 1 số chẵn như <strong style="color: blue">0, 2, 4,
+                            6,
+                            8,
+                            10,
+                            12</strong>... thì đặt bên <strong style="color: blue">Chẵn thắng</strong>, ngược lại
+                        con số
+                        may
+                        mắn
+                        là số lẻ như <strong style="color: blue">1, 3, 5, 7, 9, 11...</strong> thì đặt bên <strong
+                            style="color: blue">Lẻ thắng</strong><br>
+                        - <strong style="color: red">Dữ đoán tài xỉu</strong>: kết quả <strong> từ 50-99 là
+                            tài</strong>
+                        còn
+                        <strong>từ 0-49 là xỉu</strong><br>
+                        <strong style="color: green">Tỷ lệ: x1.9 (đặt 10tr được 19tr vàng)</strong><br>
+                        <strong>Ví dụ</strong> con số may mắn là 1 số từ 0-49 như <strong style="color: blue">0, 1,
+                            2,
+                            35,
+                            48,
+                            49</strong>... thì đặt bên <strong style="color: blue">Xỉu thắng</strong>, ngược lại con
+                        số
+                        may
+                        mắn
+                        là 1 số từ 50-99 như <strong style="color: blue">50, 51, 52, 67, 87, 98, 99</strong> thì đặt
+                        bên
+                        <strong style="color: blue">Tài thắng</strong><br>
+                        - <strong style="color: red">Dự đoán kết quả</strong>: kết quả là <strong>con số may
+                            mắn</strong> từ
+                        0
+                        tới 99<strong></strong>
+                        <br>
+                        <strong style="color: green">Tỷ lệ: x70 (đặt 10tr được 700tr vàng)</strong><br>
+                        Liên kết: <a href="/user/napvang">Nạp vàng</a> | <a href="/user/rutvang">Rút vàng</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalNhanVang2" tabindex="-1" style="overflow: scroll; display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalTitle">Xác nhận vip
+                        </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group ">
+                            <label for="">Mã captcha: </label>
+
+                            <img onclick="changeImageCaptchaDiemDanh()" id="captchaDiemDanh" width="140" height="30"
+                                alt="captcha" class="img-thumbnail mb-1">
+                            <input type="text" class="form-control" id="textCaptchavip" placeholder="Nhập mã captcha">
+                            <button type="button" class="mt-1 btn color-main font-weight-bold btn-sm"
+                                onclick="nhanvang()"><i class="far fa-hand-spock"></i> Nhận ngay <i
+                                    class="far fa-hand-spock"></i></button>
+                            <br>
+                            <div class="" id="result_qua">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div onclick="nhanvang()" id="divNhanVang" style="display: none;">
+            <center><img class="" src="images/qua.png" width="100%" style=""></center>
+        </div>
+
+        <div id="divBangHoi">
+            <% if(!data.isLogin){ %>
+
+                <a class="btn btn-warning font-weight-bold text-uppercase" type="button"
+                    onclick="return showModalBangHoi();" href="/user/login" style="padding-right: 5px"><img
+                        src="images/clan/7.png" alt="" style="width: auto; height: 22px; display: inline-block">
+                    Bang
+                    hội
+                    <span class="badge badge-primary badge-pill" id="messageCount"></span></a>
+                <% }else{%>
+                    <% if(clan){ %>
+                        <a class="btn btn-warning font-weight-bold text-uppercase" type="button"
+                            onclick="return showModalBangHoi();" style="padding-right: 5px"><img
+                                src="images/clan/<%=clan.type%>.png" alt=""
+                                style="width: auto; height: 22px; display: inline-block"> Bang hội
+                            <span class="badge badge-primary badge-pill" id="messageCount"></span></a>
+                        <% } else{%>
+                            <a class="btn btn-warning font-weight-bold text-uppercase" type="button"
+                                onclick="return showModalBangHoi();" style="padding-right: 5px"><img
+                                    src="images/clan/7.png" alt=""
+                                    style="width: auto; height: 22px; display: inline-block"> Bang hội
+                                <span class="badge badge-primary badge-pill" id="messageCount"></span></a>
+                            <%}%>
+                                <%}%>
+        </div>
+        <div class="modal fade" id="modalnohu" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">BOM may mắn</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="resultnohu">
+                        <img src="/images/bomm.png" style="
+    position: absolute;
+    /* width: 100px; */
+    max-width: 23%;
+    /* margin-right: 50px; */
+    margin-left: 35%;
+">
+                        <img src="/images/luachua.gif" style="
+    position: absolute;
+    /* margin-right: 43%; */
+    /* width: 100px; */
+    max-width: 17%;
+    margin-left: 46%;
+    margin-top: -6%;
+">
+
+
+
+
+
+
+                        <div class="font-weight-bold pb-2" style="
+    margin-top: 25%;
+">
+
+                            <div class="text-center pb-1" style="
+"> <i class="fa fa-coins"></i> Phần quà: <span class=" text-danger" id="nohu">69,999,993</span><br>
+                            </div>
+
+                            <div class="col text-center">
+                                <a class="btn btn-sm btn-primary font-weight-bold collapsed" data-toggle="collapse"
+                                    href="#huongdanbomm" role="button" aria-expanded="false"
+                                    aria-controls="huongdanbomm">
+                                    Xem hướng dẫn </a>
+                            </div>
+
+                            <div class="row collapse" id="huongdanbomm" style="">
+
+                                <div class="card-body text-seccond">
+
+                                    - Khi các
+                                    bạn đặt cược thì BOM sẽ nhận được 10% tổng vàng cược của các bạn và cứ thế
+                                    tăng
+                                    dần<br>- Khi
+                                    kết quả của phiên ra số 99 hoặc số 0, BOM sẽ nổ và chia cho tất cả người chơi
+                                    ở phiên đó<br>-
+                                    Nếu bạn cược càng nhiều vàng trong ván Bom nổ thì bạn sẽ trúng càng
+                                    nhiều vàng từ BOM
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <hr class="my-2">
+                        <div class=" text-seccond font-weight-bold pb-2">
+                            <div class="text-center pt-2 d-block">Danh sách chiến thắng cuối</div>
+                        </div>
+
+                        <table class="text-center table">
+                            <tbody id="rsnohuu">
+                                <tr class="font-weight-bold">
+                                    <td class="p-2">ADMIN</td>
+                                    <td class="p-2 text-danger">999,999,999 Vàng</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalBangHoi" tabindex="-1" role="dialog" aria-labelledby="modalBangHoi"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body"
+                        style="padding: 0; max-height: 565px; height: 565px; overflow-y: auto; background-color: #D9C8B4; overflow-x: hidden;"
+                        id="banghoiContent">
+                        <div style="padding-top: 3px; background-color: rgb(235, 226, 214);">
+                            <div class="row" style="position: relative;" id="ptInfo"></div>
+                        </div>
+                        <div id="ptHeader"></div>
+                        <div style="background-color: #eeeae3">
+                            <p id="ptTitle"></p>
+                        </div>
+                        <div class="ptList" style="position: relative;" id="ptList">
+                        </div>
+                        <div id="alertMain">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalpickme" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="
+            background-color: #56ff00cf;
+        ">
+
+                    <div class="modal-body">
+
+
+                        <div>
+
+
+                            <div class="row" style="position: relative;" id="ptInfo">
+                                <div class="col">
+
+                                    <p class="ptName">
+                                        <span style="text-align: left;color: red;">PickMe: </span><span id="timepickme"
+                                            style="background-color: #ffc107;border-radius: 6px;">02:07</span>
+                                    </p>
+                                    <hr style="background-color: red;">
+
+                                    <p class="ptName"><span id="phanthuongg">Phần quà: </span>
+                                        <span style="color:red" id="phantuongggg">5,000,000 vàng</span>
+                                    </p>
+                                    <p class="ptName"><span id="countPlayer">Số người tham gia: </span>
+                                        <span style="color:red" id="countthangia">59</span>
+                                    </p>
+
+                                    <div class="row" style="padding-top: 10px;position: relative;">
+                                        <div data-toggle="collapse" href="#thamgiaPM" aria-controls="thamgiaPM"
+                                            class="col"><button onclick="changeimgPickMe()" id="pickmeeee"
+                                                class="pushable" style=" width: 100%;">
+                                                <span class="front">
+                                                    <b>Ấn để tham gia</b>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row collapse" id="thamgiaPM"
+                                        style="padding-top: 10px;position: relative;">
+                                        <div class="col">
+                                            <button id="pickmeeee" onclick="thamgiapickme()" class="pushable"
+                                                style=" width: 100%;">
+                                                <span class="front">
+                                                    <b>Tham gia ngay</b>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="ptName">
+                                        <span>Trúng giải trước: </span>
+                                    <div id="lastWinner">
+
+                                    </div>
+
+                                    </p>
+                                </div>
+                                <div style="position: absolute; right: 20px; top: -2px;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden=" true">×</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalVOngquayfree" tabindex="-1" role="dialog"
+            style="overflow: scroll; display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalTitle">Vòng quay mỗi ngày
+                        </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div style="position: relative;" class="text-center">
+                            <img src="images/vongquayfree.png?ccc=ssscc" class="img-responsive"
+                                alt="9sao.me chẳn lẻ tài xỉu ngọc rồng|9sao.me|nro.club" id="vongquay">
+                            <a id="btnStart" href="javascript:"><img src="images/quayngay.png?ccc=cc"
+                                    class="img-responsive" alt="9sao.me chẳn lẻ tài xỉu ngọc rồng|9sao.me|nro.club"
+                                    id="imgStart"></a>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <% if(data.isLogin&&isquayfree){ %>
+        <script>
+            $('#modalThongBao').on('hidden.bs.modal', function (e) {
+                $('#modalVOngquayfree').modal("show")
+            })
+        </script>
+        <% }%>
+
+
+            <div id="viewModalJs">
+            </div>
+
+            <div id="taobangJs">
+            </div>
+            </div>
+            <script src="js/home.js?cc=4045332333355232ef332"></script>
+            <script src="js/index.js?vi134351p"></script>
+            <script src="js/taixiu.js?alo=cz133451r35aa2s"></script>
+            <script src="js/chat.js?vip=s434rr5pr353am"></script>
+            <script src="js/clan.js?ccc=13451ccc3đsaa"></script>
+            <script src="js/pickme.js?v=23.0"></script>

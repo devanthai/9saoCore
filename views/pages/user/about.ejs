@@ -1,0 +1,251 @@
+<div class="container" id="userBody">
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-lg-3">
+
+            <style>
+                @media (min-width: 1199.98px) {
+                    .col-lg-3 {
+                        padding-right: 0px;
+                    }
+
+                    .col-lg-9 {
+                        padding-left: 10px;
+                    }
+                }
+
+                @media (max-width: 1199.98px) {
+                    .col-lg-9 {
+                        margin-top: 25px;
+                    }
+                }
+
+                .userHeader li {
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid #f2f2f2;
+                }
+
+                .userHeader_Title {
+                    margin-bottom: 0px;
+                }
+
+                .userHeader_Gach {
+                    background-color: #32c5d2;
+                    height: 2px;
+                    width: 50px;
+                    text-align: left;
+                    display: inline-block;
+                }
+
+                #th_dmk:hover {
+                    cursor: pointer;
+                }
+
+                #userBody {
+                    margin-top: 35px;
+                }
+            </style>
+            <!--
+  <div class="userHeader" style="font-family: 'Roboto';">
+    <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+      <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+    </div>
+    <div>
+      <ul style="list-style-type: none; padding-left: 0px">
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+      </ul>
+    </div>
+  </div>
+  -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+            <link
+                href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+                rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+            <div class="userHeader" style="" roboto";"="">
+                <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+                    <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+                </div>
+                <div>
+                    <ul style="list-style-type: none; padding-left: 0px">
+
+                        <%- menu %>
+                           
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <h4 class="userHeader_Title">THÔNG TIN TÀI KHOẢN</h4>
+            <hr class="userHeader_Gach">
+            <h5>Cập nhật ảnh đại diện:</h5>
+            <form method="post" action="user/upavatar" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" class="btn btn-sm btn-danger font-weight-bold">
+                    <button type="submit" name="upload" class="btn btn-primary font-weight-bold ">Cập nhật</button>
+                </div>
+            </form>
+            <table class="table table-striped" style="margin-top: 25px; font-weight: bold;">
+                <tbody>
+
+                  
+                    <tr>
+                        <th scope="row">Tên tài khoản:</th>
+                        <th class="text-danger">
+                            <%= data.name %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tên hiển thị:</th>
+                        <th class="text-danger">
+                            <%= data.tenhienthi %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Vip:</th>
+                        <th class="text-danger">
+                           
+                           30 ngày qua đã nạp: <%- getvip %> <%- vip==0?"(Chưa có vip vui lòng nạp đủ 100k)":"Bạn đang là vip "+vip %> 
+                           
+                           <%if(vip==7){%>
+                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
+                            <span></span>
+
+                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
+                            <%}else if(vip==8){%>
+                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
+                            <span></span>
+                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
+                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
+                           <%}else{%>
+                           <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip<%-vip%>.png" alt="">
+                           
+                           <%}%>
+                           
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Máy chủ:</th>
+                        <th class="text-danger">Server <%= data.server %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Số vàng tài khoản:</th>
+                        <th class="text-danger">
+                            <%= data.vang %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kim cương hiện có:</th>
+                        <th class="text-danger">
+                            <%= data.kimcuong %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mật khẩu:</th>
+                        <th class="text-danger" data-toggle="modal" data-target="#modal" id="th_dmk"> (****) Đổi mật
+                            khẩu</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal">Đổi mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="alert">
+
+                    </div>
+                    <form id="form">
+                        <div class="form-group">
+                            <label>Tài khoản:</label>
+                            <input type="text" class="form-control" value="<%= data.name %>" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label>Mật khẩu cũ:</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label>Mật khẩu mới:</label>
+                            <input type="password" class="form-control" name="npassword">
+                        </div>
+                        <div class="form-group">
+                            <label>Xác nhận mật khẩu mới:</label>
+                            <input type="password" class="form-control" name="rpassword">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnzzz">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    document.getElementById("btnzzz").addEventListener("click", function () {
+        var divAlert = document.getElementById("alert");
+        divAlert.innerHTML = "";
+        var input = document.getElementsByTagName("input");
+        for (var i = 1; i < input.length; i++) {
+            if (input[i].value.length < 6) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự");
+                return;
+            }
+            if (input[i].value.length > 16) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự nhỏ hơn hoặc bằng 16 kí tự");
+                return;
+            }
+            var arr = input[i].value.match(/([0-9]|[a-z]|[A-Z])/g);
+            if (arr.length != input[i].value.length) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9");
+                return;
+            }
+        }
+        if (input[3].value != input[4].value) {
+            
+            divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Vui lòng xác nhận lại mật khẩu");
+            return;
+        }
+        if (input[2].value == input[3].value) {
+            divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Mật khẩu mới không thể giống mật khẩu hiện tại");
+            return;
+        }
+        var http = new XMLHttpRequest();
+        var url = "/user/changepass";
+        var params = $("#form").serialize();
+        http.open('POST', url, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                var response = JSON.parse(http.responseText);
+
+                if (response.error == 0) {
+                    divAlert.innerHTML = thongbao("success", response.message);
+                }
+                else {
+                    divAlert.innerHTML = thongbao("danger", response.message);
+                }
+
+
+            }
+        }
+        http.send(params);
+    });
+
+
+</script>

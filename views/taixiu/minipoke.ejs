@@ -1,0 +1,407 @@
+<!-- dfgdfg -->
+
+<style>
+    .khung_minipoke {
+        display: block;
+        margin-bottom: 11%;
+        max-width: 800px;
+        position: relative;
+        float: left;
+        margin-right: -3%;
+    }
+
+    .bai-minipoke {
+        position: absolute;
+        width: 80%;
+        height: 70%;
+        margin-top: 24%;
+        margin-left: 10.4%;
+    }
+
+    .khung_minipoke .bai-minipoke .item-bai {
+        transition: transform .2s;
+    }
+
+    .khung_minipoke .bai-minipoke .item-bai {
+        z-index: 50;
+        float: left;
+        width: 20%;
+        position: relative;
+    }
+
+    .action-bottom {
+        position: absolute;
+        width: 92%;
+        height: 70%;
+        margin-top: 49.8%;
+        margin-left: 6.2%;
+    }
+
+    .khung_minipoke .action-bottom .button-minipoke {
+        z-index: 50;
+        float: left;
+        width: 15%;
+        position: relative;
+        margin: 0.5%;
+    }
+
+    .minipoke-show {
+        font-weight: 700;
+        position: absolute;
+        z-index: 100;
+        height: 0px;
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    .game-minipoke {
+        height: 0;
+        width: 100%;
+        font-weight: 700;
+    }
+
+    @-webkit-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @-moz-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @-ms-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @-o-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+
+    .item-bai.active {
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        background: url(../minipoke/ezgif-3-1c2ad1c330.png) 100% 0% /100% repeat-y;
+        display: block;
+        animation: slidewildy 0.2s linear 0s infinite;
+        -webkit-animation: slidewildy 0.5s linear 0s infinite;
+        -moz-animation: slidewildy 0.5s linear 0s infinite;
+        -ms-animation: slidewildy 0.5s linear 0s infinite;
+        -o-animation: slidewildy 0.5s linear 0s infinite;
+    }
+
+
+    #game-minipoke #khung_minipoke {
+        position: relative;
+        margin: auto;
+    }
+
+    .moneyHuPoke {
+        top: 91.5%;
+
+    }
+
+    @media (min-width: 991.98px) {
+        .moneyHuPoke {
+            top: 91.2%;
+        }
+    }
+
+    .btn-quay {
+
+        position: absolute;
+        right: 7%;
+        top: 87%;
+        width: 24%;
+
+    }
+
+
+    #trunghu-poke {
+        display: none;
+        position: absolute;
+        right: 10%;
+        top: 9%;
+        width: 80%;
+        height: 80%;
+        background-image: url(/images/taixiu/hu.gif), url(/images/taixiu/hu.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        z-index: 100;
+
+
+        animation: hvr-up 0.3s infinite alternate;
+        -webkit-animation: hvr-up 0.4s infinite alternate;
+        -moz-animation: hvr-up 0.3s infinite alternate;
+        -ms-animation: hvr-up 0.3s infinite alternate;
+        -o-animation: hvr-up 0.3s infinite alternate;
+    }
+
+    #moneyTrunghupoke {
+        color: #13dec4;
+        font-weight: bolder;
+        text-shadow: 0px 0px 8px black, 0px 0px 8px black, 0px 0px 8px black;
+    }
+
+    .khung_minipoke .button-poke {
+        right: 0;
+        top: 4%;
+        z-index: 2;
+        width: 7.5%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .khung_minipoke .button-poke img {
+        width: 100%;
+        cursor: pointer;
+        z-index: 100;
+        position: absolute;
+    }
+
+    .khung_minipoke .clogame {
+        margin-left: -202%;
+        margin-top: 134%;
+    }
+
+    .khung_minipoke .top-nohu {
+        margin-left: -1336%;
+        margin-top: 151%;
+    }
+
+    .khung_minipoke .his-poke {
+        margin-left: -1336%;
+        margin-top: 276%;
+    }
+
+    .khung_minipoke .help-poke {
+        margin-left: -1336%;
+        margin-top: 403%;
+    }
+
+    .khung_minipoke .tophu-poke {
+        margin-left: -1336%;
+        margin-top: 537%;
+    }
+</style>
+
+
+<div id="game-minipoke" style="display: none;" style="left: 45px; top: 194.75px;" class="minipoke-show ui-draggable actigame">
+    <div id="khung_minipoke">
+        <div class="khung_minipoke">
+            <div class="move-here ui-draggable-handle"
+                style="position:absolute;width: 80%;height: 90%;z-index: 1;">
+                <div class="note_here_poke font_size_18"
+                    style="position: absolute;display: flex;width: 100%;height:22%;top: 15%;text-align: center;z-index:50;">
+                </div>
+            </div>
+            <div class="button-poke">
+                <img class="clogame" src="/minipoke/button/minipoke_33.png">
+                <img class="top-nohu" src="/minipoke/button/minipoke_52.png">
+                <img class="his-poke" src="/minipoke/button/minipoke_35.png">
+                <img class="help-poke" src="/minipoke/button/minipoke_54.png">
+                <img class="tophu-poke" src="/minipoke/button/tophu.png">
+            </div>
+            <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
+
+                <div class="bai-minipoke font_size_13">
+                    <div class="item-bai" id="poke_1">
+                        <img width="100%" id="img_poke_1" height="100%" src="/minipoke/a2.png">
+                    </div>
+                    <div class="item-bai" id="poke_2">
+                        <img width="100%" id="img_poke_2" height="100%" src="/minipoke/33.png">
+                    </div>
+                    <div class="item-bai" id="poke_3">
+                        <img width="100%" id="img_poke_3" height="100%" src="/minipoke/54.png">
+                    </div>
+                    <div class="item-bai" id="poke_4">
+                        <img width="100%" id="img_poke_4" height="100%" src="/minipoke/22.png">
+                    </div>
+                    <div class="item-bai" id="poke_5">
+                        <img width="100%" id="img_poke_5" height="100%" src="/minipoke/53.png">
+                    </div>
+                </div>
+
+                <div class="action-bottom">
+                    <div class="button-minipoke" style="width: 23%;">
+                        <img id="auto-btn-spin" onclick="AutoSpin(this)" width="100%" height="100%"
+                            src="/minipoke/button/minipoke_48.png">
+                    </div>
+                    <div class="button-minipoke">
+                        <img width="100%" height="100%" id="money-1-poke" onclick="SelectMoney(1)"
+                            src="/minipoke/button/cuoc1.png">
+                    </div>
+                    <div class="button-minipoke">
+                        <img width="100%" height="100%" id="money-2-poke" onclick="SelectMoney(2)"
+                            src="/minipoke/button/cuoc2defaulf.png">
+                    </div>
+                    <div class="button-minipoke">
+                        <img width="100%" height="100%" id="money-3-poke" onclick="SelectMoney(3)"
+                            src="/minipoke/button/cuoc3defaulf.png">
+                    </div>
+                    <div class="button-minipoke" style="width: 23%;">
+                        <img onclick="SieuToc(this)" id="btn-spin-poke" width="100%" height="100%"
+                            src="/minipoke/button/minipoke_38.png">
+                    </div>
+                </div>
+
+                <div class="btn-quay">
+                    <img onclick="QuayPoke(this)" id="btn-quay" width="100%" height="100%"
+                        src="/minipoke/quay1.png">
+                </div>
+
+
+
+                <div class="trunghupoke" id="trunghu-poke">
+                    <div class="middle font_size_50" style="
+                    position: absolute;
+                    margin-top: -20%;
+                "><span id="moneyTrunghupoke">0</span></div>
+                </div>
+                <div class="moneyHuPoke"
+                    style="position: absolute;width: 50%;height: 20%;left: 25%;/* background: url() 0% 0% /cover; */">
+                    <div id="hu-poke-value" class="font_size_17" style="
+     color: #fff700;
+     text-shadow: 0 0 8px black, 0 0 8px #000;
+     text-align: center;
+     font-weight: bolder;
+ ">999.999.999</div>
+                </div>
+            </div>
+            <img src="/minipoke/minipoke.png" width="80%">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalHelpPoke" tabindex="-1" role="dialog" style="overflow: scroll; display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <img src="/minipoke/hd.png" alt="" style="
+           background-color: black;width: 100%;position: relative;
+       ">
+    </div>
+</div>
+<div class="modal fade" id="lichsuPoke" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;" id="lspoketb">
+                        <thead>
+                            <tr class="bg bg-danger text-white">
+                                <th>Thời gian</th>
+                                <th>Mức cược</th>
+                                <th>Vàng thắng</th>
+                                <th>Kết quả quay</th>
+                                <th>Trước</th>
+                                <th>Sau</th>
+                            </tr>
+                        </thead>
+                        <tbody id="his-poke">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="topwinPoke" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;">
+                        <thead>
+                            <tr class="bg bg-danger text-white">
+                                <th>Hạng</th>
+                                <th>Tên</th>
+                                <th>Tổng thắng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbtopwinpoke">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="topnohupoke" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;">
+                        <thead>
+                            <tr class="bg bg-danger text-white">
+                                <th>Thời gian</th>
+                                <th>Tên</th>
+                                <th>Mức cược</th>
+                                <th>Vàng thắng</th>
+                                <th>Kết quả quay</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbnohupoke">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

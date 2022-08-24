@@ -1,0 +1,645 @@
+<style>
+
+</style>
+<style>
+    @media (min-width: 991.98px) {
+        #btnGroupDrop1 {
+            display: none;
+        }
+    }
+
+    #lichsugd td {
+        white-space: nowrap;
+        padding: 7px;
+    }
+
+    #showCl,
+    #showTx {
+
+        position: absolute;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 3px 15px;
+        margin-top: 4%;
+        left: 12.5%;
+        white-space: nowrap;
+        z-index: 49;
+        display: none;
+        font-weight: bold;
+
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center" style="margin-top: 30px;">CHẴN LẺ TÀI XỈU XỔ SỐ KENO</h2>
+    <hr style="width: 15%; height: 1px;" class="bg-danger mb-4">
+    <div class="text-center mt-3">
+        <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Chức năng
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="/user/napcard">Mua vàng</a>
+            <a class="dropdown-item" href="/user/napvang">Nạp vàng</a>
+            <a class="dropdown-item" href="/user/rutvang">Rút vàng</a>
+            <a class="dropdown-item" href="/user/vongquay">Vòng quay may mắn</a>
+            <a class="dropdown-item" href="/user/gifcode">Nhập Gift Code</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+            <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
+        </div>
+    </div>
+    <div class="alert alert-secondary" style="margin-top: 20px">
+        <strong>Hệ thống <span class="text-danger">Chẵn lẻ - Tài xỉu</span> bằng kết quả <span class="text-danger">Xổ số Keno Vietlott</span></strong><br>
+        <strong>Thời gian hoạt động: <span class="text-danger">6h30 đến 21h50</span></strong> <br>
+       
+
+
+
+        <strong>Kết quả bằng 20 số keno cộng lại</strong><br>
+        <strong> - <span class="text-danger">Dự đoán Chẵn Lẻ:</span> kết quả số <span class="text-danger">Chẵn</span> hoặc số <span class="text-danger">Lẻ</span> </strong><br>
+
+        <strong> - <span class="text-danger">Dự đoán Tài Xỉu:</span> kết quả từ <span class="text-danger">0-810</span> là <span class="text-danger">Xỉu</span> còn từ <span class="text-danger">810 trở lên</span> là <span class="text-danger">Tài</span></strong><br><br>
+        <strong><span class="text-danger">Lưu ý: Chúng tôi không thể chỉnh sửa kết quả</span></strong><br>
+        <strong>Để chứng thực kết quả, bạn truy cập các Link dưới đây:</strong><br>
+
+        <a href="https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/winning-number-keno" target="_blank">-Trang chủ của Vietlott</a>
+        <br>
+        <a href="https://vietlott.vn/live/index.html" target="_blank">-Trực tiếp kết quả của Vietlott</a>
+       
+     
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-12" id="index-box-ketqua" style="padding: 0px 5px !important">
+            <div class="card border-info">
+                <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                        class="fas fa-history"></span> KẾT QUẢ</div>
+                <div class="text-center card-body bg-light text-dark" id="cardBodyKetQua">
+                    <p class="card-text">
+                        Kỳ vé: <span id="kyve" class="font-weight-bold text-danger"></span><br>
+                        Ngày: <span id="date" class="font-weight-bold text-danger"></span>
+                        <br>Thời gian còn:
+                        <span class="text-danger font-weight-bold" id="time"></span>
+                        <img id="loadding" style="margin-left: 3px;" src="images/loading2.gif" alt="" width="auto"
+                            height="20px" hidden=""><br>
+                        Chẵn: <span id="goldChan" class="font-weight-bold text-danger">0</span> - Lẻ: <span id="goldLe"
+                            class="font-weight-bold text-primary">0</span><br>
+                        Tài: <span id="goldTai" class="font-weight-bold text-danger">0</span> - Xỉu: <span id="goldXiu"
+                            class="font-weight-bold text-primary">0</span>
+                    </p>
+                    Kỳ trước: <span id="kytruoc" class="font-weight-bold text-danger"></span>
+                    <br>
+                    Kết quả trước gồm 20 số:
+                    <p style="margin-bottom: 7px;">
+                        <span id="ketquatruoc"></span>
+                    </p>
+                    Kết quả Tổng =
+                    <span class="font-weight-bold text-danger" id="kqtong"></span>
+                    <br>
+                    <strong style="color:red">Lưu ý: Tính kết quả bằng tổng của 20 số Keno</strong>
+                    <br>
+
+                    <p style="margin-bottom: 7px;">
+                        <span id="resultCL" onmouseout="hide_roll()"></span>
+                    </p>
+
+                    <p style="margin-bottom: 7px;">
+                        <span id="resultTX" onmouseout="hide_roll()"></span>
+                    </p>
+                    <br>
+                    Thời gian hoạt động: <span id="" class="font-weight-bold text-danger">6h30 -> 21:50</span>
+                </div>
+            </div>
+            <div class="card border-info" style="margin-top: 25px;">
+                <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
+                        class="fas fa-gavel"></span> ĐẶT CƯỢC</div>
+                <div class="card-body border-seccond bg-light text-dark" style="padding: 30px 15px" id="cardDatCuoc">
+                    <div class="input-group form-group">
+                        <span class="input-group-prepend">
+                            <div class="input-group-text bg-light border-right-0" style="color: green;"><i
+                                    class="fa fa-coins"></i></div>
+                        </span>
+
+                        <input class="form-control py-2 border-left-0 border" style="font-weight: bold; color: green"
+                            type="search" value="0" id="goldUser" readonly="">
+
+
+
+                    </div>
+                    <form id="form">
+                        <div class="input-group form-group">
+                            <span class="input-group-prepend" style="border-right: 1px solid red;">
+                                <div class="input-group-text bg-light border-right-1"
+                                    style="color: red; padding: 6px 10px">
+                                    <i class="fa fa-gamepad"></i>
+                                </div>
+                            </span>
+                            <select class="form-control py-2 border-left-0 border" style="color: red" id="type"
+                                name="type">
+                                <option value="0" selected="">Chẵn lẻ - Tài xỉu (10tr ăn 19tr)</option>
+                                <!-- <option value="3">Tài xỉu (10 triệu ăn 19 triệu)</option> -->
+                                <option value="4">Xiên (10tr ăn 32tr)</option>
+
+                            </select>
+                        </div>
+
+                        <label>Kết quả dự đoán:</label>
+                        <div class="form-group" id="divValue">
+                            <div class="btn-group" style="width: 100%;">
+                                <div class="input-group" style="width: 100%;">
+                                    <div class="col-6">
+                                        <button type="button"
+                                            class="btn btn-info form-control rounded font-weight-bold text-uppercase"
+                                            onclick="btnDuDoanKetQua(0, this)" style="opacity: 0.5;">Chẵn </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button"
+                                            class="btn btn-warning form-control rounded font-weight-bold text-uppercase text-white"
+                                            style="opacity: 0.5;" onclick="btnDuDoanKetQua(1, this)">Lẻ </button>
+                                    </div>
+                                    <div class="col-6 mt-3">
+                                        <button type="button"
+                                            class="btn btn-success form-control rounded font-weight-bold text-uppercase"
+                                            onclick="btnDuDoanKetQua(2, this)" style="opacity: 0.5;">Tài </button>
+                                    </div>
+                                    <div class="col-6 mt-3">
+                                        <button type="button"
+                                            class="btn btn-danger form-control rounded font-weight-bold text-uppercase text-white"
+                                            style="opacity: 0.5;" onclick="btnDuDoanKetQua(3, this)">Xỉu </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <span class="input-group-prepend" style="border-right: 1px solid red;">
+                                <div class="input-group-text bg-light border-right-1"><i class="fa fa-gavel"></i></div>
+                            </span>
+                            <input class="form-control py-2 border-left-0 border" style="font-weight: bold;"
+                                type="search" value="" id="gold" placeholder="Nhập số tiền đặt cược">
+                        </div>
+
+                    </form>
+                    <div id="alert"></div>
+
+
+                    <button onclick="datcuoc()" class="btn btn-info font-weight-bold text-uppercase form-control"
+                        type="button" id="btnDatCuoc">Đặt ngay</button>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="text-center font-weight-bold" style="margin-top: 10px; margin-bottom: 3px; width: 100%">
+            <h4 id="darkMode4" class="text-dark">Lịch sử đặt cược</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover text-center">
+                <thead class="bg-info text-white">
+                    <tr>
+
+                        <th scope="col" style="white-space:nowrap;">Nhân vật</th>
+                        <th scope="col" style="white-space:nowrap;">Vàng đặt</th>
+                        <th scope="col" style="white-space:nowrap;">Thể loại</th>
+                        <th scope="col" style="white-space:nowrap;">Dự đoán</th>
+                        <th scope="col" style="white-space:nowrap;">Kết quả</th>
+                        <th scope="col" style="white-space:nowrap;">Vàng nhận</th>
+                        <th scope="col" style="white-space:nowrap;">Tình trạng</th>
+                        <th scope="col" style="white-space:nowrap;">Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody id="lichsugd" class="text-dark">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col text-dark" id="darkMode7">
+            <label>Hiện thị:</label>
+            <select id="isMe" class="form-control">
+                <option value="0">Tất cả</option>
+                <option value="1">Mình tôi</option>
+            </select>
+        </div>
+        <div class="col offset-lg-8 col text-dark" id="darkMode6">
+            <label>Bản ghi:</label>
+            <select id="record" class="form-control">
+                <option value="10">10 bản ghi</option>
+                <option value="20">20 bản ghi</option>
+                <option value="30">30 bản ghi</option>
+                <option value="50">50 bản ghi</option>
+                <option value="100">100 bản ghi</option>
+            </select>
+        </div>
+    </div>
+</div>
+<script>
+    var loadding = document.getElementById("loadding");
+    var ketquatruoc = document.getElementById("ketquatruoc");
+    var goldChan = document.getElementById("goldChan");
+    var goldLe = document.getElementById("goldLe");
+    var goldTai = document.getElementById("goldTai");
+    var goldXiu = document.getElementById("goldXiu");
+    var kqtong = document.getElementById("kqtong");
+    var kytruoc = document.getElementById("kytruoc");
+    var type = document.getElementById("type");
+    var btnSubmit = document.getElementById("btnDatCuoc");
+    var record = document.getElementById("record");
+    var divAlert = document.getElementById("alert")
+    var goldUser = document.getElementById("goldUser")
+    var isMe = document.getElementById("isMe");
+    var userInfo = document.getElementById("userInfo");
+    var lsgd = document.getElementById("lichsugd");
+
+
+</script>
+<script src="js/moment.js"></script>
+<script>
+
+
+    type.addEventListener("change", function () {
+        selectGame();
+    });
+
+    getData()
+    setInterval(function () {
+        getData()
+    }, 7000)
+    var timeEnd = null;
+    function getData() {
+        $.ajax({
+
+            type: "POST",
+            url: "/game/getkeno",
+            data: {
+                record: record.value,
+                isme: isMe.value
+            },
+            success: function (res) {
+
+
+                goldChan.innerHTML = numberWithCommas(res.noww.vangchan)
+                goldLe.innerHTML = numberWithCommas(res.noww.vangle)
+                goldTai.innerHTML = numberWithCommas(res.noww.vangtai)
+                goldXiu.innerHTML = numberWithCommas(res.noww.vangxiu)
+
+                if (res.user) {
+                    goldUser.value = numberWithCommas(res.user.vang)
+                    userInfo.innerHTML = '<i class="fas fa-user"></i> ' + res.user.name + " - " + numberWithCommas(res.user.vang) + "$"
+                }
+                if (res.lichsucuoc) {
+
+                    var table = "";
+                    if (res.lichsucuoc.length <= 0) {
+                        table = '<tr> <td colspan="9" class="text-center">Không tìm thấy giao dịch nào</td> </tr>';
+                    }
+                    else {
+
+
+                        res.lichsucuoc.forEach(function (data, index) {
+                            table += "<tr " + (data.__v == 9999 ? 'style="background-color:#E0FFFF" class="text-dark"' : "") + "> <td>" + data.nhanvat + "</td> <td>" + numberWithCommas(Math.round(data.vangdat)) + "</td> <td>" + gettype(data.type, data.chon) + "</td> <td>" + getvalue(data.type, data.chon) + "</td> <td>" + getxoay(data.ketqua) + "</td> <td>" + getxoay(numberWithCommas(Math.round(data.vangnhan))) + "</td> <td>" + getstatus(data.status) + "</td> <td>" + (data.__v == 9999 ? '<a href="javascript:void(0);" onclick="cancel(\'' + data._id + '\')"><span class="fas fa-trash"></span></a>' : new Date(data.time).toLocaleTimeString()) + "</td> </tr>";
+                        })
+                    }
+                    lichsugd.innerHTML = table
+
+                }
+
+
+                $("#kytruoc").text("#" + right('00000' + res.noww.game.lastResult.ky, 6))
+
+                timeEnd = moment(res.noww.game.next_date).format('YYYY-MM-DD HH:mm:ss');
+                $("#date").text(moment(res.noww.game.live_date).format('DD/MM/YYYY') + " " + moment(res.noww.game.live_date).format('HH:mm'))
+                $("#kyve").text("#" + right('00000' + res.noww.game.next_ky, 6))
+
+                setHis(res.last)
+                var kssss = "";
+                for (let i = 0; i <= 19; i++) {
+                    kssss += '<strong><span >' + res.noww.game.lastResult.kq[i] + '</span></strong>' + (i != 9 && i != 19 ? '-' : '') + (i == 9 ? "<br>" : "");
+                }
+                ketquatruoc.innerHTML = kssss
+
+            }
+        });
+    }
+    function check(ke)
+    {
+        if(ke%2==0)
+        {
+            if(ke>=810)
+            {
+                return 'Chẵn - Tài'
+            }
+            else
+            {
+                return 'Chẵn - Xỉu'
+
+            }
+        }
+        else
+        {
+            if(ke>=810)
+            {
+                return 'Lẻ - Tài'
+            }
+            else
+            {
+                return 'Lẻ - Xỉu'
+
+            }
+        }
+    }
+    function setHis(hiss) {
+        var ketquacl = "";
+        var ketquatx = "";
+
+
+        kqtong.innerHTML = hiss[0].game.lastResult.total +" => "+check(hiss[0].game.lastResult.total)
+        hiss.forEach(function (data, index) {
+
+
+            var ketqua = data.game.lastResult.total
+            if (ketqua % 2 == 0) {
+                ketquacl = '<span onmouseover="show_roll_Cl($(this))" data-title="' + "Kết quả: Chẵn - " + ketqua + '" class="rounded-circle bg-info text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">C</span>' + ketquacl;
+            }
+            else if (ketqua % 2 != 0) {
+                ketquacl = '<span onmouseover="show_roll_Cl($(this))" data-title="' + "Kết quả: Lẻ - " + ketqua + '" class="rounded-circle bg-warning text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">L</span>' + ketquacl;
+            }
+
+            if (ketqua >= 810) {
+                ketquatx = '<span onmouseover="show_roll_Tx($(this))" data-title="' + "Kết quả: Tài - " + ketqua + '" class="rounded-circle bg-success text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">T</span>' + ketquatx;
+            }
+            else if (ketqua < 810) {
+                ketquatx = '<span onmouseover="show_roll_Tx($(this))" data-title="' + "Kết quả: Xỉu - " + ketqua + '" class="rounded-circle bg-danger text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">X</span>' + ketquatx;
+            }
+        })
+        resultCL.innerHTML = ketquacl + '<span id="showCl"></span>'
+        resultTX.innerHTML = ketquatx + '<span id="showTx"></span>'
+    }
+    function right(str, n) {
+        if (n <= 0)
+            return "";
+        else if (n > String(str).length)
+            return str;
+        else {
+            var iLen = String(str).length;
+            return String(str).substring(iLen, iLen - n);
+        }
+    }
+    var intervalCountDown = null
+
+    setInterval(function () {
+        if (timeEnd != null) {
+            var now = moment()
+                .utcOffset('+07:00')
+                .format('YYYY-MM-DD HH:mm:ss');
+            var endtime = moment(timeEnd).format('YYYY-MM-DD HH:mm:ss');
+            var diffr = moment.duration(moment(endtime).diff(moment(now)));
+
+
+            var hours = parseInt(diffr.asHours());
+            var minutes = parseInt(diffr.minutes());
+            var seconds = parseInt(diffr.seconds());
+            
+            const sc = moment(endtime).diff(moment(new Date()), 'second')
+            var distance = hours * 60 * 60 + minutes * 60 + seconds;
+            if(hours>1)
+            {
+                if (sc > 0) { $("#time").html(right('0' + hours, 2) + ":" +right('0' + minutes, 2) + ":" + right('0' + seconds, 2)); }
+
+            }
+            else
+            {
+                if (sc > 0) { $("#time").html(right('0' + minutes, 2) + ":" + right('0' + seconds, 2)); }
+
+            }
+            loadding.hidden = true;
+
+            if (sc < 1) {
+                $("#time").html("00:00")
+                loadding.hidden = false;
+            }
+        }
+    }, 1000)
+
+    function hide_roll() {
+        $('#showCl')['hide']()
+        $('#showTx')['hide']()
+
+    }
+
+    function show_roll_Cl(_0x9ca2x2) {
+        var _0x9ca2x3 = _0x9ca2x2['offset']();
+        var _0x9ca2x4 = $('#resultCL')['offset']();
+        $('#showCl')['html'](_0x9ca2x2['attr']('data-title'))['css']({
+            'margin-left': (_0x9ca2x3['left'] - _0x9ca2x4['left']) + 'px'
+        })['show']()
+    }
+    function show_roll_Tx(_0x9ca2x2) {
+        var _0x9ca2x3 = _0x9ca2x2['offset']();
+        var _0x9ca2x4 = $('#resultTX')['offset']();
+        $('#showTx')['html'](_0x9ca2x2['attr']('data-title'))['css']({
+            'margin-left': (_0x9ca2x3['left'] - _0x9ca2x4['left']) + 'px'
+        })['show']()
+    }
+
+    function cancel(id) {
+  if (!confirm("Bạn có chắc chắn muốn hủy không?")) {
+    return;
+  }
+  divAlert.innerHTML = "";
+  $.ajax({
+    url: "/game/cancelkeno",
+    type: "post",
+    dataType: "text",
+    data: {
+      id: id
+    },
+    success: function (result) {
+      var js = JSON.parse(result)
+      if(js.error==1)
+      {
+        divAlert.innerHTML =  thongbao("danger",js.message);
+      }
+      else  { getData(); divAlert.innerHTML =  thongbao("success",js.message);
+     
+    }
+    
+    }
+  });
+}
+    function datcuoc() {
+
+
+
+
+        divAlert.innerHTML = "";
+        if (type.value == -1) {
+            divAlert.innerHTML = thongbao("warning", "<strong>Thất bại!</strong> Vui lòng chọn trò chơi!");
+            return;
+        }
+        var value = 0;
+        if (type.value == 0 || type.value == 4) {
+            value = valueDatCuoc;
+            if (value == -1) {
+                divAlert.innerHTML = thongbao("warning", "<strong>Thất bại!</strong> Vui lòng chọn kết quả dự đoán!");
+                return;
+            }
+        } else {
+            value = document.getElementById("value").value;
+        }
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+
+        $.ajax({
+            url: "/game/cuockeno",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                type: type.value,
+                gold: gold.value,
+                value: value
+            }),
+            success: function (res) {
+
+
+                if (res.error == 0) {
+                    divAlert.innerHTML = thongbao("success", res.message);
+                }
+                else {
+                    divAlert.innerHTML = thongbao("warning", res.message);
+                }
+
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = "Đặt ngay";
+                selectGame()
+                getData()
+
+            }
+        });
+    };
+
+
+    var valueDatCuoc = -1;
+    function btnDuDoanKetQua(id, t) {
+        valueDatCuoc = id;
+        var btnCurr = t;
+        btnCurr.style.opacity = "1";
+        if (!btnCurr.innerHTML.includes('<span class="fas fa-check-circle"></span>')) {
+            btnCurr.innerHTML = btnCurr.innerHTML += ' <span class="fas fa-check-circle"></span>';
+        }
+        var listBtn = t.parentElement.parentElement.children;
+        for (var i = 0; i < listBtn.length; i++) {
+            if (i != id) {
+                var btnLast = listBtn[i].children[0];
+                btnLast.style.opacity = "0.5";
+                btnLast.innerHTML = btnLast.innerHTML.replace('<span class="fas fa-check-circle"></span>', "");
+            }
+        }
+    }
+
+
+
+    type.addEventListener("change", function () {
+        selectGame();
+    });
+
+    record.addEventListener("click", function () {
+        getData()
+    })
+    isMe.addEventListener("click", function () {
+        getData()
+    })
+    function selectGame() {
+        valueDatCuoc = -1;
+        if (type.value == 0) {
+            divValue.innerHTML = '<div class="btn-group" style="width: 100%;"><div class="input-group" style="width: 100%;"><div class="col-6"><button type="button" class="btn btn-info form-control rounded font-weight-bold text-uppercase" onclick="btnDuDoanKetQua(0, this)" style="opacity: 0.5;">Chẵn</button></div><div class="col-6"><button type="button" class="btn btn-warning form-control rounded font-weight-bold text-uppercase text-white" style="opacity: 0.5;" onclick="btnDuDoanKetQua(1, this)">Lẻ</span></button></div> <div class="col-6 mt-3"><button type="button" class="btn btn-success form-control rounded font-weight-bold text-uppercase" onclick="btnDuDoanKetQua(2, this)" style="opacity: 0.5;">Tài </button></div><div class="col-6 mt-3"><button type="button" class="btn btn-danger form-control rounded font-weight-bold text-uppercase text-white" style="opacity: 0.5;" onclick="btnDuDoanKetQua(3, this)">Xỉu </button> </div> </div></div>';
+        } else if (type.value == 4) {
+            divValue.innerHTML = '<div class="btn-group" style="width: 100%;"><div class="input-group" style="width: 100%;"><div class="col-6" style="padding-right : 2px;"><button type="button" class="btn btn-info form-control rounded font-weight-bold text-uppercase" onclick="btnDuDoanKetQua(0, this)" style="opacity: 0.5;">Chẵn - Tài </button></div><div class="col-6 text-right" style="padding-right : 2px;"> <button type="button" class="btn btn-warning form-control rounded font-weight-bold text-uppercase text-white" style="opacity: 0.5;" onclick="btnDuDoanKetQua(1, this)">Chẵn - Xỉu </button></div> <div class="col-6 mt-3 text-right"  style="padding-right : 2px;"><button type="button" class="btn btn-success form-control rounded font-weight-bold text-uppercase text-white" style="opacity: 0.5;" onclick="btnDuDoanKetQua(2, this)">Lẻ - Tài </button></div> <div class="col-6 mt-3  text-right"  style="padding-right : 2px;"><button type="button" class="btn btn-danger form-control rounded font-weight-bold text-uppercase text-white" style="opacity: 0.5;" onclick="btnDuDoanKetQua(3, this)">Lẻ - Xỉu </button></div></div> </div>';
+        } else {
+            divValue.innerHTML = '<div class="btn-group" style="width: 100%;"><div class="input-group" style="width: 100%;"><div class="col-6"><button type="button" class="btn btn-success form-control rounded font-weight-bold text-uppercase" onclick="btnDuDoanKetQua(0, this)" style="opacity: 0.5;">Tài </button></div><div class="col-6"><button type="button" class="btn btn-danger form-control rounded font-weight-bold text-uppercase text-white" onclick="btnDuDoanKetQua(1, this)" style="opacity: 0.5;">Xỉu </button></div></div></div>';
+        }
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function setLscuoc(cuocs) {
+
+    }
+    function getxoay(zz) {
+        if (zz == -1) return '<img id=\"loadding\" style=\"margin-left: 10px;\" src=\"images/loading2.gif\" alt=\"loading\" width=\"auto\" height=\"20px\">'
+        else return zz
+    }
+
+    function getstatus(status) {
+        if (status == -1) return '<img id=\"loadding\" style=\"margin-left: 10px;\" src=\"images/loading2.gif\" alt=\"loading\" width=\"auto\" height=\"20px\">'
+        else if (status == 1) { return '<div class="badge badge-success text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> Đã thanh toán </div>' }
+        else if (status == 2) return '<div class="badge badge-danger text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> THUA </div>'
+        else if (status == 5) return '<div class="badge badge-warning text-uppercase font-weight-bold text-white" ;="" style="padding: 5px 5px"> Đã hủy </div>'
+        else return '<div class="badge badge-primary text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> null </div>'
+    }
+    function getvalue(type, value) {
+        if (type == 0) {
+            if (value == 0) {
+                return "Chẵn"
+            }
+            else
+                if (value == 1) {
+                    return "Lẻ"
+                }
+                else
+                    if (value == 2) {
+                        return "Tài"
+                    }
+                    else
+                        if (value == 3) {
+                            return "Xỉu"
+                        }
+                        else {
+                            return value
+                        }
+        }
+        else if (type == 4) {
+            if (value == 0) {
+                return "Chẵn - Tài"
+            }
+            else
+                if (value == 1) {
+                    return "Chẵn - Xỉu"
+                }
+                else
+                    if (value == 2) {
+                        return "Lẻ - Tài"
+                    }
+                    else
+                        if (value == 3) {
+                            return "Lẻ - Xỉu"
+                        }
+                        else {
+                            return value
+                        }
+        }
+        else {
+            return value
+        }
+    }
+
+    function gettype(type, value) {
+        if (type == 0 && (value == 0 || value == 1)) {
+            return "Chẵn lẻ"
+        }
+        else if (type == 0 && (value == 2 || value == 3)) {
+            return "Tài xỉu"
+        }
+        else if (type == 4) {
+            return "Xiên"
+        }
+        else {
+            return "Đoán số"
+        }
+    }
+</script>

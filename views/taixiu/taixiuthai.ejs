@@ -1,0 +1,384 @@
+<script src="./jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="./jquery-ui-1.12.1/jquery.ui.touch-punch.min.js?v=1"></script>
+<script>
+    $(document)['ready'](function () {
+        $('head').append('<link rel="stylesheet" href="/taixiu/css/font_size2.css">');
+        $('head').append('<link rel="stylesheet" href="/taixiu/css/all2-22-2020.css">');
+        $('head').append('<link rel="stylesheet" href="/taixiu/css/swiper4.min.css">');
+        $('head').append('<link rel="stylesheet" href="/taixiu/css/taixiu.css?fff=rr">');
+    })
+</script>
+
+
+
+<div class="main-game" id="cvs_ga">
+    <!-- Modal -->
+    <div class="modal fade" id="modalHuongDantx" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Hướng dẫn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <strong>Hệ thống tài xỉu Game Ngọc Rồng Online
+
+                    </strong><br>
+                    - <strong style="color: red">Dự đoán tài xỉu</strong>: <br>Kết quả <strong> từ <b
+                            style="color:red">11-18</b> là Tài</strong> còn
+                    <strong>từ <b style="color:red">3-10</b> là Xỉu</strong><br>
+                    <strong style="color: green">Tỷ lệ: <%= setting.tile.cltx%> (10tr ăn <%= setting.tile.cltx*10 %>
+                                tr)</strong><br>
+                    <br>
+                    - <strong style="color: red">Nỗ hũ</strong>: <br>
+
+                    <strong>Hũ sẽ nổ khi 3 hạt có số nút như sau: </strong><br>
+                    <img src="/images/taixiu/hdnohu.png" alt="">
+                    <img src="/images/taixiu/hdtx666.png" alt="">
+
+
+                    <br>
+                    <strong>Vàng thắng hũ sẽ chia theo tỷ lệ cược của người chơi:</strong> <br>
+                    
+                    <img src="/images/taixiu/hdhuchia.png" alt="">
+                    <br>
+                    <strong style="color: red">Lưu ý: Đặt cược thằng hay thua vẫn được nhận hũ</strong> <br>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
+    <style>
+        .my-custom-scrollbartx {
+            position: relative;
+            height: 300px;
+            overflow: auto;
+        }
+    </style>
+    <div class="modal fade" id="cuocsModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                        <table class="table table-sm text-center mt-1" style="width:100%">
+                            <tbody id="tablecuoc">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="thongkeTx" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Lịch sử thắng hũ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+               
+                <div class="modal-body">
+                    <div class=" text-seccond font-weight-bold pb-2">
+                        <div class="text-center pt-2 d-block">Danh sách chiến thắng cuối</div>
+                    </div>
+                    Vàng hũ:
+                    <span id="vanghu">111</span><br>
+                    Tổng vàng thành viên nhận:
+                    <span id="vangallmem">111</span>
+                    <table class="text-center table">
+                        
+                        <thead class="bg bg-dark text-white">
+                            <tr>
+                             
+                              <th scope="col">Tên</th>
+                              <th scope="col">Vàng đặt</th>
+                              <th scope="col">Vàng nhận hũ</th>
+                             
+                            </tr>
+                          </thead>
+                        <tbody id="lsthanghu-tx">
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="game-taixiu" style="display: none;" class="khung_game_show ui-draggable actigame">
+        <div id="khung-tx">
+            <div class="khung-tx">
+                <div class="button-top">
+                    <img class="clogame" src="/images/taixiu/closetaixiu.png">
+                    <img class="wingame" src="/images/taixiu/thongke.png" style="display:none;">
+                    <img class="hisgame" src="/images/taixiu/lichsu.png">
+                    <img class="guigame" src="/images/taixiu/help.png">
+
+                    <img class="nangame" src="/images/taixiu/btn_nan_2.png">
+                    <img class="allgame" src="/images/taixiu/thongke.png">
+                </div>
+                <div class="move-here ui-draggable-handle"
+                    style="position:absolute;width: 100%;height: 81%;z-index: 1;">
+                    <div class="note_here font_size_18"
+                        style="position: absolute;display: flex;width: 100%;height:70%;top: 15%;text-align: center;z-index:50;">
+                    </div>
+                </div>
+                <div class="font_size_20" style="position:absolute;width: 100%;height: 96.5%;top:5.3%">
+                    <div class="tai-wrap" style="margin-left:11%;">
+                        <div class="icon"></div>
+                        <div class="money-tai">0</div>
+                        <input id="gold2" type="text" class="input-tai class-input font_size_20 placered"
+                            placeholder="ĐẶT" style="z-index: 50;">
+
+                        <div class="cuoc-tai">0</div>
+                        <div class="user-tai">0</div>
+                    </div>
+                    <div id="game-taixiu2" class="time">
+                        <div class="clock"></div>
+                        <div class="vung ui-draggable ui-draggable-handle" id="vung-taixiu" style="display:none;">
+                            <div class=""></div>
+                        </div>
+                        <div class="kq-num" style="opacity: 0;">
+                            <div class="middle">13</div>
+                        </div>
+
+                        <div class="clock-big font_size_100 middle" style="display: block;">0</div>
+                        <div class="clock-small" style="opacity: 0;"> 0</div>
+                        <div class="effect"
+                            style="background-position-y: 0%; background-image: url(&quot;../images/taixiu/xx4_1.png&quot;), url(&quot;../images/taixiu/xx6_2.png&quot;), url(&quot;../images/taixiu/xx3_3.png&quot;); opacity: 0;">
+                        </div>
+                    </div>
+                    <div class="xiu-wrap">
+                        <div class="icon"></div>
+                        <div class="money-xiu">0</div>
+                        <input id="gold3" type="text" class="input-xiu class-input font_size_20 placered"
+                            placeholder="ĐẶT" style="z-index: 50;">
+
+                        <div class="cuoc-xiu">0</div>
+                        <div class="user-xiu">0</div>
+                    </div>
+                    <div class="his" style="z-index: 49;" onmouseout="hide_roll_tx()">
+
+                        <span class="tooltip_tx font_size_18" style="display: none; margin-left: 181.078px;">#107562
+                            (6-3-2)11-Tài</span>
+                    </div>
+                    <div
+                        style="    position: absolute;top: -12%;width: 50%;height: 20%;left: 25%;background: url() 0% 0% /cover;">
+                    </div>
+                    <style>
+                        #trunghu-tx {
+                            display: none;
+                            position: absolute;
+                            right: 10%;
+                            top: 9%;
+                            width: 80%;
+                            height: 80%;
+                            background-image: url(/images/taixiu/hu.gif), url(/images/taixiu/hu.png);
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                            z-index: 100;
+
+
+                            animation: hvr-up 0.3s infinite alternate;
+                            -webkit-animation: hvr-up 0.4s infinite alternate;
+                            -moz-animation: hvr-up 0.3s infinite alternate;
+                            -ms-animation: hvr-up 0.3s infinite alternate;
+                            -o-animation: hvr-up 0.3s infinite alternate;
+                        }
+
+                        #moneyTrunghu {
+                            color: #13dec4;
+                            font-weight: bolder;
+                            text-shadow: 0px 0px 8px black, 0px 0px 8px black, 0px 0px 8px black;
+                        }
+
+                        .xutxx {
+                            top: 4%;
+                            left: 26%;
+                        }
+
+                        @media (min-width: 991.98px) {
+                            .xutxx {
+                                top: 5%;
+                            }
+                        }
+                    </style>
+                    <div class="trunghu" id="trunghu-tx">
+                        <div class="middle font_size_50" style="
+                        position: absolute;
+                        margin-top: -20%;
+                    "><span id="moneyTrunghu">0</span></div>
+                    </div>
+
+
+                    <div class="xutxx"
+                        style="position: absolute;width: 50%;height: 20%;left: 25%;/* background: url() 0% 0% /cover; */">
+                        <div id="hu-tx" class="font_size_20" style="
+         color: #ffff00;
+    text-shadow: 0 0 8px black, 0 0 8px #000;
+    text-align: center;
+    font-weight: bolder;
+     ">0
+                        </div>
+                    </div>
+                    <div class="group-button font_size_20"
+                        style="height: 40%; width: 90%; margin-left: 5%; display: none;">
+                        <div class="so_khac" style="width: 100%;height: 35%;">
+
+                            <div class="button money">
+                                <div class="middle" data-txt="1M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="10M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="50M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="100M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="500M"></div>
+                            </div>
+
+                            <div class="button tattay">
+                                <div class="middle" data-txt="Tất Tay"></div>
+                            </div>
+                            <div class="button blue">
+                                <div class="middle" data-txt="Đóng"></div>
+                            </div>
+                            <div class="button green">
+                                <div class="middle" data-txt="Đặt Cược"></div>
+                            </div>
+                            <div class="button red">
+                                <div class="middle" data-txt="Hủy"></div>
+                            </div>
+                        </div>
+                        <div class="so_khac" style="width: 100%;height: 35%;display:none;">
+                            <div class="button money2">
+                                <div class="middle" data-txt="1"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="2"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="3"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="4"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="5"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="6"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="7"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="8"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="9"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="0"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="000"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="Xóa"></div>
+                            </div>
+                            <div class="button blue">
+                                <div class="middle" data-txt="Số Nhanh"></div>
+                            </div>
+                            <div class="button green">
+                                <div class="middle" data-txt="Đặt Cược"></div>
+                            </div>
+                            <div class="button red">
+                                <div class="middle" data-txt="Hủy"></div>
+                            </div>
+                        </div>
+                        <div class="so_khac" style="width: 100%;height: 35%;display:none;">
+                            <div class="button money2">
+                                <div class="middle" data-txt="1"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="2"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="3"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="4"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="5"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="6"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="7"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="8"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="9"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="0"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="000"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="Xóa"></div>
+                            </div>
+                            <div class="button blue">
+                                <div class="middle" data-txt="Số Nhanh"></div>
+                            </div>
+                            <div class="button green">
+                                <div class="middle" data-txt="Đặt Cược"></div>
+                            </div>
+                            <div class="button red">
+                                <div class="middle" data-txt="Hủy"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="/images/taixiu/bantx2.png" width="100%">
+            </div>
+        </div>
+    </div>
+</div>

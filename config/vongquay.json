@@ -1,0 +1,60 @@
+{
+    "tile": [
+        {
+            "vitri1": 6,
+            "vitri2": 2,
+            "pct": 0,
+            "giai": "2 -> 9 triệu",
+            "type": 0
+        },
+        {
+            "vitri1": 2,
+            "vitri2": 6,
+            "pct": 35,
+            "giai": "10 triệu",
+            "type": 1
+        },
+        {
+            "vitri1": 1,
+            "vitri2": 7,
+            "pct": 25,
+            "giai": "50 triệu",
+            "type": 2
+        },
+        {
+            "vitri1": 4,
+            "vitri2": 4,
+            "pct": 20,
+            "giai": "100 triệu",
+            "type": 3
+        },
+        {
+            "vitri": 8,
+            "pct": 9,
+            "giai": "250 triệu",
+            "type": 4
+        },
+        {
+            "vitri1": 5,
+            "vitri2": 8,
+            "pct": 5,
+            "giai": "500 triệu",
+            "type": 5
+        },
+        {
+            "vitri1": 3,
+            "vitri2": 3,
+
+            "pct": 5,
+            "giai": "1 tỷ",
+            "type": 6
+        },
+        {
+            "vitri1": 7,
+            "vitri2": 1,
+            "pct": 1,
+            "giai": "5 tỷ",
+            "type": 7
+        }
+    ]
+}

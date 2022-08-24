@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        9SAO.ME - Hệ thống minigame kiếm vàng game Ngọc Rồng Online, Giao dịch nhanh chóng, Nạp rút 1-1
+    </title>
+   
+  
+
+
+
+    <base href="/">
+
+
+
+    <meta name="description"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng.">
+<meta name="keywords"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng, kiếm vàng ngọc rồng online">
+<meta property="og:title"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng.">
+<meta property="og:type" content="Website">
+<meta property="og:url" content="https://9sao.me" />
+<meta property="og:image" content="/images/iconn.png">
+<meta property="og:description"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng.">
+<meta property="og:site_name"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng">
+<meta property="article:section"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng.">
+<meta property="article:tag"
+    content="Kiếm vàng ngọc rồng online, Nhận vàng miễn phí ngọc rồng, nạp rút nhanh chóng">
+<meta name="twitter:card" content="/images/iconn.png">
+<meta name="twitter:image:width" content="200">
+<meta name="twitter:image:height" content="200">
+
+<meta name="twitter:title"
+    content="9SAO.ME - Hệ thống minigame kiếm vàng game Ngọc Rồng Online, Giao dịch nhanh chóng, Nạp rút 1-1">
+<meta name="twitter:description"
+    content="Chơi minigame kiếm vàng Ngọc Rồng nạp rút siêu nhanh.">
+<meta name="twitter:creator" content="@fghjgfjsdfsdffsdsfdfsd">
+<meta name="twitter:image:src" content="/images/iconn.png">
+<link rel="alternate" hreflang="vi-vn" href="https://9sao.me">
+<link rel="canonical" href="https://9sao.me">
+
+
+
+
+
+
+
+
+    <link rel="icon" href="images/iconn.png">
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="lib/toastr/toastr.css" rel="stylesheet">
+    <script src="lib/toastr/toastr.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <link
+        href="css/css2.css?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186466568-1">
+    </script>
+    <script>
+
+        var socketzzz = null
+        if (document.domain.includes("localhost")) {
+            socketzzz = io.connect("http://" + document.domain + ":3000");
+        }
+        else {
+            socketzzz = io.connect("https://" + document.domain);
+        }
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-186466568-1');
+    </script>
+
+</head>
+
+
+<body class="bg-light">
+
+    <%- include('partials/header'); %>
+
+
+
+
+
+
+
+        <%- include(page); %>
+
+            <%- include('hieuung'); %>
+
+
+                <%- include('partials/footer'); %>
+
+
+</body>
+
+
+
+
+</html>

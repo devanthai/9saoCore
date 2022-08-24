@@ -1,0 +1,59 @@
+<div class="container-fluid" style="padding: 0;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-info" id="nav">
+    <div class="container">
+      <a class="navbar-brand" href="/" style="margin-top: 0px">
+        <img id="logoooo" src="images/logo.gif" alt="vipme" style="width:273px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+         
+          <li class="nav-item text-uppercase font-weight-bold li-item">
+            <a class="nav-link a-item" id="momo" href="/user/napcard">MUA VÀNG</a>
+          </li>
+          <li class="nav-item text-uppercase font-weight-bold li-item">
+            <a class="nav-link a-item" id="momo" href="/user/napvang">NẠP VÀNG</a>
+          </li>
+          <li class="nav-item text-uppercase font-weight-bold li-item">
+            <a class="nav-link a-item" id="momo" href="/user/rutvang">RÚT VÀNG</a>
+          </li>
+        
+        </ul>
+
+      
+        
+        <% if(data.isLogin){ %>
+          <ul id="momo" class="navbar-nav ml-auto">
+            <li class="nav-item li-login">
+              <a id="userInfo" class="nav-link text-uppercase font-weight-bold btn btn-outline-light btn-login" href="/user"
+                style="color: white"><i class="fas fa-user"></i>  <%- data.tenhienthi +" - "+ data.vang + "$"%></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-uppercase font-weight-bold btn btn-outline-light btn-register"
+                href="/user/logout" style="color: white"><i class="fas fa-sign-out-alt"></i>
+                ĐĂNG XUẤT</a>
+            </li>
+          </ul>
+          <% } else{ %>
+            <ul id="momo" class="navbar-nav ml-auto">
+              <li class="nav-item li-login">
+                <a class="nav-link text-uppercase font-weight-bold btn btn-outline-light btn-login" href="/user/login"
+                  style="color: white"><i class="fas fa-sign-in-alt"></i> ĐĂNG NHẬP</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase font-weight-bold btn btn-outline-light btn-register"
+                  href="/user/register" style="color: white"><i class="fas fa-user-plus"></i> ĐĂNG KÍ</a>
+              </li>
+            </ul>
+           <%  } %>
+    
+
+
+              <div id="bottomHeader"></div>
+      </div>
+    </div>
+  </nav>
+</div>

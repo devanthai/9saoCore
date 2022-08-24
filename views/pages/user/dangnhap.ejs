@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="form" style="padding-top: 25px;">
+        <div class="row justify-content-center">
+            <h3>Đăng nhập</h3>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div id="alert"></div>
+                <form id="formLogin" method="POST" style="padding: 20px 20px;">
+                    <div class="form-group">
+                        <label for="">Tài khoản</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Mật khẩu</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success form-control font-weight-bold text-uppercase"
+                            onclick="btnLogin();"><i class="fas fa-sign-in-alt"> Đăng nhập</i></button>
+                    </div>
+                    <div class="form-group text-center">
+                        Bạn chưa có tài khoản? <a type="button" class="btn btn-danger font-weight-bold text-uppercase"
+                            href="user/register"><i class="fas fa-user-plus"></i> Đăng kí</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var divAlert = document.getElementById("alert");
+    function btnLogin() {
+        divAlert.innerHTML = "";
+        var input = document.getElementsByTagName("input");
+        for (var i = 0; i < input.length; i++) {
+            if (input[i].value.length == 0) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Thông tin đăng nhập không được để trống");
+                return;
+            }
+            if (input[i].value.length < 6) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Thông tin đăng nhập phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự");
+                return;
+            }
+            if (input[i].value.length > 16) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Thông tin đăng nhập phải là 1 chuỗi kí tự nhỏ hơn hoặc bằng 16 kí tự");
+                return;
+            }
+            var arr = input[i].value.match(/([0-9]|[a-z]|[A-Z])/g);
+            if (arr.length != input[i].value.length) {
+                divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Tài khoản và mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9");
+                return;
+            }
+        }
+        const username = $('#username').val()
+        const password = $('#password').val()
+        $.ajax({
+            url: "/user/login",
+            type: "post",
+            dataType: "text",
+            data: {
+                username: username,
+                password: password,
+            },
+            success: function (result) {
+                var json = JSON.parse(result);
+              
+                if (json.error == 1) {
+                    divAlert.innerHTML = thongbao("danger","Thất bại: "+ json.msg);
+                }
+                else if (json.error == 0) {
+                    divAlert.innerHTML = thongbao("success",json.msg);
+                    window.location.href = "/";
+                }
+                
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,310 @@
+<style>
+  @media (min-width: 991.98px) {
+    #btnGroupDrop1 {
+      display: none;
+    }
+  }
+</style>
+<style>
+  #goldvitri td,
+  #lichsugd td {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+</style>
+<div class="container">
+  <h2 class="text-center" style="margin-top: 30px;">RÚT VÀNG</h2>
+  <hr style="width: 15%; height: 1px" class="bg-danger">
+  <div class="text-center mt-3">
+    <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      Chức năng
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" href="/user/napcard">Mua vàng</a>
+      <a class="dropdown-item" href="/user/napvang">Nạp vàng</a>
+      <a class="dropdown-item" href="/user/rutvang">Rút vàng</a>
+      <a class="dropdown-item" href="/user/vongquay">Vòng quay may mắn</a>
+      <a class="dropdown-item" href="/user/gifcode">Nhập Gift Code</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+      <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
+    </div>
+  </div>
+ 
+  <div class="alert alert-info" style="margin-top: 20px">
+    <strong>Hệ thống rút vàng tự động</strong><br>
+    <strong>Bước 1: </strong><strong>Đặt đơn rút vàng</strong> trên website<br>
+    <strong>Bước 2: </strong>Vào <strong>đúng địa điểm</strong> gặp nhân vật giao hàng để giao dịch nhân vàng <br>
+    - Tỷ lệ rút <strong>100%</strong>, <strong>rút 100tr được 100tr</strong><br>
+    <strong class="text-danger">Hệ thống tự động hoàn vàng</strong> sau <strong class="text-danger">15 phút</strong> nếu
+    <strong class="text-danger">chưa giao dịch thành công</strong>
+  </div>
+  <div class="form-group">
+    <a href="/user/rutthoi" class="form-control btn btn-danger font-weight-bold text-uppercase" type="button" >Rút ra thỏi vàng tại đây</a>
+  </div>
+  <div class="row" style="padding-top: 25px">
+    <div class="col-lg-5">
+      <div class="card border-info">
+        <div class="card-header bg-info text-light border-info text-center font-weight-bold">
+          <span id="sodu">Vàng hiện có: <%= data.vang%>$</span>
+        </div>
+        <div class="card-body border-info">
+          <form id="form">
+            <div class="form-group">
+              <a href="/user/rutthoi" class="form-control btn btn-danger font-weight-bold text-uppercase" type="button" >Rút ra thỏi vàng tại đây</a>
+            </div>
+            <div class="form-group">
+              <label>Máy chủ</label>
+              <input type="text" class="form-control readonly" value="Server <%= data.server%> sao" readonly="">
+            </div>
+            <div class="form-group">
+              <label>Nhân vật</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Nhập tên nhân vật">
+            </div>
+            <div class="form-group">
+              <label>Số vàng cần rút</label>
+              <select id="type" name="type" class="form-control">
+                <option value="0">10,000,000 vàng</option>
+                <option value="1">20,000,000 vàng</option>
+                <option value="2">50,000,000 vàng</option>
+                <option value="3">100,000,000 vàng</option>
+                <option value="4">200,000,000 vàng</option>
+                <option value="5">500,000,000 vàng</option>
+                <option value="6">Tự nhập số vàng</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="divGold" style="display: none;">
+              <label>Số vàng cần rút</label>
+              <input type="text" name="gold" id="gold" class="form-control" placeholder="Nhập số vàng bằng số">
+              <small>Số vàng cần rút phải là bội của 10.000.000 vàng</small>
+            </div>
+            <div class="form-group" id="divGold" style="">
+              <label>Mật khẩu</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+              <small>Nhập mật khẩu để rút</small>
+            </div>
+            <div class="form-group ">
+              <label for="">Mã captcha: </label>
+
+              <img onclick="changeimg()" src="/user/imageGen" id="captchaThai" width="140" height="30" alt="captcha"
+                class="img-thumbnail mb-1">
+              <input type="captcha" class="form-control" id="captcha" name="captcha" placeholder="Nhập mã captcha">
+            </div>
+        
+              <% if(ishanmuc){ %>
+            <div role="alert" class="fade font-weight-bold alert alert-info show">Hạn mức của bạn: <span class="text-danger"><%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng</span>
+              <br><span class="text-danger"><%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></span> <span>là số vàng bạn có thể rút</span>
+              <br><span class="text-danger">Hạn mức sẽ về 0 vào cuối ngày (00h00)</span>
+              <br><span class="text-danger">Đặt cược để tăng hạn mức nhé</span>
+            
+            </div>
+            <% } %>
+            <div id="alert"></div>
+            <div class="form-group">
+              <button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btn"> Rút
+                ngay</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-7" id="vitri">
+      <div class="form-group">
+        <a class="btn btn-info form-control font-weight-bold text-white readonly">Ví trí nhân vật giao vàng</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-response text-center">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Máy chủ</th>
+              <th scope="col">Nhân vật</th>
+              <th scope="col">Địa điểm</th>
+              <th scope="col">Khu vực</th>
+              <th scope="col">Số vàng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (botrut.length<=0) { %>
+              <tr>
+                <td colspan="5">Không tìm thấy bot</td>
+              </tr>
+              <% } %>
+                <% for (var i=0; i < botrut.length; i++) { %>
+
+
+                  <tr>
+                    <td scope="col">
+                      <%= botrut[i].Server%>
+                    </td>
+                    <td scope="col">
+                      <%= botrut[i].Name%>
+                    </td>
+                    <td scope="col">
+                      Vách núi kkr
+                    </td>
+                    <td scope="col">
+                      <%= botrut[i].Zone %>
+                    </td>
+                    <td scope="col">
+                      <%= String(botrut[i].Gold).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                    </td>
+                  </tr>
+
+
+                  <% } %>
+
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="alert alert-info col" style="margin-top: 25px; margin-bottom: 3px">
+      <h5 class="font-weight-bold">LỊCH SỬ GIAO DỊCH</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-response text-center">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Server</th>
+            <th scope="col">Nhân vật</th>
+            <th scope="col">Số vàng</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Thời gian</th>
+          </tr>
+        </thead>
+        <tbody id="lichsugd">
+
+          <% if (lsrut.length<=0) { %>
+            <tr>
+              <td colspan="7">Bạn chưa thực hiện giao dịch nào</td>
+            </tr>
+            <% } %>
+              <% for (var i=0; i < lsrut.length; i++) { %>
+
+
+                <tr>
+                  <td hidden="">
+                    <%=lsrut[i]._id%>
+                  </td>
+                  <td scope="col">
+                    <%= lsrut[i].server%>
+                  </td>
+                  <td scope="col">
+                    <%= lsrut[i].tnv %>
+                  </td>
+                  <td scope="col">
+                    <%= String(lsrut[i].sovang).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                  </td>
+
+                  <td scope="col">
+                    <%- (lsrut[i].status==0 ? '<span class="badge badge-warning text-white">Chưa giao dịch</span>' :
+                      (lsrut[i].status==1 ? '<span class="badge badge-success text-white">Giao dịch thành công</span>'
+                      : '<span class="badge badge-danger text-white">Đã hủy</span>' ))%>
+                  </td>
+                  <td scope="col">
+                    <%= new Date(Date.parse(lsrut[i].time)).toLocaleString()%>
+                  </td>
+
+                </tr>
+
+
+                <% } %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  function changeimg() {
+    var id = Math.random();
+    $("#captchaThai").replaceWith('<img onclick="changeimg()" src="/user/imageGen?' + id + '" id="captchaThai" width="140" height="30" alt="captcha" class="img-thumbnail mb-1">');
+  }
+  var name = document.getElementById("name");
+  var gold = document.getElementById("gold");
+  var divAlert = document.getElementById("alert");
+  var lichsugd = document.getElementById("lichsugd");
+  var btn = document.getElementById("btn");
+  btn.addEventListener("click", function () {
+    divAlert.innerHTML = "";
+    var type = $('#type').val();
+    var tnv = $('#name').val();
+    var gold = $('#gold').val();
+    var password = $('#password').val();
+    var captcha = $('#captcha').val();
+    if (captcha == "") {
+      divAlert.innerHTML = thongbao('danger', "<strong>Thất bại: </strong> Vui lòng nhập captcha");
+      return
+    }
+    $('#captcha').val("")
+    $.ajax({
+      url: "user/rutvang",
+      type: "post",
+      dataType: "text",
+      data: {
+        rutvang: "Bug sml",
+        type: type,
+        gold: gold,
+        tnv: tnv,
+        password: password,
+        captcha: captcha
+      },
+      success: function (result) {
+        changeimg()
+        var response = JSON.parse(result);
+
+        if (response.error == 1) {
+          divAlert.innerHTML = thongbao('danger', response.message);
+        }
+        else {
+          $("#divGold").hide();
+          $("#form").trigger("reset");
+          divAlert.innerHTML = thongbao('success', response.message);
+          if (lichsugd.innerHTML.includes("Bạn chưa thực hiện giao dịch nào")) {
+            lichsugd.innerHTML = response.table;
+            return;
+          }
+          lichsugd.innerHTML = response.table + lichsugd.innerHTML;
+        }
+      }
+    });
+  });
+
+  $("#type").change(function () {
+    if ($("#type").val() == 6) {
+      $("#gold").val("");
+      $("#divGold").show();
+    } else {
+      var arr = ["10,000,000", "20,000,000", "50,000,000", "100,000,000", "200,000,000", "500,000,00"];
+      $("#gold").val(arr[$("#type").val()]);
+      $("#divGold").hide();
+    }
+  });
+
+  function remove(a) {
+    if (!confirm("Bạn chắc chắn muốn hủy đơn hàng này?")) {
+      return false;
+    }
+    var tr = a.parentElement.parentElement;
+    var id = tr.children[0].innerHTML;
+    var http = new XMLHttpRequest();
+    var url = 'control.php?router=outgold&action=delete';
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+        tr.innerHTML = http.responseText;
+      }
+    }
+    http.send("id=" + id);
+    return false;
+  }
+</script>

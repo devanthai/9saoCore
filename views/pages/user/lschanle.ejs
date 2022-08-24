@@ -1,0 +1,190 @@
+<script>
+    function getxoay(zz) {
+  if (zz == -1) return '<img id=\"loadding\" style=\"margin-left: 10px;\" src=\"images/loading.gif\" alt=\"loading\" width=\"auto\" height=\"20px\">'
+  else return zz
+}
+</script>
+<div class="container" id="userBody">
+    <div class="row">
+        <div class="col-lg-3">
+
+            <style>
+                @media (min-width: 1199.98px) {
+                    .col-lg-3 {
+                        padding-right: 0px;
+                    }
+
+                    .col-lg-9 {
+                        padding-left: 10px;
+                    }
+                }
+
+                @media (max-width: 1199.98px) {
+                    .col-lg-9 {
+                        margin-top: 25px;
+                    }
+                }
+
+                .userHeader li {
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid #f2f2f2;
+                }
+
+                .userHeader_Title {
+                    margin-bottom: 0px;
+                }
+
+                .userHeader_Gach {
+                    background-color: #32c5d2;
+                    height: 2px;
+                    width: 50px;
+                    text-align: left;
+                    display: inline-block;
+                }
+
+                #th_dmk:hover {
+                    cursor: pointer;
+                }
+
+                #userBody {
+                    margin-top: 35px;
+                }
+                #tableCard td{white-space:nowrap;}
+                #tableCard th{white-space:nowrap;}
+
+                #lichSuRutTien td {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    white-space: nowrap;
+}
+            </style>
+            <!--
+  <div class="userHeader" style="font-family: 'Roboto';">
+    <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+      <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+    </div>
+    <div>
+      <ul style="list-style-type: none; padding-left: 0px">
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+        <li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="#" style="color: inherit">Thông tin tài khoản</a></li>
+      </ul>
+    </div>
+  </div>
+  -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+            <link
+                href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+                rel="stylesheet">
+
+
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+            <div class="userHeader" roboto";"="">
+                <div style="border-left: 7px solid #32c5d2; padding-left: 7px; margin-bottom: 25px">
+                    <h5 style="padding-left: 15px;">MENU TÀI KHOẢN</h5>
+                </div>
+                <div>
+                    <ul style="list-style-type: none; padding-left: 0px">
+                        <%- menu %>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row" id="lichSuRutTien">
+                <div class="col" style="padding: 0">
+                    <table style="display: table; width: 100%; border: 0px;" class="table table-hover table-bordered table-xs-responsive text-center dataTable no-footer" id="tableCard">
+                        <thead class="bg bg-info text-white">
+                          <tr>
+                            <th scope="col" hidden="true">Thời gian</th>
+
+                            <th scope="col">Thời gian</th>
+                            <th scope="col">Vàng đặt</th>
+                            <th scope="col">Dự đoán</th>
+                            <th scope="col">Kết quả</th>
+                            <th scope="col">Vàng nhận</th>
+                            <th scope="col">Tình trạng</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+            
+                          
+                            <% if (products.length<=0) { %>
+                             
+                                <% }  %>
+                            <% for (var i = 0; i < products.length; i++) { %>
+                               
+                               
+                                <tr>
+                                    <td scope="col" hidden="true"> <%= new Date(Date.parse(products[i].time)).getTime()%></td>
+
+                                    <td scope="col"> <%= new Date(Date.parse(products[i].time)).toLocaleString()%></td>
+                             
+                                    <td scope="col"><%=  String(Math.round(products[i].vangdat)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
+
+
+
+                                    <% if (products[i].type=='chan') { %>        
+                                        <td scope="col">Chẵn</td>
+
+                                    <% }  else if(products[i].type=='le'){ %>
+                                        <td scope="col">Lẻ</td>
+
+                                        <% } %>
+
+
+
+
+                                    <% if (products[i].ketqua==-1) { %>
+                                        <td scope="col"> <img id="loadding" style="margin-left: 10px;" src="images/loading.gif" alt="loading" width="auto" height="20px"></td>
+                                        <% } else { %>
+
+                                    <td scope="col"><%= products[i].ketqua %></td>
+                                    <% } %>
+
+
+                                    <% if (products[i].vangnhan==-1) { %>
+                                        <td scope="col"> <img id="loadding" style="margin-left: 10px;" src="images/loading.gif" alt="loading" width="auto" height="20px"></td>
+                                        <% } else { %>
+
+                                            <td scope="col"><%= String(Math.round(products[i].vangnhan)).replace(/(.)(?=(\d{3})+$)/g,'$1,')  %></td>
+                                    <% } %>
+
+                                  
+                                  
+                                    <% if (products[i].status==-1) { %>
+                                        <td scope="col">   <img id="loadding" style="margin-left: 10px;" src="images/loading.gif" alt="loading" width="auto" height="20px">  </td>
+                                    <% }  else if(products[i].status==1){ %>
+                                        <td scope="col">    <div class="badge badge-success text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> Đã thanh toán </div>  </td>
+                                    <% } else if(products[i].status==2){ %>
+                                        <td scope="col">  <div class="badge badge-danger text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> THUA </div>  </td>
+                                        <% }  %>
+                                   
+                                
+                                </tr>
+
+                               
+                            <% } %>
+                         
+                      </table>
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  
+  $(document).ready(function() {
+    $("#tableCard").DataTable({
+     
+ 
+      "order": [
+        [0, "desc"]
+      ]
+    });
+  });
+</script>

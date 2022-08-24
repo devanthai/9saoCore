@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        table,
+        td {
+            border: 1px solid #333;
+            white-space: nowrap;
+            padding-left: 7px;
+            padding-right: 7px;
+            height: 1px;
+        }
+
+        tr {
+            height: 7px;
+            white-space: nowrap;
+            padding: 7px;
+        }
+
+        thead,
+        tfoot {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="padding: 10px;">
+        <span> <b>Con số may mắn</b></span> <br>
+        Thời gian còn: <b> <span class="text-danger" id="timecsmm"></span></b>
+        <br>
+        Chẵn: <b><span id="chan" class="text-danger"></span></b> - Lẻ: <b><span class="text-danger"
+                id="le"></span></b><br>
+        Tài: <b><span id="tai" class="text-danger"></span></b> - Xỉu: <b><span class="text-danger"
+                id="xiu"></span></b><br>
+        Chẵn tài: <b><span id="chantai" class="text-danger"></span></b> - Chẵn xỉu: <b><span class="text-danger"
+                id="chanxiu"></span></b><br>
+        Lẻ tài: <b><span id="letai" class="text-danger"></span></b> - Lẻ xỉu: <b><span class="text-danger"
+                id="lexiu"></span></b>
+
+        <br>
+
+       
+
+        <br>
+        <br>
+       
+        <div style="margin-top: 10px;">
+            <div class="col-lg-5" style="padding-left: 0px;">
+                <span>Server: </label>
+                    <select id="server">
+                        <option value="10">10</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <label> Số bản ghi: </label>
+                    <select id="record">
+                        <option value="10">10</option>
+                        <option value="50">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+
+                    <table style="margin-top: 5px;" class=" text-center">
+
+                        <tbody id="lscsmm">
+
+                        </tbody>
+                    </table>
+            </div>
+
+        </div>
+        <span style="margin-top: 5px;"> <b>Game tài xỉu</b></span> <br>
+        Thời gian còn: <b> <span class="text-danger" id="gametime"></span></b>
+        <br>
+        Tài: <b><span id="gametai" class="text-danger"></span></b> <br>
+        Xỉu: <b><span id="gamexiu" class="text-danger"></span></b> <br>
+
+    </div>
+
+</body>
+
+
+
+
+<script>
+   
+
+
+    
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function random(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    setInterval(() => {
+        get()
+    }, 500)
+    
+    function get() {
+        $.ajax({
+            url: "/game/choidep.exe",
+            type: "post",
+            data: { type: "get", server: $('#server').val(), record: $('#record').val() },
+            success: function (result) {
+                var json = (result)
+                $('#chan').text(json.vangchan)
+                $('#le').text(json.vangle)
+                $('#tai').text(json.vangtai)
+                $('#xiu').text(json.vangxiu)
+                $('#chantai').text(json.chantai)
+                $('#chanxiu').text(json.chanxiu)
+                $('#letai').text(json.letai)
+                $('#lexiu').text(json.lexiu)
+                $('#timecsmm').text(json.timecsmm)
+                $('#lscsmm').html(json.cuoccsmm)
+                $('#gametai').html(numberWithCommas(json.gametxxx.vangtai))
+                $('#gamexiu').html(numberWithCommas(json.gametxxx.vangxiu))
+                $('#gametime').html(numberWithCommas(json.gametxxx.time))
+                $('#btnchantai').html("Chẵn tài - Khách ăn: <span style='color:yellow'>" + numberWithCommas(Math.round(json.vangthang.vangthangchantai)) + "</span>" + getloilost(json.vangtinhz.chantai))
+                $('#btnchanxiu').html("Chẵn xỉu - Khách ăn: <span style='color:yellow'>" + numberWithCommas(Math.round(json.vangthang.vangthangchanxiu)) + "</span>" + getloilost(json.vangtinhz.chanxiu))
+                $('#btnletai').html("Lẻ tài - Khách ăn: <span style='color:yellow'>" + numberWithCommas(Math.round(json.vangthang.vangthangletai)) + "</span>" + getloilost(json.vangtinhz.letai))
+                $('#btnlexiu').html("Lẻ xỉu - Khách ăn: <span style='color:yellow'>" + numberWithCommas(Math.round(json.vangthang.vangthanglexiu)) + "</span>" + getloilost(json.vangtinhz.lexiu))
+                autob(json);
+
+            }
+        });
+    }
+    function getloilost(x) {
+        if (x > 0) {
+            return ' - <span ;">Lời: +' + numberWithCommas(Math.round(x)) + '</span>'
+        }
+        else if (x < 0) {
+            return ' - <span class="text-dark">Lỗ: ' + numberWithCommas(Math.round(x)) + '</span>'
+
+        }
+        else {
+            return ' - <span >Hòa 0</span>'
+            return
+        }
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+</script>
+
+</html>

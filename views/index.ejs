@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>9SAO.ME | Mini Game Kiếm Vàng Ngọc Rồng</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="/" />
+    <meta name="description" content="9SAO.ME - Mini Game Kiếm Vàng Ngọc Rồng" />
+    <meta name="keywords" content="9SAO.ME - Mini Game Kiếm Vàng Ngọc Rồng" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="9SAO.ME - Mini Game Kiếm Vàng Ngọc Rồng" />
+    <meta name="twitter:description" content="9SAO.ME - Mini Game Kiếm Vàng Ngọc Rồng" />
+    <meta name="twitter:image" content="/images/logo.png" />
+    <meta name="twitter:image:width" content="200" />
+    <meta name="twitter:image:height" content="200" />
+    <link rel="icon" href="/images/iconn.png">
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="lib/toastr/toastr.css" rel="stylesheet">
+    <script src="lib/toastr/toastr.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <link
+        href="css/css2.css?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186466568-1">
+    </script>
+    <%if(page=="pages/trangchu"){%>
+        <script>
+            var socketzzz = null
+            if (document.domain.includes("192.168")) {
+                socketzzz = io.connect("http://192.168.1.4:3000/");
+            }
+            else if (document.domain.includes("localhost")) {
+                socketzzz = io.connect("http://" + document.domain + ":3000");
+            }
+            else {
+                socketzzz = io.connect("https://" + document.domain);
+            }
+            socketzzz.on("disconnectnha",(mess)=>{
+                socketzzz.disconnect();
+                $('#game-minipoke')['hide']('fade', {}, 500)
+                $('#game-taixiu')['hide']('fade', {}, 500)
+                $('#game-baucua')['hide']('fade', {}, 500)
+                $('#game-chanle')['hide']('fade', {}, 500)
+                alert(mess)
+                thongbao2(mess,"error")
+            })
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-186466568-1');
+        </script>
+        <% }%>
+</head>
+
+<body class="bg-light">
+    <%- include('partials/header'); %>
+        <%- include(page); %>
+            <%- include('hieuung'); %>
+                <%- include('partials/footer'); %>
+</body>
+
+</html>

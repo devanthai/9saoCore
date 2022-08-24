@@ -1,0 +1,899 @@
+<div class="main-game">
+    <style>
+        .color-text {
+            background-image: linear-gradient(to bottom, #e47602, #fdf5d9, #e47602);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            font-weight: 900;
+            text-align: center;
+            color: #f1d76b;
+        }
+
+        .class-input-chanle {
+            border: 0 solid #fff;
+            background: rgba(255, 255, 255, 0);
+            text-align: center
+        }
+
+        @media(min-width:0px) and (max-width:480px) {
+            .khung-chanle {
+                width: 100% !important
+            }
+
+
+
+            .khung-chanle .font_size_35 {
+                font-size: 5.5vw !important;
+                font-weight: 700
+            }
+
+            .khung-chanle .font_size_25 {
+                font-size: 4.2vw !important;
+                font-weight: 700
+            }
+
+            .khung-chanle .font_size_18 {
+                font-size: 3.7vw !important;
+                font-weight: 700
+            }
+
+            .khung-chanle .font_size_100 {
+                font-size: 18.5vw !important;
+                font-weight: 700
+            }
+        }
+
+        #game-chanle {
+
+            height: 0;
+            width: 100%;
+            font-weight: 700
+        }
+
+        #game-chanle #khung-chanle {
+            position: relative;
+            margin: auto
+        }
+
+        .khung-chanle {
+            width: 55%;
+            display: block;
+            margin-bottom: 11%;
+            max-width: 800px;
+            position: relative;
+            float: left;
+            margin-right: -3%
+        }
+
+        .khung-chanle .button-top {
+            right: 0;
+            top: 0;
+            z-index: 2;
+            width: 7.5%;
+            position: absolute;
+            cursor: pointer
+        }
+
+        .khung-chanle .button-top img {
+            width: 100%;
+            cursor: pointer;
+            z-index: 100;
+            position: absolute
+        }
+
+        .khung-chanle .money-le,
+        .khung-chanle .money-chan {
+            color: #ff0;
+            text-shadow: 0 0 8px black, 0 0 8px #000;
+            text-align: center
+        }
+
+        .khung-chanle .cuoc-le,
+        .khung-chanle .cuoc-chan {
+            color: #7aff00;
+            text-shadow: 0 0 8px black, 0 0 8px #000;
+            text-align: center;
+            font-weight: 600;
+            height: 18%;
+            margin-top: 38%;
+        }
+
+        .khung-chanle .user-le,
+        .khung-chanle .user-chan {
+            color: #fff !important;
+            text-shadow: 0 0 8px black, 0 0 8px #000;
+            text-align: center;
+            height: 20%;
+            margin-left: 0;
+            width: 100%;
+            margin-top: -2%;
+
+        }
+
+        .khung-chanle .input-le,
+        .khung-chanle .input-chan {
+            color: transparent;
+            text-shadow: 0 0 0 rgb(255, 255, 255);
+
+            color: rgb(255, 255, 255) !important;
+            font-weight: 600;
+            position: absolute;
+            text-align: center;
+            height: 20%;
+            margin-top: .5%;
+            width: 23%;
+            padding: 0;
+            z-index: 49;
+            cursor: pointer;
+            outline: unset !important;
+        }
+
+        .khung-chanle .input-cuoc-hide-chanle div {
+            height: 60%;
+            width: 97%;
+            margin-top: 8%;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0)
+        }
+
+        .khung-chanle .input-cuoc-hide-chanle.active div {
+            animation: changesolid .35s infinite alternate;
+            -webkit-animation: changesolid .35s infinite alternate;
+            -moz-animation: changesolid .35s infinite alternate;
+            -ms-animation: changesolid .35s infinite alternate;
+            -o-animation: changesolid .35s infinite alternate
+        }
+
+        .placered::placeholder {
+            color: rgb(255, 255, 255) !important;
+        }
+
+        .placered::-ms-placeholder {
+            color: #ff0 !important;
+        }
+
+        .placered::-moz-placeholder {
+            color: #ff0 !important;
+        }
+
+        .placered::-webkit-input-placeholder {
+            color: #ff0 !important;
+        }
+
+        .placered::-o-input-placeholder {
+            color: #ff0 !important;
+        }
+
+
+        .placewhite::placeholder {
+            color: rgba(255, 255, 255, 0.8) !important
+        }
+
+        .placewhite::-ms-placeholder {
+            color: rgba(255, 255, 255, 0.8) !important
+        }
+
+        .placewhite::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.8) !important
+        }
+
+        .placewhite::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.8) !important
+        }
+
+        .placewhite::-o-input-placeholder {
+            color: rgba(255, 255, 255, 0.8) !important
+        }
+
+        .khung-chanle .clock-big-chanle {
+            text-shadow: 0 0 8px black, 0 0 8px #000;
+            font-weight: 900;
+            font-family: "Titan One", cursive;
+            ;
+            position: absolute;
+            top: 46%;
+            left: 49%;
+            color: #dada25;
+        }
+
+        .khung-chanle .btn-le,
+        .khung-chanle .btn-chan {
+            width: 6.5%;
+            float: left;
+            height: 110%;
+            border: 0;
+            background: url(/images/taixiu/ico_kq_xiu.png) 0 0 / cover no-repeat;
+            margin: 0 .5%;
+            cursor: pointer;
+        }
+
+        .khung-chanle .btn-chan {
+            background-image: url(/images/taixiu/ico_kq_chan.png)
+        }
+
+        .khung-chanle .his-chanle {
+            float: left;
+            width: 57%;
+            text-align: center;
+            margin-left: 21.7%;
+            margin-top: .4%;
+            height: 14.8%;
+            margin-bottom: -1%;
+            padding: 2.05% 0
+        }
+
+        .khung-chanle .group-button-chanle {
+            float: left;
+            width: 100%;
+            text-align: center;
+            height: auto;
+            margin-top: 2%;
+            display: none;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            -khtml-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important
+        }
+
+        .khung-chanle .group-button-chanle .button {
+            cursor: pointer;
+            width: 15.6%;
+            height: 85%;
+            float: left;
+            margin: .25% .5%;
+            background: url(/images/taixiu/chontien.png) 0 0 / cover no-repeat;
+            position: relative;
+            background-size: 100% 100%
+        }
+
+        .khung-chanle .group-button-chanle .button.blue {
+            height: 100%;
+            width: 23%;
+            margin-left: 16%;
+            background-image: url(/images/taixiu/close.png)
+        }
+
+        .khung-chanle .group-button-chanle .button.green {
+            height: 100%;
+            width: 23%;
+            background-image: url(/images/taixiu/datcuoc.png)
+        }
+
+        .khung-chanle .group-button-chanle .button.red {
+            height: 100%;
+            width: 23%;
+            background-image: url(/images/taixiu/huy.png)
+        }
+
+        .khung-chanle .group-button-chanle .middle {
+            position: absolute;
+            white-space: nowrap;
+            color: #fff;
+            text-shadow: 0 0 8px black, 0 0 8px #000
+        }
+
+        .khung-chanle .group-button-chanle .middle:after {
+            content: attr(data-txt)
+        }
+
+        .khung-chanle .his-chanle div:hover~ :nth-child(14) {
+            -webkit-animation: none !important;
+            -moz-animation: none !important;
+            -o-animation: none !important;
+            animation: none !important
+        }
+
+        .khung-chanle .his-chanle div:hover {
+            animation: updown .5s infinite alternate;
+            -webkit-animation: updown .5s infinite alternate;
+            -moz-animation: updown .5s infinite alternate;
+            -ms-animation: updown .5s infinite alternate;
+            -o-animation: updown .5s infinite alternate
+        }
+
+        .khung-chanle .his-chanle div:nth-child(14) {
+            animation: updown .5s infinite alternate;
+            -webkit-animation: updown .5s infinite alternate;
+            -moz-animation: updown .5s infinite alternate;
+            -ms-animation: updown .5s infinite alternate;
+            -o-animation: updown .5s infinite alternate
+        }
+
+        .btn-cuocMoney {
+            outline: 0;
+            padding: .5%;
+            color: #333;
+            border-radius: 5px;
+            background-color: #fff;
+            border-color: #ccc;
+            box-shadow: 0 0 5px 3px #000;
+            border: 0 solid #000;
+            font-weight: 900;
+            cursor: pointer
+        }
+
+        .btn-cuocMoney:hover,
+        .btn-cuocMoney:focus {
+            background-color: #673AB7 !important;
+            color: #fff !important
+        }
+
+        .btn-tattay {
+            outline: 0;
+            transform: scale(0.95);
+            padding: .5%;
+            color: #fff;
+            text-shadow: 0 0 3px black, 0 0 3px #000;
+            border-radius: 5px;
+            background-color: #f55541;
+            border-color: #ccc;
+            box-shadow: 0 0 5px 3px #000;
+            border: 0 solid #000;
+            font-weight: 900;
+            cursor: pointer
+        }
+
+        .btn-cancel {
+            outline: 0;
+            transform: scale(0.95);
+            padding: .5%;
+            color: #fff;
+            text-shadow: 0 0 3px black, 0 0 3px #000;
+            border-radius: 5px;
+            background-color: #f0ad4e;
+            border-color: #ccc;
+            box-shadow: 0 0 5px 3px #000;
+            border: 0 solid #000;
+            font-weight: 900;
+            cursor: pointer
+        }
+
+        .btn-agree {
+            outline: 0;
+            transform: scale(0.95);
+            padding: .5%;
+            color: #fff;
+            text-shadow: 0 0 3px black, 0 0 3px #000;
+            border-radius: 5px;
+            background-color: #00a65a;
+            border-color: #ccc;
+            box-shadow: 0 0 5px 3px #000, 0 0 5px 3px #000;
+            border: 0 solid #000;
+            font-weight: 900;
+            cursor: pointer
+        }
+
+        .khung-chanle .chan-wrap,
+        .khung-chanle .le-wrap {
+            width: 23%;
+            height: 60%;
+            float: left;
+            margin-top: 5%;
+        }
+
+        .khung-chanle .chan-wrap .money-chan,
+        .khung-chanle .le-wrap .money-le {
+            height: 20%;
+            margin-top: 11%;
+            width: 100%
+        }
+
+        .khung-chanle .chan-wrap .icon-chanle,
+        .khung-chanle .le-wrap .icon-chanle {
+            background: url(/images/taixiu/chan_default.png) 0 0 /cover no-repeat;
+            width: 60%;
+            height: 28%;
+            margin-left: 20%
+        }
+
+        .khung-chanle .le-wrap .icon-chanle {
+            background-image: url(/images/taixiu/le_default.png)
+        }
+
+        .khung-chanle .chan-wrap .icon-chanle.kq-chanle {
+            background-image: url(/images/taixiu/chan_on.png) !important;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            -webkit-animation: zoomout .5s infinite alternate;
+            -moz-animation: zoomout .5s infinite alternate;
+            animation: zoomout .5s infinite alternate
+        }
+
+        .khung-chanle .le-wrap .icon-chanle.kq-chanle {
+            background-image: url(/images/taixiu/le_on.png) !important;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            -webkit-animation: zoomout .5s infinite alternate;
+            -moz-animation: zoomout .5s infinite alternate;
+            animation: zoomout .5s infinite alternate
+        }
+
+        .khung-chanle #vung-chanle {
+            margin-top: 0;
+            margin-left: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url(/images/taixiu/bat.png) 0 0 / cover no-repeat;
+            border: 0 solid #fff;
+            z-index: 51;
+            cursor: pointer;
+            display: none
+        }
+
+        .khung-chanle .clock_chanle,
+        .khung-chanle .clock_chanle img {
+            position: absolute;
+            width: 100%;
+            height: 100%
+        }
+
+        .khung-chanle #game-chanle2 {
+
+            width: 32%;
+            height: 60%;
+            float: left;
+            margin-top: 10%;
+            position: relative;
+            background-position: center;
+            background-size: 100%;
+        }
+
+        .khung-chanle #game-chanle2.nanchanle .vung_chanle {
+            display: block
+        }
+
+        .khung-chanle #game-chanle2 #vung-chanle .vung_number span {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle
+        }
+
+        .khung-chanle #game-chanle2 #vung-chanle .vung_number {
+            display: table;
+            width: 30%;
+            height: 32%;
+            background: #000;
+            border-radius: 50%;
+            color: #fff;
+            margin-top: 50%;
+            margin-left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%)
+        }
+
+        .khung-chanle #game-chanle2 .kq-num-chanle div {
+            position: absolute
+        }
+
+        .khung-chanle #game-chanle2 .kq-num-chanle {
+            position: absolute;
+            height: 26%;
+            width: 25%;
+            margin-top: 15%;
+            margin-left: 72%;
+            opacity: 0;
+            border: 2.5px solid rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            background: #FF5722;
+            font-weight: bolder;
+            color: #fff
+        }
+
+        .khung-chanle #game-chanle2 .roll-play {
+            position: absolute;
+            top: -23%;
+            width: 100%;
+            height: 22%;
+            text-align: center;
+            color: #fff;
+            border-radius: 15px;
+            text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px #000
+        }
+
+        .khung-chanle #game-chanle2 .clock-small-chanle {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            top: 82%;
+            width: 30%;
+
+            left: 50%;
+            text-align: center;
+            color: red;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            transform: translateX(-50%);
+            border-radius: 15px
+        }
+
+        .khung-chanle #game-chanle2.time_chanle .vung_chanle,
+        .khung-chanle #game-chanle2.time_chanle .effect_chanle,
+        .khung-chanle #game-chanle2.time_chanle .clock-small-chanle,
+        .khung-chanle #game-chanle2.time_chanle .kq-num-chanle {}
+
+        .khung-chanle #game-chanle2.time_chanle .clock-big-chanle {
+            display: block
+        }
+
+
+        .khung-chanle .effect_chanle {
+            background: url(/images/taixiu/ef.png) 0 0 / cover no-repeat;
+            visibility: visible;
+            z-index: 5;
+            height: 100%;
+            margin-top: -8%;
+            opacity: 0
+        }
+
+        .khung-chanle .his-chanle .tooltip_chanle {
+            position: absolute;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 3px 15px;
+            margin-top: 4%;
+            left: 12.5%;
+            white-space: nowrap;
+            z-index: 49;
+            display: none
+        }
+
+        .khung-chanle .clogame {
+            margin-left: -110%;
+            margin-top: 38%
+        }
+
+        .khung-chanle .wingame,
+        .khung-chanle .allgame {
+            margin-top: 150%;
+            margin-left: -30%;
+        }
+
+        .khung-chanle .hisgame-chanle {
+            margin-top: 290%;
+            margin-left: 7%;
+        }
+
+        .khung-chanle .guigame {
+            margin-top: 428%;
+            margin-left: -26%;
+        }
+
+        .khung-chanle .nangame_chanle {
+            margin-top: 403%;
+            margin-left: -464%;
+        }
+
+        @media (min-width: 991.98px) {
+
+            .khung-chanle .cuoc-le,
+            .khung-chanle .cuoc-chan {
+                margin-top: 40%;
+            }
+        }
+
+        @media (min-width: 0px) and (max-width: 480px) {
+            .khung_game_show .font_size_20 {
+                font-size: 3.2vw !important;
+            }
+
+        }
+
+        @media (min-width: 0px) and (max-width: 480px) {
+            .khung-chanle .clock-big-chanle {
+                font-family: 'Courier New', Courier, monospace;
+                top: 51%;
+            }
+        }
+
+        .input-chan,
+        .input-le {
+            caret-color: transparent;
+        }
+    </style>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalHuongDanchanle" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Hướng dẫn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+
+                
+
+                <div class="modal-body">
+                    <strong>Hệ thống tài xỉu - Chẵn lẻ Game Ngọc Rồng Online
+
+                    </strong><br>
+                    - <strong style="color: red">Dự đoán chẵn lẻ</strong>: <br>kết quả số chẵn hoặc số lẻ
+                    kết quả là 3 xúc xắc cộng lại
+                    <br>
+                    <strong>Ví dụ</strong> con số may mắn là 1 số chẵn như <strong style="color: blue">0, 2, 4,
+                        6,
+                        8,
+                        10,
+                        12</strong>... thì đặt bên <strong style="color: blue">Chẵn thắng</strong>, ngược lại
+                    con số
+                    may
+                    mắn
+                    là số lẻ như <strong style="color: blue">1, 3, 5, 7, 9, 11...</strong> thì đặt bên <strong
+                        style="color: blue">Lẻ thắng</strong><br>
+                    <strong style="color: green">Tỷ lệ: Tỷ lệ: 1.9 (10tr ăn 19tr)</strong><br>
+
+
+
+
+                    Liên kết: <a href="/user/napvang">Nạp vàng</a> | <a href="/user/rutvang">Rút vàng</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cuocsModal-chanle" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-sm text-center mt-1" style="width:100%">
+                        <tbody id="tablecuoc-chanle">
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="thongkeTx" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Thống kê phiên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <strong>ĐANG CẬP NHẬT
+
+                    </strong><br>
+
+
+
+                    Liên kết: <a href="/user/napvang">Nạp vàng</a> | <a href="/user/rutvang">Rút vàng</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-chanle" style="display: none;" class="khung_game_show ui-draggable actigame">
+        <div id="khung-chanle">
+            <div class="khung-chanle">
+                <div class="button-top">
+                    <img class="clogame" src="/images/taixiu/closetaixiu.png">
+                    <img class="wingame" src="/images/taixiu/thongke.png" style="display:none;">
+                    <img class="hisgame-chanle" src="/images/taixiu/lichsu.png">
+                    <img class="guigame" src="/images/taixiu/help.png">
+
+                    <img class="nangame_chanle" src="/images/taixiu/btn_nan_2.png">
+                    <img class="allgame" src="/images/taixiu/thongke.png">
+                </div>
+                <div class="move-here ui-draggable-handle"
+                    style="position:absolute;width: 100%;height: 81%;z-index: 1;">
+                    <div class="note_here_chanle font_size_18"
+                        style="position: absolute;display: flex;width: 100%;height:70%;top: 15%;text-align: center;z-index:50;">
+                    </div>
+                </div>
+                <div class="font_size_20" style="position:absolute;width: 100%;height: 100%;">
+                    <div class="chan-wrap" style="margin-left:11%;">
+                        <div class="icon-chanle"></div>
+                        <div class="money-chan">0</div>
+                        <input id="goldchanz" type="text" class="input-chan class-input-chanle font_size_20 placered"
+                            placeholder="ĐẶT" style="z-index: 50;">
+
+                        <div class="cuoc-chan">0</div>
+                        <div class="user-chan">0</div>
+                    </div>
+                    <div id="game-chanle2" class="time">
+                        <div class="clock_chanle"></div>
+                        <div class="vung_chanle ui-draggable ui-draggable-handle" id="vung-chanle" style="display:none;">
+                            <div class=""></div>
+                        </div>
+                        <div class="kq-num-chanle" style="opacity: 0;">
+                            <div class="middle">13</div>
+                        </div>
+
+                        <div class="clock-big-chanle font_size_100 middle" style="display: block;">0</div>
+                        <div class="clock-small-chanle" style="opacity: 0;"> 0</div>
+                        <div class="effect_chanle"
+                            style="background-position-y: 0%; background-image: url(&quot;../images/taixiu/xx4_1.png&quot;), url(&quot;../images/taixiu/xx6_2.png&quot;), url(&quot;../images/taixiu/xx3_3.png&quot;); opacity: 0;">
+                        </div>
+                    </div>
+                    <div class="le-wrap">
+                        <div class="icon-chanle"></div>
+                        <div class="money-le">0</div>
+                        <input id="goldlez" type="text" class="input-le class-input-chanle font_size_20 placered"
+                            placeholder="ĐẶT" style="z-index: 50;">
+
+                        <div class="cuoc-le">0</div>
+                        <div class="user-le">0</div>
+                    </div>
+                    <div class="his-chanle" style="z-index: 49;" onmouseout="hide_roll_chanle()">
+
+                        <span class="tooltip_chanle font_size_18" style="display: none; margin-left: 181.078px;">#107562
+                            (6-3-2)11-Tài</span>
+                    </div>
+                    <div
+                        style="    position: absolute;top: -12%;width: 50%;height: 20%;left: 25%;background: url() 0% 0% /cover;">
+                    </div>
+                    <div class="group-button-chanle font_size_20"
+                        style="height: 40%; width: 90%; margin-left: 5%; display: none;">
+                        <div class="so_khac" style="width: 100%;height: 35%;">
+
+                            <div class="button money">
+                                <div class="middle" data-txt="1M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="10M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="50M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="100M"></div>
+                            </div>
+                            <div class="button money">
+                                <div class="middle" data-txt="500M"></div>
+                            </div>
+
+                            <div class="button tattay">
+                                <div class="middle" data-txt="Tất Tay"></div>
+                            </div>
+                            <div class="button blue">
+                                <div class="middle" data-txt="Đóng"></div>
+                            </div>
+                            <div class="button green">
+                                <div class="middle" data-txt="Đặt Cược"></div>
+                            </div>
+                            <div class="button red">
+                                <div class="middle" data-txt="Hủy"></div>
+                            </div>
+                        </div>
+                        <div class="so_khac" style="width: 100%;height: 35%;display:none;">
+                            <div class="button money2">
+                                <div class="middle" data-txt="1"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="2"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="3"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="4"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="5"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="6"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="7"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="8"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="9"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="0"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="000"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="Xóa"></div>
+                            </div>
+                            <div class="button blue">
+                                <div class="middle" data-txt="Số Nhanh"></div>
+                            </div>
+                            <div class="button green">
+                                <div class="middle" data-txt="Đặt Cược"></div>
+                            </div>
+                            <div class="button red">
+                                <div class="middle" data-txt="Hủy"></div>
+                            </div>
+                        </div>
+                        <div class="so_khac" style="width: 100%;height: 35%;display:none;">
+                            <div class="button money2">
+                                <div class="middle" data-txt="1"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="2"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="3"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="4"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="5"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="6"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="7"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="8"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="9"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="0"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="000"></div>
+                            </div>
+                            <div class="button money2">
+                                <div class="middle" data-txt="Xóa"></div>
+                            </div>
+                            <div class="button blue">
+                                <div class="middle" data-txt="Số Nhanh"></div>
+                            </div>
+                            <div class="button green">
+                                <div class="middle" data-txt="Đặt Cược"></div>
+                            </div>
+                            <div class="button red">
+                                <div class="middle" data-txt="Hủy"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="/images/taixiu/khungchanle.gif" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
