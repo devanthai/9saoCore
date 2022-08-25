@@ -450,7 +450,7 @@ router.post('/getgame', checklogin, async (req, res) => {
                 getCuocs = mycuoc.concat(cuocallll)
             }
             else {
-                getCuocs = charcuoc//await Cuoc.find({ server: server }).sort({ time: -1 }).limit(record) //skip(countcuoc - record)
+                getCuocs = allcuoc//await Cuoc.find({ server: server }).sort({ time: -1 }).limit(record) //skip(countcuoc - record)
             }
         }
         const listKetquaCsmm = await Game.find({ server: server }, { ketqua: 0 }).limit(10).sort({ $natural: -1 }).lean()

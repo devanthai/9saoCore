@@ -1,5 +1,4 @@
 
-const Cuoc = require("../models/chanle/Cuoc")
 const redisClient = require("../redisCache")
 const keyCuocsRedis = "keyCuocscsmm"
 
@@ -63,7 +62,6 @@ updateCuocCsmmRedisId = async (cuoc) => {
 
             await updateCuocUserCsmmRedisId(cuoc)
         }
-        console.log(cuocsJ)
 
 
         await redisClient.set(key, JSON.stringify(cuocsJ))
