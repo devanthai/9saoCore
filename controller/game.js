@@ -69,7 +69,7 @@ var ketquasv8 = -1;
 var ketquasv9 = -1;
 var ketquasv10 = -1;
 
-var timeGame = 20;
+var timeGame = 101;
 var time = timeGame;
 var timecsmm = "24/24"
 var timewait = false;
