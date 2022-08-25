@@ -11,7 +11,7 @@ const Setting = require("./models/Setting")
 dotenv.config()
 mongoose.connect(process.env.DB_CONNECT, {}, () => console.log('Connected to db'));
 
-
+const moment = require("moment")
 
 
 
@@ -35,23 +35,27 @@ async function sumMoneyChange() {
 setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
-    const now = new Date()
-    const date = now
-    console.log(date)
+
+    let begin = moment().format('DD/MM/YYYY 00:00:00');
+    let end = moment().format('DD/MM/YYYY 00:00:00');
+
+    
     const DATA = {
         accountNumber: "4161701",
         username: "4161701",
         password: "Tronganhdz5577",
-        begin: date,
-        end: date
+        begin: begin,
+        end: end
     }
-
+    console.log(DATA)
     request.post({
         url: 'http://139.180.133.253/api/acb/transactions',
         json: DATA
     }, function (error, response, body) {
         var json = (body)
         if (json.success == true) {
+            console.log(body)
+
             json.transactions.forEach(async (element) => {
                 const noidung = element.description.toLowerCase()
                 const sotien = Number(element.amount)
