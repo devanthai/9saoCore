@@ -36,7 +36,7 @@ setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
     const now = new Date()
-    const date = now.get
+    const date = now
     console.log(date)
     const DATA = {
         accountNumber: "4161701",
