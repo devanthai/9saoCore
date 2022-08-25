@@ -36,12 +36,13 @@ setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
     const now = new Date()
+    const date = now.getDate() + "/" + (now.getMonth()) + "/2022 00:00:00"
     const DATA = {
         accountNumber: "4161701",
         username: "4161701",
         password: "Tronganhdz5577",
-        begin: now.getDate() + "/" + (now.getMonth()) + "/2022 00:00:00",
-        end: now.getDate() + "/" + (now.getMonth()) + "/2022 00:00:00"
+        begin: date,
+        end: date
     }
 
     request.post({
@@ -51,7 +52,6 @@ setInterval(async () => {
         console.log(body)
         var json = (body)
         if (json.success == true) {
-            console.log(json.data.length)
             json.transactions.forEach(async (element) => {
                 const noidung = element.description.toLowerCase()
                 const sotien = Number(element.amount)
@@ -110,7 +110,7 @@ setInterval(async () => {
     // } catch (err) {
     //     console.log(err)
     // }
-}, 60000);
+}, 15000);
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

@@ -106,7 +106,7 @@ setInterval(async () => {
     // } catch (err) {
     //     console.log(err)
     // }
-}, 60000);
+}, 30000);
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
