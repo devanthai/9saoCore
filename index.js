@@ -21,7 +21,7 @@ const sessionzzz = session({
   saveUninitialized: true,
   cookie: {
     maxAge: 2400 * 60 * 60 * 1000,
-    //secure: true
+    secure: true
   }
 })
 app.use(sessionzzz)
