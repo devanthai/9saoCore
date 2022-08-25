@@ -101,8 +101,19 @@ setInterval(async () => {
                             const bankkkkk = await new Bank({ magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
                             if (bankkkkk) {
                                 const kimcuongzzz = sotien / setting.tile.kimcuong
+
+
+
+                               
                                 var zzz = await User.findOneAndUpdate({ _id: user._id }, { $inc: { vang: thucnhan, topup: thucnhan, kimcuong: kimcuongzzz } }, { new: true })
-                                await sodu(user._id, '+' + numberWithCommas(thucnhan), "Nạp Bank");
+
+
+
+                                if(zzz)
+                                {
+                                    sodu(user._id, '+' + numberWithCommas(thucnhan), "Nạp Bank");
+
+                                }
                                 //console.log(zzz)
                             }
                         }
