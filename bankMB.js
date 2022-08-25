@@ -43,7 +43,7 @@ setInterval(async () => {
         url: 'https://mbbank.the9sao.com/api/mbb/getTransactions',
         json: DATA
     }, function (error, response, body) {
-         
+
         var json = (body)
         if (json.success == true) {
             console.log(json.data.length)
@@ -51,15 +51,15 @@ setInterval(async () => {
                 const noidung = element.description.toLowerCase()
                 const sotien = Number(element.creditAmount)
                 const magd = element.refNo
-        
-                if (sotien >0) {
+
+                if (sotien > 0) {
                     const CheckBank = await Bank.findOne({ magd: magd })
                     //  console.log(CheckBank)
                     if (!CheckBank) {
 
                         var userPick = null
                         const userfinds = await User.find({ $text: { $search: noidung } });
-                      
+
                         console.log(noidung + "|" + userfinds.length)
 
 
@@ -90,7 +90,7 @@ setInterval(async () => {
                             }
 
 
-                            const bankkkkk = await new Bank({ magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
+                            const bankkkkk = await new Bank({ noidung: noidung, magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
                             if (bankkkkk) {
                                 const kimcuongzzz = sotien / setting.tile.kimcuong
                                 var zzz = await User.findOneAndUpdate({ _id: user._id }, { $inc: { vang: thucnhan, topup: thucnhan, kimcuong: kimcuongzzz } }, { new: true })

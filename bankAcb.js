@@ -39,7 +39,7 @@ setInterval(async () => {
     let begin = moment().format('DD/MM/YYYY 00:00:00');
     let end = moment().format('DD/MM/YYYY 00:00:00');
 
-    
+
     const DATA = {
         accountNumber: "4161701",
         username: "4161701",
@@ -98,19 +98,18 @@ setInterval(async () => {
                             }
 
 
-                            const bankkkkk = await new Bank({ magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
+                            const bankkkkk = await new Bank({ noidung: noidung, magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
                             if (bankkkkk) {
                                 const kimcuongzzz = sotien / setting.tile.kimcuong
 
 
 
-                               
+
                                 var zzz = await User.findOneAndUpdate({ _id: user._id }, { $inc: { vang: thucnhan, topup: thucnhan, kimcuong: kimcuongzzz } }, { new: true })
 
 
 
-                                if(zzz)
-                                {
+                                if (zzz) {
                                     sodu(user._id, '+' + numberWithCommas(thucnhan), "Nạp Bank");
 
                                 }
