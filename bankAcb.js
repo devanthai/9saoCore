@@ -9,7 +9,7 @@ const User = require("./models/User")
 const Sodu = require("./models/Sodu")
 const Setting = require("./models/Setting")
 dotenv.config()
-mongoose.connect(process.env.DB_CONNECT, { }, () => console.log('Connected to db'));
+mongoose.connect(process.env.DB_CONNECT, {}, () => console.log('Connected to db'));
 
 
 
@@ -36,7 +36,8 @@ setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
     const now = new Date()
-    const date = now.getDate() + "/" + (now.getMonth()) + "/2022 00:00:00"
+    const date = now.get
+    console.log(date)
     const DATA = {
         accountNumber: "4161701",
         username: "4161701",
@@ -49,7 +50,6 @@ setInterval(async () => {
         url: 'http://139.180.133.253/api/acb/transactions',
         json: DATA
     }, function (error, response, body) {
-        console.log(body)
         var json = (body)
         if (json.success == true) {
             json.transactions.forEach(async (element) => {
