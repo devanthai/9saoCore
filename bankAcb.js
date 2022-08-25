@@ -36,9 +36,10 @@ setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
 
-    let begin = moment().format('DD/MM/YYYY 00:00:00');
+    let begin = moment().add(-1, 'days').format('DD/MM/YYYY 00:00:00');
     let end = moment().format('DD/MM/YYYY 00:00:00');
 
+    
 
     const DATA = {
         accountNumber: "4161701",
