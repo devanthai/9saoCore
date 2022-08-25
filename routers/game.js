@@ -715,7 +715,7 @@ autoHoanCsmm = async () => {
 
                 if (refund) {
 
-                    const updateHoan = await Cuoc.findOneAndUpdate({ _id: temppp.idcuoc, status: 6 }, { status: 5 },{new:true})
+                    const updateHoan = await Cuoc.findOneAndUpdate({ _id: temppp.idcuoc, status: 6 }, { status: 5 }, { new: true })
                     if (updateHoan) {
                         await updateCuocCsmmRedisId(updateHoan)
 
@@ -768,7 +768,9 @@ router.post("/cancel", checklogin, async (req, res) => {
                 return res.send({ error: 1, message: "<strong>Thất bại! </strong>Có lỗi đã xảy ra." })
             }
             if (refund) {
+
                 arrHoanvang.push({ idcuoc: refund._id, uid: refund.uid, vangdat: refund.vangdat })
+
                 return res.send({ error: 0, message: "<strong>Thành công! </strong>Lần sau vui lòng đặt cẩn thận hơn nha!." })
             }
         }
@@ -778,8 +780,10 @@ router.post("/cancel", checklogin, async (req, res) => {
         //console.log(phien)
     }
     else {
+        await updateCuocUserCsmmRedisId({ uid: req.user._id, _id: id })
         return res.send({ error: 1, message: "<strong>Thất bại! </strong>Có lỗi đã xảy ra." })
     }
+
 })
 
 router.get("/", (req, res) => {
