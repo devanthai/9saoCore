@@ -7,7 +7,7 @@ const User = require('../models/User')
 
 const Chat = require('../models/Chat')
 const Setting = require('../models/Setting')
-const Chatclan = require('../models/Chatclan')
+// const Chatclan = require('../models/Chatclan')
 
 const UserControl = require('../controller/user')
 const Gamecontrol = require('../controller/game')
@@ -18,6 +18,9 @@ const Gamekeno = require('../models/Gamekeno')
 
 const BotDonRac = require("../telegram/botrac")
 const aBot = require("../abot/bot")
+
+const { getMessageClanRedis } = require("../controller/ChatClanRedisManager")
+const { getCuocCsmmUserRedis, getCuocCsmmRedis, updateCuocCsmmRedisId, addCuocCsmmRedis } = require("../controller/CuocCsmmRedisManager")
 
 
 router.post("/cancelkeno", checklogin, async (req, res) => {
@@ -413,11 +416,11 @@ router.post('/getgame', checklogin, async (req, res) => {
         if (record > 100) {
             record = 10
         }
-        if (req.session.timezzz) {
-            if (timeSince(req.session.timezzz) < 1) {
-                return res.send({ error: 1, message: "Thao tác quá nhanh" })
-            }
-        }
+        // if (req.session.timezzz) {
+        //     if (timeSince(req.session.timezzz) < 1) {
+        //         return res.send({ error: 1, message: "Thao tác quá nhanh" })
+        //     }
+        // }
         req.session.timezzz = Date.now()
         record = Number(record)
         if (server == undefined || record == undefined || isMe == undefined) {
@@ -430,35 +433,27 @@ router.post('/getgame', checklogin, async (req, res) => {
         let messptCount = 0
         if (req.user.isLogin) {
             if (req.user.clan != 0) {
-                let mescoundfind = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
-                messptCount = mescoundfind
+                const messclan = await getMessageClanRedis(req.user.clan.id)
+                messptCount = messclan.countMess | 0
             }
         }
-        let phienChay = await Game.findOne({ server: server, status: 0 }).sort({ $natural: -1 }).limit(1).lean()
         let getCuocs = []
         if (isMe == "1" && req.user.isLogin) {
             getCuocs = await Cuoc.find({ server: server, uid: req.user._id }).sort({ time: -1 }).limit(record)//.skip(countcuoc - record)
         }
         else {
+            let charcuoc = await getCuocCsmmRedis(server)
+            var allcuoc = charcuoc.slice(0, record)
             if (req.user.isLogin) {
-                let mycuoc = await Cuoc.find({ server: server, uid: req.user._id, status: -1 })
-                mycuoc.map(function (cuoc) {
-                    cuoc.__v = 9999;
-                })
-                let charcuoc = await Cuoc.find({ server: server }).sort({ time: -1 }).limit(record)//.skip(countcuoc - record)
-                mycuoc.map((item) => {
-                    let index = charcuoc.findIndex(element => element._id.toString() === item._id.toString())
-                    if (index > -1) {
-                        charcuoc.splice(index, 1)
-                    }
-                })
-                getCuocs = mycuoc.concat(charcuoc)
+                let mycuoc = await getCuocCsmmUserRedis(req.user._id)
+                const cuocallll = allcuoc.filter(e => e.uid.toString() != req.user._id.toString())
+                getCuocs = mycuoc.concat(cuocallll)
             }
             else {
-                getCuocs = await Cuoc.find({ server: server }).sort({ time: -1 }).limit(record) //skip(countcuoc - record)
+                getCuocs = charcuoc//await Cuoc.find({ server: server }).sort({ time: -1 }).limit(record) //skip(countcuoc - record)
             }
         }
-        const listKetquaCsmm = await Game.find({ server: server }, 'ketquatruoc').limit(10).sort({ $natural: -1 }).lean()
+        const listKetquaCsmm = await Game.find({ server: server }, { ketqua: 0 }).limit(10).sort({ $natural: -1 }).lean()
         let findNohuCsmm = await Nohu.findOne({})
         let getNohu = []
         if (findNohuCsmm) {
@@ -472,11 +467,11 @@ router.post('/getgame', checklogin, async (req, res) => {
             }
             getNohu = { vanghu: findNohuCsmm.vanghu, lastwin: LastWinNohu }
         }
-      
-     
+
+
         const result =
         {
-            game: phienChay,
+            game: listKetquaCsmm[0],
             cuoc: getCuocs,
             user: getuser,
             ketqua: listKetquaCsmm,
@@ -484,8 +479,10 @@ router.post('/getgame', checklogin, async (req, res) => {
             mess: "<hr>",
             nohu: getNohu
         }
+
         res.send(result);
-    } catch { res.send([]); }
+
+    } catch (error) { console.log(error); res.send([]); }
 })
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -584,8 +581,11 @@ router.post('/cuoc', checklogin, async (req, res) => {
     else {
 
         const user = await User.findOne({ _id: req.session.userId })
+        if (!user) {
+            return res.send({ error: 1, message: "Vui lòng đăng nhập" });
 
-        if (server === "" || gold === "" || value === "" || type === "") {
+        }
+        else if (server === "" || gold === "" || value === "" || type === "") {
             return res.send({ error: 1, message: "Lỗi không xác định" });
         }
         else if (isNaN(gold2)) {
@@ -612,119 +612,93 @@ router.post('/cuoc', checklogin, async (req, res) => {
                 return res.send({ error: 1, message: "<strong>Thất bại </strong> Vui lòng đặt trước 5 giây trước khi có kết quả" });
             }
 
+            user.vang -= gold2
+            user.save()
 
-            var check = await UserControl.upMoney(user._id, -gold2)
+            const addCuoc = new Cuoc({ server: server, phien: phienChay._id, vangdat: gold2, uid: user._id, nhanvat: user.tenhienthi, type: type, chon: value, ip: user.IP })
+            var savecuoc = null;
+            try {
+                const savedCuoc = await addCuoc.save()
+                savecuoc = savedCuoc
+                // await addCuocCsmmRedis({ server: server, phien: phienChay._id, vangdat: gold2, uid: user._id, nhanvat: user.tenhienthi, type: type, chon: value, ip: user.IP })
+                await addCuocCsmmRedis(addCuoc)
+            }
+            catch (err) {
+                console.log(err)
+            }
+            var check2dor = await check2door(user._id, type, value, server, gold2);
 
-            if (check) {
-                const addCuoc = new Cuoc({ server: server, phien: phienChay._id, vangdat: gold2, uid: user._id, nhanvat: user.tenhienthi, type: type, chon: value, ip: user.IP })
-                var savecuoc = null;
-                try {
-                    const savedCuoc = await addCuoc.save()
-                    savecuoc = savedCuoc
+            const thanhtich = await UserControl.upThanhtich(user._id, check2dor)
+            const hanmucup = await UserControl.upHanmuc(user._id, check2dor, user.server)
 
+
+            //nohuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu cuoc
+            var nohu = await Nohu.findOne()
+            if (check2dor > 0) {
+                var vangpercent = check2dor - (check2dor * 95 / 100)
+                if (!nohu) {
+                    await new Nohu({ vanghu: vangpercent, lastwin: [{ name: "Phiên đầu tiên chúc ae may mắn", vangthang: 999999999 }], nowpart: [{ vang: vangpercent, name: user.tenhienthi, uid: user._id }] }).save()
                 }
-                catch (err) {
+                else {
 
-                    console.log(err)
-                }
-                var check2dor = await check2door(user._id, type, value, server, gold2);
-
-                const thanhtich = await UserControl.upThanhtich(user._id, check2dor)
-                const hanmucup = await UserControl.upHanmuc(user._id, check2dor, user.server)
-
-
-                //nohuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu cuoc
-                var nohu = await Nohu.findOne()
-                if (check2dor > 0) {
-                    var vangpercent = check2dor - (check2dor * 95 / 100)
-                    if (!nohu) {
-                        await new Nohu({ vanghu: vangpercent, lastwin: [{ name: "Phiên đầu tiên chúc ae may mắn", vangthang: 999999999 }], nowpart: [{ vang: vangpercent, name: user.tenhienthi, uid: user._id }] }).save()
+                    var nowpart = nohu.nowpart
+                    var foundIndex = nowpart.findIndex(x => x.uid.toString() == user._id.toString());
+                    if (foundIndex != -1) {
+                        nowpart[foundIndex].vang += Math.round(vangpercent);
                     }
                     else {
-
-                        var nowpart = nohu.nowpart
-                        var foundIndex = nowpart.findIndex(x => x.uid.toString() == user._id.toString());
-                        if (foundIndex != -1) {
-                            nowpart[foundIndex].vang += Math.round(vangpercent);
-                        }
-                        else {
-                            nowpart.push({ vang: Math.round(vangpercent), name: user.tenhienthi, uid: user._id })
-                        }
-                        await Nohu.findOneAndUpdate({}, { nowpart: nowpart, $inc: { vanghu: Math.round(vangpercent) } })
+                        nowpart.push({ vang: Math.round(vangpercent), name: user.tenhienthi, uid: user._id })
                     }
+                    await Nohu.findOneAndUpdate({}, { nowpart: nowpart, $inc: { vanghu: Math.round(vangpercent) } })
                 }
-                //nohuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu cuoc
-
-                try {
-
-
-                    var checkRac = await Cuoc.find({ ip: user.IP, phien: phienChay._id, nhanvat: { $ne: user.tenhienthi } }, { vangdat: -1, nhanvat: -1, server: -1, ip: -1, uid: -1, server: -1 }).limit(1)
-                    //    console.log(checkRac)
-
-                    if (checkRac.length > 0) {
-                        var linklogin = ""
-                        var racccccc = ""
-                        var meeee = user.tenhienthi + " sv" + user.server + "\nIp: " + user.IP + "\nVàng đặt: " + numberWithCommas(gold2) + "\nhttps://9sao.me/conmemay?adminlogin20021710=" + user._id + "\n\n"
-                        checkRac.forEach(element => {
-
-                            racccccc += "Phát hiện nghi vấn\n"
-
-                            racccccc += meeee + element.nhanvat + " sv" + element.server + "\nIp: " + element.ip + "\nVàng đặt: " + numberWithCommas(element.vangdat) + "\nhttps://9sao.me/conmemay?adminlogin20021710=" + element.uid + "\n\n"
-                        });
-
-                        BotDonRac.sendMessage(-728949790, racccccc)
-                    }
-                } catch (err) {
-                    console.log(err)
-                }
-
-                var chonkqqq = "";
-                // console.log(thanhtich)
-                const sodu = await UserControl.sodu(user._id, "Cược con số may mắn", "-" + numberWithCommas(gold2))
-                //   console.log(sodu)
-
-                if (type == 0) {
-                    if (value == 0) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangchan: gold2 } })
-                        chonkqqq = "Chẵn"
-                    }
-                    else if (value == 1) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangle: gold2 } })
-                        chonkqqq = "Lẻ"
-                    }
-                    else if (value == 2) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangtai: gold2 } })
-                        chonkqqq = "Tài"
-                    }
-                    else if (value == 3) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangxiu: gold2 } })
-                        chonkqqq = "Xỉu"
-                    }
-                }
-                else if (type == 4) {
-                    if (value == 0) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangchan: gold2, vangtai: gold2 } })
-                        chonkqqq = "Chẵn - Tài"
-                    }
-                    else if (value == 1) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangchan: gold2, vangxiu: gold2 } })
-                        chonkqqq = "Chẵn - Xỉu"
-                    }
-                    else if (value == 2) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangle: gold2, vangtai: gold2 } })
-                        chonkqqq = "Lẻ - Tài"
-                    }
-                    else if (value == 3) {
-                        await Game.updateOne({ _id: phienChay._id }, { $inc: { vangle: gold2, vangxiu: gold2 } })
-                        chonkqqq = "Lẻ - Xỉu"
-                    }
-                }
-                const mess2 = "<br>Bạn đã chọn <strong style=\"color:red\">" + chonkqqq + "</strong>," + '<a href="javascript:void(0)" onclick="cancel(\'' + savecuoc._id + '\')"> Bấm vào đây để hủy đặt lại</a>'
-
-
-                return res.send({ error: 0, message: "Đặt cược thành công cùng chờ kết quả nào!" + (chonkqqq == "" ? "" : mess2) });
-
             }
+            //nohuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu cuoc
+
+
+
+            var chonkqqq = "";
+            // console.log(thanhtich)
+            const sodu = await UserControl.sodu(user._id, "Cược con số may mắn", "-" + numberWithCommas(gold2))
+            //   console.log(sodu)
+
+            if (type == 0) {
+                if (value == 0) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangchan: gold2 } })
+                    chonkqqq = "Chẵn"
+                }
+                else if (value == 1) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangle: gold2 } })
+                    chonkqqq = "Lẻ"
+                }
+                else if (value == 2) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangtai: gold2 } })
+                    chonkqqq = "Tài"
+                }
+                else if (value == 3) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangxiu: gold2 } })
+                    chonkqqq = "Xỉu"
+                }
+            }
+            else if (type == 4) {
+                if (value == 0) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangchan: gold2, vangtai: gold2 } })
+                    chonkqqq = "Chẵn - Tài"
+                }
+                else if (value == 1) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangchan: gold2, vangxiu: gold2 } })
+                    chonkqqq = "Chẵn - Xỉu"
+                }
+                else if (value == 2) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangle: gold2, vangtai: gold2 } })
+                    chonkqqq = "Lẻ - Tài"
+                }
+                else if (value == 3) {
+                    await Game.updateOne({ _id: phienChay._id }, { $inc: { vangle: gold2, vangxiu: gold2 } })
+                    chonkqqq = "Lẻ - Xỉu"
+                }
+            }
+            const mess2 = "<br>Bạn đã chọn <strong style=\"color:red\">" + chonkqqq + "</strong>," + '<a href="javascript:void(0)" onclick="cancel(\'' + savecuoc._id + '\')"> Bấm vào đây để hủy đặt lại</a>'
+            return res.send({ error: 0, message: "Đặt cược thành công cùng chờ kết quả nào!" + (chonkqqq == "" ? "" : mess2) });
         }
     }
 })
@@ -736,13 +710,15 @@ autoHoanCsmm = async () => {
             //console.log(arrHoanvang)
             try {
 
-
                 arrHoanvang.splice(0, 1);
                 var refund = await Cuoc.findOne({ _id: temppp.idcuoc, status: 6 })
 
                 if (refund) {
-                    const updateHoan = await Cuoc.findOneAndUpdate({ _id: temppp.idcuoc, status: 6 }, { status: 5 })
+
+                    const updateHoan = await Cuoc.findOneAndUpdate({ _id: temppp.idcuoc, status: 6 }, { status: 5 },{new:true})
                     if (updateHoan) {
+                        await updateCuocCsmmRedisId(updateHoan)
+
                         const user = await UserControl.upMoney(temppp.uid, temppp.vangdat);
                         if (user) {
                             const hanmucup = await UserControl.upHanmuc(temppp.uid, -temppp.vangdat, user.server)
@@ -774,7 +750,6 @@ autoHoanCsmm = async () => {
     }, 3500);
 }
 autoHoanCsmm()
-
 
 router.post("/cancel", checklogin, async (req, res) => {
     if (!req.user.isLogin) {

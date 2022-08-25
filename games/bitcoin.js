@@ -15,13 +15,13 @@ const GetCandle = () => {
     })
 }
 GetCandle()
-setInterval(() => {
-    GetCandle()
-}, 300);
+// setInterval(() => {
+//     GetCandle()
+// }, 300);
 
 class GameBTC {
     start = (io, app) => {
-        app.post("/bitcoin")
+        // app.post("/bitcoin")
         io.on('connection', client => {
             client.on('connect_failed', function () {
                 console.log("Sorry, there seems to be an issue with the connection!");

@@ -3,8 +3,10 @@ const Clan = require('../../models/Clan');
 const User = require('../../models/User');
 const Cuoc = require('../../models/Cuoc');
 
+const { getMessageClanRedis, addMessageClanRedis, deleteMessIdRedis, getMess } = require("../../controller/ChatClanRedisManager")
+
 const UserControl = require('../../controller/user');
-const Chatclan = require('../../models/Chatclan');
+
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -43,10 +45,11 @@ router.get('/clan', async (req, res) => {
                 admin = 1;
             }
 
-            const chats = await Chatclan.find({ uidclan: req.user.clan.id }).sort({ time: -1 }).limit(15)
+            //const chats = await Chatclan.find({ uidclan: req.user.clan.id }).sort({ time: -1 }).limit(15)
+            const chats = await getMessageClanRedis(req.user.clan.id)
             var chat = "";
-            if (chats) {
-                chats.forEach(item => {
+            if (chats.mess) {
+                chats.mess.forEach(item => {
                     if (item.type == 0) {
                         if (item.admin == 1) {
                             chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -99,8 +102,8 @@ router.get('/clan', async (req, res) => {
                 , chat
             ]
 
-            const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
-            res.send({ data: data, count: getcount });
+            //const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
+            res.send({ data: data, count: chats.countMess });
         }
         else {
             const showclan = await Clan.find({}).sort({ time: -1 }).limit(8)
@@ -255,9 +258,14 @@ router.post('/join', async (req, res) => {
     }
     const user = await User.findById(req.user._id)
     if (user) {
-        const checkTime = await Chatclan.findOne({ type: type, uidclan: clanid, name: user.tenhienthi }).sort({ time: -1 })
-        if (checkTime) {
-            if (timeSince(checkTime.time).includes('giây')) {
+
+        const getchats = await getMessageClanRedis(clanid)
+
+        const check = getchats.mess.find(x => x.type == type && x.uidclan == clanid && x.name == user.tenhienthi)
+        // console.log(check)
+        //const check = await Chatclan.findOne({ type: type, uidclan: clanid, name: user.tenhienthi }).sort({ time: -1 })
+        if (check) {
+            if (timeSince(check.time).includes('giây')) {
                 return res.send({ status: 0, message: "Vui lòng đợi 1 chút để xin vào pt này" });
             }
         }
@@ -266,11 +274,16 @@ router.post('/join', async (req, res) => {
         if (countMem >= 25) {
             return res.send({ status: 0, message: "Bang đã đủ thành viên" });
         }
-        const newChat = new Chatclan({ noidung: req.user.name, type: type, admin: 0, name: user.tenhienthi, sodu: user.vang, uidclan: clanid })
-        const chatnew = await newChat.save();
-        if (chatnew) {
-            return res.json({ message: "Thành công !!! Đơn xin gia nhập đã được gửi tới bang chủ !!!", status: 1 })
-        }
+
+        const messageR = getMess(req.user.name, type, 0, user.tenhienthi, user.vang, clanid)
+        //{ _id: uuidv4(), noidung: req.user.name, type: type, admin: 0, name: user.tenhienthi, sodu: user.vang, uidclan: clanid, time: new Date().getTime() }
+
+        await addMessageClanRedis(clanid, messageR)
+        // const newChat = new Chatclan({ noidung: req.user.name, type: type, admin: 0, name: user.tenhienthi, sodu: user.vang, uidclan: clanid })
+        // const chatnew = await newChat.save();
+        // if (chatnew) {
+        return res.json({ message: "Thành công !!! Đơn xin gia nhập đã được gửi tới bang chủ !!!", status: 1 })
+        // }
     }
 })
 router.get('/test', async (req, res) => {
@@ -434,6 +447,8 @@ function timeSince(date) {
     }
     return Math.floor(seconds) + " giây";
 }
+
+
 var isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
 router.post('/chatbang', async (req, res) => {
     if (!req.user.isLogin) {
@@ -460,46 +475,60 @@ router.post('/chatbang', async (req, res) => {
         }
         const user = await User.findById(req.user._id)
         if (user) {
-            const newChat = new Chatclan({ noidung: message, type: type, admin: admin, name: user.tenhienthi, sodu: user.vang, uidclan: idClan })
-            const chatnew = await newChat.save();
-            if (chatnew) {
-                const chats = await Chatclan.find({ uidclan: idClan }).sort({ time: -1 }).limit(15)
-                if (chats) {
-                    var chat = "";
 
-                    chats.forEach(item => {
-                        if (item.type == 0) {
-                            if (item.admin == 1) {
-                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
-                            }
-                            else {
-                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
-                            }
-                        }
-                        else if (item.type == 1) {
-                            if (admin == 1) {
-                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-10" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-2" style="padding: 0"><button class="ptItemBtn" onclick="ptAcceptMember(\'' + item._id + '\')">Nhận</button></div></div></div>'
-                            }
-                            else {
-                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-4" style="padding: 0"> ' + timeSince(item.time) + ' </div></div></div>'
-                            }
-                        }
-                        else if (item.type == 2 || item.type == 3) {
+
+
+
+            const messageR = getMess(message, type, admin, user.tenhienthi, user.vang, idClan)
+            // { _id: uuidv4(), noidung: message, type: type, admin: admin, name: user.tenhienthi, sodu: user.vang, uidclan: idClan, time: new Date().getTime() }
+            // const newChat = new Chatclan(message)
+            // const chatnew = await newChat.save();
+            //   console.log(messageR)
+
+            const chats = await addMessageClanRedis(idClan, messageR)
+
+
+            // if (chatnew) {
+
+
+            //const chats = await Chatclan.find({ uidclan: idClan }).sort({ time: -1 }).limit(15)//
+            //const chats = await getMessageClanRedis(idClan)
+            if (chats.mess) {
+                var chat = "";
+
+                chats.mess.forEach(item => {
+                    if (item.type == 0) {
+                        if (item.admin == 1) {
                             chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
-                        else if (item.type == 4) {
-                            chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                        else {
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
-                    })
+                    }
+                    else if (item.type == 1) {
+                        if (admin == 1) {
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-10" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-2" style="padding: 0"><button class="ptItemBtn" onclick="ptAcceptMember(\'' + item._id + '\')">Nhận</button></div></div></div>'
+                        }
+                        else {
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-4" style="padding: 0"> ' + timeSince(item.time) + ' </div></div></div>'
+                        }
+                    }
+                    else if (item.type == 2 || item.type == 3) {
+                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                    }
+                    else if (item.type == 4) {
+                        chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                    }
+                })
 
-                    data = [
-                        "ptList",
-                        chat
-                    ]
-                    const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
-                    res.send({ data: data, count: getcount });
-                }
+                data = [
+                    "ptList",
+                    chat
+                ]
+                // const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
+                res.send({ data: data, count: chats.countMess });
             }
+            //}
         }
     }
 })
@@ -561,7 +590,9 @@ router.post('/showindex', async (req, res) => {
     }
     else if (action == 'viewMessage') {
 
-        const chats = await Chatclan.find({ uidclan: req.user.clan.id }).sort({ time: -1 }).limit(15)
+        //const chats = await Chatclan.find({ uidclan: req.user.clan.id }).sort({ time: -1 }).limit(15)
+        const chats = await getMessageClanRedis(req.user.clan.id)
+
 
         var admin = 0;
         const checkclan = await Clan.findById(req.user.clan.id)
@@ -570,8 +601,8 @@ router.post('/showindex', async (req, res) => {
         }
 
         var chat = "";
-        if (chats) {
-            chats.forEach(item => {
+        if (chats.mess) {
+            chats.mess.forEach(item => {
                 if (item.type == 0) {
                     if (item.admin == 1) {
                         chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -606,9 +637,9 @@ router.post('/showindex', async (req, res) => {
             , "ptHeader"
             , "<button class=\"ptBtnHeader\" onclick=\"$('#ptAlertChatBang').show()\">Chat</br>bang</button>" + (admin == 1 ? "<button class=\"ptBtnHeader\" onclick=\"$('#ptAlertKhauHieu').show()\" style=\"margin-left: 5px\">Khẩu</br>hiệu</button>" : "") + "\r\n       <button  class=\"ptBtnHeader\" onclick=\"showIndex('viewMember');\">Thành</br> viên</button>"
         ]
-        const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
+        //  const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
 
-        return res.send({ data: data, count: getcount })
+        return res.send({ data: data, count: chats.countMess })
     }
 
 })
@@ -619,7 +650,11 @@ router.post('/chapnhan', async (req, res) => {
     const id = req.body.id
 
 
-    const findMess = await Chatclan.findOne({ _id: id })
+
+
+    // const findMess = await Chatclan.findOne({ _id: id })
+    const chatsz = await getMessageClanRedis(req.user.clan.id)
+    const findMess = chatsz.mess.find(x => x._id == id)
     if (findMess) {
         const checkUserrr = await User.findOne({ tenhienthi: findMess.name })
         if (req.user.clan == 0) {
@@ -649,43 +684,49 @@ router.post('/chapnhan', async (req, res) => {
             const user = await User.findOne({ _id: req.user._id })
             if (user) {
 
-                //console.log(user.clan.id)
-                const newChat = new Chatclan({ noidung: "Chấp nhận " + findMess.name + " vào bang", type: 3, admin: 1, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
-                const chatnew = await newChat.save();
-                const deleteChat = await Chatclan.deleteMany({ name: findMess.name, type: 1 })
+                await deleteMessIdRedis(user.clan.id, id)
 
-                if (chatnew) {
-                    const chats = await Chatclan.find({ uidclan: user.clan.id }).sort({ time: -1 }).limit(15)
-                    if (chats) {
-                        chats.forEach(item => {
-                            if (item.type == 0) {
-                                if (item.admin == 1) {
-                                    chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
-                                }
-                                else {
-                                    chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
-                                }
-                            }
-                            else if (item.type == 1) {
-                                if (admin == 1) {
-                                    chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-10" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-2" style="padding: 0"><button class="ptItemBtn" onclick="ptAcceptMember(\'' + item._id + '\')">Nhận</button></div></div></div>'
-                                }
-                                else {
-                                    chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-4 text-right" style="padding: 0"> ' + timeSince(item.time) + ' </div></div></div>'
-                                }
-                            }
-                            else if (item.type == 2 || item.type == 3) {
+                //console.log(user.clan.id)
+                // const newChat = new Chatclan({ noidung: "Chấp nhận " + findMess.name + " vào bang", type: 3, admin: 1, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
+                // const chatnew = await newChat.save();
+
+                const messJ = getMess("Chấp nhận " + findMess.name + " vào bang", 3, 1, user.tenhienthi, user.vang, user.clan.id)
+                const chats = await addMessageClanRedis(user.clan.id, messJ)
+
+                // const deleteChat = await Chatclan.deleteMany({ name: findMess.name, type: 1 })
+
+                //if (chatnew) {
+                // const chats = await Chatclan.find({ uidclan: user.clan.id }).sort({ time: -1 }).limit(15)
+                if (chats.mess) {
+                    chats.mess.forEach(item => {
+                        if (item.type == 0) {
+                            if (item.admin == 1) {
                                 chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                             }
-                            else if (item.type == 4) {
-                                chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                            else {
+                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                             }
-                        })
-                        var data = ['ptList', chat]
-                        const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
-                        res.send({ data: data, count: getcount });
-                    }
+                        }
+                        else if (item.type == 1) {
+                            if (admin == 1) {
+                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-10" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-2" style="padding: 0"><button class="ptItemBtn" onclick="ptAcceptMember(\'' + item._id + '\')">Nhận</button></div></div></div>'
+                            }
+                            else {
+                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName">' + item.name + ' (' + formatNumber(item.sodu) + '$)' + '</p><small class="ptScrenText" style="color: blue">Xin vào</small></div><div class="col-4 text-right" style="padding: 0"> ' + timeSince(item.time) + ' </div></div></div>'
+                            }
+                        }
+                        else if (item.type == 2 || item.type == 3) {
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                        }
+                        else if (item.type == 4) {
+                            chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                        }
+                    })
+                    var data = ['ptList', chat]
+                    //const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
+                    res.send({ data: data, count: chats.countMess });
                 }
+                // }
             }
         }
 
@@ -723,10 +764,13 @@ router.post('/khauhieu', async (req, res) => {
                     admin = 1;
                 }
 
-                const chats = await Chatclan.find({ uidclan: req.user.clan.id }).sort({ time: -1 }).limit(15)
+                //const chats = await Chatclan.find({ uidclan: req.user.clan.id }).sort({ time: -1 }).limit(15)
+
+                const chats = await getMessageClanRedis(req.user.clan.id)
+
                 var chat = "";
-                if (chats) {
-                    chats.forEach(item => {
+                if (chats.mess) {
+                    chats.mess.forEach(item => {
                         if (item.type == 0) {
                             if (item.admin == 1) {
                                 chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -778,8 +822,8 @@ router.post('/khauhieu', async (req, res) => {
                     , "ptList"
                     , chat
                 ]
-                const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
-                res.send({ data: data, count: getcount });
+                // const getcount = await Chatclan.countDocuments({ uidclan: req.user.clan.id })
+                res.send({ data: data, count: chats.countMess });
             }
         }
     }
@@ -824,55 +868,59 @@ router.post('/kickmember', async (req, res) => {
 
                 const user = await User.findById(req.user._id)
                 if (kick && user) {
-                    const newChat = new Chatclan({ noidung: "Đã kick " + name + " ra khỏi bang hội", type: 2, admin: 1, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
-                    const chatnew = await newChat.save();
-                    if (chatnew) {
-                        const id = req.user.clan.id
-                        const checkclan = await Clan.findById(id)
-                        if (checkclan) {
-                            const checkUserClan = await User.find({ "clan.id": id }).sort({ "clan.thanhtich": -1 })
-                            // console.log(checkUserClan)
-                            if (checkUserClan) {
-                                var clannz = "";
-                                var admin = 0;
-                                if (req.user._id.toString() == checkclan.uid.toString()) {
-                                    admin = 1;
-                                }
-                                checkUserClan.forEach(element => {
-
-                                    //  console.log(element)
-                                    if (admin == 0) {
+                    // const newChat = new Chatclan({ noidung: "Đã kick " + name + " ra khỏi bang hội", type: 2, admin: 1, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
+                    // const chatnew = await newChat.save();
 
 
-                                        if (element._id.toString() === checkclan.uid.toString()) {
-                                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-                                        }
-                                        else {
-                                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                    const chats = await addMessageClanRedis(user.clan.id, getMess("Đã kick " + name + " ra khỏi bang hội", 2, 1, user.tenhienthi, user.vang, user.clan.id))
 
-                                        }
-                                    }
-                                    else if (admin == 1) {
-                                        if (element._id.toString() === checkclan.uid.toString()) {
-                                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-                                        }
-                                        else {
-                                            clannz += '<div class="ptItem" onclick="kickMember(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-
-                                        }
-                                    }
-                                })
-                                const data = [
-
-                                    "ptList"
-                                    , clannz
-
-                                ]
-
-                                return res.send({ data: data, status: 1 })
+                    // if (chatnew) {
+                    const id = req.user.clan.id
+                    const checkclan = await Clan.findById(id)
+                    if (checkclan) {
+                        const checkUserClan = await User.find({ "clan.id": id }).sort({ "clan.thanhtich": -1 })
+                        // console.log(checkUserClan)
+                        if (checkUserClan) {
+                            var clannz = "";
+                            var admin = 0;
+                            if (req.user._id.toString() == checkclan.uid.toString()) {
+                                admin = 1;
                             }
+                            checkUserClan.forEach(element => {
+
+                                //  console.log(element)
+                                if (admin == 0) {
+
+
+                                    if (element._id.toString() === checkclan.uid.toString()) {
+                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                                    }
+                                    else {
+                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+
+                                    }
+                                }
+                                else if (admin == 1) {
+                                    if (element._id.toString() === checkclan.uid.toString()) {
+                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                                    }
+                                    else {
+                                        clannz += '<div class="ptItem" onclick="kickMember(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+
+                                    }
+                                }
+                            })
+                            const data = [
+
+                                "ptList"
+                                , clannz
+
+                            ]
+
+                            return res.send({ data: data, status: 1 })
                         }
                     }
+                    //  }
                 }
             }
         }
@@ -928,11 +976,15 @@ router.post('/outpt', async (req, res) => {
         }
         else {
             const user = await User.findById(req.user._id)
-            const newChat = new Chatclan({ noidung: user.tenhienthi + " đã rời bang", type: 4, admin: 0, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
+            //     const newChat = new Chatclan({ noidung: user.tenhienthi + " đã rời bang", type: 4, admin: 0, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
+
+
+            const chats = await addMessageClanRedis(user.clan.id, getMess(user.tenhienthi + " đã rời bang", 4, 0, user.tenhienthi, user.vang, user.clan.id))
+
             const outpt = await User.findByIdAndUpdate(req.user._id, { clan: 0 })
             const showclan = await Clan.find({}).sort({ time: -1 }).limit(8)
             const checkUserClan = await User.find({ "clan": { "$ne": 0 } })
-            const chatnew = await newChat.save();
+            //   const chatnew = await newChat.save();
 
             var strclan = "";
             showclan.forEach(element => {

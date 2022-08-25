@@ -16,6 +16,10 @@ const Nohu = require('../models/nohu/Nohu')
 const PlayerSocket = require('../games/PlayerSocket')
 const The9sao = require('../models/The9sao')
 
+const { getCuocCsmmUserRedis, getCuocCsmmRedis, updateCuocCsmmRedisId, addCuocCsmmRedis } = require("./CuocCsmmRedisManager")
+
+
+
 const moment = require('moment')
 
 const fs = require('fs');
@@ -65,7 +69,7 @@ var ketquasv8 = -1;
 var ketquasv9 = -1;
 var ketquasv10 = -1;
 
-var timeGame = 101;
+var timeGame = 20;
 var time = timeGame;
 var timecsmm = "24/24"
 var timewait = false;
@@ -174,7 +178,10 @@ async function chayGame(server, io) {
             console.log("delete")
           });
         }
-        cuocs.map(async (cuoc) => {
+        // cuocs.forEach(async (cuoc) => {
+
+        for (let cuoc of cuocs) {
+
           if (cuoc.phien == phienChay._id) {
             const status = getStatus(Math.round(ketquazz), cuoc.type, cuoc.chon);
             var vangnhan = 0;
@@ -188,6 +195,7 @@ async function chayGame(server, io) {
               else if (cuoc.type == 2) {
                 vangnhan = cuoc.vangdat * setting.tile.dudoankq
               }
+
               await userControl.upMoney(cuoc.uid, vangnhan)
               await userControl.sodu(cuoc.uid, "Thắng con số may mắn", "+" + numberWithCommas(vangnhan))
               if (vangnhan > 50000000) {
@@ -200,15 +208,21 @@ async function chayGame(server, io) {
               var user = await userControl.upMoney(cuoc.uid, 0)
               await userControl.upHanmuc(cuoc.uid, cuoc.vangdat * -1, user.server)
             }
-            await Cuoc.findOneAndUpdate({ _id: cuoc._id }, { status: status, ketqua: ketquazz, vangnhan: vangnhan });
+            const cuocccc = await Cuoc.findOneAndUpdate({ _id: cuoc._id }, { status: status, ketqua: ketquazz, vangnhan: vangnhan }, { new: true });
+            await updateCuocCsmmRedisId(cuocccc)
           }
           else {
 
             await userControl.upMoney(cuoc.uid, cuoc.vangdat)
             await userControl.sodu(cuoc.uid, "Hoàn tiền con số may mắn ", "+" + numberWithCommas(Math.round(cuoc.vangdat)))
-            await Cuoc.findOneAndUpdate({ _id: cuoc._id }, { status: 2, ketqua: 0, vangnhan: 0 });
+            const cuocccc = await Cuoc.findOneAndUpdate({ _id: cuoc._id }, { status: 2, ketqua: 0, vangnhan: 0 }, { new: true });
+            await updateCuocCsmmRedisId(cuocccc)
+
           }
-        })
+        }//)
+
+        
+
         const Newgame = new Gamez({ server: server, ketquatruoc: ketquazz, time: time, timeCsmm: timecsmm })
         try {
 
@@ -237,7 +251,7 @@ class Game {
     return time;
   }
 
- 
+
   async getTopClan() {
     const topclans = await Clan.find({}).sort({ thanhtich: -1 }).limit(10)
     const checkUserClan = await User.find({ "clan": { "$ne": 0 } })
@@ -291,8 +305,8 @@ class Game {
     return strclan;
   }
 
- 
-  
+
+
 
 
 
@@ -411,16 +425,16 @@ class Game {
           // { server: 10, kq: Math.round(getRandomIntInclusive(0, 99)) }]
 
 
-          kqs= [{ server: 1, kq: (ketquasv1 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv1) },
-            { server: 2, kq: (ketquasv2 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv2) },
-            { server: 3, kq: (ketquasv3 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv3) },
-            { server: 4, kq: (ketquasv4 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv4) },
-            { server: 5, kq: (ketquasv5 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv5) },
-            { server: 6, kq: (ketquasv6 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv6) },
-            { server: 7, kq: (ketquasv7 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv7) },
-            { server: 8, kq: (ketquasv8 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv8) },
-            { server: 9, kq: (ketquasv9 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv9) },
-            { server: 10, kq: (ketquasv10 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv10) }
+          kqs = [{ server: 1, kq: (ketquasv1 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv1) },
+          { server: 2, kq: (ketquasv2 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv2) },
+          { server: 3, kq: (ketquasv3 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv3) },
+          { server: 4, kq: (ketquasv4 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv4) },
+          { server: 5, kq: (ketquasv5 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv5) },
+          { server: 6, kq: (ketquasv6 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv6) },
+          { server: 7, kq: (ketquasv7 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv7) },
+          { server: 8, kq: (ketquasv8 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv8) },
+          { server: 9, kq: (ketquasv9 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv9) },
+          { server: 10, kq: (ketquasv10 == -1 ? Math.round(getRandomIntInclusive(0, 99)) : ketquasv10) }
           ]
 
 
