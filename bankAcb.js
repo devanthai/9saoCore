@@ -37,7 +37,7 @@ setInterval(async () => {
     const setting = await Setting.findOne({ setting: "setting" })
 
     let begin = moment().add(-1, 'days').format('DD/MM/YYYY 00:00:00');
-    let end = moment().format('DD/MM/YYYY 00:00:00');
+    let end = moment().add(1, 'days').format('DD/MM/YYYY 00:00:00');
 
     
 
