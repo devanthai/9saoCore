@@ -13,7 +13,7 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopo
 
 const DATA = {
     username: "0369004565",
-    password: "Tanh4567",
+    password: "Xui901@@",
     accountNumber: "03987634701",
     day: "0"
 }
