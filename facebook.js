@@ -7,6 +7,13 @@ const token = '5660525904:AAFq7VzuqlmeGQKBSew4sZNWYYANc0y6rf4';
 
 const bot = new TelegramBot(token, { polling: true });
 
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 const chatID = -730769209
 
 module.exports = bot
