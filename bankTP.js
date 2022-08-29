@@ -95,7 +95,7 @@ setInterval(async () => {
                         }
                         else
                         {
-                            const bankkkkk = await new Bank({ noidung: noidung, magd: magd, sotien: sotien, thucnhan: -999, status: "that bai", uid: null, change: false }).save()
+                            const bankkkkk = await new Bank({ noidung: noidung+ "---- { sotien: "+sotien+"}  ko tim thay username", magd: magd, sotien: 0, thucnhan: -999, status: "that bai", uid: null, change: true }).save()
                         }
                     }
                 }
