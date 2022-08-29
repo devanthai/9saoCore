@@ -93,6 +93,10 @@ setInterval(async () => {
                             }
 
                         }
+                        else
+                        {
+                            const bankkkkk = await new Bank({ noidung: noidung, magd: magd, sotien: sotien, thucnhan: -999, status: "that bai", uid: null, change: false }).save()
+                        }
                     }
                 }
             });
