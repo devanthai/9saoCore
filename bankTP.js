@@ -9,7 +9,7 @@ const User = require("./models/User")
 const Sodu = require("./models/Sodu")
 const Setting = require("./models/Setting")
 dotenv.config()
-mongoose.connect(process.env.DB_CONNECT, {  }, () => console.log('Connected to db'));
+mongoose.connect(process.env.DB_CONNECT, {}, () => console.log('Connected to db'));
 
 const DATA = {
     username: "0369004565",
@@ -40,7 +40,7 @@ setInterval(async () => {
         url: 'http://45.77.252.152/api/tpb/getTransactions',
         json: DATA
     }, function (error, response, body) {
-          console.log(body)
+        console.log(body)
         var json = (body)
         if (json.success == true) {
             json.data.forEach(async (element) => {
@@ -84,7 +84,7 @@ setInterval(async () => {
                             }
 
 
-                            const bankkkkk = await new Bank({ magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
+                            const bankkkkk = await new Bank({ noidung: noidung, magd: magd, sotien: sotien, thucnhan: thucnhan, status: "Thành công", uid: user._id, change: isChange }).save()
                             if (bankkkkk) {
                                 const kimcuongzzz = sotien / setting.tile.kimcuong
                                 var zzz = await User.findOneAndUpdate({ _id: user._id }, { $inc: { vang: thucnhan, topup: thucnhan, kimcuong: kimcuongzzz } }, { new: true })
