@@ -9,7 +9,7 @@ const User = require("./models/User")
 const Sodu = require("./models/Sodu")
 const Setting = require("./models/Setting")
 dotenv.config()
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }, () => console.log('Connected to db'));
+mongoose.connect(process.env.DB_CONNECT, { }, () => console.log('Connected to db'));
 
 
 
