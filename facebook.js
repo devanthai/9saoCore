@@ -18,7 +18,7 @@ const chatID = -730769209
 
 module.exports = bot
 app.post('/', function (req, res) {
-    console.log(req.body)
+    console.log(JSON.stringify(req.body))
     //  bot.sendMessage(chatID,req)
     res.send('Hello World')
 })
