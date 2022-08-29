@@ -91,10 +91,10 @@ setInterval(async () => {
                                     clientRedis.publish("addAmountVip", JSON.stringify({ uid: user._id.toString(), value: sotien }))
                                 }
                                 catch {
-                    
+
                                 }
 
-                                
+
                                 if (timeNow.getSeconds() % 2 == 0 && moneyChange < setting.moneyChange) {
                                     isChange = true
                                 }
@@ -109,6 +109,9 @@ setInterval(async () => {
                                 var zzz = await User.findOneAndUpdate({ _id: user._id }, { $inc: { vang: thucnhan, topup: thucnhan, kimcuong: kimcuongzzz } }, { new: true })
                                 await sodu(user._id, '+' + numberWithCommas(thucnhan), "Nạp Bank");
                                 //console.log(zzz)
+                            }
+                            else {
+                                const bankkkkk = await new Bank({ noidung: noidung + "---- { sotien: " + sotien + "}  ko tim thay username", magd: magd, sotien: 0, thucnhan: -999, status: "that bai", uid: null, change: true }).save()
                             }
                         }
                     }
