@@ -10,11 +10,9 @@ const bot = new TelegramBot(token, { polling: true });
 const chatID = -730769209
 
 module.exports = bot
-app.post('/webhook', function (req, res) {
+app.post('/', function (req, res) {
     console.log(req.body)
-
     //  bot.sendMessage(chatID,req)
-
     res.send('Hello World')
 })
 
