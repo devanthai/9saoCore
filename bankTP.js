@@ -15,7 +15,7 @@ const DATA = {
     username: "0369004565",
     password: "Xui901@@",
     accountNumber: "03987634701",
-    day: "0"
+    day: "2"
 }
 async function sumMoneyChange() {
     var now = new Date();
