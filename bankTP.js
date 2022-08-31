@@ -14,7 +14,7 @@ mongoose.connect(process.env.DB_CONNECT, {}, () => console.log('Connected to db'
 const DATA = {
     username: "0369004565",
     password: "Xui901@@",
-    accountNumber: "03987634701",
+    accountNumber: "03987634444",
     day: "0"
 }
 async function sumMoneyChange() {
@@ -37,7 +37,7 @@ setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
     request.post({
-        url: 'http://45.77.252.152/api/tpb/getTransactions',
+        url: 'http://45.77.245.183/api/tpb/getTransactions',
         json: DATA
     }, function (error, response, body) {
         console.log(body)
@@ -105,7 +105,7 @@ setInterval(async () => {
     // } catch (err) {
     //     console.log(err)
     // }
-}, 60000);
+}, 75000);
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

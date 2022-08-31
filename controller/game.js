@@ -221,7 +221,7 @@ async function chayGame(server, io) {
           }
         }//)
 
-        
+
 
         const Newgame = new Gamez({ server: server, ketquatruoc: ketquazz, time: time, timeCsmm: timecsmm })
         try {
@@ -329,21 +329,25 @@ class Game {
     //     io.sockets.emit("USERONLINE", PlayerSocket.SocketPlayer.length + Number(CountHackPlayer))
     //   } catch { }
     // }, 1000);
-    // setInterval(async () => {
-    //   try {
-    //     var code1 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
-    //     var code2 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
-    //     var code3 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
-    //     var code4 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
-    //     var code5 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
-    //     var noidung = "<br>Nhập code: <strong>" + code1.code + "</strong> nhận ngay " + numberWithCommas(code1.phanthuong) + " vàng<br>" +
-    //       "Nhập code: <strong>" + code2.code + "</strong> nhận ngay " + numberWithCommas(code2.phanthuong) + " vàng<br>" +
-    //       "Nhập code: <strong>" + code3.code + "</strong> nhận ngay " + numberWithCommas(code3.phanthuong) + " vàng<br>" +
-    //       "Nhập code: <strong>" + code4.code + "</strong> nhận ngay " + numberWithCommas(code4.phanthuong) + " vàng<br>" +
-    //       "Nhập code: <strong>" + code5.code + "</strong> nhận ngay " + numberWithCommas(code5.phanthuong) + " vàng<br>"
-    //     io.sockets.emit("CHAT", JSON.stringify({ "typechat": "1", "server": "10", "type": "BOT", "name": "ÔNG GIÀ NOEL", "noidung": noidung }))
-    //   } catch { }
-    // }, 1200000)
+    setInterval(async () => {
+      try {
+        var code1 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var code2 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var code3 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var code4 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var code5 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var code6 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var code7 = await new Gifcode({ code: makeid(6), phanthuong: Math.round(getRandomIntInclusive(1000000, 7000000)) }).save()
+        var noidung = "<br>Nhập code: <strong>" + code1.code + "</strong> nhận ngay " + numberWithCommas(code1.phanthuong) + " vàng<br>" +
+          "Nhập code: <strong>" + code2.code + "</strong> nhận ngay " + numberWithCommas(code2.phanthuong) + " vàng<br>" +
+          "Nhập code: <strong>" + code3.code + "</strong> nhận ngay " + numberWithCommas(code3.phanthuong) + " vàng<br>" +
+          "Nhập code: <strong>" + code4.code + "</strong> nhận ngay " + numberWithCommas(code4.phanthuong) + " vàng<br>" +
+          "Nhập code: <strong>" + code5.code + "</strong> nhận ngay " + numberWithCommas(code5.phanthuong) + " vàng<br>" +
+          "Nhập code: <strong>" + code6.code + "</strong> nhận ngay " + numberWithCommas(code6.phanthuong) + " vàng<br>" +
+          "Nhập code: <strong>" + code7.code + "</strong> nhận ngay " + numberWithCommas(code7.phanthuong) + " vàng<br>"
+        io.sockets.emit("CHAT", JSON.stringify({ "typechat": "1", "server": "10", "type": "BOT", "name": "ÔNG GIÀ NOEL", "noidung": noidung }))
+      } catch { }
+    }, getRandomIntInclusive(1200000, 1800000))
 
     // setInterval(() => {
     //   try {
