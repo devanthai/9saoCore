@@ -345,7 +345,7 @@ class Game {
           "Nhập code: <strong>" + code5.code + "</strong> nhận ngay " + numberWithCommas(code5.phanthuong) + " vàng<br>" +
           "Nhập code: <strong>" + code6.code + "</strong> nhận ngay " + numberWithCommas(code6.phanthuong) + " vàng<br>" +
           "Nhập code: <strong>" + code7.code + "</strong> nhận ngay " + numberWithCommas(code7.phanthuong) + " vàng<br>"
-        io.sockets.emit("CHAT", JSON.stringify({ "typechat": "1", "server": "10", "type": "BOT", "name": "ÔNG GIÀ NOEL", "noidung": noidung }))
+        io.sockets.emit("CHAT", JSON.stringify({ "typechat": "1", "server": "10", "type": "BOT", "name": "PHÁT CODE 9SAO", "noidung": noidung }))
       } catch { }
     }, getRandomIntInclusive(1200000, 1800000))
 
