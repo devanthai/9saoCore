@@ -45,69 +45,72 @@ app.post('/', async (req, res) => {
 
     console.log(callbacksign + "|" + callback_sign, callback_sign == callbacksign)
     // console.log(callback_sign == callbacksign)
-    //if (callback_sign == callbacksign) {
-
-    if (status == 100) {
-        //k xac dinh
-        const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 2 })
-    }
-    else if (status == 1) {
-
-        //thanh cong
-        let zzzzzzz = await Card.findOne({ requestid: request_id.toString() })//, "status": 0 })
-        if (!zzzzzzz) {
-            zzzzzzz = await Card.findOne({ code: code.toString(), serial: serial.toString(), "status": 0 })
+    if (callback_sign == callbacksign) {
+        if (status == 100) {
+            //k xac dinh
+            const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 2 })
         }
-        if (zzzzzzz) {
-            try {
-                redisClient.publish("addAmountVip", JSON.stringify({ uid: zzzzzzz.uid, value: value }))
-            }
-            catch {
+        else if (status == 1) {
 
+            //thanh cong
+            let zzzzzzz = await Card.findOne({ requestid: request_id.toString() })//, "status": 0 })
+            if (!zzzzzzz) {
+                zzzzzzz = await Card.findOne({ code: code.toString(), serial: serial.toString(), "status": 0 })
             }
-            const user = await User.findById(zzzzzzz.uid)
-            if (user) {
-                // console.log(user)
-                const chietkhau = await Chietkhau.findOne({ server: user.server })
-                if (chietkhau) {
-                    var vangcong = 0;
-                    if (value >= 50000) {
-                        vangcong = (value * chietkhau.card) + getRandomIntInclusive(2000000, 10000000)
-                    }
-                    else {
-                        vangcong = (value * chietkhau.card)
-                    }
-                    const zxcas = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 1, nhan: vangcong })
-                    const caaaa = await userControl.topup(zzzzzzz.uid, declared_value)
-                    const cccc = await userControl.upMoney(zzzzzzz.uid, vangcong)
-                    const cccczz = await userControl.upKimcuong(zzzzzzz.uid, value / setting.tile.kimcuong)
-                    const sodu = await userControl.sodu(zzzzzzz.uid, "Nạp thẻ cào", "+" + numberWithCommas(vangcong))
+            if (zzzzzzz) {
+                try {
+                    redisClient.publish("addAmountVip", JSON.stringify({ uid: zzzzzzz.uid, value: value }))
+                }
+                catch {
 
+                }
+                const user = await User.findById(zzzzzzz.uid)
+                if (user) {
+                    // console.log(user)
+                    const chietkhau = await Chietkhau.findOne({ server: user.server })
+                    if (chietkhau) {
+                        var vangcong = 0;
+                        if (value >= 50000) {
+                            vangcong = (value * chietkhau.card) + getRandomIntInclusive(2000000, 10000000)
+                        }
+                        else {
+                            vangcong = (value * chietkhau.card)
+                        }
+                        const zxcas = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 1, nhan: vangcong })
+                        const caaaa = await userControl.topup(zzzzzzz.uid, declared_value)
+                        const cccc = await userControl.upMoney(zzzzzzz.uid, vangcong)
+                        const cccczz = await userControl.upKimcuong(zzzzzzz.uid, value / setting.tile.kimcuong)
+                        const sodu = await userControl.sodu(zzzzzzz.uid, "Nạp thẻ cào", "+" + numberWithCommas(vangcong))
+
+                    }
+                }
+                else {
+                    console.log("ktim thay user")
                 }
             }
             else {
-                console.log("ktim thay user")
+                console.log(
+                    "ktim thay the"
+                )
             }
         }
-        else {
-            console.log(
-                "ktim thay the"
-            )
+        else if (status == 2) {
+            //the sai
+            const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 2 })
+        }
+        else if (status == 3) {
+            //the k dung dc
+            const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 2 })
+        }
+        else if (status == 99) {
+            const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 1 })
+            //cho xu ly
         }
     }
-    else if (status == 2) {
-        //the sai
-        const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 2 })
+    else
+    {
+        console.log("k dung call back")
     }
-    else if (status == 3) {
-        //the k dung dc
-        const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 2 })
-    }
-    else if (status == 99) {
-        const ccc = await Card.findOneAndUpdate({ requestid: request_id, status: 0 }, { message: message, status: 1 })
-        //cho xu ly
-    }
-    //}
     res.send("ccc")
 })
 app.get('/', (req, res) => {
