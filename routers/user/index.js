@@ -235,7 +235,7 @@ router.post('/napcard', async (req, res, next) => {
             const requestId = Math.floor(Math.random() * 100000000000);
             const partner_id = setting.cardsetting.partnerid;
             const partner_key = setting.cardsetting.partnerkey;
-            const options = {
+            var options = {
                 'method': 'POST',
                 'url': setting.cardsetting.url,
                 'headers': {
@@ -252,9 +252,6 @@ router.post('/napcard', async (req, res, next) => {
                     "sign": md5(partner_key + code + "charging" + partner_id + requestId + serial + telco)
                 })
             };
-
-
-
             request(options, async function (error, response) {
                 if (error) return res.json({ error: 1, message: "<strong>Thất bại! </strong>" + "Có lỗi đã xảy ra vui lòng thử lại" });
                 const resJ = JSON.parse(response.body);
