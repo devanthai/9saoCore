@@ -41,9 +41,9 @@ app.post('/', async (req, res) => {
 
     const callbacksign = md5(partner_key + code + "charging" + setting.cardsetting.partnerid + request_id + serial + telco)
 
-   // const callbacksign = md5(partner_key + code + serial)
+    // const callbacksign = md5(partner_key + code + serial)
 
-    console.log(callbacksign + "|" + callback_sign,callback_sign == callbacksign)
+    console.log(callbacksign + "|" + callback_sign, callback_sign == callbacksign)
     // console.log(callback_sign == callbacksign)
     //if (callback_sign == callbacksign) {
 
@@ -54,7 +54,7 @@ app.post('/', async (req, res) => {
     else if (status == 1) {
 
         //thanh cong
-        let zzzzzzz = await Card.findOne({ requestid: request_id.toString()})//, "status": 0 })
+        let zzzzzzz = await Card.findOne({ requestid: request_id.toString() })//, "status": 0 })
         if (!zzzzzzz) {
             zzzzzzz = await Card.findOne({ code: code.toString(), serial: serial.toString(), "status": 0 })
         }
