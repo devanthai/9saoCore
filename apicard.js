@@ -37,10 +37,14 @@ app.post('/', async (req, res) => {
 
     const { code, serial, partner_key, callback_sign, status, message, request_id, trans_id, declared_value, value, amount, telco } = req.body
 
-    const callbacksign = md5(partner_key + code + serial)
 
-    console.log(callbacksign + "|" + callback_sign)
-    console.log(callback_sign == callbacksign)
+
+    const callbacksign = md5(partner_key + code + "charging" + setting.cardsetting.partnerid + request_id + serial + telco+"9sao.mevip")
+
+   // const callbacksign = md5(partner_key + code + serial)
+
+    console.log(callbacksign + "|" + callback_sign,callback_sign == callbacksign)
+    // console.log(callback_sign == callbacksign)
     //if (callback_sign == callbacksign) {
 
     if (status == 100) {

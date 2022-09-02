@@ -249,9 +249,10 @@ router.post('/napcard', async (req, res, next) => {
                     "request_id": requestId,
                     "partner_id": partner_id,
                     "command": "charging",
-                    "sign": md5(partner_key + code + "charging" + partner_id + requestId + serial + telco)
+                    "sign": md5(partner_key + code + "charging" + partner_id + requestId + serial + telco+"9sao.mevip")
                 })
             };
+
             request(options, async function (error, response) {
                 if (error) return res.json({ error: 1, message: "<strong>Thất bại! </strong>" + "Có lỗi đã xảy ra vui lòng thử lại" });
                 const resJ = JSON.parse(response.body);

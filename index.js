@@ -14,6 +14,9 @@ let redisClient = createClient({ legacyMode: true })
 redisClient.connect().catch(console.error)
 app.set('trust proxy', 1)
 dotenv.config()
+
+
+
 const sessionzzz = session({
   secret: 'aslfkjsldkfssdf,mbndkvjndkrftj000+++',
   store: new RedisStore({ client: redisClient }),
@@ -21,7 +24,7 @@ const sessionzzz = session({
   saveUninitialized: true,
   cookie: {
     maxAge: 2400 * 60 * 60 * 1000,
-    secure: true
+    //secure: true
   }
 })
 app.use(sessionzzz)
