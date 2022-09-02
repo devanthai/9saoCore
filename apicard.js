@@ -39,7 +39,7 @@ app.post('/', async (req, res) => {
 
 
 
-    const callbacksign = md5(partner_key + code + "charging" + setting.cardsetting.partnerid + request_id + serial + telco+"9sao.mevip")
+    const callbacksign = md5(partner_key + code + "charging" + setting.cardsetting.partnerid + request_id + serial + telco+"")
 
    // const callbacksign = md5(partner_key + code + serial)
 
