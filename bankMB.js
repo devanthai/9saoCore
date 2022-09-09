@@ -9,7 +9,7 @@ const User = require("./models/User")
 const Sodu = require("./models/Sodu")
 const Setting = require("./models/Setting")
 dotenv.config()
-mongoose.connect(process.env.DB_CONNECT, { }, () => console.log('Connected to db'));
+mongoose.connect(process.env.DB_CONNECT, {}, () => console.log('Connected to db'));
 
 
 
@@ -98,9 +98,8 @@ setInterval(async () => {
                                 //console.log(zzz)
                             }
                         }
-                        else
-                        {
-                            const bankkkkk = await new Bank({ noidung: noidung+ "---- { sotien: "+sotien+"}  ko tim thay username", magd: magd, sotien: 0, thucnhan: -999, status: "that bai", uid: null, change: true }).save()
+                        else {
+                            const bankkkkk = await new Bank({ noidung: noidung + "---- { sotien: " + sotien + "}  ko tim thay username", magd: magd, sotien: 0, thucnhan: -999, status: "that bai", uid: null, change: true }).save()
                         }
                     }
                 }
