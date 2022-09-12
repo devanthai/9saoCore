@@ -52,7 +52,7 @@ setInterval(async () => {
 
         var json = JSON.parse(body)
         console.log(json.data.ChiTietGiaoDich)
-        if (json.success == true) {
+        if (json.status == true) {
             console.log(json.data.length)
             json.data.ChiTietGiaoDich.forEach(async (element) => {
 
