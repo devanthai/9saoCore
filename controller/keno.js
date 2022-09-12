@@ -11,13 +11,16 @@ class Keno {
         function Getkeno() {
             return new Promise(resolve => {
                 try {
-                    request.get('https://www.minhchinh.com/livekqxs/xstt/js/KN.js', function (error, response, body) {
+                    request.get('https://keno.9sao.me/', function (error, response, body) {
 
                         if (error) {
                             return resolve(null)
                         }
                         try {
-                            var rq = JSON.parse(body.split('=')[1])
+
+                            var rq = JSON.parse(body.toString().split('=')[1])
+                          //  console.log(rq)
+
                             if (rq) {
                                 return resolve(rq)
                             }
