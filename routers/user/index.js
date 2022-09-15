@@ -129,6 +129,17 @@ router.use(rutvang)
 router.use(rutthoi)
 router.use(clan)
 
+
+
+router.get('/clmm', async (req, res, next) => {
+    if (!req.user.isLogin) {
+        return res.redirect('/user/login');
+    }
+    const chietkhau = await ChietKhau.findOne({ server: req.user.server })
+    res.render("index", { page: "pages/clmm", data: req.user, tile: chietkhau.vi })
+})
+
+
 router.get('/', async (req, res, next) => {
     if (!req.user.isLogin) {
         return res.redirect('/user/login');
@@ -385,7 +396,7 @@ router.post('/napmomoGd', async (req, res, next) => {
     else {
         const magd = req.body.magd
         const setting = await Setting.findOne({})
-        request.get('http://momo.500kz.com/getgd?sdt='+setting.naptien.momo.sdt, async function (error, response, body) {
+        request.get('http://momo.500kz.com/getgd?sdt=' + setting.naptien.momo.sdt, async function (error, response, body) {
             if (!error) {
                 const check = await checkNapMomoRedis(body, magd)
                 if (check == "exits") {
