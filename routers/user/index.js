@@ -44,6 +44,7 @@ const gamecontroller = require('../../controller/game');
 const rateLimit = require('express-rate-limit')
 
 const getVip = require("../../controller/getVip")
+const getVip2 = require("../../controller/getVip2")
 
 
 const clientRedis = require("../../redisCache")
@@ -144,35 +145,8 @@ router.get('/', async (req, res, next) => {
     if (!req.user.isLogin) {
         return res.redirect('/user/login');
     }
-    const getvip = await getVip(req.user._id)
-    const topup = getvip;
-    var vipp = 0
-    if (topup >= 100000) {
-        vipp = 1;
-    }
-    if (topup >= 500000) {
-        vipp = 2;
-    }
-    if (topup >= 2000000) {
-        vipp = 3;
-    }
-    if (topup >= 5000000) {
-        vipp = 4;
-    }
-    if (topup >= 10000000) {
-        vipp = 5;
-    }
-    if (topup >= 20000000) {
-        vipp = 6;
-    }
-    if (topup >= 50000000) {
-        vipp = 7;
-    }
-    if (topup >= 100000000) {
-        vipp = 8;
-    }
-
-    res.render("index", { page: "pages/user/about", menu: menuAction(''), data: req.user, getvip: numberWithCommas(getvip), vip: vipp })
+    const getvip = await getVip2(req.user._id)
+    res.render("index", { page: "pages/user/about", menu: menuAction(''), data: req.user, getvip: numberWithCommas(getvip.totalMoney), vip: getvip.vip, date: getvip.list })
 })
 router.get('/upavatar', (req, res) => {
     res.send("g")

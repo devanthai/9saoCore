@@ -12,7 +12,7 @@ const keyGetVipRedis = "keygetvip2"
 
 const client = require("../redisCache")
 
-
+const getvip2 = require("./getVip2")
 
 
 async function getVipRedis(uidz) {
@@ -148,6 +148,7 @@ async function getVipRedis(uidz) {
 
 
 async function getVip(uidz) {
+  await getvip2(uidz)
   let tiencard = 0;
   let tienmomo = 0;
   let tientsr = 0;
