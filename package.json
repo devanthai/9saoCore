@@ -26,6 +26,7 @@
     "express-nobots": "^1.0.5",
     "express-rate-limit": "^6.5.1",
     "express-session": "^1.17.3",
+    "fast-sort": "^3.2.0",
     "fs": "^0.0.1-security",
     "helmet": "^5.1.1",
     "http": "^0.0.1-security",
