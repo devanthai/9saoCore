@@ -8,23 +8,24 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { sort } = require("fast-sort")
 function timeSince(date) {
     const time = date - new Date()
-    var seconds = Math.floor(time / 1000);
+    let seconds = Math.floor(time / 1000);
     let days = Math.floor(seconds / 86400);
     let hours = Math.floor((seconds - (days * 86400)) / 60 / 60);
     let min = Math.floor(((seconds - (days * 86400)) - (hours * 3600)) / 60);
     let sec = Math.floor(((seconds - (days * 86400)) - (hours * 3600) - (min * 60)));
-    return { day: null, since: getTimeSinceString(days, hours, min, sec) }
+    return { day: days, since: getTimeSinceString(days, hours, min, sec) }
 }
 function timeSince2(now, todate) {
     const time = todate - now
-    var seconds = Math.floor(time / 1000);
+    let seconds = Math.floor(time / 1000);
     let days = Math.floor(seconds / 86400);
     let hours = Math.floor((seconds - (days * 86400)) / 60 / 60);
     let min = Math.floor(((seconds - (days * 86400)) - (hours * 3600)) / 60);
     let sec = Math.floor(((seconds - (days * 86400)) - (hours * 3600) - (min * 60)));
-    return { day: null, since: getTimeSinceString(days, hours, min, sec) }
+    return { day: days, since: getTimeSinceString(days, hours, min, sec) }
+
 }
-getTimeSinceString = (d, h, m, s) => {
+const getTimeSinceString = (d, h, m, s) => {
     let str = ""
     if (d > 0) str += d + " ngày "
     if (h > 0) str += h + " giờ "
@@ -32,7 +33,7 @@ getTimeSinceString = (d, h, m, s) => {
     if (s > 0) str += s + " giây "
     return str
 }
-vipGetValue = (topup) => {
+const vipGetValue = (topup) => {
     let vipp = 0
     if (topup >= 100000) {
         vipp = 1;
@@ -61,6 +62,36 @@ vipGetValue = (topup) => {
     return vipp
 }
 
+const getVipGift = (vip) => {
+
+    let phanthuong = 0
+    if (vip == 1) {
+        phanthuong = 2000000
+    }
+    else if (vip == 2) {
+        phanthuong = 7000000 * 2
+    }
+    else if (vip == 3) {
+        phanthuong = 35000000 * 2
+    }
+    else if (vip == 4) {
+        phanthuong = 100000000 * 2
+    }
+    else if (vip == 5) {
+        phanthuong = 225000000 * 2
+    }
+    else if (vip == 6) {
+        phanthuong = 500000000 * 2
+    }
+    else if (vip == 7) {
+        phanthuong = 2000000000 * 2
+    }
+    else if (vip == 8) {
+        phanthuong = 5000000000 * 2
+    }
+    return { vip: vip, gift: phanthuong }
+}
+
 async function getVip(uidz) {
     const now = new Date();
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
@@ -72,21 +103,23 @@ async function getVip(uidz) {
     let array = [...banks, ...momos, ...tsrs, ...the9saos, ...cards]
     const hisalls = array.map((item) => { return (item = { money: (item.sotien ? item.sotien : item.menhgia), time: new Date(item.time).getTime() }) })
     const sorted = sort(hisalls).asc([h => h.time]);
-    let totalMoney = sorted.reduce((accumulator, object) => { return accumulator + object.money; }, 0); //2000
+    let totalMoney = sorted.reduce((accumulator, object) => { return accumulator + object.money; }, 0);
     const totalfirt = totalMoney
     const vipFirt = vipGetValue(totalMoney)
-    let vipNow = vipGetValue(totalMoney) //3
     let listVipDates = []
-    for (let i = 0; i < sorted.length; i++) {
-        let item = sorted[i]
+    let phanThuongTotal = 0
+    for (const item of sorted) {
         let date = new Date(item.time)
         let time30day = date.setDate(date.getDate() + 30)
-        let vipA = vipGetValue(totalMoney) //3
-        let timesince = (listVipDates.length == 0 ? timeSince(time30day) : timeSince2(sorted[i - 1].time, item.time))
-        totalMoney -= item.money //-500 = 1500
-        vipNow = vipGetValue(totalMoney)//2
-        if (vipA != vipNow) listVipDates.push({ vip: vipA, time: timesince }) //3->2 true -> add
+        let vipA = vipGetValue(totalMoney)
+        let timesince = (listVipDates.length == 0 ? timeSince(time30day) : timeSince2(listVipDates[listVipDates.length - 1].timeCreate, item.time))
+        totalMoney -= item.money
+        if (vipA != vipGetValue(totalMoney)) {
+            let giftz = getVipGift(vipA).gift * (timesince.day == 0 ? 1 : timesince.day)
+            phanThuongTotal += giftz
+            listVipDates.push({ vip: vipA, time: timesince, timeCreate: item.time, gift: giftz })
+        }
     }
-    return { totalMoney: totalfirt, vip: vipFirt, list: listVipDates }
+    return { totalMoney: totalfirt, vip: vipFirt, list: listVipDates, phanThuongTotal }
 }
 module.exports = getVip
