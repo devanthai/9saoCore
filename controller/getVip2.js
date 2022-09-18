@@ -69,32 +69,24 @@ async function getVip(uidz) {
     const tsrs = await Tsr.find({ time: { $gte: startOfToday }, uid: new ObjectId(uidz) })
     const the9saos = await The9sao.find({ time: { $gte: startOfToday }, uid: new ObjectId(uidz) })
     const cards = await Card.find({ time: { $gte: startOfToday }, status: 1, uid: new ObjectId(uidz) })
-
     let array = [...banks, ...momos, ...tsrs, ...the9saos, ...cards]
     const hisalls = array.map((item) => { return (item = { money: (item.sotien ? item.sotien : item.menhgia), time: new Date(item.time).getTime() }) })
     const sorted = sort(hisalls).asc([h => h.time]);
-    let totalMoney = sorted.reduce((accumulator, object) => { return accumulator + object.money; }, 0);
+    let totalMoney = sorted.reduce((accumulator, object) => { return accumulator + object.money; }, 0); //2000
     const totalfirt = totalMoney
-    let vipNow = vipGetValue(totalMoney)
     const vipFirt = vipGetValue(totalMoney)
+    let vipNow = vipGetValue(totalMoney) //3
     let listVipDates = []
     for (let i = 0; i < sorted.length; i++) {
         let item = sorted[i]
         let date = new Date(item.time)
         let time30day = date.setDate(date.getDate() + 30)
-
-        if (i != 0) totalMoney -= item.money
-        if (vipGetValue(totalMoney) != vipNow) {
-            let timesince = (listVipDates.length == 0 ? timeSince(time30day) : timeSince2(sorted[i - 1].time, item.time))
-            listVipDates.push({ vip: vipNow, time: timesince })
-        }
-        vipNow = vipGetValue(totalMoney)
+        let vipA = vipGetValue(totalMoney) //3
+        let timesince = (listVipDates.length == 0 ? timeSince(time30day) : timeSince2(sorted[i - 1].time, item.time))
+        totalMoney -= item.money //-500 = 1500
+        vipNow = vipGetValue(totalMoney)//2
+        if (vipA != vipNow) listVipDates.push({ vip: vipA, time: timesince }) //3->2 true -> add
     }
-
-
-
-
-    console.log(listVipDates)
     return { totalMoney: totalfirt, vip: vipFirt, list: listVipDates }
 }
 module.exports = getVip
