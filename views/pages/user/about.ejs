@@ -104,10 +104,10 @@
                         </th>
                     </tr>
                     <tr>
-                        <th scope="row">Vip:</th>
-                        <th class="text-danger">
-                           
-                           30 ngày qua đã nạp: <%- getvip %> <%- vip==0?"(Chưa có vip vui lòng nạp đủ 100k)":"Bạn đang là vip "+vip %> 
+                        <th class="text-danger" colspan="2">
+                            <span class="text-primary">Thông tin vip:</span>
+                            <br>
+                           30 ngày qua đã nạp: <span class="text-success"><%- getvip %></span> <%- vip==0?"(Chưa có vip vui lòng nạp đủ 100k)":"Bạn đang là vip "+vip %> 
                            
                            <%if(vip==7){%>
                             <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
