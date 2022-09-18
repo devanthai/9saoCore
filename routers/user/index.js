@@ -135,7 +135,7 @@ function menuAction(page) {
     let htmlLs =
         `
   <li  class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  <i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a ${ listPage[page].includes("Lịch sử")?'style="color: #32c5d2"':'style="color: inherit"'} href="#">${ listPage[page].includes("Lịch sử")?listPage[page]:"Lịch sử Game"}</a>
+  <i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a ${listPage[page].includes("Lịch sử") ? 'style="color: #32c5d2"' : 'style="color: inherit"'} href="#">${listPage[page].includes("Lịch sử") ? listPage[page] : "Lịch sử Game"}</a>
   </li>
   <div class="dropdown-menu dropdown-menu-right">
     ${liHisDrop}
@@ -166,7 +166,7 @@ router.get('/', async (req, res, next) => {
         return res.redirect('/user/login');
     }
     const getvip = await getVip2(req.user._id)
-    res.render("index", { page: "pages/user/about", menu: menuAction(''), data: req.user, getvip: numberWithCommas(getvip.totalMoney), vip: getvip.vip, date: getvip.list })
+    res.render("index", { page: "pages/user/about", menu: menuAction(''), data: req.user, getvip: numberWithCommas(getvip.totalMoney), vip: getvip.vip, date: getvip.list, phanThuongTotal: getvip.phanThuongTotal })
 })
 router.get('/upavatar', (req, res) => {
     res.send("g")

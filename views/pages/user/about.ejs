@@ -139,10 +139,16 @@
                                <%}else{%>
                                <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip<%-date[i].vip%>.png" alt="">
                                
-                               <%}%> - Thời gian: <%-date[i].time.since%>
+                               <%}%> - Thời gian: <%-date[i].time.since%> - Sẽ nhận được: <lable class="text-success"><%=  String(Math.round(date[i].gift)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></lable> vàng
+                               
+
                             <br>
                             <%}%>
-                        </span>
+                            <%if(vip>0){%>
+                            
+                               - Tổng vàng nhận được đến khi hết vip: <lable class="text-success"><%=  String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></lable> vàng
+                               <%}%>
+                            </span>
                         </th>
                     </tr>
                     <tr>
