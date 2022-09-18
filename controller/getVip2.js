@@ -14,7 +14,25 @@ function timeSince(date) {
     let hours = Math.floor((seconds - (days * 86400)) / 60 / 60);
     let min = Math.floor(((seconds - (days * 86400)) - (hours * 3600)) / 60);
     let sec = Math.floor(((seconds - (days * 86400)) - (hours * 3600) - (min * 60)));
-    return { day: days, since: days + " ngày " + hours + "h:" + min + "p:" + sec +"s" }
+    return { day: null, since: getTimeSinceString(days, hours, min, sec) }
+}
+function timeSince2(now, todate) {
+    const time = todate - now
+    var seconds = Math.floor(time / 1000);
+    let days = Math.floor(seconds / 86400);
+    let hours = Math.floor((seconds - (days * 86400)) / 60 / 60);
+    let min = Math.floor(((seconds - (days * 86400)) - (hours * 3600)) / 60);
+    let sec = Math.floor(((seconds - (days * 86400)) - (hours * 3600) - (min * 60)));
+    return { day: null, since: getTimeSinceString(days, hours, min, sec) }
+}
+
+getTimeSinceString = (d, h, m, s) => {
+    let str = ""
+    if (d > 0) str += d + " ngày "
+    if (h > 0) str += h + " giờ "
+    if (m > 0) str += m + " phút "
+    if (s > 0) str += s + " giây "
+    return str
 }
 
 vipGetValue = (topup) => {
@@ -71,10 +89,15 @@ async function getVip(uidz) {
 
         if (i != 0) totalMoney -= item.money
         if (vipGetValue(totalMoney) != vipNow) {
-            listVipDates.push({ vip: vipNow, time: timeSince(time30day) })
+            let timesince = (listVipDates.length == 0 ? timeSince(time30day) : timeSince2(sorted[i - 1].time, item.time))
+            listVipDates.push({ vip: vipNow, time: timesince })
         }
         vipNow = vipGetValue(totalMoney)
     }
+
+
+
+
     console.log(listVipDates)
     return { totalMoney: totalfirt, vip: vipFirt, list: listVipDates }
 }

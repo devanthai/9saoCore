@@ -98,7 +98,7 @@ function numberWithCommas(x) {
 const listPage = {
     "": "Thông tin tài khoản",
     "napcard": "Nạp thẻ cào",
-    "napt9s": '<b style="color:red">Nạp từ ví The9sao.com (Khuyến mãi)<img src="http://sonthuyphantranh.com/images/new.gif"></b>',
+    "napt9s": '<b style="color:red">Nạp từ ví The9sao.com <img src="/images/hot2.gif"></b>',
     "napbank": 'Nạp Bank',
     "napmomo": "Nạp ví Momo",
     "naptsr": "Nạp từ ví TheSieuRe.Com",
@@ -112,17 +112,37 @@ const listPage = {
 
 function menuAction(page) {
     var liMenu = "";
+    var liHisDrop = ""
     for (var key in listPage) {
-
-        if (key === page) {
-            liMenu += '<li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="/user/' + key + '" style="color: #32c5d2">' + listPage[key] + '</a></li>';
+        if (listPage[key].includes("Lịch sử")) {
+            if (key === page) {
+                liHisDrop += '<li class="dropdown-item"><i class=" fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="/user/' + key + '" style="color: #32c5d2">' + listPage[key] + '</a></li>';
+            }
+            else {
+                liHisDrop += '<li class="dropdown-item"><i class=" fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="/user/' + key + '" style="color: inherit">' + listPage[key] + '</a></li>';
+            }
         }
         else {
-            liMenu += '<li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="/user/' + key + '" style="color: inherit">' + listPage[key] + '</a></li>';
-
+            if (key === page) {
+                liMenu += '<li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="/user/' + key + '" style="color: #32c5d2">' + listPage[key] + '</a></li>';
+            }
+            else {
+                liMenu += '<li><i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a href="/user/' + key + '" style="color: inherit">' + listPage[key] + '</a></li>';
+            }
         }
     }
-    return liMenu
+
+    let htmlLs =
+        `
+  <li  class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <i class="fas fa-square" style="color: #32c5d2; margin-right: 10px; font-size: 10px"></i> <a ${ listPage[page].includes("Lịch sử")?'style="color: #32c5d2"':'style="color: inherit"'} href="#">${ listPage[page].includes("Lịch sử")?listPage[page]:"Lịch sử Game"}</a>
+  </li>
+  <div class="dropdown-menu dropdown-menu-right">
+    ${liHisDrop}
+  </div>
+    `
+
+    return liMenu + htmlLs
 }
 router.use(checklogin)
 router.use(napVang)
