@@ -125,7 +125,7 @@
                            <%}%>
                         </br>
                            <%for(let i=0;i<date.length;i++){%>
-                            Vip: <%-date[i].vip%>
+                            <span>Vip: <%-date[i].vip%>
                             <%if(date[i].vip==7){%>
                                 <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
                                 <span></span>
@@ -142,7 +142,7 @@
                                <%}%> - Thời gian: <%-date[i].time.since%>
                             <br>
                             <%}%>
-                           
+                        </span>
                         </th>
                     </tr>
                     <tr>
