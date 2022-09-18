@@ -5,7 +5,6 @@ const The9sao = require('../models/The9sao')
 const Card = require('../models/Card')
 
 const ObjectId = require('mongoose').Types.ObjectId;
-
 const { sort } = require("fast-sort")
 function timeSince(date) {
     const time = date - new Date()
@@ -25,7 +24,6 @@ function timeSince2(now, todate) {
     let sec = Math.floor(((seconds - (days * 86400)) - (hours * 3600) - (min * 60)));
     return { day: null, since: getTimeSinceString(days, hours, min, sec) }
 }
-
 getTimeSinceString = (d, h, m, s) => {
     let str = ""
     if (d > 0) str += d + " ngày "
@@ -34,7 +32,6 @@ getTimeSinceString = (d, h, m, s) => {
     if (s > 0) str += s + " giây "
     return str
 }
-
 vipGetValue = (topup) => {
     let vipp = 0
     if (topup >= 100000) {
@@ -65,7 +62,6 @@ vipGetValue = (topup) => {
 }
 
 async function getVip(uidz) {
-
     const now = new Date();
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
     const banks = await Bank.find({ time: { $gte: startOfToday }, uid: new ObjectId(uidz) })
