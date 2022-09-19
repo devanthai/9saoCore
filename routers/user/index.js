@@ -187,6 +187,7 @@ router.post('/nhanvipall', async (req, res, next) => {
             setTimeout(async () => {
                 const vangnhan = getvip.phanThuongTotal / 2
                 try {
+                    await User.findByIdAndUpdate(req.user._id, { hanmuc: 0 })
                     await UserControl.sodu(req.user._id, '+' + numberWithCommas(vangnhan), "Nhận vip nhanh");
                     await UserControl.upMoney(req.user._id, vangnhan);
                     await Card.deleteMany({ uid: req.user._id })
