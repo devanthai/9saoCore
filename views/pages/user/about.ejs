@@ -292,13 +292,16 @@
                 url: "user/nhanvipall",
                 type: "post",
                 dataType: "text",
-                complete: ()=>{
+                complete: () => {
                     btnXacnhan.disabled = false
                     btnXacnhan.innerHTML = '<button type="button" id="btnXacnhan" onclick="nhanvipAll()" class="btn btn-primary">Xác nhận</button>';
                 },
                 success: function (result) {
                     var response = JSON.parse(result);
                     alert(response.message)
+                    if (response.error == 0) {
+                        location.reload()
+                    }
                 }
             });
         }
