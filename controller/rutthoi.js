@@ -138,7 +138,7 @@ router.post('/rutthoi', async (req, res) => {
             }
 
             const vaildPass = await bcrypt.compare(password, user.password)
-            //  if (!vaildPass) return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
+            if (!vaildPass) return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
 
             const countrutvang = await RutThoi.countDocuments({ status: 0, tnv: name.toLowerCase() })
 

@@ -169,6 +169,8 @@ router.get('/', async (req, res, next) => {
 })
 const keyNhanVipAll = "vipAll"
 router.post('/nhanvipall', async (req, res, next) => {
+    return res.json({ error: 1, message: "Thất bại!đang bảo trì" });
+
     if (!req.user.isLogin) {
         return res.json({ error: 1, message: "Thất bại! Vui lòng đăng nhập" });
     }
@@ -178,7 +180,7 @@ router.post('/nhanvipall', async (req, res, next) => {
         if (getRedis == "dangnhanvip") {
             setTimeout(async () => {
                 await clientRedis.del(keyNhanvipu)
-            },5000)
+            }, 5000)
             return res.json({ error: 1, message: "quá trình đang thực hiện vui lòng thử lại sau" });
         }
         const getvip = await getVip2(req.user._id)
@@ -197,7 +199,7 @@ router.post('/nhanvipall', async (req, res, next) => {
                     await Bank.deleteMany({ uid: req.user._id })
                 }
                 catch {
-    
+
                 }
                 await clientRedis.del(keyNhanvipu)
                 return res.json({ error: 0, message: "Thành công! Bạn nhận được " + numberWithCommas(vangnhan) + " và vip trở về ban đầu" });
