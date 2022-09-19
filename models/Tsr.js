@@ -19,7 +19,11 @@ const Tsrr = new mongoose.Schema({
     uid: {
         type: Object
     },
-
+    isRemoveVip:
+    {
+        type: Boolean,
+        default: false
+    },
     time: {
         type: Date,
         default: Date.now

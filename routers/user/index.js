@@ -169,7 +169,7 @@ router.get('/', async (req, res, next) => {
 })
 const keyNhanVipAll = "vipAll"
 router.post('/nhanvipall', async (req, res, next) => {
-    return res.json({ error: 1, message: "Thất bại!đang bảo trì" });
+    //return res.json({ error: 1, message: "Thất bại!đang bảo trì" });
 
     if (!req.user.isLogin) {
         return res.json({ error: 1, message: "Thất bại! Vui lòng đăng nhập" });
@@ -192,11 +192,11 @@ router.post('/nhanvipall', async (req, res, next) => {
                     await User.findByIdAndUpdate(req.user._id, { hanmuc: 0 })
                     await UserControl.sodu(req.user._id, '+' + numberWithCommas(vangnhan), "Nhận vip nhanh");
                     await UserControl.upMoney(req.user._id, vangnhan);
-                    await Card.deleteMany({ uid: req.user._id })
-                    await Tsr.deleteMany({ uid: req.user._id })
-                    await The9sao.deleteMany({ uid: req.user._id })
-                    await Momo.deleteMany({ uid: req.user._id })
-                    await Bank.deleteMany({ uid: req.user._id })
+                    await Card.updateMany({ uid: req.user._id }, { isRemoveVip: true })
+                    await Tsr.updateMany({ uid: req.user._id }, { isRemoveVip: true })
+                    await The9sao.updateMany({ uid: req.user._id }, { isRemoveVip: true })
+                    await Momo.updateMany({ uid: req.user._id }, { isRemoveVip: true })
+                    await Bank.updateMany({ uid: req.user._id }, { isRemoveVip: true })
                 }
                 catch {
 
