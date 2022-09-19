@@ -307,6 +307,10 @@
                     var mess = "";
                //     console.log(data.status)
                    mess = '<span class="badge badge-success" style="padding: 5px">'+data.status+" (+"+numberWithCommas(data.thucnhan)+"$)"+'</span>'
+                   if(data.isRemoveVip)
+                        {
+                            mess = mess+'-<span class="badge badge-danger" style="padding: 5px">Đã xóa</span>'
+                        }
                     tablez = "<tr>  <td>" +mess + "</td> <td>" +new Date(Date.parse(data.time)).toLocaleString()+ "</td> <td>" + data.magd+ "</td> <td>" + numberWithCommas(data.sotien)+"đ" + "</td> <td>" + numberWithCommas(data.thucnhan) + "$</td>  </tr>"+tablez;
                   
                 })}

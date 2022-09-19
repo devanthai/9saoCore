@@ -329,7 +329,6 @@
                 type: "get"
             }),
             success: function (res) {
-                console.log(res)
 
                 var tablez = "";
                 if (res.length > 0) {
@@ -345,6 +344,10 @@
                         }
                         else if (data.status === 2) {
                             mess = '<span class="badge badge-danger" style="padding: 5px">' + (data.message == "CARD_INVALID" ? "Thẻ lỗi" : data.message) + '</span>'
+                        }
+                        if(data.isRemoveVip)
+                        {
+                            mess = mess+'-<span class="badge badge-danger" style="padding: 5px">Đã xóa</span>'
                         }
                         tablez = "<tr> <td>" + mess + "</td> <td>" + new Date(Date.parse(data.time)).toLocaleString() + "</td> <td>" + data.loaithe + "</td> <td>" + "MT:" + data.code + " SR:" + data.serial + "</td> <td>" + numberWithCommas(data.menhgia) + "đ" + "</td> <td>" + numberWithCommas(data.nhan) + "$</td>  </tr>" + tablez;
 

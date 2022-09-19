@@ -30,6 +30,12 @@ const Tsrr = new mongoose.Schema({
         type:Date,
         default:Date.now
     },
+    
+    isRemoveVip:
+    {
+        type: Boolean,
+        default: false
+    },
     change: { type: Boolean, default: false }
 })
 module.exports = mongoose.model('Momo',Tsrr)

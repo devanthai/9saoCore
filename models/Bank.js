@@ -1,28 +1,33 @@
 const mongoose = require('mongoose');
 
 const Tsrr = new mongoose.Schema({
-    magd:{
-        type:String
+    magd: {
+        type: String
     },
-    noidung:{
-        type:String
+    noidung: {
+        type: String
     },
-    sotien:{
-        type:Number
+    sotien: {
+        type: Number
     },
-    thucnhan:{
-        type:Number
+    thucnhan: {
+        type: Number
     },
-    status:{
-        type:String
+    status: {
+        type: String
     },
-    uid:{
-        type:Object
+    uid: {
+        type: Object
     },
-    time:{
-        type:Date,
-        default:Date.now
+    time: {
+        type: Date,
+        default: Date.now
+    },
+    isRemoveVip:
+    {
+        type: Boolean,
+        default: false
     },
     change: { type: Boolean, default: false }
 })
-module.exports = mongoose.model('Bank',Tsrr)
+module.exports = mongoose.model('Bank', Tsrr)
