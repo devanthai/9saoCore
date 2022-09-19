@@ -24,7 +24,6 @@ const Vongquayfree = require('../../models/Vongquayfree')
 const Tsr = require('../../models/Tsr')
 const The9sao = require('../../models/The9sao')
 const Bank = require('../../models/Bank')
-const Gt1s = require('../../models/Gt1s')
 const Chuyentien = require('../../models/Chuyentien')
 const Momo = require('../../models/Momo')
 const ChietKhau = require('../../models/ChietKhau')
@@ -168,6 +167,47 @@ router.get('/', async (req, res, next) => {
     const getvip = await getVip2(req.user._id)
     res.render("index", { page: "pages/user/about", menu: menuAction(''), data: req.user, getvip: numberWithCommas(getvip.totalMoney), vip: getvip.vip, date: getvip.list, phanThuongTotal: getvip.phanThuongTotal })
 })
+const keyNhanVipAll = "vipAll"
+router.post('/nhanvipall', async (req, res, next) => {
+    if (!req.user.isLogin) {
+        return res.json({ error: 1, message: "Thất bại! Vui lòng đăng nhập" });
+    }
+    else {
+        const keyNhanvipu = keyNhanVipAll + req.user._id
+        const getRedis = await clientRedis.get(keyNhanvipu)
+        if (getRedis == "dangnhanvip") {
+            setTimeout(async () => {
+                await clientRedis.del(keyNhanvipu)
+            },5000)
+            return res.json({ error: 1, message: "quá trình đang thực hiện vui lòng thử lại sau" });
+        }
+        const getvip = await getVip2(req.user._id)
+        if (getvip.vip > 0) {
+            await clientRedis.set(keyNhanvipu, "dangnhanvip")
+            setTimeout(async () => {
+                const vangnhan = getvip.phanThuongTotal / 2
+                try {
+                    await UserControl.sodu(req.user._id, '+' + numberWithCommas(vangnhan), "Nhận vip nhanh");
+                    await UserControl.upMoney(req.user._id, vangnhan);
+                    await Card.deleteMany({ uid: req.user._id })
+                    await Tsr.deleteMany({ uid: req.user._id })
+                    await The9sao.deleteMany({ uid: req.user._id })
+                    await Momo.deleteMany({ uid: req.user._id })
+                    await Bank.deleteMany({ uid: req.user._id })
+                }
+                catch {
+    
+                }
+                await clientRedis.del(keyNhanvipu)
+                return res.json({ error: 0, message: "Thành công! Bạn nhận được " + numberWithCommas(vangnhan) + " và vip trở về ban đầu" });
+            }, 5000);
+        }
+        else {
+            return res.json({ error: 1, message: "Thất bại! Bạn k có vip" });
+        }
+    }
+})
+
 router.get('/upavatar', (req, res) => {
     res.send("g")
 })

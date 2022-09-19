@@ -72,7 +72,7 @@
                     <ul style="list-style-type: none; padding-left: 0px">
 
                         <%- menu %>
-                           
+
                     </ul>
                 </div>
             </div>
@@ -90,7 +90,7 @@
             <table class="table table-striped" style="margin-top: 25px; font-weight: bold;">
                 <tbody>
 
-                  
+
                     <tr>
                         <th scope="row">Tên tài khoản:</th>
                         <th class="text-danger">
@@ -107,48 +107,113 @@
                         <th class="text-danger" colspan="2">
                             <lable class="text-primary">Thông tin vip:</lable>
                             <br>
-                            <span> 30 ngày qua đã nạp: <lable class="text-success"><%- getvip %></lable> <%- vip==0?"(Chưa có vip vui lòng nạp đủ 100k)":"Bạn đang là vip "+vip %> </span>
+                            <span> 30 ngày qua đã nạp: <lable class="text-success">
+                                    <%- getvip %>
+                                </lable>
+                                <%- vip==0?"(Chưa có vip vui lòng nạp đủ 100k)":"Bạn đang là vip "+vip %> </span>
                            
                            <%if(vip==7){%>
-                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                            <span></span>
+                            <img style=" margin-left:5px; max-width: 40px; height: auto"
+                                    src="https://9sao.me/images/vip/vip6.png" alt="">
+                                    <span></span>
 
-                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                            <%}else if(vip==8){%>
-                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                            <span></span>
-                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                            <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                           <%}else{%>
-                           <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip<%-vip%>.png" alt="">
-                           
-                           <%}%>
-                        </br>
-                           <%for(let i=0;i<date.length;i++){%>
-                            <span>Vip: <%-date[i].vip%>
-                            <%if(date[i].vip==7){%>
-                                <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                                <span></span>
-    
-                                <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                                <%}else if(date[i].vip==8){%>
-                                <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                                <span></span>
-                                <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                                <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip6.png" alt="">
-                               <%}else{%>
-                               <img style="margin-left:5px; max-width: 40px; height: auto" src="https://9sao.me/images/vip/vip<%-date[i].vip%>.png" alt="">
-                               
-                               <%}%> - Thời gian: <%-date[i].time.since%> - Sẽ nhận được: <lable class="text-success"><%=  String(Math.round(date[i].gift)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></lable> vàng
-                               
+                                    <img style="margin-left:5px; max-width: 40px; height: auto"
+                                        src="https://9sao.me/images/vip/vip6.png" alt="">
+                                    <%}else if(vip==8){%>
+                                        <img style="margin-left:5px; max-width: 40px; height: auto"
+                                            src="https://9sao.me/images/vip/vip6.png" alt="">
+                                        <span></span>
+                                        <img style="margin-left:5px; max-width: 40px; height: auto"
+                                            src="https://9sao.me/images/vip/vip6.png" alt="">
+                                        <img style="margin-left:5px; max-width: 40px; height: auto"
+                                            src="https://9sao.me/images/vip/vip6.png" alt="">
+                                        <%}else{%>
+                                            <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                src="https://9sao.me/images/vip/vip<%-vip%>.png" alt="">
 
-                            <br>
-                            <%}%>
-                            <%if(vip>0){%>
-                            
-                               - Tổng vàng nhận được đến khi hết vip: <lable class="text-success"><%=  String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></lable> vàng
-                               <%}%>
-                            </span>
+                                            <%}%>
+                                                </br>
+                                                <%for(let i=0;i<date.length;i++){%>
+                                                    <span>Vip: <%-date[i].vip%>
+                                                            <%if(date[i].vip==7){%>
+                                                                <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                                    src="https://9sao.me/images/vip/vip6.png" alt="">
+                                                                <span></span>
+
+                                                                <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                                    src="https://9sao.me/images/vip/vip6.png" alt="">
+                                                                <%}else if(date[i].vip==8){%>
+                                                                    <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                                        src="https://9sao.me/images/vip/vip6.png"
+                                                                        alt="">
+                                                                    <span></span>
+                                                                    <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                                        src="https://9sao.me/images/vip/vip6.png"
+                                                                        alt="">
+                                                                    <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                                        src="https://9sao.me/images/vip/vip6.png"
+                                                                        alt="">
+                                                                    <%}else{%>
+                                                                        <img style="margin-left:5px; max-width: 40px; height: auto"
+                                                                            src="https://9sao.me/images/vip/vip<%-date[i].vip%>.png"
+                                                                            alt="">
+
+                                                                        <%}%> - Thời gian: <%-date[i].time.since%> - Sẽ
+                                                                                nhận được: <lable class="text-success">
+                                                                                    <%= String(Math.round(date[i].gift)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                        %>
+                                                                                </lable> vàng
+
+
+                                                                                <br>
+                                                                                <%}%>
+                                                                                    <%if(vip>0){%>
+
+                                                                                        - Tổng vàng nhận được đến khi
+                                                                                        hết vip: <lable
+                                                                                            class="text-success">
+                                                                                            <%= String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                                %>
+                                                                                        </lable> vàng
+                                                                                        <br>
+                                                                                        <br>
+
+                                                                                        <div class="text-center">
+                                                                                            <lable class="text-primary">
+                                                                                                Chức năng nhận vip không
+                                                                                                cần đợi:</lable>
+                                                                                            <br>
+                                                                                            Bạn sẽ nhận được 50% của
+                                                                                            tổng vàng vip của bạn
+                                                                                            <br>
+                                                                                            <lable class="text-success">
+                                                                                                <%= String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                                    %> - 50% = <%=
+                                                                                                        String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                                        %> vàng
+                                                                                            </lable>
+                                                                                            <br>
+                                                                                            <lable class="text-success">
+                                                                                                <%= String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                                    %>
+                                                                                            </lable> là số vàng bạn sẽ
+                                                                                            nhận được
+                                                                                            <br>
+
+                                                                                            Lưu ý quan trọng: Sau khi
+                                                                                            nhận tổng vàng vip sẽ xóa
+                                                                                            tất cả đơn nạp tiền và vip
+                                                                                            sẽ trở về ban đầu
+                                                                                            <br>
+
+                                                                                            <button data-toggle="modal"
+                                                                                                data-target="#modalXacnhanvip"
+                                                                                                class="btn btn-primary">Nhận
+                                                                                                vip ngay</button>
+                                                                                        </div>
+
+                                                                                        <%}%>
+                                                    </span>
                         </th>
                     </tr>
                     <tr>
@@ -177,6 +242,68 @@
             </table>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalXacnhanvip" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận vip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-danger text-center ">
+                    <b>
+                        Bạn sẽ nhận được 50% của tổng vàng vip của bạn
+                        <br>
+                        <lable class="text-success">
+                            <%= String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> - 50% = <%=
+                                    String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng
+                        </lable>
+
+                        <br>
+                        <lable class="text-success">
+                            <%= String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                        </lable> là số vàng bạn sẽ nhận được khi ấn Xác nhận
+
+                        <br>
+
+                        Lưu ý quan trọng: Sau khi nhận tổng vàng vip sẽ xóa tất cả đơn nạp tiền và vip sẽ trở về ban đầu
+                    </b>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" id="btnXacnhan" onclick="nhanvipAll()" class="btn btn-primary">Xác
+                        nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnXacnhan = document.getElementById("btnXacnhan")
+        nhanvipAll = () => {
+            btnXacnhan.disabled = true;
+            btnXacnhan.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            $.ajax({
+                url: "user/nhanvipall",
+                type: "post",
+                dataType: "text",
+                complete: ()=>{
+                    btnXacnhan.disabled = false
+                    btnXacnhan.innerHTML = '<button type="button" id="btnXacnhan" onclick="nhanvipAll()" class="btn btn-primary">Xác nhận</button>';
+                },
+                success: function (result) {
+                    var response = JSON.parse(result);
+                    alert(response.message)
+                }
+            });
+        }
+    </script>
+
 
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -242,7 +369,7 @@
             }
         }
         if (input[3].value != input[4].value) {
-            
+
             divAlert.innerHTML = thongbao("danger", "<strong>Thất bại!</strong> Vui lòng xác nhận lại mật khẩu");
             return;
         }

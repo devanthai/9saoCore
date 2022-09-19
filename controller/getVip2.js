@@ -101,7 +101,7 @@ async function getVip(uidz) {
     const the9saos = await The9sao.find({ time: { $gte: startOfToday }, uid: new ObjectId(uidz) })
     const cards = await Card.find({ time: { $gte: startOfToday }, status: 1, uid: new ObjectId(uidz) })
     let array = [...banks, ...momos, ...tsrs, ...the9saos, ...cards]
-    const hisalls = array.map((item) => { return (item = { money: (item.sotien ? item.sotien : item.menhgia), time: new Date(item.time).getTime() }) })
+    const hisalls = array.map((item) => { return  { money: (item.sotien ? item.sotien : item.menhgia), time: new Date(item.time).getTime() } })
     const sorted = sort(hisalls).asc([h => h.time]);
     let totalMoney = sorted.reduce((accumulator, object) => { return accumulator + object.money; }, 0);
     const totalfirt = totalMoney
