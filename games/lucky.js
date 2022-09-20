@@ -46,7 +46,7 @@ class GameLucky {
             }
             return res.send(Time)
         })
-        app.post("/minigame/thamgia",createAccountLimiterz, checklogin, async (req, res) => {
+        app.post("/minigame/thamgia", createAccountLimiterz, checklogin, async (req, res) => {
 
 
 
@@ -110,7 +110,7 @@ class GameLucky {
             } catch { }
             res.send({ error: 1, message: "Lỗi không xác định" })
         })
-        app.post("/minigame/thamgiadiemdanh",createAccountLimiterz, checklogin, async (req, res) => {
+        app.post("/minigame/thamgiadiemdanh", createAccountLimiterz, checklogin, async (req, res) => {
             try {
                 var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
                 //var captcha = req.body.captcha
@@ -135,7 +135,7 @@ class GameLucky {
                 if (!req.user.isLogin) {
                     return res.send({ error: 1, message: "Vui lòng đăng nhập" })
                 }
-              
+
                 var topup = await checkVip(req.user._id)
                 if (topup < 100000) {
                     return res.send({ error: 1, message: "Chỉ thành viên vip mới được tham gia!" })
@@ -288,7 +288,7 @@ class GameLucky {
             if (TimeDiemDanh <= 0 && !IsPending) {
                 IsPending = true
                 // console.log(PlayerDiemDanh.length)
-                if (PlayerDiemDanh.length > 49) {
+                if (PlayerDiemDanh.length >= 20) {
                     DiemDanhLastWin = []
                     io.sockets.emit("datawin", PlayerDiemDanh2)
 
