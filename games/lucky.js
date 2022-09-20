@@ -102,7 +102,7 @@ class GameLucky {
                 // }
 
                 PlayersThamGia.push({ uid: req.user._id, name: req.user.tenhienthi, ip: ip })
-                Vangthuong += 3000000
+                Vangthuong += 1000000
                 //io.sockets.emit("logspickme", user.user.username + " đã tham gia")
                 //req.session.captcha = await CaptchaFunction.getRandomCap();
                 return res.send({ error: 0, message: "Tham gia thành công cùng chờ kết quả nhé" })
