@@ -102,7 +102,7 @@ class GameLucky {
                 // }
 
                 PlayersThamGia.push({ uid: req.user._id, name: req.user.tenhienthi, ip: ip })
-                Vangthuong += 1000000
+                Vangthuong += 3000000
                 //io.sockets.emit("logspickme", user.user.username + " đã tham gia")
                 //req.session.captcha = await CaptchaFunction.getRandomCap();
                 return res.send({ error: 0, message: "Tham gia thành công cùng chờ kết quả nhé" })
@@ -136,10 +136,10 @@ class GameLucky {
                     return res.send({ error: 1, message: "Vui lòng đăng nhập" })
                 }
 
-                var topup = await checkVip(req.user._id)
-                if (topup < 100000) {
-                    return res.send({ error: 1, message: "Chỉ thành viên vip mới được tham gia!" })
-                }
+                // var topup = await checkVip(req.user._id)
+                // if (topup < 100000) {
+                //     return res.send({ error: 1, message: "Chỉ thành viên vip mới được tham gia!" })
+                // }
                 if (req.session.time) {
                     if (timeSince(req.session.time) < 2) {
                         return res.send({ error: 1, message: "Thao tác quá nhanh" })
