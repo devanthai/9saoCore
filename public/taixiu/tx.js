@@ -467,15 +467,16 @@ function tattay_tx() {
     if (_0x9ca2x2 == 0) {
         thong_bao('Th\xF4ng B\xE1o', 'Vui L\xF2ng Ch\u1ECDn T\xE0i Ho\u1EB7c X\u1EC9u')
     } else {
+        const goldAllIn = $("#goldUser").val().replaceAll(".",",")
         if (_0x9ca2x2 == 1) {
 
             // $('#khung-tx input.input-tai')['val'](Math['floor']($('.mymoney')['html']()['replace'](/\,/g, '')))
 
-            $('#khung-tx input.input-tai').val($("#goldUser").val())
+            $('#khung-tx input.input-tai').val(goldAllIn)
         } else {
             if (_0x9ca2x2 == 2) {
                 // $('#khung-tx input.input-xiu')['val'](Math['floor']($('.mymoney')['html']()['replace'](/\,/g, '')))
-                $('#khung-tx input.input-xiu').val($("#goldUser").val())
+                $('#khung-tx input.input-xiu').val(goldAllIn)
             }
         }
     }
