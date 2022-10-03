@@ -30,6 +30,7 @@
     "fs": "^0.0.1-security",
     "helmet": "^5.1.1",
     "http": "^0.0.1-security",
+    "image-to-base64": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "keygrip": "^1.1.0",
     "md5": "^2.3.0",
