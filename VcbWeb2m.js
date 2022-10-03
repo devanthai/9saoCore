@@ -46,8 +46,7 @@ setInterval(async () => {
     // try {
     const setting = await Setting.findOne({ setting: "setting" })
     request.get({
-        url: 'https://api.web2m.com/historyapivcb/ATMtrong@123/1029134469/ABCC05DA-CA89-9C58-B0CA-0CA846D52127',
-      
+        url: 'https://api.web2m.com/historyapivcb/ATMtrong@123/1029134469/635B995C-F751-1320-7F6B-F6B9A97AC9C7',
     }, function (error, response, body) {
 
         var json = JSON.parse(body)
