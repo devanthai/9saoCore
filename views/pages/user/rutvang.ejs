@@ -31,7 +31,7 @@
       <a class="dropdown-item" href="/user/chuyenvang">Chuyển vàng</a>
     </div>
   </div>
- 
+
   <div class="alert alert-info" style="margin-top: 20px">
     <strong>Hệ thống rút vàng tự động</strong><br>
     <strong>Bước 1: </strong><strong>Đặt đơn rút vàng</strong> trên website<br>
@@ -41,7 +41,8 @@
     <strong class="text-danger">chưa giao dịch thành công</strong>
   </div>
   <div class="form-group">
-    <a href="/user/rutthoi" class="form-control btn btn-danger font-weight-bold text-uppercase" type="button" >Rút ra thỏi vàng tại đây</a>
+    <a href="/user/rutthoi" class="form-control btn btn-danger font-weight-bold text-uppercase" type="button">Rút ra
+      thỏi vàng tại đây</a>
   </div>
   <div class="row" style="padding-top: 25px">
     <div class="col-lg-5">
@@ -52,7 +53,8 @@
         <div class="card-body border-info">
           <form id="form">
             <div class="form-group">
-              <a href="/user/rutthoi" class="form-control btn btn-danger font-weight-bold text-uppercase" type="button" >Rút ra thỏi vàng tại đây</a>
+              <a href="/user/rutthoi" class="form-control btn btn-danger font-weight-bold text-uppercase"
+                type="button">Rút ra thỏi vàng tại đây</a>
             </div>
             <div class="form-group">
               <label>Máy chủ</label>
@@ -85,27 +87,32 @@
               <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
               <small>Nhập mật khẩu để rút</small>
             </div>
-            <div class="form-group ">
+            <!-- <div class="form-group ">
               <label for="">Mã captcha: </label>
 
               <img onclick="changeimg()" src="/user/imageGen" id="captchaThai" width="140" height="30" alt="captcha"
                 class="img-thumbnail mb-1">
               <input type="captcha" class="form-control" id="captcha" name="captcha" placeholder="Nhập mã captcha">
-            </div>
-        
-              <% if(ishanmuc){ %>
-            <div role="alert" class="fade font-weight-bold alert alert-info show">Hạn mức của bạn: <span class="text-danger"><%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng</span>
-              <br><span class="text-danger"><%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></span> <span>là số vàng bạn có thể rút</span>
-              <br><span class="text-danger">Hạn mức sẽ về 0 vào cuối ngày (00h00)</span>
-              <br><span class="text-danger">Đặt cược để tăng hạn mức nhé</span>
-            
-            </div>
-            <% } %>
-            <div id="alert"></div>
-            <div class="form-group">
-              <button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btn"> Rút
-                ngay</button>
-            </div>
+            </div> -->
+
+            <% if(ishanmuc){ %>
+              <div role="alert" class="fade font-weight-bold alert alert-info show">Hạn mức của bạn: <span
+                  class="text-danger">
+                  <%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng
+                </span>
+                <br><span class="text-danger">
+                  <%= String(Math.round(data.hanmuc)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                </span> <span>là số vàng bạn có thể rút</span>
+                <br><span class="text-danger">Hạn mức sẽ về 0 vào cuối ngày (00h00)</span>
+                <br><span class="text-danger">Đặt cược để tăng hạn mức nhé</span>
+
+              </div>
+              <% } %>
+                <div id="alert"></div>
+                <div class="form-group">
+                  <button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btn"> Rút
+                    ngay</button>
+                </div>
           </form>
         </div>
       </div>
@@ -239,12 +246,14 @@
     var tnv = $('#name').val();
     var gold = $('#gold').val();
     var password = $('#password').val();
-    var captcha = $('#captcha').val();
-    if (captcha == "") {
-      divAlert.innerHTML = thongbao('danger', "<strong>Thất bại: </strong> Vui lòng nhập captcha");
-      return
-    }
-    $('#captcha').val("")
+    // var captcha = $('#captcha').val();
+    // if (captcha == "") {
+    //   divAlert.innerHTML = thongbao('danger', "<strong>Thất bại: </strong> Vui lòng nhập captcha");
+    //   return
+    // }
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+    //$('#captcha').val("")
     $.ajax({
       url: "user/rutvang",
       type: "post",
@@ -257,8 +266,12 @@
         password: password,
         captcha: captcha
       },
+      complete: () => {
+        btn.disabled = false
+        btn.innerHTML = 'Rút ngay';
+      },
       success: function (result) {
-        changeimg()
+       // changeimg()
         var response = JSON.parse(result);
 
         if (response.error == 1) {
