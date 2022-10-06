@@ -20,6 +20,7 @@ const TelegramBot = require('node-telegram-bot-api');
 
 const CaptchaFunction = require('./CaptchaFunction');
 
+const clientRedis = require("../redisCache")
 
 //const token = '2049064794:AAHWuEwkAZFQBmUEdxGKezBeds-QCZNevqY';
 // const token = '2016858249:AAFcUv4Ury7ZZgto7zkigFBhGWDx-wwGT2U'; //test
@@ -62,6 +63,7 @@ router.get('/rutvang', async (req, res) => {
 
     res.render("index", { page: page, data: req.user, lsrut: getRutvang, botrut: getBotrut, setting: setting, ishanmuc: setting.hanmuc[sssss] });
 });
+const keyRutvangz = "keyRutvang"
 router.post('/rutvang', async (req, res) => {
     if (!req.user.isLogin) {
         return res.json({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng đăng nhập" });
@@ -72,13 +74,18 @@ router.post('/rutvang', async (req, res) => {
 
         return res.send({ error: 1, message: "<strong>Thất bại: </strong> Bạn đã nhập sai captcha!" })
     }
-    if (req.session.time) {
-        if (timeSince(req.session.time) < 5) {
-            return res.send({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng chờ trong giây lát" })
-        }
-    }
 
-    req.session.time = Date.now()
+
+    const keyrutVang = keyRutvangz + req.user._id
+    const getRedis = await clientRedis.get(keyrutVang)
+    if (getRedis == "dangrutvang") {
+        setTimeout(async () => {
+            await clientRedis.del(keyrutVang)
+        }, 5000)
+        return res.send({ error: 1, message: "<strong>Thất bại: </strong> Quá trình đang thực hiện vui lòng thử lại sau!" })
+    }
+    await clientRedis.set(keyrutVang, "dangrutvang")
+
 
     if (req.body.rutvang) {
         const name = req.body.tnv;

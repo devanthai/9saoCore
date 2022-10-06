@@ -37,13 +37,16 @@ const io = require('socket.io')(server, {
 let SocketPlayer = []
 
 io.on("connection", (socket) => {
-    console.log(socket.id + " connected")
+    const IP = socket.request['x-real-ip'];
+
+    console.log(socket.id + " connected "+IP)
 
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
-    SocketPlayer.push({ socket: socket.id })
+    SocketPlayer.push({ socket: socket.id,IP })
     socket.on("disconnect", () => {
+
         const indexP = SocketPlayer.findIndex(p => p.socket == socket.id)
         if (indexP != -1) {
             SocketPlayer.splice(indexP, 1);

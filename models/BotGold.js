@@ -38,6 +38,15 @@ const bot = new mongoose.Schema({
         type: String,
         default: "null"
     },
+    IpVps: {
+        type: String,
+        default: "null"
+    },
+    Version: {
+        type: String,
+        default: "1.6.6"
+    },
+    TimeLastOnline: { type: Date },
     createdAt: { type: Date, default: Date.now }
 
 }, { timestamps: true })
