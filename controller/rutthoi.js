@@ -21,6 +21,7 @@ process.env.NTBA_FIX_319 = 1;
 const TelegramBot = require('node-telegram-bot-api');
 
 const CaptchaFunction = require('./CaptchaFunction');
+const clientRedis = require("../redisCache")
 
 
 //const token = '2049064794:AAHWuEwkAZFQBmUEdxGKezBeds-QCZNevqY';
@@ -66,6 +67,7 @@ router.get('/rutthoi', async (req, res) => {
 });
 
 
+const keyRutvangz = "keyRutvang"
 
 router.post('/rutthoi', async (req, res) => {
     if (!req.user.isLogin) {
@@ -73,13 +75,15 @@ router.post('/rutthoi', async (req, res) => {
     }
 
 
-    if (req.session.time) {
-        if (timeSince(req.session.time) < 5) {
-            return res.send({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng chờ trong giây lát" })
-        }
+    const keyrutVang = keyRutvangz + req.user._id
+    const getRedis = await clientRedis.get(keyrutVang)
+    if (getRedis == "dangrutvang") {
+        setTimeout(async () => {
+            await clientRedis.del(keyrutVang)
+        }, 5000)
+        return res.send({ error: 1, message: "<strong>Thất bại: </strong> Quá trình đang thực hiện vui lòng thử lại sau!" })
     }
-
-    req.session.time = Date.now()
+    await clientRedis.set(keyrutVang, "dangrutvang")
 
     if (req.body.rutvang) {
         const getBotrut = await BotThoi.find({ Server: req.user.server, TypeBot: 2, Status: { $ne: -1 } })
