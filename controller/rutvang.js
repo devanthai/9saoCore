@@ -106,15 +106,19 @@ router.post('/rutvang', async (req, res) => {
         var setting = await Setting.findOne({ setting: "setting" })
 
         if (cuocszz || cuoctxszz || cuocchanle || cuocbaucua) {
+            await clientRedis.del(keyrutVang)
             return res.send({ error: 1, message: "Không thể rút khi đang cược" });
         }
         else if (type != 0 && type != 1 && type != 2 && type != 3 && type != 4 && type != 5 && type != 6) {
+            await clientRedis.del(keyrutVang)
             return res.json({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng nhập đầy đủ thông tin" });
         }
         else if (name == '' || type == '') {
+            await clientRedis.del(keyrutVang)
             return res.json({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng nhập đầy đủ thông tin" });
         }
         else if (isNaN(vang2)) {
+            await clientRedis.del(keyrutVang)
             return res.json({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng nhập đầy đủ thông tin" });
         }
         else {
@@ -127,34 +131,41 @@ router.post('/rutvang', async (req, res) => {
 
             if (type == 6) gold2 = vang2;
             if (nameee.length != name.length) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại: </strong> Tên nhân vật không hợp lệ" });
             }
 
             if (gold2 > 500000000) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại: </strong> Số vàng tối đa 1 lần là 500,000,000 vàng !!!" });
             }
             if (gold2 < 10000000) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại: </strong> Số vàng tối thiểu 1 lần là 10,000,000 vàng !!!" });
             }
 
             const user = await User.findOne({ _id: req.user._id })
 
-
-
             if (password < 6) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự" });
             }
             var arrz = password.match(/([0-9]|[a-z]|[A-Z])/g);
             if (arrz.length != password.length) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9" });
             }
 
             const vaildPass = await bcrypt.compare(password, user.password)
-            if (!vaildPass) return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
+            if (!vaildPass) {
+                await clientRedis.del(keyrutVang)
+                return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
+            }
 
             const countrutvang = await Rutvang.countDocuments({ status: 0, tnv: name.toLowerCase() })
 
             if (countrutvang && countrutvang > 0) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng hủy đơn trước đó !!!" });
             }
 
@@ -166,6 +177,7 @@ router.post('/rutvang', async (req, res) => {
             const cuocchanle = await CuocChanle.countDocuments({ uid: user._id.toString() })
             solancuoc = cuocs + cuockenos + cuoctxs + cuocchanle
             if (solancuoc < 5) {
+                await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại: </strong> Đặt cược trên 5 ván mới có thể rút !!!" });
             }
 
@@ -175,9 +187,11 @@ router.post('/rutvang', async (req, res) => {
             if (user) {
 
                 if (user.vang < gold2) {
+                    await clientRedis.del(keyrutVang)
                     return res.json({ error: 1, message: "<strong>Thất bại: </strong> Bạn không đủ vàng để rút" });
                 }
                 else if (user.hanmuc < gold2 && ishanmuc) {
+                    await clientRedis.del(keyrutVang)
                     return res.json({ error: 1, message: "<strong>Thất bại: </strong> Hạn mức của bạn không đủ để rút" });
                 }
                 else {
@@ -206,9 +220,11 @@ router.post('/rutvang', async (req, res) => {
                                     }
                                 }
                             }, 900000);
+                            await clientRedis.del(keyrutVang)
                             return res.json({ error: 0, message: "<strong>Thành công</strong> Bạn vui lòng tới địa điểm giao hàng gặp BOT để giao dịch", table: table });
                         }
                         catch {
+                            await clientRedis.del(keyrutVang)
                             return res.json({ error: 1, message: "<strong>Thất bại: </strong> Có Lỗi vui lòng thử lại sau" });
                         }
                     }
