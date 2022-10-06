@@ -69,11 +69,11 @@ router.post('/rutvang', async (req, res) => {
         return res.json({ error: 1, message: "<strong>Thất bại: </strong> Vui lòng đăng nhập" });
     }
 
-    var checkCaptcha = await CaptchaFunction.checkCaptcha(req.body.captcha, req.session.captcha);
-    if (!checkCaptcha) {
+    // var checkCaptcha = await CaptchaFunction.checkCaptcha(req.body.captcha, req.session.captcha);
+    // if (!checkCaptcha) {
 
-        return res.send({ error: 1, message: "<strong>Thất bại: </strong> Bạn đã nhập sai captcha!" })
-    }
+    //     return res.send({ error: 1, message: "<strong>Thất bại: </strong> Bạn đã nhập sai captcha!" })
+    // }
 
 
     const keyrutVang = keyRutvangz + req.user._id
@@ -81,7 +81,7 @@ router.post('/rutvang', async (req, res) => {
     if (getRedis == "dangrutvang") {
         setTimeout(async () => {
             await clientRedis.del(keyrutVang)
-        }, 5000)
+        }, 4000)
         return res.send({ error: 1, message: "<strong>Thất bại: </strong> Quá trình đang thực hiện vui lòng thử lại sau!" })
     }
     await clientRedis.set(keyrutVang, "dangrutvang")
