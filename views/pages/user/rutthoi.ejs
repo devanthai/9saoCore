@@ -244,6 +244,8 @@
         var gold = $('#sothoi').val();
         var password = $('#password').val();
 
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 
         $.ajax({
             url: "user/rutthoi",
@@ -254,6 +256,10 @@
                 gold: gold,
                 tnv: tnv,
                 password: password
+            },
+            complete: () => {
+                btn.disabled = false
+                btn.innerHTML = '<button class="form-control btn btn-info font-weight-bold text-uppercase" type="button" id="btn">Rút ngay</button>';
             },
             success: function (result) {
 
