@@ -93,7 +93,6 @@
               <th scope="col">Nhân vật</th>
               <th scope="col">Địa điểm</th>
               <th scope="col">KV</th>
-              <th scope="col">Version</th>
               <th scope="col" id="headerGold2">Số vàng</th>
             </tr>
           </thead>
@@ -120,6 +119,9 @@
                     </td>
                     <td scope="col">
                       <%= getBotnap[i].Name%>
+                      <%if(botrut[i].Version=="2.2.2"){%> 
+                        <small> - (Bản mới)</small>
+                        <%}%>
                     </td>
                     <td scope="col">
                       Vách núi kkr
@@ -127,9 +129,7 @@
                     <td scope="col">
                       <%= getBotnap[i].Zone %>
                     </td>
-                    <td scope="col">
-                      <%= getBotnap[i].Version %>
-                    </td>
+                   
                     <td scope="col">
                       <%= String(getBotnap[i].Gold).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
                     </td>
