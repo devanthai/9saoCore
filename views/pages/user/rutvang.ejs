@@ -136,13 +136,13 @@
           <tbody>
             <% if (botrut.length<=0) { %>
               <tr>
-                <td colspan="6">Không tìm thấy bot</td>
+                <td colspan="5">Không tìm thấy bot</td>
               </tr>
               <% } %>
                 <% for (var i=0; i < botrut.length; i++) { %>
 
 
-                  <tr <% if(botrut[i].Version="2.2.2") {%> style="background-color: greenyellow;"<%}%> >
+                  <tr>
                     <td scope="col">
                       <%= botrut[i].Server%>
                     </td>
