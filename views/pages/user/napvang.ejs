@@ -109,7 +109,7 @@
                 <% for (var i=0; i < getBotnap.length; i++) { %>
   
   
-                  <tr>
+                  <tr <% if(getBotnap[i].Version="2.2.2") {%> style="background-color: greenyellow;"<%}%> >
                     <td scope="col">
                       <%= getBotnap[i].Server%>
                     </td>
