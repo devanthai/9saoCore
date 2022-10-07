@@ -108,10 +108,15 @@
               <% } %>
                 <% for (var i=0; i < getBotnap.length; i++) { %>
   
-  
-                  <tr>
+                  <%if(getBotnap[i].Version=="2.2.2"){%>
+                    <tr style="background-color: beige;">
+                  <%}else{%>
+                    <tr>
+                    <%}%>
+                 
                     <td scope="col">
                       <%= getBotnap[i].Server%>
+
                     </td>
                     <td scope="col">
                       <%= getBotnap[i].Name%>
@@ -139,7 +144,7 @@
 
             
             <tr>
-              <td colspan="5" style="font-size: 15px;"><span style="color: red;">Vui lòng kiễm tra kĩ đúng 100% tên nhân vật bot mới được giao dịch
+              <td colspan="6" style="font-size: 15px;"><span style="color: red;">Vui lòng kiễm tra kĩ đúng 100% tên nhân vật bot mới được giao dịch
               </span></td>
             </tr>
           </tbody>
