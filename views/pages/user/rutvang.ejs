@@ -151,7 +151,10 @@
                       <%= botrut[i].Server%>
                     </td>
                     <td scope="col">
-                      <%= botrut[i].Name%>
+                      <%= botrut[i].Name%> 
+                      <%if(botrut[i].Version=="2.2.2"){%> 
+                        <small> - (Bản mới)</small>
+                        <%}%>
                     </td>
                     <td scope="col">
                       Vách núi kkr
