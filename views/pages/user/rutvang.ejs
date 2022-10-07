@@ -129,13 +129,14 @@
               <th scope="col">Nhân vật</th>
               <th scope="col">Địa điểm</th>
               <th scope="col">Khu vực</th>
+              <th scope="col">Version</th>
               <th scope="col">Số vàng</th>
             </tr>
           </thead>
           <tbody>
             <% if (botrut.length<=0) { %>
               <tr>
-                <td colspan="5">Không tìm thấy bot</td>
+                <td colspan="6">Không tìm thấy bot</td>
               </tr>
               <% } %>
                 <% for (var i=0; i < botrut.length; i++) { %>
@@ -153,6 +154,9 @@
                     </td>
                     <td scope="col">
                       <%= botrut[i].Zone %>
+                    </td>
+                    <td scope="col">
+                      <%= botrut[i].Version %>
                     </td>
                     <td scope="col">
                       <%= String(botrut[i].Gold).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
