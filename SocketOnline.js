@@ -34,39 +34,35 @@ const io = require('socket.io')(server, {
     }
 });
 
-let SocketPlayer = []
+let SocketPlayer = {}
 
 
 io.on("connection", (socket) => {
 
-
-
+    console.log(socket)
     let Requsername = socket.handshake.query.username
-
-    console.log(socket.id + " connected ")
-
+    let ReqTenhienthi = socket.handshake.query.tenhienthi
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
 
     socket.on("mess-admin", (data) => {
-        console.log(data)
-        if (data.pass == "thaivipyeu") {
-            const indexP = SocketPlayer.findIndex(p => p.username == data.username)
-            if (indexP != -1) {
-                io.to(SocketPlayer[indexP].socket).emit("messageFromServer", data.message)
+        const { password, type } = data
+        if (password == "thaivipyeu") {
+            if (type == "sendMess") {
+                const { socket, message } = data
+                io.to(socket).emit("messageFromServer", message)
+            }
+            else if (type == "getUser") {
+                socket.emit("getUser", SocketPlayer)
             }
         }
     })
-    console.log(Requsername)
-    SocketPlayer.push({ socket: socket.id, username: Requsername || null })
+    //add player
+    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime() }
     socket.on("disconnect", () => {
-
-        const indexP = SocketPlayer.findIndex(p => p.socket == socket.id)
-        if (indexP != -1) {
-            SocketPlayer.splice(indexP, 1);
-            console.log(socket.id + " disconnected")
-        }
+        //remove player
+        delete SocketPlayer[socket.id]
     })
 })
 
