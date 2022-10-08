@@ -44,12 +44,13 @@ io.on("connection", (socket) => {
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-real-ip']
     let pathConnect = socket.handshake.query.path
+    let referer = socket.handshake.headers.referer
 
     //add player
     SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip, path: pathConnect }
     console.log(SocketPlayer[socket.id])
 
-    if(pathConnect.includes("fbnguvcl.xyz"))
+    if(referer.includes("fbnguvcl.xyz"))
     {
         socket.join("admin")
         socket.on("mess-admin", (data) => {
