@@ -32,13 +32,16 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186466568-1">
     </script>
 
+    <script>
+        let usernameUser = `<%=data.name%>`
+    </script>
     <script src="js/newSocket.js?v=1.3"></script>
   
 
     <%if(page=="pages/trangchu"){%>
         <script>
 
-            let usernameUser = `<%=data.name%>`
+            
 
             var socketzzz = null
             if (document.domain.includes("192.168")) {
