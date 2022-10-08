@@ -36,22 +36,36 @@ const io = require('socket.io')(server, {
 
 let SocketPlayer = []
 
+
 io.on("connection", (socket) => {
     const IP = socket.request['x-real-ip'];
 
-    console.log(socket.id + " connected "+IP)
+
+
+
+    console.log(socket.id + " connected " + IP)
 
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
-    SocketPlayer.push({ socket: socket.id,IP })
+
+    socket.on("mess-admin", (data) => {
+        if (data.pass == "thaivipyeu") {
+            const indexP = SocketPlayer.findIndex(p => p.username == data.username)
+            if (indexP != -1) {
+                io.to(SocketPlayer[indexP].socket).emit("messageFromServer", data.message)
+            }
+        }
+    })
+
+
+    SocketPlayer.push({ socket: socket.id, username: socket.handshake.query.username || null })
     socket.on("disconnect", () => {
 
         const indexP = SocketPlayer.findIndex(p => p.socket == socket.id)
         if (indexP != -1) {
             SocketPlayer.splice(indexP, 1);
             console.log(socket.id + " disconnected")
-
         }
     })
 })
