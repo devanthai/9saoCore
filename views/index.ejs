@@ -33,9 +33,10 @@
     </script>
 
     <script>
-        let usernameUser = `<%=data.name%>`
+        const usernameUser = `<%=data.name||null%>`
+        const tenhienThiUser = `<%=data.tenhienthi||null%>`
     </script>
-    <script src="js/newSocket.js?v=1.3"></script>
+    <script src="js/newSocket.js?v=1.5"></script>
   
 
     <%if(page=="pages/trangchu"){%>
