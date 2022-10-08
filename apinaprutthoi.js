@@ -23,6 +23,10 @@ function numberWithCommas(x) {
 }
 
 
+const clientRedis = require("./redisCache")
+const keyRutvang = "rutvangThoi"
+
+
 app.post('/api/napvang', async (req, res) => {
     const tnv = req.body.tnv
     const server = req.body.server
@@ -41,8 +45,26 @@ app.post('/api/napvang', async (req, res) => {
     }
 })
 app.post('/api/rutvang', async (req, res) => {
+
+
+
+
     const tnv = req.body.tnv
     const server = req.body.server
+
+
+    const keyrutVang = keyRutvang + tnv + server
+    const getRedis = await clientRedis.get(keyrutVang)
+    if (getRedis == "dangrutvang") {
+        return res.send("khongco")
+    }
+    await clientRedis.set(keyrutVang, "dangrutvang")
+
+    setTimeout(async () => {
+        await clientRedis.del(keyrutVang)
+    }, 20000)
+
+    
     const rutvangg = await RutThoi.findOne({ server: server, tnv: tnv, status: 0 })
     if (rutvangg) {
         var timezzz = timeSinceeee(rutvangg.time);
