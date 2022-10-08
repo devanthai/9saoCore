@@ -44,7 +44,8 @@ io.on("connection", (socket) => {
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-real-ip']
     let referer = socket.handshake.headers.referer
-    console.log(socket)
+    let origin = socket.handshake.headers.origin
+    console.log(referer,origin)
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
