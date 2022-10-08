@@ -38,18 +38,19 @@ let SocketPlayer = []
 
 
 io.on("connection", (socket) => {
-    const IP = socket.request['x-real-ip'];
 
 
 
+    let Requsername = socket.handshake.query.username
 
-    console.log(socket.id + " connected " + IP)
+    console.log(socket.id + " connected ")
 
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
 
     socket.on("mess-admin", (data) => {
+        console.log(data)
         if (data.pass == "thaivipyeu") {
             const indexP = SocketPlayer.findIndex(p => p.username == data.username)
             if (indexP != -1) {
@@ -57,9 +58,8 @@ io.on("connection", (socket) => {
             }
         }
     })
-
-
-    SocketPlayer.push({ socket: socket.id, username: socket.handshake.query.username || null })
+    console.log(Requsername)
+    SocketPlayer.push({ socket: socket.id, username: Requsername || null })
     socket.on("disconnect", () => {
 
         const indexP = SocketPlayer.findIndex(p => p.socket == socket.id)
