@@ -18,6 +18,10 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const clientRedis = require("./redisCache")
+const keyRutvang = "rutvangTuoi"
+
+
 function get3UID(uid) {
     var number3 = ""
     let zNum = ""
@@ -61,7 +65,24 @@ app.post('/api/napvang', async (req, res) => {
 app.post('/api/rutvang', async (req, res) => {
     const tnv = req.body.tnv
     const server = req.body.server
+
+
+
+    const keyrutVang = keyRutvang + tnv + server
+    const getRedis = await clientRedis.get(keyrutVang)
+    if (getRedis == "dangrutvang") {
+        return res.send("khongco")
+    }
+    await clientRedis.set(keyrutVang, "dangrutvang")
+
+    setTimeout(async () => {
+        await clientRedis.del(keyrutVang)
+    }, 20000)
+
     const rutvangg = await Rutvang.findOne({ server: server, tnv: tnv, status: 0 })
+
+
+
     if (rutvangg) {
         var timezzz = timeSinceeee(rutvangg.time);
         if (timezzz > 800) {
