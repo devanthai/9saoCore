@@ -61,7 +61,7 @@ io.on("connection", (socket) => {
         }
     })
     //add player
-    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime() }
+    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip }
     socket.on("disconnect", () => {
         //remove player
         delete SocketPlayer[socket.id]
