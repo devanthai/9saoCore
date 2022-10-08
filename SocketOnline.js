@@ -43,9 +43,8 @@ io.on("connection", (socket) => {
     let Requsername = socket.handshake.query.username
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-real-ip']
-    let referer = socket.handshake.headers.referer
-    let origin = socket.handshake.headers.origin
-    console.log(referer,origin)
+    let pathConnect = socket.handshake.query.path
+
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
@@ -63,7 +62,8 @@ io.on("connection", (socket) => {
         }
     })
     //add player
-    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip }
+    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip, path: pathConnect }
+    console.log(SocketPlayer[socket.id])
     socket.on("disconnect", () => {
         //remove player
         delete SocketPlayer[socket.id]
