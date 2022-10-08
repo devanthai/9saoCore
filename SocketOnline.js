@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
     let Requsername = socket.handshake.query.username
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-real-ip']
-    console.log(Ip)
+    //console.log(Ip)
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
