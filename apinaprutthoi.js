@@ -17,7 +17,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 app.use(bodyParser.urlencoded({ extended: true, limit: '30mb' }))
 app.use(bodyParser.json({ limit: '30mb' }))
 dotenv.config()
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }, () => console.log('Connected to db'));
+mongoose.connect(process.env.DB_CONNECT, {  }, () => console.log('Connected to db'));
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
