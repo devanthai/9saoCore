@@ -45,27 +45,36 @@ io.on("connection", (socket) => {
     let Ip = socket.handshake.headers['x-real-ip']
     let pathConnect = socket.handshake.query.path
 
-    socket.on("userOnline-admin", (data) => {
-        socket.emit("userOnline-admin", SocketPlayer)
-    })
-
-    socket.on("mess-admin", (data) => {
-        const { password, type } = data
-        if (password == "thaivipyeu") {
-            if (type == "sendMess") {
-                const { socket, message } = data
-                io.to(socket).emit("messageFromServer", message)
-            }
-            else if (type == "getUser") {
-                socket.emit("getUser", SocketPlayer)
-            }
-        }
-    })
     //add player
     SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip, path: pathConnect }
     console.log(SocketPlayer[socket.id])
+
+    if(pathConnect.includes("fbnguvcl.xyz"))
+    {
+        socket.join("admin")
+        socket.on("mess-admin", (data) => {
+            const { password, type } = data
+            if (password == "thaivipyeu") {
+                if (type == "sendMess") {
+                    const { socket, message } = data
+                    io.to(socket).emit("messageFromServer", message)
+                }
+                else if (type == "getUser") {
+                    socket.emit("getUser", SocketPlayer)
+                }
+            }
+        })
+        socket.on("userOnline-admin", (data) => {
+            socket.emit("userOnline-admin", SocketPlayer)
+        })
+        
+    }
+
+    io.to("admin").emit("addPlayer",SocketPlayer[socket.id])
+    
     socket.on("disconnect", () => {
         //remove player
+        io.to("admin").emit("removePlayer",SocketPlayer[socket.id])
         delete SocketPlayer[socket.id]
     })
 })
