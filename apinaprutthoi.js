@@ -82,6 +82,19 @@ app.post('/api/donenap', async (req, res) => {
         }
     }
 })
+
+
+app.post('/api/checkDoneRut', async (req, res) => {
+    const id = req.body.id
+    const lsvang = await RutThoi.findOne({ _id: id, status: 0 })
+    if (lsvang) {
+        return res.send("ok")
+    }
+    else {
+        return res.send("cut")
+    }
+})
+
 app.post('/api/donerut', async (req, res) => {
     const tnv = req.body.tnv
     const id = req.body.id
