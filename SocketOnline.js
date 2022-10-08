@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
     let Requsername = socket.handshake.query.username
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-real-ip']
-    console.log(Ip)
+    //console.log(Ip)
     socket.on("userOnline-admin", (data) => {
         socket.emit("userOnline-admin", SocketPlayer)
     })
@@ -61,7 +61,7 @@ io.on("connection", (socket) => {
         }
     })
     //add player
-    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime() }
+    SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip }
     socket.on("disconnect", () => {
         //remove player
         delete SocketPlayer[socket.id]
