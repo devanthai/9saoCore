@@ -149,10 +149,12 @@
                     <td scope="col">
                       <%= botrut[i].Server%>
                     </td>
-                    <td scope="col">
-                      <%= botrut[i].Name%> 
+                    <td scope="col" <%-botrut[i].Version=="2.2.2"?'style="color:red"':''%>>
+                      <%= botrut[i].Name%>
                       <%if(botrut[i].Version=="2.2.2"){%> 
-                        <small> - (Bản mới)</small>
+                        <b style="
+                        color: red;
+                    "> - (Bản mới)</b>
                         <%}%>
                     </td>
                     <td scope="col">
