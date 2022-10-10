@@ -69,7 +69,6 @@ io.on("connection", (socket) => {
         socket.on("userOnline-admin", (data) => {
             socket.emit("userOnline-admin", SocketPlayer)
         })
-        
     }
 
     io.to("admin").emit("addPlayer",SocketPlayer[socket.id])
