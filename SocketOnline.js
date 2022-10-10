@@ -39,7 +39,7 @@ let SocketPlayer = {}
 
 io.on("connection", (socket) => {
 
-    //console.log(socket)
+    console.log(socket)
     let Requsername = socket.handshake.query.username
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-real-ip']
@@ -49,6 +49,7 @@ io.on("connection", (socket) => {
     //add player
     SocketPlayer[socket.id] = { username: Requsername || null, tenhienthi: ReqTenhienthi || null, timeConnect: new Date().getTime(), Ip: Ip, path: pathConnect }
     console.log(SocketPlayer[socket.id])
+
 
     if(referer.includes("fbnguvcl.xyz"))
     {
