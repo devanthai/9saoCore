@@ -100,7 +100,6 @@ const listPage = {
     "napt9s": '<b style="color:red">Nạp từ ví The9sao.com <img src="/images/hot2.gif"></b>',
     "napbank": 'Nạp Bank',
     "napmomo": "Nạp ví Momo",
-    "naptsr": "Nạp từ ví TheSieuRe.Com",
     "sodu/1": "Lịch sử thay đổi số dư",
     "csmm/1": "Lịch sử con số may mắn",
     "taixiu": "Lịch sử game tài xỉu",

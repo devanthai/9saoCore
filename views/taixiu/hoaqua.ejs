@@ -1,0 +1,562 @@
+<!-- dfgdfg -->
+
+<style>
+    .khung_hoaqua {
+        display: block;
+        margin-bottom: 11%;
+        max-width: 800px;
+        position: relative;
+        float: left;
+        margin-right: -3%;
+    }
+
+
+
+    .miniHoaqua-show {
+        font-weight: 700;
+        position: absolute;
+        z-index: 101;
+        height: 0px;
+        width: 100%;
+        margin-top: 5%;
+        margin-left: 10%;
+    }
+
+    .game-miniHoaqua {
+        height: 0;
+        width: 100%;
+        font-weight: 700;
+    }
+
+    @-webkit-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @-moz-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @-ms-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @-o-keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+    @keyframes slidewildy {
+        from {
+            background-position-y: 0%;
+        }
+
+        to {
+            background-position-y: -175%;
+        }
+    }
+
+
+
+    #game-miniHoaqua #khung_hoaqua {
+        position: relative;
+        margin: auto;
+    }
+
+
+
+
+
+    .khung_hoaqua .button-hoaqua {
+        right: 0;
+        top: 4%;
+        z-index: 2;
+        width: 8.5%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .khung_hoaqua .button-hoaqua img {
+        width: 100%;
+        cursor: pointer;
+        z-index: 100;
+        position: absolute;
+    }
+
+
+    .khung_hoaqua .mucdat-button {
+        right: 0;
+        top: 4%;
+        z-index: -1;
+        width: 9.5%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .khung_hoaqua .mucdat-button img {
+        width: 100%;
+        cursor: pointer;
+        z-index: 100;
+        position: absolute;
+    }
+
+
+    .khung_hoaqua .clogame {
+        margin-left: -377%;
+        margin-top: 49%;
+    }
+
+    .khung_hoaqua .top-game {
+        margin-left: -624%;
+        margin-top: 23%;
+    }
+
+    .khung_hoaqua .help-game {
+        margin-left: -546%;
+        margin-top: 23%;
+    }
+
+
+
+    .khung_hoaqua .his-game {
+        margin-left: -462%;
+        margin-top: 23%;
+    }
+
+    .khung_hoaqua .mucdat .item {
+        z-index: 50;
+        float: left;
+        width: 30.8%;
+        height: 46%;
+        margin: 1%;
+        position: relative;
+    }
+
+    .khung_hoaqua .mucdat .item-button {
+        z-index: 50;
+        width: 47%;
+
+    }
+
+
+    .khung_hoaqua .mucdat-button #cuoc_1m {
+        margin-left: -1023%;
+        margin-top: 115%;
+    }
+
+    .khung_hoaqua .mucdat-button #cuoc_5m {
+        margin-left: -1038%;
+        margin-top: 196%;
+    }
+
+    .khung_hoaqua .mucdat-button #cuoc_50m {
+        margin-left: -1038%;
+        margin-top: 278%;
+    }
+
+    .khung_hoaqua .mucdat-button #cuoc_100m {
+        margin-left: -1028%;
+        margin-top: 363%;
+    }
+
+    .khung_hoaqua .mucdat-button img {
+        width: 100%;
+        cursor: pointer;
+        z-index: 100;
+        position: absolute;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .hu-hoaqua {
+            font-size: 2.17vw;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        .hu-hoaqua {
+            font-size: 2.5vw;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .hu-hoaqua {
+            font-size: 2.82vw;
+        }
+    }
+
+    .list-qua {
+        position: absolute;
+        width: 76%;
+        height: 59%;
+        margin-top: 16%;
+        margin-left: 2.8%;
+    }
+
+    .khung_hoaqua .list-qua .item-qua {
+        z-index: 50;
+        float: left;
+        width: 27%;
+        margin: 3%;
+        margin-top: 12%;
+    }
+
+    .khung_hoaqua .list-qua .item-qua-quay img {
+        opacity: 0;
+    }
+
+    .khung_hoaqua .list-qua .item-qua-quay {
+        z-index: 50;
+        float: left;
+        width: 27%;
+        height: 94%;
+        margin: 3%;
+        margin-top: 2%
+    }
+
+    .item-qua-quay.active {
+        -webkit-border-radius: 19px;
+        -moz-border-radius: 7px;
+        background: url(../wild/quay.png) 100% 0% /100% repeat-y;
+        display: block;
+        animation: slidewildy 0.2s linear 0s infinite;
+        -webkit-animation: slidewildy 0.5s linear 0s infinite;
+        -moz-animation: slidewildy 0.5s linear 0s infinite;
+        -ms-animation: slidewildy 0.5s linear 0s infinite;
+        -o-animation: slidewildy 0.5s linear 0s infinite;
+    }
+
+
+    .xxxxxxxquay {
+        position: absolute;
+        right: 2%;
+        top: 53%;
+        width: 22%;
+    }
+
+    .xxxxxxxquay.active img {
+        opacity: 0;
+    }
+
+    .xxxxxxxquay.active {
+        -moz-border-radius: 7px;
+        background: url(../wild/x/xquay.png) 77% 0% /65% repeat-y;
+        display: block;
+        animation: slidewildy 0.2s linear 0s infinite;
+        -webkit-animation: slidewildy 0.5s linear 0s infinite;
+        -moz-animation: slidewildy 0.5s linear 0s infinite;
+        -ms-animation: slidewildy 0.5s linear 0s infinite;
+        -o-animation: slidewildy 0.5s linear 0s infinite;
+    }
+
+    .xxxxxxx {
+        position: absolute;
+        right: 2%;
+        top: 55%;
+        width: 17%;
+    }
+
+    .img-wild-animation {
+        position: absolute;
+        right: 2%;
+        top: 30%;
+        width: 17%;
+        animation-name: animation-ico-wild;
+        animation-duration: 2s;
+        transform-origin: 50% 50%;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+
+    }
+
+    @keyframes animation-ico-wild {
+        0% {
+            transform: scale(1, 1);
+        }
+
+        50% {
+            transform: scale(1.05, 1.05);
+        }
+
+        to {
+            transform: scale(1, 1);
+        }
+    }
+
+    .btn-spin {
+        position: absolute;
+        right: 10%;
+        top: 81%;
+        width: 12.5%;
+        cursor: pointer;
+        z-index: 100;
+    }
+
+    .khung_hoaqua .action-bottom {
+        position: absolute;
+        width: 62%;
+        margin-top: 59%;
+        margin-left: 10.2%;
+    }
+
+    .khung_hoaqua .action-bottom .button-bottom-hoaqua {
+        z-index: 50;
+        float: left;
+        width: 15%;
+        position: relative;
+        margin: 0.5%;
+    }
+</style>
+
+<div id="game-miniHoaqua" style="display: block;" style="left: 45px; top: 194.75px;"
+    class="miniHoaqua-show ui-draggable actigame">
+    <div id="khung_hoaqua">
+
+        <div class="khung_hoaqua">
+            <div class="move-here ui-draggable-handle" style="position:absolute;width: 100%;height: 100%;z-index: 1;">
+                <div class="note_here_hoaqua font_size_18"
+                    style="position: absolute;display: flex;width: 60%;height:22%;top: 40%;text-align: center;z-index:50;">
+                </div>
+            </div>
+
+            <div class="mucdat-button">
+                <img width="100%" id="cuoc_1m" onclick="SelectMoneyBet(1)" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/1off.png">
+                <img width="100%" id="cuoc_5m" onclick="SelectMoneyBet(2)" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/5off.png">
+                <img width="100%" id="cuoc_50m" onclick="SelectMoneyBet(3)" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/50off.png">
+                <img width="100%" id="cuoc_100m" onclick="SelectMoneyBet(4)" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/100off.png">
+
+            </div>
+
+
+            <div class="button-hoaqua">
+                <img class="clogame" alt="cltx nro cltx 9sao.me" src="/wild/button/close.png">
+                <img class="help-game" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/504931d7-3b2a-4929-9b54-5f809567947b.png">
+                <img class="his-game" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/935bc9ab-86a7-46a6-89cc-5db015da7077.png">
+                <img class="top-game" alt="cltx nro cltx 9sao.me"
+                    src="/wild/button/bf58e072-b7a5-42c7-a81d-7d6d42b362ac.png">
+            </div>
+
+
+
+
+            <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
+
+
+
+                <div class="list-qua">
+
+
+
+
+                    <div class="item-qua" id="qua_1">
+                        <img alt="cltx nro cltx 9sao.me" width="100%" id="img_qua_1" height="100%"
+                            src="/wild/qua/777.png">
+
+                    </div>
+                    <div class="item-qua" id="qua_2">
+                        <img alt="cltx nro cltx 9sao.me" width="100%" id="img_qua_2" height="100%"
+                            src="/wild/qua/cam.png">
+                    </div>
+                    <div class="item-qua" id="qua_3">
+                        <img alt="cltx nro cltx 9sao.me" width="100%" id="img_qua_3" height="100%"
+                            src="/wild/qua/duahau.png">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="hu-hoaqua" style="position: absolute;left: 20%;top: 12%;">
+                    <div id="hu-hoaqua" style="
+                        color: #ffff00;
+                        text-shadow: 0 0 8px black, 0 0 8px #000;
+                        text-align: center;
+                        font-weight: bolder;
+                    ">999.999.999</div>
+                </div>
+
+
+
+
+                <div class="action-bottom">
+                    <div onclick="SieuTocButton()" class="button-bottom-hoaqua" style="width: 25%;cursor: pointer;">
+                        <img alt="cltx nro cltx 9sao.me" id="img-sieutoc-hoaqua" width="100%" height="100%"
+                            src="/wild/button/sieu-toc-on.png">
+                    </div>
+                    <div class="button-bottom-hoaqua" style="width: 46%;">
+                        <div class="hu-hoaqua" style="
+                        margin-top: 8%;
+                        color: #ffff00;
+                        text-shadow: 0 0 8px black, 0 0 8px #000;
+                        text-align: center;
+                        font-weight: bolder;
+                    ">100,000,000</div>
+                    </div>
+                    <div onclick="AutoSpinButton()" class="button-bottom-hoaqua" style="width: 25%;cursor: pointer;">
+                        <img alt="cltx nro cltx 9sao.me" id="img-auto-hoaqua" width="100%" height="100%"
+                            src="/wild/button/auto-on.png">
+                    </div>
+
+                </div>
+
+
+                <div onclick="SpinButton()" class="btn-spin">
+                    <img alt="cltx nro cltx 9sao.me" id="img-spin" width="100%" height="100%"
+                        src="/wild/button/spin.png">
+                </div>
+
+
+                <div class="img-wild-animation">
+                    <img alt="cltx nro cltx 9sao.me" id="img-wild-animation" width="100%" height="100%"
+                        src="/wild/qua/wild.png">
+                </div>
+
+                <div class="xxxxxxx" id="xxxxxxx">
+                    <img alt="cltx nro cltx 9sao.me" id="img-xxxxxxx" width="100%" height="100%" src="/wild/x/1.png">
+                </div>
+
+
+
+
+
+
+            </div>
+            <img alt="cltx nro cltx 9sao.me" src="/wild/banslot.png" width="80%">
+        </div>
+    </div>
+</div>
+<script>
+    let valueMoneyBet = 1
+    let isSieuTocSpin = false
+    let isAutoSpinHoaQua = false
+    let isSpin = false
+    let SelectMoneyBet = (index) => {
+        const cuocnames = ["cuoc_1m", "cuoc_5m", "cuoc_50m", "cuoc_100m"]
+        const imgOffs = ["1off", "5off", "50off", "100off"]
+        const imgOns = ["1on", "5on", "50on", "100on"]
+        $(`#${cuocnames[index - 1]}`).attr('src', `/wild/button/${imgOns[index - 1]}.png`);
+        valueMoneyBet = index
+        for (let i = 0; i < cuocnames.length; i++) {
+            if (i != (index - 1)) {
+                $(`#${cuocnames[i]}`).attr('src', `/wild/button/${imgOffs[i]}.png`);
+            }
+        }
+        socketzzz.emit("hoaqua/changeMucBet", valueMoneyBet)
+    }
+    SelectMoneyBet(valueMoneyBet)
+    let SpinButton = () => {
+        isAutoSpinHoaQua && ChangeButtonSpin()
+        if (isAutoSpinHoaQua) {
+            isAutoSpinHoaQua = false
+            ChangeButtonSpin()
+            $('#img-auto-hoaqua').attr('src', `/wild/button/${isAutoSpinHoaQua ? "auto-off" : "auto-on"}.png`);
+            return
+        }
+        if (isSpin) return note_play('.move-here .note_here_hoaqua', "Đang quay", 'ff0000');
+        $('#img-spin').attr('src', `/wild/button/spinBlock.png`);
+        Spin();
+    }
+    let Spin = () => {
+
+        socketzzz.emit("hoaqua/bet", { muc: valueMoneyBet })
+    }
+
+    socketzzz.on("hoaqua/bet", (data) => {
+        if (!data.error) {
+            isSpin = true
+            for (let i = 1; i <= 3; i++) {
+                $(`#qua_` + i).addClass("item-qua-quay active")
+            }
+            UnSpin(1, 3, data)
+        }
+        else {
+            note_play('.move-here .note_here_hoaqua', data.message, 'ff0000');
+        }
+    })
+
+    let ChangeButtonSpin = () => {
+        $('#img-spin').attr('src', `/wild/button/${isSpin ? "spin" : "spinBlock"}.png`);
+        $('#img-spin').attr('src', `/wild/button/${isAutoSpinHoaQua ? "stop" : "spin"}.png`);
+    }
+    let SieuTocButton = () => {
+        isSieuTocSpin = !isSieuTocSpin
+        $('#img-sieutoc-hoaqua').attr('src', `/wild/button/${isSieuTocSpin ? "sieu-toc-off" : "sieu-toc-on"}.png`);
+    }
+    let AutoSpinButton = () => {
+        isAutoSpinHoaQua = !isAutoSpinHoaQua
+        ChangeButtonSpin()
+        $('#img-auto-hoaqua').attr('src', `/wild/button/${isAutoSpinHoaQua ? "auto-off" : "auto-on"}.png`);
+        isAutoSpinHoaQua && !isSpin && Spin()
+    }
+    let UnSpin = (i, max, data) => {
+        if (i <= max) {
+            setTimeout(() => {
+                $('#img_qua_' + i).attr('src', `/wild/qua/${data.result[i - 1]}.png`);
+                $(`#qua_` + i).removeClass("item-qua-quay active")
+                i++
+                UnSpin(i, max, data)
+            }, isSieuTocSpin ? 250 : 500)
+        }
+        else if (i > max) {
+            if (data.x) {
+                $(`#xxxxxxx`).addClass("xxxxxxxquay active")
+                $(`#xxxxxxx`).removeClass("xxxxxxx")
+                setTimeout(() => {
+                    $('#img-xxxxxxx').attr('src', `/wild/x/${data.x}.png`);
+                    $(`#xxxxxxx`).removeClass("xxxxxxxquay active")
+                    $(`#xxxxxxx`).addClass("xxxxxxx")
+                    DoneSpin()
+                }, isSieuTocSpin ? 250 : 500);
+            }
+            else {
+                DoneSpin()
+            }
+        }
+    }
+    let DoneSpin = () => {
+        !isAutoSpinHoaQua && ChangeButtonSpin()
+        isSpin = false
+        isAutoSpinHoaQua && Spin()
+    }
+    socketzzz.emit("hoaqua/changeMucBet", valueMoneyBet)
+    socketzzz.on("hoaqua/changeMucBet", (data) => {
+        if (data) {
+            $("#hu-hoaqua").text(convertNumber(data.vanghu))
+        }
+    })
+    socketzzz.on("message-hoaqua", (data) => {
+        note_play('.', data.message, data.error == 1 ? 'ff0000' : 'green');
+    })
+
+</script>
