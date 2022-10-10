@@ -39,7 +39,7 @@ let SocketPlayer = {}
 
 io.on("connection", (socket) => {
 
-    console.log(socket)
+   // console.log(socket)
     let Requsername = socket.handshake.query.username
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-forwarded-for']
