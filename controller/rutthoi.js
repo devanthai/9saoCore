@@ -94,7 +94,7 @@ router.post('/rutthoi', async (req, res) => {
         const name = req.body.tnv;
         const type = req.body.type;
         const gold = req.body.gold;
-        const password = req.body.password
+       // const password = req.body.password
         //  console.log(password)
         var gold2 = 0;
 
@@ -140,21 +140,21 @@ router.post('/rutthoi', async (req, res) => {
 
 
 
-            if (password < 6) {
-                await clientRedis.del(keyrutVang)
-                return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự" });
-            }
-            var arrz = password.match(/([0-9]|[a-z]|[A-Z])/g);
-            if (arrz.length != password.length) {
-                await clientRedis.del(keyrutVang)
-                return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9" });
-            }
+            // if (password < 6) {
+            //     await clientRedis.del(keyrutVang)
+            //     return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự" });
+            // }
+            // var arrz = password.match(/([0-9]|[a-z]|[A-Z])/g);
+            // if (arrz.length != password.length) {
+            //     await clientRedis.del(keyrutVang)
+            //     return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9" });
+            // }
 
-            const vaildPass = await bcrypt.compare(password, user.password)
-            if (!vaildPass) {
-                await clientRedis.del(keyrutVang)
-                return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
-            }
+            // const vaildPass = await bcrypt.compare(password, user.password)
+            // if (!vaildPass) {
+            //     await clientRedis.del(keyrutVang)
+            //     return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
+            // }
 
             const countrutvang = await RutThoi.countDocuments({ status: 0, tnv: name.toLowerCase() })
 
