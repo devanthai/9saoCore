@@ -82,11 +82,11 @@
               <input type="text" name="gold" id="gold" class="form-control" placeholder="Nhập số vàng bằng số">
               <small>Số vàng cần rút phải là bội của 10.000.000 vàng</small>
             </div>
-            <div class="form-group" id="divGold" style="">
+            <!-- <div class="form-group" id="divGold" style="">
               <label>Mật khẩu</label>
               <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
               <small>Nhập mật khẩu để rút</small>
-            </div>
+            </div> -->
             <!-- <div class="form-group ">
               <label for="">Mã captcha: </label>
 
@@ -255,7 +255,7 @@
     var type = $('#type').val();
     var tnv = $('#name').val();
     var gold = $('#gold').val();
-    var password = $('#password').val();
+   // var password = $('#password').val();
     // var captcha = $('#captcha').val();
     // if (captcha == "") {
     //   divAlert.innerHTML = thongbao('danger', "<strong>Thất bại: </strong> Vui lòng nhập captcha");
@@ -273,7 +273,7 @@
         type: type,
         gold: gold,
         tnv: tnv,
-        password: password.toLowerCase(),
+       // password: password.toLowerCase(),
        // captcha: captcha
       },
       complete: () => {

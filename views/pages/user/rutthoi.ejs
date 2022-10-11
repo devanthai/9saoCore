@@ -74,12 +74,12 @@
                             <input type="text" name="goldneed" id="goldneed" class="form-control readonly"
                                 style="color: red" readonly="">
                         </div>
-                        <div class="form-group" id="divGold" style="">
+                        <!-- <div class="form-group" id="divGold" style="">
                             <label>Mật khẩu</label>
                             <input type="password" name="password" id="password" class="form-control"
                                 placeholder="Nhập mật khẩu">
                             <small>Nhập mật khẩu để rút</small>
-                        </div>
+                        </div> -->
                         <% if(ishanmuc){ %>
                             <div role="alert" class="fade font-weight-bold alert alert-info show">Hạn mức của bạn:
                                 <span class="text-danger">
@@ -242,7 +242,7 @@
         divAlert.innerHTML = "";
         var tnv = $('#name').val();
         var gold = $('#sothoi').val();
-        var password = $('#password').val();
+       // var password = $('#password').val();
 
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
@@ -255,7 +255,7 @@
                 rutvang: "1",
                 gold: gold,
                 tnv: tnv,
-                password: password.toLowerCase()
+              //  password: password.toLowerCase()
             },
             complete: () => {
                 btn.disabled = false
