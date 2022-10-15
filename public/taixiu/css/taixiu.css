@@ -1,3 +1,9 @@
+.font_size_100 {
+    font-size: 6.09vw;
+}
+
+
+
 .color-text {
     background-image: linear-gradient(to bottom, #e47602, #fdf5d9, #e47602);
     -webkit-background-clip: text;
