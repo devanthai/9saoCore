@@ -61,6 +61,11 @@ socketzzz.on("running", (data) => {
     vungtxxx = false
     numanimate_2($('.khung-tx .money-tai,.game-item-2 .money-tai .middle'), data.vangtai, 17);
     numanimate_2($('.khung-tx .money-xiu,.game-item-2 .money-xiu .middle'), data.vangxiu, 17);
+
+    $('#vongquay-tx')['css']({
+        'opacity': '1'
+    });
+
     $('.effect')['css']({
         'opacity': '0'
     });
@@ -101,6 +106,9 @@ var x2last = -1;
 var x3last = -1;
 socketzzz.on("ketqua", (data) => {
     vungtxxx = false
+    $('#vongquay-tx')['css']({
+        'opacity': '0'
+    });
     $('.nangame')['css']({
         'opacity': '0'
     });
