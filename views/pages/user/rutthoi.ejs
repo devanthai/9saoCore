@@ -127,13 +127,22 @@
                                 <% for (var i=0; i < botrut.length; i++) { %>
 
 
-                                    <tr>
+                                    <%if(botrut[i].Version=="2.2.2"){%>
+                                        <tr style="background-color: beige;">
+                                      <%}else{%>
+                                        <tr>
+                                        <%}%>
                                         <td scope="col">
                                             <%= botrut[i].Server%>
                                         </td>
-                                        <td scope="col">
-                                            <%= botrut[i].Name%>
-                                        </td>
+                                        <td scope="col" <%-getBotnap[i].Version=="2.2.2"?'style="color:red"':''%>>
+                                            <%= getBotnap[i].Name%>
+                                            <%if(getBotnap[i].Version=="2.2.2"){%> 
+                                              <b style="
+                                              color: red;
+                                          "> - (Bản mới)</b>
+                                              <%}%>
+                                          </td>
                                         <td scope="col">
                                             Vách núi kkr
                                         </td>
