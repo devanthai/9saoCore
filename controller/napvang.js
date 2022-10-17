@@ -79,12 +79,14 @@ router.post('/napvang', async (req, res) => {
             }
 
 
-            const getBotnapvang = await BotGold.find({ Server: req.user.server, TypeBot: 1, Status: { $ne: -1 } })
-
-            var tablebot = "";
+            let getBotnapvang = await BotGold.find({ Server: req.user.server, TypeBot: 1, Status: { $ne: -1 } })
+            let tablebot = "";
             getBotnapvang.forEach(element => {
-                tablebot = "<tr><td>" + element.Server + "</td>" +
-                    "<td>" + element.Name + "</td>" +
+                tablebot = `<tr ${element.Version == "2.2.2" ? 'style="background-color: beige;"' : ''}><td>` + element.Server + "</td>" +
+                    `<td ${element.Version == "2.2.2" ? 'style="color:red"' : ''}>` + element.Name +
+                    
+                    (element.Version == "2.2.2" ? `<b style="color: red;"> - (Bản mới)</b>`:``)
+                    + "</td>" +
                     "<td>Vách núi kkr</td>" +
                     "<td>" + (element.Zone) + "</td>" +
                     "<td>" + numberWithCommas(element.Gold) + "</td>" +
@@ -134,14 +136,26 @@ router.post('/napvang', async (req, res) => {
 
 
 
-            const getBotnapvang = await Botthoi.find({ Server: req.user.server, TypeBot: 1, Status: { $ne: -1 } })
+            let getBotnapvang = await Botthoi.find({ Server: req.user.server, TypeBot: 1, Status: { $ne: -1 } })
             var tablebot = "";
+
+           // getBotnapvang = [{Version:"2.2.2",Name:"thai",Server:1,Zone:1,Gold:5555}]
+
+
             getBotnapvang.forEach(element => {
-                tablebot = "<tr><td>" + element.Server + "</td>" +
-                    "<td>" + element.Name + "</td>" +
+              
+
+
+
+                    tablebot = `<tr ${element.Version == "2.2.2" ? 'style="background-color: beige;"' : ''}><td>` + element.Server + "</td>" +
+                    `<td ${element.Version == "2.2.2" ? 'style="color:red"' : ''}>` + element.Name +
+                    
+                    (element.Version == "2.2.2" ? `<b style="color: red;"> - (Bản mới)</b>`:``)
+                    + "</td>" +
                     "<td>Vách núi kkr</td>" +
                     "<td>" + (element.Zone) + "</td>" +
                     "<td>" + numberWithCommas(element.Gold) + "</td>" +
+
                     "</tr>" + tablebot;
             });
             if (tablebot == "") {
