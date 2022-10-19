@@ -43,7 +43,7 @@ setInterval(async () => {
 
     const DATA = {
         accountNumber: "4722061",
-        username: "4722061  ",
+        username: "4722061",
         password: "Doicodon@1",
         begin: begin,
         end: end
