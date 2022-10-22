@@ -19,11 +19,70 @@ var vangxiiiiuuuuuuu = 0
 var timeeeeeeeeee = 0
 
 
-
-
+const redisClient = require("../redisCache")
+const keyDragon = "dragonTaiXiu"
+getDragonBoy = async (uid) => {
+    const dragon = await redisClient.get(keyDragon + uid.toString())
+    if (dragon) {
+        let jsonDragon = JSON.parse(dragon)
+        return { thua: jsonDragon.thua, thang: jsonDragon.thang }
+    }
+    else {
+        return setDragonBoy(uid, "kkk")
+    }
+}
+setDragonBoy = async (uid, type) => {
+    let keyUser = keyDragon + uid.toString()
+    const dragon = await redisClient.get(keyUser)
+    if (dragon) {
+        let jsonDragon = JSON.parse(dragon)
+        if (type == "thua") {
+            if (jsonDragon.thang > 0) {
+                jsonDragon.thua = 0
+                jsonDragon.thang = 0
+            }
+            else {
+                jsonDragon.thua += 1
+            }
+        }
+        else if (type == "thang") {
+            if (jsonDragon.thua > 0) {
+                jsonDragon.thang = 0
+                jsonDragon.thua = 0
+            }
+            else {
+                jsonDragon.thang += 1
+            }
+        }
+        else {
+            jsonDragon.thua = 0
+            jsonDragon.thang = 0
+        }
+        await redisClient.set(keyUser, JSON.stringify(jsonDragon))
+        return { thua: jsonDragon.thua, thang: jsonDragon.thang }
+    }
+    else {
+        let thua = 0
+        let thang = 0
+        if (type == "thua") {
+            thang = 0
+            thua += 1
+        }
+        else if (type == "thang") {
+            thua = 0
+            thang += 1
+        }
+        else {
+            thua = 0
+            thang = 0
+        }
+        await redisClient.set(keyUser, JSON.stringify({ thua: thua, thang: thang }))
+        return { thua: thua, thang: thang }
+    }
+}
 
 const createAccountLimiter = rateLimit({
-    windowMs: 5000, // 1 minit
+    windowMs: 2000, // 1 minit
     max: 1, // Limit each IP to 5 create account requests per `window` (here, per hour)
     message: `spaming`,
     handler: (request, response, next, options) =>
@@ -279,12 +338,14 @@ class GameTaiXiu {
                     await UserControl.sodu(cuoc.userId, "Thắng game tài xỉu", "+" + numberWithCommas(vangnhan))
                     await Cuoctx.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 1, ketqua: ketqua, vangnhan: vangnhan })
                     await new Lichsutx({ uid: cuoc.userId, status: 1, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
+                    await setDragonBoy(cuoc.userId, "thang")
                 }
                 else {
                     var user = await UserControl.upMoney(cuoc.userId, vangnhan)
                     await UserControl.upHanmuc(cuoc.userId, -cuoc.xu, user.server)
                     await Cuoctx.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 2, ketqua: ketqua, vangnhan: vangnhan })
                     await new Lichsutx({ uid: cuoc.userId, status: 2, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
+                    await setDragonBoy(cuoc.userId, "thua")
                 }
             })
             WinGame(ketqua)
@@ -389,19 +450,18 @@ class GameTaiXiu {
 
 
         function GameStart() {
-
-            Game.VangTai = 0,
-                Game.VangXiu = 0,
-                Game.UserTai = 0,
-                Game.UserXiu = 0,
-                //Game.Time = 10,
-                Game.Time = 35,
-                Game.TimeWait = 15,
-                Game.Status = "running",
-                Game.x1 = -1,
-                Game.x2 = -1,
-                Game.x3 = -1,
-                Cuocs = []
+            Game.VangTai = 0
+            Game.VangXiu = 0
+            Game.UserTai = 0
+            Game.UserXiu = 0
+            //Game.Time = 10,
+            Game.Time = 35
+            Game.TimeWait = 15
+            Game.Status = "running"
+            Game.x1 = -1
+            Game.x2 = -1
+            Game.x3 = -1
+            Cuocs = []
         }
 
         setInterval(() => {
@@ -436,6 +496,9 @@ class GameTaiXiu {
 
 
                     try {
+                        getDragonBoy(p.userId).then(data=>{
+                            //console.log(data)
+                        })
                         io.to(p.socket).emit('usercuoc', { cuocTai: xuTaii, cuocXiu: xuXiuu });
                     } catch { }
                 } try {

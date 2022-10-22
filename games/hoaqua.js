@@ -111,9 +111,51 @@ class HoaQua {
                 let qua3 = listHoaquas[Math.floor(Math.random() * listHoaquas.length)]
 
 
+                qua1 = listHoaquas[1]
+                qua2 = listHoaquas[1]
+
+                let listQuas = [qua1, qua2, qua3]
+                console.log(listQuas)
+
+                let isWild = false
+
+                if (listQuas[0].type == 2) {
+                    listQuas[0] = listQuas[1]
+                }
+
+                if (listQuas[1].type == 2) {
+                    listQuas[1] = listQuas[0]
+                }
+
+                if (listQuas[2].type == 2) {
+                    listQuas[2] = listQuas[1]
+                }
+
+                //x - wild - wild
+                if (listQuas[1].type == 2 && listQuas[2].type == 2) {
+                    listQuas[1] = listQuas[0]
+                    listQuas[2] = listQuas[0]
+                }
+
+                //will - x - wild
+                if (listQuas[0].type == 2 && listQuas[2].type == 2) {
+                    listQuas[0] = listQuas[1]
+                    listQuas[2] = listQuas[1]
+                }
+
+                //will - wild - x
+                if (listQuas[0].type == 2 && listQuas[1].type == 2) {
+                    listQuas[0] = listQuas[2]
+                    listQuas[1] = listQuas[2]
+                }
 
 
-                
+
+
+
+                console.log(listQuas)
+
+
 
                 client.emit("hoaqua/bet", { error: false, result: [qua1.name, qua2.name, qua3.name], x: 1 })
             })

@@ -31,7 +31,7 @@
                         <div class="card-body text-seccond">
 
                             <iframe width="100%" height="315" src="https://www.youtube.com/embed/9BpQrZPFeaU"
-                                title="YouTube video player" frameborder="0"
+                                title="YouTube video player" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen=""></iframe>
 
@@ -46,13 +46,17 @@
 
             <div class="text-center mt-5">
                 <div class="btn-group btn-group-lg" role="group" aria-label="..." id="btn-type">
-                    <button class="btn btn-primary" server-action="change" server-id="1000" server-rate="1000"> Chẵn lẻ
-                    </button>
-                    <!--button class="btn btn-default" server-action="change" server-id="1" server-rate="1"> Tài Xỉu </button-->
-                    <button class="btn btn-default" server-action="change" server-id="2" server-rate="1"> Nhân 3
-                    </button>
-                    <button class="btn btn-default" server-action="change" server-id="5" server-rate="1"> Chẵn Lẻ 2
-                    </button>
+                    <button class="btn btn-primary" server-action="change" server-id="1000" server-rate="1000"> Chẵn lẻ</button>
+                    <button class="btn btn-default" server-action="change" server-id="1" server-rate="1"> Tài Xỉu </button>
+                    <button class="btn btn-default" server-action="change" server-id="5" server-rate="1"> Chẵn Lẻ 2</button>
+
+                    
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <div class="btn-group btn-group-lg" role="group" aria-label="..." id="btn-type">
+                    <button class="btn btn-default" server-action="change" server-id="2" server-rate="1"> Nhân 3</button>
+                    <button class="btn btn-default" server-action="change" server-id="10" server-rate="1"> Xiên</button>
                 </div>
             </div>
             <div class="row justify-content-md-center box-cl" style="margin-top:  20px">
@@ -189,6 +193,7 @@
                                                         </td>
                                                         <td><b>x2.3 tiền chuyển * <%-tile%></b></td>
                                                     </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -311,7 +316,7 @@
                                     </div>
                                     <div class="turn" turn-tab="5">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover text-center">
+                                            <table  class="table table-striped table-bordered table-hover text-center">
                                                 <thead>
                                                     <tr role="row" class="bg-primary">
                                                         <th class="text-center text-white">Nội dung</th>
@@ -347,12 +352,108 @@
                                                         </td>
                                                         <td><b>x1.9 tiền chuyển * <%-tile%></b></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><b>
+                                                                T2_<%-data.name%> </b>
+                                                            <span class="label label-success text-uppercase"
+                                                                onclick="copyStringToClipboard('C2_<%-data.name%>')">
+                                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td> <code>0</code> - <code>1</code> - <code>2</code> -
+                                                            <code>3</code> - <code>4</code>
+                                                        </td>
+                                                        <td><b>x1.9 tiền chuyển * <%-tile%></b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>
+                                                                X2_<%-data.name%> </b>
+                                                            <span class="label label-success text-uppercase"
+                                                                onclick="copyStringToClipboard('L2_<%-data.name%>')">
+                                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td> <code>5</code> - <code>6</code> - <code>7</code> -
+                                                            <code>8</code> - <code>9</code>
+                                                        </td>
+                                                        <td><b>x1.9 tiền chuyển * <%-tile%></b></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="alert alert-danger text-left" style="margin-top: 20px">
-                                            <p>- Nội dung chuyển tiền là <b>C2_<%-data.name%></b> hoặc <b>L2_<%-data.name%></b>.</p>
+                                            <p>- Nội dung chuyển tiền là <b>C2_<%-data.name%></b> hoặc <b>L2_<%-data.name%></b> hoặc <b>T2_<%-data.name%></b> hoặc <b>X2_<%-data.name%></b>.</p>
                                             <p>- Thắng sẽ nhận x1.9 tiền cược x<%-tile%>.</p>
+                                            <p>- Kim cương và VIP cũng sẽ được cộng tính theo số tiền bạn thắng. </p>
+                                            <p>- Gửi sai nội dung <b>KHÔNG</b> hỗ trợ hoàn lại.</p>
+                                        </div>
+                                    </div>
+                                    <div class="turn" turn-tab="10">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-bordered table-hover text-center">
+                                                <thead>
+                                                    <tr role="row" class="bg-primary">
+                                                        <th class="text-center text-white">Nội dung</th>
+                                                        <th class="text-center text-white">Số</th>
+                                                        <th class="text-center text-white">Vàng nhận</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody role="alert" aria-live="polite" aria-relevant="all"
+                                                    id="result-table" class="">
+                                                    <tr>
+                                                        <td><b>
+                                                                CX_<%-data.name%> </b>
+                                                            <span class="label label-success text-uppercase"
+                                                                onclick="copyStringToClipboard('CX_<%-data.name%>')">
+                                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td> <code>0</code> - <code>2</code> - <code>4</code>
+                                                        </td>
+                                                        <td><b>x3.3 tiền chuyển * <%-tile%></b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>
+                                                                LT_<%-data.name%> </b>
+                                                            <span class="label label-success text-uppercase"
+                                                                onclick="copyStringToClipboard('LT_<%-data.name%>')">
+                                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td> <code>5</code> - <code>7</code> - <code>9</code>
+                                                        </td>
+                                                        <td><b>x3.3 tiền chuyển * <%-tile%></b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>
+                                                                CT_<%-data.name%> </b>
+                                                            <span class="label label-success text-uppercase"
+                                                                onclick="copyStringToClipboard('CT_<%-data.name%>')">
+                                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td> <code>6</code> - <code>8</code>
+                                                        </td>
+                                                        <td><b>x3.3 tiền chuyển * <%-tile%></b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>
+                                                                LX_<%-data.name%> </b>
+                                                            <span class="label label-success text-uppercase"
+                                                                onclick="copyStringToClipboard('LX_<%-data.name%>')">
+                                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td> <code>1</code> - <code>3</code>
+                                                        </td>
+                                                        <td><b>x3.3 tiền chuyển * <%-tile%></b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="alert alert-danger text-left" style="margin-top: 20px">
+                                            <p>- Nội dung chuyển tiền là <b>CX_<%-data.name%></b> hoặc <b>LT_<%-data.name%></b> hoặc <b>CT_<%-data.name%></b> hoặc <b>LX_<%-data.name%></b>.</p>
+                                            <p>- Thắng sẽ nhận x3.3 tiền cược x<%-tile%>.</p>
                                             <p>- Kim cương và VIP cũng sẽ được cộng tính theo số tiền bạn thắng. </p>
                                             <p>- Gửi sai nội dung <b>KHÔNG</b> hỗ trợ hoàn lại.</p>
                                         </div>
