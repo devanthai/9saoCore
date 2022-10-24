@@ -286,11 +286,7 @@ router.post('/join', async (req, res) => {
         // }
     }
 })
-router.get('/test', async (req, res) => {
-    const ccccc = await User.findOneAndUpdate({ _id: req.user._id }, { $inc: { 'clan.thanhtich': 10000 } })
-    //console.log(ccccc)
-    res.send("cc")
-})
+
 router.post('/viewmember', async (req, res) => {
     if (!req.user.isLogin) {
         return res.send({ status: 0, message: "Vui lòng đăng nhập" });
@@ -505,7 +501,7 @@ router.post('/chatbang', async (req, res) => {
                             chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
                         else {
-                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin==2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
                     }
                     else if (item.type == 1) {
@@ -565,7 +561,7 @@ router.post('/showindex', async (req, res) => {
                             clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
                         }
                         else {
-                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role==2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
 
                         }
                     }
@@ -574,7 +570,7 @@ router.post('/showindex', async (req, res) => {
                             clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
                         }
                         else {
-                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role==2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
 
                         }
                     }
@@ -612,7 +608,7 @@ router.post('/showindex', async (req, res) => {
                         chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                     }
                     else {
-                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin==2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                     }
                 }
                 else if (item.type == 1) {
@@ -790,7 +786,7 @@ router.post('/chapnhan', async (req, res) => {
                                 chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                             }
                             else {
-                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                             }
                         }
                         else if (item.type == 1) {
@@ -862,7 +858,7 @@ router.post('/khauhieu', async (req, res) => {
                                 chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                             }
                             else {
-                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                                chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                             }
                         }
                         else if (item.type == 1) {
@@ -982,7 +978,7 @@ router.post('/kickmember', async (req, res) => {
                                         clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
                                     }
                                     else {
-                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role==2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
 
                                     }
                                 }
@@ -991,7 +987,7 @@ router.post('/kickmember', async (req, res) => {
                                         clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
                                     }
                                     else {
-                                        clannz += '<div class="ptItem" onclick="kickMember(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: green">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                                        clannz += '<div class="ptItem" onclick="kickMember(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role==2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
 
                                     }
                                 }

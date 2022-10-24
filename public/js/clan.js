@@ -99,6 +99,7 @@ let phobang = (uid, type) => {
       $("#alertInfoPt").hide();
       $("#ptAlertThongBao_Title").html(res.message);
       $("#ptAlertThongBao_Div").show();
+      showIndex('viewMember');
     }
   });
 }
