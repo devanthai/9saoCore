@@ -13,7 +13,7 @@ const Clan = new mongoose.Schema({
     },
     uid:{
         type:Object
-    }, 
+    },
     type:{
         type:Number
     },

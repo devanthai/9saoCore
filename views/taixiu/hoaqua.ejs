@@ -415,13 +415,13 @@
                             src="/wild/button/sieu-toc-on.png">
                     </div>
                     <div class="button-bottom-hoaqua" style="width: 46%;">
-                        <div class="hu-hoaqua" style="
+                        <div class="tienwin-hoaqua" style="
                         margin-top: 8%;
                         color: #ffff00;
                         text-shadow: 0 0 8px black, 0 0 8px #000;
                         text-align: center;
                         font-weight: bolder;
-                    ">100,000,000</div>
+                    ">0</div>
                     </div>
                     <div onclick="AutoSpinButton()" class="button-bottom-hoaqua" style="width: 25%;cursor: pointer;">
                         <img alt="cltx nro cltx 9sao.me" id="img-auto-hoaqua" width="100%" height="100%"
@@ -456,107 +456,156 @@
         </div>
     </div>
 </div>
-<script>
-    let valueMoneyBet = 1
-    let isSieuTocSpin = false
-    let isAutoSpinHoaQua = false
-    let isSpin = false
-    let SelectMoneyBet = (index) => {
-        const cuocnames = ["cuoc_1m", "cuoc_5m", "cuoc_50m", "cuoc_100m"]
-        const imgOffs = ["1off", "5off", "50off", "100off"]
-        const imgOns = ["1on", "5on", "50on", "100on"]
-        $(`#${cuocnames[index - 1]}`).attr('src', `/wild/button/${imgOns[index - 1]}.png`);
-        valueMoneyBet = index
-        for (let i = 0; i < cuocnames.length; i++) {
-            if (i != (index - 1)) {
-                $(`#${cuocnames[i]}`).attr('src', `/wild/button/${imgOffs[i]}.png`);
-            }
-        }
-        socketzzz.emit("hoaqua/changeMucBet", valueMoneyBet)
-    }
-    SelectMoneyBet(valueMoneyBet)
-    let SpinButton = () => {
-        isAutoSpinHoaQua && ChangeButtonSpin()
-        if (isAutoSpinHoaQua) {
-            isAutoSpinHoaQua = false
-            ChangeButtonSpin()
-            $('#img-auto-hoaqua').attr('src', `/wild/button/${isAutoSpinHoaQua ? "auto-off" : "auto-on"}.png`);
-            return
-        }
-        if (isSpin) return note_play('.move-here .note_here_hoaqua', "Đang quay", 'ff0000');
-        $('#img-spin').attr('src', `/wild/button/spinBlock.png`);
-        Spin();
-    }
-    let Spin = () => {
 
-        socketzzz.emit("hoaqua/bet", { muc: valueMoneyBet })
-    }
+<div class="modal fade" id="lichsuHoaQua" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;"
+                        id="lshoaquatb">
+                        <thead>
+                            <tr class="bg bg-danger text-white">
+                                <th>Thời gian</th>
+                                <th>Mức cược</th>
+                                <th>Vàng thắng</th>
+                                <th>Kết quả quay</th>
+                                <th>Trước</th>
+                                <th>Sau</th>
+                            </tr>
+                        </thead>
+                        <tbody id="his-poke">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    socketzzz.on("hoaqua/bet", (data) => {
-        if (!data.error) {
-            isSpin = true
-            for (let i = 1; i <= 3; i++) {
-                $(`#qua_` + i).addClass("item-qua-quay active")
-            }
-            UnSpin(1, 3, data)
-        }
-        else {
-            note_play('.move-here .note_here_hoaqua', data.message, 'ff0000');
-        }
-    })
 
-    let ChangeButtonSpin = () => {
-        $('#img-spin').attr('src', `/wild/button/${isSpin ? "spin" : "spinBlock"}.png`);
-        $('#img-spin').attr('src', `/wild/button/${isAutoSpinHoaQua ? "stop" : "spin"}.png`);
-    }
-    let SieuTocButton = () => {
-        isSieuTocSpin = !isSieuTocSpin
-        $('#img-sieutoc-hoaqua').attr('src', `/wild/button/${isSieuTocSpin ? "sieu-toc-off" : "sieu-toc-on"}.png`);
-    }
-    let AutoSpinButton = () => {
-        isAutoSpinHoaQua = !isAutoSpinHoaQua
-        ChangeButtonSpin()
-        $('#img-auto-hoaqua').attr('src', `/wild/button/${isAutoSpinHoaQua ? "auto-off" : "auto-on"}.png`);
-        isAutoSpinHoaQua && !isSpin && Spin()
-    }
-    let UnSpin = (i, max, data) => {
-        if (i <= max) {
-            setTimeout(() => {
-                $('#img_qua_' + i).attr('src', `/wild/qua/${data.result[i - 1]}.png`);
-                $(`#qua_` + i).removeClass("item-qua-quay active")
-                i++
-                UnSpin(i, max, data)
-            }, isSieuTocSpin ? 250 : 500)
-        }
-        else if (i > max) {
-            if (data.x) {
-                $(`#xxxxxxx`).addClass("xxxxxxxquay active")
-                $(`#xxxxxxx`).removeClass("xxxxxxx")
-                setTimeout(() => {
-                    $('#img-xxxxxxx').attr('src', `/wild/x/${data.x}.png`);
-                    $(`#xxxxxxx`).removeClass("xxxxxxxquay active")
-                    $(`#xxxxxxx`).addClass("xxxxxxx")
-                    DoneSpin()
-                }, isSieuTocSpin ? 250 : 500);
-            }
-            else {
-                DoneSpin()
-            }
-        }
-    }
-    let DoneSpin = () => {
-        !isAutoSpinHoaQua && ChangeButtonSpin()
-        isSpin = false
-        isAutoSpinHoaQua && Spin()
-    }
-    socketzzz.emit("hoaqua/changeMucBet", valueMoneyBet)
-    socketzzz.on("hoaqua/changeMucBet", (data) => {
-        if (data) {
-            $("#hu-hoaqua").text(convertNumber(data.vanghu))
-        }
-    })
-    socketzzz.on("message-hoaqua", (data) => {
-        note_play('.', data.message, data.error == 1 ? 'ff0000' : 'green');
-    })
+<div class="modal fade" id="topwinHoaQua" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;">
+                        <thead>
+                            <tr class="bg bg-danger text-white">
+                                <th>Hạng</th>
+                                <th>Tên</th>
+                                <th>Tổng thắng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbtopwinhoaqua">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="topnohuhoaqua" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;">
+                        <thead>
+                            <tr class="bg bg-danger text-white">
+                                <th>Thời gian</th>
+                                <th>Tên</th>
+                                <th>Mức cược</th>
+                                <th>Vàng thắng</th>
+                                <th>Kết quả quay</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbnohuhoaqua">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-</script>
+<div class="modal fade" id="modalHuongDanHoaQua" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Hướng dẫn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>Hướng dẫn chơi hoa quả</strong>
+                <br>
+                <img src="/wild/qua/wild.png" width="40px" alt="9sao.me">
+                Thay thế cho tất cả các biểu tượng
+                <br>
+                <hr>
+                - Cuộn WILD bên phải sẽ quay khi bạn thắng trả thưởng với biểu tượng <img src="/wild/qua/wild.png"
+                    width="34px" alt="9sao.me">
+                <br>
+                <hr>
+
+                - Hệ số nhân sẽ xuất hiện khi cuộn WILD quay và giá trị lớn nhất là X3
+                <br>
+                <hr>
+
+                - Nếu bạn quay được 2 biểu tượng <img src="/wild/qua/wild.png" width="34px" alt="9sao.me"> thì bạn sẽ
+                được quay 2 lần và tiền thưởng sẽ nhân cho 2 lần quay đó
+                <br>
+                <hr>
+
+                <strong>-Nổ hũ</strong>
+                bạn sẽ nổ hũ khi quay được: <img src="/wild/qua/wild.png" width="34px" alt="9sao.me"> <img
+                    src="/wild/qua/wild.png" width="34px" alt="9sao.me"> <img src="/wild/qua/wild.png" width="34px"
+                    alt="9sao.me">
+                <br> Vàng thắng = Tiền hũ * hệ số nhân /27
+                <br>
+                Cuộn wild cũng sẽ quay 3 lần khi nổ hũ
+                <br>
+                hệ số nhân là tích của 3 lần quay cuộn Wild
+                <br>
+                <hr>
+                <center>
+                    <b>DANH SÁCH VÀ ITEM VÀ ĐIỀU KIỆN TRÚNG THƯỞNG</b>
+                    <br>
+
+                    <img src="/wild/help.png" width="270px" alt="help9sao">
+                    <br>
+                    <b>Tổ hợp trúng thưởng theo quy tắc: bắt đầu từ cột thứ nhất, liên tiếp nhau và tính từ trái qua
+                        phải</b>
+                </center>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
