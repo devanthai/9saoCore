@@ -21,7 +21,7 @@ let viewUser = (name) => {
 
         let message = '<div class="alertInfoContent" style="padding-top: 5px;">' +
           '<div class="" style="float: left;position: absolute;">' +
-          '<img src="' + (data.data.avatar == "none" ? "/images/avatar/aaaa.png" : data.data.avatar) + '" alt="9sao.me Chẵn lẻ tài xỉu uy tín" style="margin-left: 5px;width:50px; height: 50px; display: inline-block">' +
+          '<img src="' + (data.data.avatar == "none" ? "/images/avatar/aaaa.png" : "/images/avatar/"+data.data.avatar) + '" alt="9sao.me Chẵn lẻ tài xỉu uy tín" style="margin-left: 5px;width:50px; height: 50px; display: inline-block">' +
           '</div>' +
           ' <div style="text-align: center;">' +
           '<p style="margin: 0px; font-weight: bold; color: #501c04">' + name + '</p>' +
