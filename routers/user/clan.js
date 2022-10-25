@@ -67,7 +67,7 @@ router.get('/clan', async (req, res) => {
                         }
                     }
                     else if (item.type == 2 || item.type == 3) {
-                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : 'color:red;') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                     }
                     else if (item.type == 4) {
                         chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -259,6 +259,14 @@ router.post('/join', async (req, res) => {
     const user = await User.findById(req.user._id)
     if (user) {
 
+
+        //checkserver10
+        if (user.server == 10) {
+            return res.send({ status: 0, message: "server 10 tạm thời k dùng được bang hội" });
+        }
+        //checkserver10
+
+
         const getchats = await getMessageClanRedis(clanid)
 
         const check = getchats.mess.find(x => x.type == type && x.uidclan == clanid && x.name == user.tenhienthi)
@@ -356,6 +364,11 @@ router.post('/taobang', async (req, res) => {
     }
     const user = await User.findOne({ _id: req.user._id })
 
+    //checkserver10
+    if (user.server == 10) {
+        return res.send({ status: 0, message: "server 10 tạm thời k dùng được bang hội" });
+    }
+    //checkserver10
 
     if (user) {
         if (user.clan != 0) {
@@ -501,7 +514,7 @@ router.post('/chatbang', async (req, res) => {
                             chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
                         else {
-                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin==2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : '#635f5f') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
                     }
                     else if (item.type == 1) {
@@ -513,7 +526,7 @@ router.post('/chatbang', async (req, res) => {
                         }
                     }
                     else if (item.type == 2 || item.type == 3) {
-                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                        chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : 'color:red;') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                     }
                     else if (item.type == 4) {
                         chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -558,16 +571,16 @@ router.post('/showindex', async (req, res) => {
                     if (admin == 0) {
 
                         if (element._id.toString() === checkclan.uid.toString()) {
-                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
                         }
                         else {
-                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
 
                         }
                     }
                     else if (admin == 1) {
                         if (element._id.toString() === checkclan.uid.toString()) {
-                            clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
                         }
                         else {
                             clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(Math.round(element.vang)) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
@@ -620,7 +633,7 @@ router.post('/showindex', async (req, res) => {
                     }
                 }
                 else if (item.type == 2 || item.type == 3) {
-                    chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                    chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : 'color:red;') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                 }
                 else if (item.type == 4) {
                     chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -653,28 +666,51 @@ router.post("/clan/phobang", async (req, res) => {
     }
 
     const { uid, type } = req.body
-    if (type != "phongpho" && type != "huypho") {
+    if (type != "phongpho" && type != "huypho" && type != "bangchu") {
         return res.send({ error: true, message: "Lỗi" });
     }
     let checkUser = await User.findById(uid)
     if (checkUser) {
-        const findClan = await Clan.findById(req.user.clan.id)
+        let findClan = await Clan.findById(req.user.clan.id)
         if (findClan) {
-            if (req.user._id.toString() != findClan.uid.toString()) {
+            if (req.user.clan.role != 2 && req.user._id.toString() != findClan.uid.toString() && type == "phongpho") {
+                return res.send({ error: true, message: "Bạn không có quyền" });
+
+            }
+            else if (req.user._id.toString() != findClan.uid.toString() && type == "bangchu") {
                 return res.send({ error: true, message: "Bạn không có quyền" });
             }
             else {
-
-                if (checkUser.clan.role == 2 && type == "phongpho") {
-                    return res.send({ error: true, message: "Thành viên này đã là phó bang" });
-                }
-                else if ((!checkUser.clan.role || checkUser.clan.role == 0) && type == "huypho") {
-                    return res.send({ error: true, message: "Thành viên này không phải phó bang" });
+                if (type == "bangchu") {
+                    if (checkUser.clan.role != 2) {
+                        return res.send({ error: true, message: "Thành viên này không phải phó bang" });
+                    }
+                    else {
+                        await User.findByIdAndUpdate(checkUser._id, { 'clan.role': 1 })
+                        await User.findByIdAndUpdate(req.user._id, { 'clan.role': 2 })
+                        findClan.uid = checkUser._id
+                        findClan.save()
+                        return res.send({ error: false, message: "Đã phong bang chủ cho " + checkUser.tenhienthi });
+                    }
                 }
                 else {
-                    if (type == "phongpho") await User.findByIdAndUpdate(checkUser._id, { 'clan.role': 2 })
-                    if (type == "huypho") await User.findByIdAndUpdate(checkUser._id, { 'clan.role': 0 })
-                    return res.send({ error: false, message: "Đã " + (type == "phongpho" ? "phong" : "hủy") + " phó bang cho " + checkUser.tenhienthi });
+                    if ((!req.user.clan.role || req.user.clan.role == 0) && req.user._id.toString() != findClan.uid.toString()) {
+                        return res.send({ error: true, message: "Bạn không có quyền" });
+                    }
+                    else if (checkUser.clan.role == 1 && (type == "phongpho" || type == "huypho")) {
+                        return res.send({ error: true, message: "Thành viên này là bang chủ" });
+                    }
+                    else if (checkUser.clan.role == 2 && type == "phongpho") {
+                        return res.send({ error: true, message: "Thành viên này đã là phó bang" });
+                    }
+                    else if ((!checkUser.clan.role || checkUser.clan.role == 0) && type == "huypho") {
+                        return res.send({ error: true, message: "Thành viên này không phải phó bang" });
+                    }
+                    else {
+                        if (type == "phongpho") await User.findByIdAndUpdate(checkUser._id, { 'clan.role': 2 })
+                        if (type == "huypho") await User.findByIdAndUpdate(checkUser._id, { 'clan.role': 0 })
+                        return res.send({ error: false, message: "Đã " + (type == "phongpho" ? "phong" : "hủy") + " phó bang cho " + checkUser.tenhienthi });
+                    }
                 }
             }
         }
@@ -739,6 +775,15 @@ router.post('/chapnhan', async (req, res) => {
     const findMess = chatsz.mess.find(x => x._id == id)
     if (findMess) {
         const checkUserrr = await User.findOne({ tenhienthi: findMess.name })
+
+
+        //checkserver10
+        if (checkUserrr.server == 10) {
+            return res.send({ status: 0, message: "Thành viên này server 10 tạm thời k dùng được bang hội" });
+        }
+        //checkserver10
+
+
         if (req.user.clan == 0) {
             return res.send({ status: 0, message: "Ko có bang mà đòi gì" });
         }
@@ -798,7 +843,7 @@ router.post('/chapnhan', async (req, res) => {
                             }
                         }
                         else if (item.type == 2 || item.type == 3) {
-                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : 'color:red;') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
                         else if (item.type == 4) {
                             chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -870,7 +915,7 @@ router.post('/khauhieu', async (req, res) => {
                             }
                         }
                         else if (item.type == 2 || item.type == 3) {
-                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red;">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
+                            chat += '<div class="ptItem"> <div class="row" style="margin: 0;"> <div class="col-8" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (item.admin == 2 ? 'color: green;' : 'color:red;') + '">' + item.name + ' <small>(Số dư: ' + formatNumber(item.sodu) + ')</small></p><small class="ptScrenText">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
                         }
                         else if (item.type == 4) {
                             chat += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-8" style="padding-left: 5px; padding-right: 0px;"> <p class="ptScreenName" style="color: rgb(46, 43, 38);">' + item.name + ' <small>(' + formatNumber(item.sodu) + '$)</small>' + '</p><small class="ptScrenText" style="color: red;">' + item.noidung + '</small></div><div class="col-4 text-right" style="padding-right: 5px; padding-left: 5px">' + timeSince(item.time) + '</div></div></div>'
@@ -923,88 +968,108 @@ router.post('/kickmember', async (req, res) => {
         }
         const findClan = await Clan.findById(req.user.clan.id)
         if (findClan) {
-            if (req.user._id.toString() != findClan.uid.toString()) {
-                return res.send({ status: 0, message: "Bạn không có quyền" });
+
+            let adminZ = 0
+            if (req.user._id.toString() == findClan.uid.toString()) {
+                adminZ = 1
             }
-            else if (req.user.name == name) {
-                return res.send({ status: 0, message: "Không thể kick chính mình" });
+            else if (req.user.clan.role == 2) {
+                adminZ = 2
             }
             else {
-                const checkUser = await User.findOne({ tenhienthi: name })
-                if (checkUser.clan.id.toString() != findClan._id.toString()) {
-                    return res.send({ status: 0, message: "Không thể kick bang người ta :))" });
-                }
+                adminZ = 0
+            }
 
-                try {
-                    const userChar = await User.findOne({ tenhienthi: name })
-                    if (userChar) {
-                        const us = await Clan.findOneAndUpdate({ _id: req.user.clan.id }, { $inc: { thanhtich: -userChar.clan.thanhtichngay } })
+            if (adminZ == 0) {
+                return res.send({ status: 0, message: "Bạn không có quyền" });
+            }
+            else
+                if (req.user.name == name) {
+                    return res.send({ status: 0, message: "Không thể kick chính mình" });
+                }
+                else {
+
+                    const checkUser = await User.findOne({ tenhienthi: name })
+                    if (checkUser.clan.id.toString() != findClan._id.toString()) {
+                        return res.send({ status: 0, message: "Không thể kick bang người ta :))" });
                     }
-                }
-                catch { }
 
-
-
-                const kick = await User.findOneAndUpdate({ tenhienthi: name }, { clan: 0 })
-
-
-                const user = await User.findById(req.user._id)
-                if (kick && user) {
-                    // const newChat = new Chatclan({ noidung: "Đã kick " + name + " ra khỏi bang hội", type: 2, admin: 1, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
-                    // const chatnew = await newChat.save();
-
-
-                    const chats = await addMessageClanRedis(user.clan.id, getMess("Đã kick " + name + " ra khỏi bang hội", 2, 1, user.tenhienthi, user.vang, user.clan.id))
-
-                    // if (chatnew) {
-                    const id = req.user.clan.id
-                    const checkclan = await Clan.findById(id)
-                    if (checkclan) {
-                        const checkUserClan = await User.find({ "clan.id": id }).sort({ "clan.thanhtich": -1 })
-                        // console.log(checkUserClan)
-                        if (checkUserClan) {
-                            var clannz = "";
-                            var admin = 0;
-                            if (req.user._id.toString() == checkclan.uid.toString()) {
-                                admin = 1;
-                            }
-                            checkUserClan.forEach(element => {
-
-                                //  console.log(element)
-                                if (admin == 0) {
-
-
-                                    if (element._id.toString() === checkclan.uid.toString()) {
-                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-                                    }
-                                    else {
-                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role==2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-
-                                    }
-                                }
-                                else if (admin == 1) {
-                                    if (element._id.toString() === checkclan.uid.toString()) {
-                                        clannz += '<div class="ptItem"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-                                    }
-                                    else {
-                                        clannz += '<div class="ptItem" onclick="kickMember(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role==2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
-
-                                    }
-                                }
-                            })
-                            const data = [
-
-                                "ptList"
-                                , clannz
-
-                            ]
-
-                            return res.send({ data: data, status: 1 })
+                    if (adminZ == 2 && checkUser.clan.role == 2) {
+                        return res.send({ status: 0, message: "Không thể kick phó bang" });
+                    }
+                    if (checkUser._id.toString() == findClan.uid.toString()) {
+                        return res.send({ status: 0, message: "Không thể kick bang chủ" });
+                    }
+                    try {
+                        const userChar = await User.findOne({ tenhienthi: name })
+                        if (userChar) {
+                            const us = await Clan.findOneAndUpdate({ _id: req.user.clan.id }, { $inc: { thanhtich: -userChar.clan.thanhtichngay } })
                         }
                     }
-                    //  }
+                    catch { }
+
+
+
+                    const kick = await User.findOneAndUpdate({ tenhienthi: name }, { clan: 0 })
+
+
+                    const user = await User.findById(req.user._id)
+                    if (kick && user) {
+                        // const newChat = new Chatclan({ noidung: "Đã kick " + name + " ra khỏi bang hội", type: 2, admin: 1, name: user.tenhienthi, sodu: user.vang, uidclan: user.clan.id })
+                        // const chatnew = await newChat.save();
+
+
+                        const chats = await addMessageClanRedis(user.clan.id, getMess("Đã kick " + name + " ra khỏi bang hội", 2, adminZ, user.tenhienthi, user.vang, user.clan.id))
+
+                        // if (chatnew) {
+                        const id = req.user.clan.id
+                        const checkclan = await Clan.findById(id)
+                        if (checkclan) {
+                            const checkUserClan = await User.find({ "clan.id": id }).sort({ "clan.thanhtich": -1 })
+                            // console.log(checkUserClan)
+                            if (checkUserClan) {
+                                var clannz = "";
+                                var admin = 0;
+                                if (req.user._id.toString() == checkclan.uid.toString()) {
+                                    admin = 1;
+                                }
+                                checkUserClan.forEach(element => {
+
+                                    //  console.log(element)
+                                    if (admin == 0) {
+
+
+                                        if (element._id.toString() === checkclan.uid.toString()) {
+                                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                                        }
+                                        else {
+                                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+
+                                        }
+                                    }
+                                    else if (admin == 1) {
+                                        if (element._id.toString() === checkclan.uid.toString()) {
+                                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="color: red">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: red">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+                                        }
+                                        else {
+                                            clannz += '<div class="ptItem" onclick="viewUser(\'' + element.tenhienthi + '\')"><div class="row" style="margin: 0;"><div class="col-6" style="padding-left: 5px; padding-right: 0px;"><p class="ptScreenName" style="' + (element.clan.role == 2 ? 'color: green;' : '#635f5f') + '">' + element.tenhienthi + '</p><small class="ptScrenText">Thành tích: ' + formatNumber(element.clan.thanhtich) + (element.clan.thanhtichngay != undefined ? " - Ngày: " + formatNumber(element.clan.thanhtichngay) : "") + '</small></div><div class="col-6 text-right" style="padding-right: 5px; padding-left: 0px"><small style="color: green">Số dư: ' + numberWithCommas(element.vang) + '</small><br><small class="ptScrenText">Tham gia: ' + element.clan.time + '</small></div></div></div>';
+
+                                        }
+                                    }
+                                })
+                                const data = [
+
+                                    "ptList"
+                                    , clannz
+
+                                ]
+
+                                return res.send({ data: data, status: 1 })
+                            }
+                        }
+                        //  }
+                    }
                 }
-            }
         }
     } catch {
 

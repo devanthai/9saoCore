@@ -47,16 +47,16 @@ let viewUser = (name) => {
             message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
 
               '<div style="float: left;">' +
-              '<button class="ptAlertBtn" style="padding-bottom: 3px; margin-left: 5px;" onclick="phobang(\'' + data.data.uid + '\',\'huypho\')">Hủy<br>Phó Bang</button></div>' +
+              '<button class="ptAlertBtn" style="padding-bottom: 3px; margin-left: 5px;" onclick="phobang(\'' + data.data.uid + '\',\'huypho\')">Hủy<br>Phó Bang</button>' +
+              '<button class="ptAlertBtn" style="padding-bottom: 3px; margin-left: 5px;" onclick="phobang(\'' + data.data.uid + '\',\'bangchu\')">Phong<br>Chủ</button></div>' +
               '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>' +
               '</div>'
           }
           else if (data.role.userrole == 1) //thang kia la bang chu ==
           {
             message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
-              '<div style="float: left;">' +
-              '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>' +
-              '</div>'
+
+              '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>'
           }
           else {
             message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
@@ -68,16 +68,28 @@ let viewUser = (name) => {
           }
 
         }
-        else if (data.role == 2) {
-          message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
+        else if (data.role.myrole == 2) //view phobang
+        {
 
-            '<div style="float: left;">' +
-            '<button class="ptAlertBtn" style="padding-bottom: 3px; margin-left: 5px;" onclick="ptMember(\'' + data.data.id + '\')">Thành<br>Viên</button></div>' +
-            '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>' +
-            '</div>'
+          if (data.role.userrole == 2 || data.role.userrole == 1) {
+            message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
+
+              '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>'
+
+          }
+          else {
+            message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
+              '<div style="float: left;">' +
+              '<button class="ptAlertBtn" style="padding-bottom: 3px; margin-left: 5px;" onclick="phobang(\'' + data.data.uid + '\',\'phongpho\')">Phong<br>Phó</button></div>' +
+              '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="kickMember(\'' + name + '\')">Đuổi</button>' +
+              '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>' +
+              '</div>'
+          }
+
         }
         else {
-
+          message += '<div id="alertBtnThamGia" style="padding: 5px 5px;">' +
+            '<button class="ptAlertBtn" style="height:54px;padding-bottom: 3px; margin-left: 5px;" onclick="$(this).parent().parent().hide();">Đóng</button>'
         }
 
 
@@ -91,6 +103,11 @@ let viewUser = (name) => {
 
 
 let phobang = (uid, type) => {
+  if (type == "bangchu") {
+    if (!confirm("Bạn có chắc muốn nhường bang chủ không?")) {
+      return
+    }
+  }
   $.ajax({
     url: "/user/clan/phobang",
     type: "post",
