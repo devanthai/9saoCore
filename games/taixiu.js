@@ -187,8 +187,8 @@ class GameTaiXiu {
 
 
 
-                if (Game.Time < 2) {
-                    return res.send({ error: 1, message: "Vui lòng đặt trước 2 giây" });
+                if (Game.Time < 1) {
+                    return res.send({ error: 1, message: "Hết thời gian đặt cược" });
                 }
 
 

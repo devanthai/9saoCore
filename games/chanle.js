@@ -40,7 +40,7 @@ class GameChanLezzzz {
 
         var Cuocs = []
 
-        
+
 
 
         app.get("/chanle/getgame", async (req, res) => {
@@ -107,8 +107,8 @@ class GameChanLezzzz {
 
 
 
-                if (Game.Time < 5) {
-                    return res.send({ error: 1, message: "Vui lòng đặt trước 5 giây" });
+                if (Game.Time < 1) {
+                    return res.send({ error: 1, message: "Hết thời gian đặt cược" });
                 }
 
 
@@ -163,8 +163,8 @@ class GameChanLezzzz {
                         Game.UserXiu += 1
                         AddCuocs(user._id, "le", gold2)
                     }
-                  
-                    
+
+
                     return res.send({ error: 0, message: "Đặt cược thành công" });
 
                 }
