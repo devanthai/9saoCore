@@ -150,6 +150,35 @@ function openPoker() {
 }
 
 
+var isLoadHoaqua = false
+function openHoaQua() {
+    if (!isLoadHoaqua) {
+        $.ajax({
+            url: '/taixiu/getLuckyWild',
+            type: 'GET',
+            success: function (d) {
+                document.getElementById("HoaQua").innerHTML = d
+                isLoadHoaqua = true
+                openHoaQua()
+            }
+        })
+    }
+    else {
+        var jstaixiu = document.getElementById("jshoaqua");
+        if (jstaixiu != null) {
+            $('#game-miniHoaqua')['show']('fade', {}, 500);
+            return;
+        }
+        var script = document.createElement('script');
+        script.src = '/taixiu/hoaqua.js?ver=1.6';
+        script.type = 'text/javascript';
+        script.id = "jshoaqua"
+        document.getElementsByTagName('head')[0].appendChild(script);
+        $('#game-miniHoaqua')['show']('fade', {}, 500);
+    }
+}
+
+
 var isLoadChanLe = false
 function openChanLe() {
     if (!isLoadChanLe) {

@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
     if (isNaN(server)) {
         return res.status(200).send({ error: 1, msg: 'Máy chủ không hợp lệ' })
     }
-    else if (server < 1 || server > 9) {
+    else if (server < 1 || server > 10) {
         return res.status(200).send({ error: 1, msg: 'Máy chủ không hợp lệ' })
     }
 

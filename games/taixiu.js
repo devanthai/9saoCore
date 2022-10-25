@@ -125,6 +125,12 @@ class GameTaiXiu {
                 res.send(data);
             })
         })
+        app.get("/taixiu/getLuckyWild", async (req, res) => {
+            const file = `./views/taixiu/hoaqua.ejs`;
+            fs.readFile(file, async function (err, data) {
+                res.send(data);
+            })
+        })
         app.get("/taixiu/baotri", async (req, res) => {
             isBaotri = !isBaotri
             res.send(isBaotri)
