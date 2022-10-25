@@ -73,6 +73,88 @@ class HoaQua {
         let listHoaquas = listPTCCC
         let isBaoTri = false
 
+
+        function getResultHoaQua(listQuas, tiencuoc) {
+            let tienThang = 0
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (listQuas[0].type == 2) {
+                listQuas[0] = listQuas[1]
+            }
+
+            if (listQuas[1].type == 2) {
+                listQuas[1] = listQuas[0]
+            }
+
+            if (listQuas[2].type == 2) {
+                listQuas[2] = listQuas[1]
+            }
+
+            //x - wild - wild
+            if (listQuas[1].type == 2 && listQuas[2].type == 2) {
+                listQuas[1] = listQuas[0]
+                listQuas[2] = listQuas[0]
+            }
+
+            //will - x - wild
+            if (listQuas[0].type == 2 && listQuas[2].type == 2) {
+                listQuas[0] = listQuas[1]
+                listQuas[2] = listQuas[1]
+            }
+
+            //will - wild - x
+            if (listQuas[0].type == 2 && listQuas[1].type == 2) {
+                listQuas[0] = listQuas[2]
+                listQuas[1] = listQuas[2]
+            }
+            // 3 cái số 7
+            if (listQuas[0].type == 3 && listQuas[1].type == 3 && listQuas[2].type == 3) {
+                tienThang = tiencuoc * 95
+            }
+
+            // 3 cái chuông
+            if (listQuas[0].type == 1 && listQuas[1].type == 1 && listQuas[2].type == 1) {
+                tienThang = tiencuoc * 50
+            }
+
+            // 3 cái dưa hấu
+            if (listQuas[0].type == 6 && listQuas[1].type == 6 && listQuas[2].type == 6) {
+                tienThang = tiencuoc * 22
+            }
+
+            // 2 cái cherry
+            if (listQuas[0].type == 5 && listQuas[1].type == 5) {
+                tienThang = tiencuoc * 3
+            }
+
+            // 3 cái cherry
+            if (listQuas[0].type == 5 && listQuas[1].type == 5 && listQuas[2].type == 5) {
+                tienThang = tiencuoc * 6
+            }
+
+            // 2 cái cam
+            if (listQuas[0].type == 4 && listQuas[1].type == 4) {
+                tienThang = tiencuoc * 2
+            }
+
+            // 3 cái cam
+            if (listQuas[0].type == 4 && listQuas[1].type == 4 && listQuas[2].type == 4) {
+                tienThang = tiencuoc * 4
+            }
+
+            // 2 cái chanh
+            if (listQuas[0].type == 7 && listQuas[1].type == 7) {
+                tienThang = tiencuoc * 2
+            }
+
+            // 3 cái chanh
+            if (listQuas[0].type == 7 && listQuas[1].type == 7 && listQuas[2].type == 7) {
+                tienThang = tiencuoc * 3
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            return tienThang
+        }
+
+
         io.on("connection", client => {
             client.on('connect_failed', function () {
                 console.log("Sorry, there seems to be an issue with the connection!");
@@ -232,169 +314,81 @@ class HoaQua {
                 user.save()
 
 
-                const expanded = listHoaquas.flatMap(giai => Array(giai.pct).fill(giai));
-                //   const winner = expanded[Math.floor(Math.random() * expanded.length)];
+                const expanded = listHoaquas.quas.flatMap(giai => Array(giai.pct).fill(giai));
 
-                let qua1 = listHoaquas[Math.floor(Math.random() * listHoaquas.length)]
-                let qua2 = listHoaquas[Math.floor(Math.random() * listHoaquas.length)]
-                let qua3 = listHoaquas[Math.floor(Math.random() * listHoaquas.length)]
-
-                qua1 = expanded[Math.floor(Math.random() * expanded.length)];
-                qua2 = expanded[Math.floor(Math.random() * expanded.length)];
-                qua3 = expanded[Math.floor(Math.random() * expanded.length)];
-
-
-                // qua1 = listHoaquas[0];
-                // qua2 = listHoaquas[0];
-                // qua3 = listHoaquas[5];
-
-
+                let qua1 = expanded[Math.floor(Math.random() * expanded.length)]
+                let qua2 = expanded[Math.floor(Math.random() * expanded.length)]
+                let qua3 = expanded[Math.floor(Math.random() * expanded.length)]
 
                 let listQuas = [qua1, qua2, qua3]
 
-                let tienThang = 0
-                let isWild = false
-                let countWild = 0
+                //
+                // qua1 = listHoaquas.quas[0]
+                // qua2 = listHoaquas.quas[0]
+                // qua3 = listHoaquas.quas[0]
+                // listQuas = [qua1, qua2, qua3]
 
+                let tienThang = getResultHoaQua(listQuas, tiencuoc)
+
+                if (tienThang > 0) {
+                    const randomz = Math.floor(Math.random() * listHoaquas.tile.maxRan)
+                    let isZ = randomz % listHoaquas.tile.chia == 0
+                    console.log("RANDOMMMMM " + randomz,isZ)
+                    if (!isZ) {
+                        qua2 = expanded[Math.floor(Math.random() * expanded.length)];
+                        listQuas = [qua1, qua2, qua3]
+                        tienThang = getResultHoaQua(listQuas, tiencuoc)
+                    }
+                }
+
+                let countWild = 0
                 if (qua1.type == 2) countWild++
                 if (qua2.type == 2) countWild++
                 if (qua3.type == 2) countWild++
 
-                if (listQuas[0].type == 2 || listQuas[1].type == 2 || listQuas[2].type == 2) {
+
+                let isWild = false
+                if (countWild > 0) {
                     isWild = true
-                }
-
-                if (listQuas[0].type == 2) {
-                    listQuas[0] = listQuas[1]
-                }
-
-                if (listQuas[1].type == 2) {
-                    listQuas[1] = listQuas[0]
-                }
-
-                if (listQuas[2].type == 2) {
-                    listQuas[2] = listQuas[1]
-                }
-
-                //x - wild - wild
-                if (listQuas[1].type == 2 && listQuas[2].type == 2) {
-                    listQuas[1] = listQuas[0]
-                    listQuas[2] = listQuas[0]
-                }
-
-                //will - x - wild
-                if (listQuas[0].type == 2 && listQuas[2].type == 2) {
-                    listQuas[0] = listQuas[1]
-                    listQuas[2] = listQuas[1]
-                }
-
-                //will - wild - x
-                if (listQuas[0].type == 2 && listQuas[1].type == 2) {
-                    listQuas[0] = listQuas[2]
-                    listQuas[1] = listQuas[2]
-                }
-
-
-                // 3 cái số 7
-                if (listQuas[0].type == 3 && listQuas[1].type == 3 && listQuas[2].type == 3) {
-                    tienThang = tiencuoc * 95
-                }
-
-                // 3 cái chuông
-                if (listQuas[0].type == 1 && listQuas[1].type == 1 && listQuas[2].type == 1) {
-                    tienThang = tiencuoc * 50
-                }
-
-                // 3 cái dưa hấu
-                if (listQuas[0].type == 6 && listQuas[1].type == 6 && listQuas[2].type == 6) {
-                    tienThang = tiencuoc * 22
-                }
-
-                // 2 cái cherry
-                if (listQuas[0].type == 5 && listQuas[1].type == 5) {
-                    tienThang = tiencuoc * 3
-                }
-
-                // 3 cái cherry
-                if (listQuas[0].type == 5 && listQuas[1].type == 5 && listQuas[2].type == 5) {
-                    tienThang = tiencuoc * 6
-                }
-
-                // 2 cái cam
-                if (listQuas[0].type == 4 && listQuas[1].type == 4) {
-                    tienThang = tiencuoc * 2
-                }
-
-                // 3 cái cam
-                if (listQuas[0].type == 4 && listQuas[1].type == 4 && listQuas[2].type == 4) {
-                    tienThang = tiencuoc * 4
-                }
-
-                // 2 cái chanh
-                if (listQuas[0].type == 7 && listQuas[1].type == 7) {
-                    tienThang = tiencuoc * 2
-                }
-
-                // 3 cái chanh
-                if (listQuas[0].type == 7 && listQuas[1].type == 7 && listQuas[2].type == 7) {
-                    tienThang = tiencuoc * 3
                 }
 
                 let xWild = Math.floor(Math.random() * 3) + 1
                 let arrXwild = []
                 arrXwild.push(xWild)
 
-                for (let i = 0; i < countWild-1; i++) {
+                for (let i = 0; i < countWild - 1; i++) {
                     let xwilddd = Math.floor(Math.random() * 3) + 1
                     xWild *= xwilddd
                     arrXwild.push(xwilddd)
-                    console.log(xWild)
-
                 }
-                console.log(xWild)
-
                 let isNohu = false
-                if (listQuas[0].type == 2 && listQuas[1].type == 2 && listQuas[2].type == 2) {
+                if (countWild == 3) //nohu
+                {
                     tienThang = Math.round((vanghu * xWild) / 27)
                     huuuu.isBum = true
                     huuuu.winner = user.tenhienthi
                     huuuu.save()
                     isNohu = true
                 }
-
-
                 if (isWild && tienThang > 0) {
                     tienThang = tienThang * xWild
                     addTop(user, tienThang)
                 }
-
                 if (!isWild || tienThang <= 0) {
                     xWild = 0
                     arrXwild = []
                 }
-
-
                 if (tienThang > 0) {
                     let usersss = await User.findById(client.request.session.userId)
                     usersss.vang += tienThang
                     afterBet = usersss.vang
                     usersss.save()
                 }
-
-
-
-                console.log(listQuas)
-
-
-                //let kqsname = listQuas.map(a => a.name)
-
                 if (isNohu) {
                     addHisTrungHu({ uid: user._id, username: user.tenhienthi, goldBet: tiencuoc, goldWin: tienThang, result: [qua1.name, qua2.name, qua3.name], beforeBet: beforeBet, afterBet: afterBet, time: Date.now() })
                 }
-
                 addHis({ uid: user._id, goldBet: tiencuoc, goldWin: tienThang, result: [qua1.name, qua2.name, qua3.name], beforeBet: beforeBet, afterBet: afterBet, time: Date.now() })
-
-                client.emit("hoaqua/bet", { error: false, result: [qua1.name, qua2.name, qua3.name], x: xWild, win: tienThang, vangUser: beforeBet, vanghu,arrXwild })
+                client.emit("hoaqua/bet", { error: false, result: [qua1.name, qua2.name, qua3.name], x: xWild, win: tienThang, vangUser: beforeBet, vanghu, arrXwild })
             })
         })
     }
