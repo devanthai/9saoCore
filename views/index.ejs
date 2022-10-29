@@ -54,15 +54,15 @@
             else {
                 socketzzz = io.connect("https://" + document.domain);
             }
-            socketzzz.on("disconnectnha", (mess) => {
-                socketzzz.disconnect();
-                $('#game-minipoke')['hide']('fade', {}, 500)
-                $('#game-taixiu')['hide']('fade', {}, 500)
-                $('#game-baucua')['hide']('fade', {}, 500)
-                $('#game-chanle')['hide']('fade', {}, 500)
-                alert(mess)
-                thongbao2(mess, "error")
-            })
+            // socketzzz.on("disconnectnha", (mess) => {
+            //     socketzzz.disconnect();
+            //     $('#game-minipoke')['hide']('fade', {}, 500)
+            //     $('#game-taixiu')['hide']('fade', {}, 500)
+            //     $('#game-baucua')['hide']('fade', {}, 500)
+            //     $('#game-chanle')['hide']('fade', {}, 500)
+            //     alert(mess)
+            //     thongbao2(mess, "error")
+            // })
 
 
             window.dataLayer = window.dataLayer || [];
