@@ -484,6 +484,10 @@
         // canvas.width = 120;
         // canvas.height = 120
         canvas.style.width = '60%';
+        canvas.style.left = '51%';
+        canvas.style.top = '47%';
+
+
 
         canvas.className = "clock-big middle"
 
@@ -493,7 +497,6 @@
 
         $("#clock-tx").append(canvas)
 
-        // document.get("clock-big").appendChild(canvas);
 
         let context = canvas.getContext('2d');
 
@@ -520,7 +523,6 @@
             if (characterIndex === -1) {
                 throw new Error(`Font character "${character}" is not defined`);
             }
-
             const rowIndex = Math.floor(characterIndex / config.columnCount);
             const columnIndex = characterIndex % config.columnCount;
 
@@ -592,7 +594,6 @@
         ) {
             const words = line.split(' ');
             let prevWordEndX = 0;
-
             words.forEach((word, wordIndex) => {
                 const wordX = position.x + prevWordEndX;
                 const wordY = position.y;
@@ -600,25 +601,15 @@
                     x: wordX,
                     y: wordY,
                 };
-
                 drawWord(word, wordPosition, scale, optCharacterSpacing);
-
                 const wordWidth = getWordWidth(word, scale, optCharacterSpacing);
-
                 let wordSpacing = config.characterWidth * scale + optCharacterSpacing * 2;
                 if (wordIndex === words.length - 1) {
                     wordSpacing = 0;
                 }
-
                 const wordTotalWidth = wordWidth + wordSpacing;
-
                 prevWordEndX += wordTotalWidth;
             });
         }
-        //test
-        // setInterval(() => {
-        //     setTimeTX("60")
-
-        // }, 1000);
     })
 </script>
