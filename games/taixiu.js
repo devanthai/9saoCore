@@ -106,32 +106,7 @@ class GameTaiXiu {
         return PlayerSocket.SocketPlayer.length
     }
     taixiu = (io, app) => {
-        let isbipz = false
-        let vangbipvang = 0
-        app.get("/taixiu/kkkkkkkkkkkkkk", async (req, res) => {
-
-            vangbipvang = Number(req.query.vang)
-            isbipz = !isbipz
-            res.send(isbipz)
-        })
-
-        app.post("/taixiu/choidep", checklogin, async (req, res) => {
-            if (Game.Time < 1) {
-                return res.send("Hết thời gian đặt cược");
-            }
-            const total = Number(req.body.x1) + Number(req.body.x2) + Number(req.body.x3)
-            if (total < 3 || total > 18) {
-                res.send("Loi")
-            }
-            else {
-                Game.x1 = Number(req.body.x1)
-                Game.x2 = Number(req.body.x2)
-                Game.x3 = Number(req.body.x3)
-                res.send(Game.x1 + '|' + Game.x2 + "|" + Game.x3)
-            }
-        })
-
-
+        
 
         var Cuocs = []
 
@@ -549,22 +524,7 @@ class GameTaiXiu {
                         Game.x3 = Math.floor(Math.random() * 6) + 1
                     }
 
-                    if (isbipz && new Date().getTime() % 2 == 0) {
-                        if (Game.VangTai > vangbipvang) {
-                            while (Game.x1 + Game.x2 + Game.x3 > 10) {
-                                Game.x1 = Math.floor(Math.random() * 6) + 1
-                                Game.x2 = Math.floor(Math.random() * 6) + 1
-                                Game.x3 = Math.floor(Math.random() * 6) + 1
-                            }
-                        }
-                        else if (Game.VangXiu > vangbipvang) {
-                            while (Game.x1 + Game.x2 + Game.x3 < 11) {
-                                Game.x1 = Math.floor(Math.random() * 6) + 1
-                                Game.x2 = Math.floor(Math.random() * 6) + 1
-                                Game.x3 = Math.floor(Math.random() * 6) + 1
-                            }
-                        }
-                    }
+                   
 
                     try {
 
