@@ -189,7 +189,9 @@
                             <div class="middle">13</div>
                         </div>
 
-                        <div class="clock-big font_size_100 middle" style="display: block;">0</div>
+                        <div id="clock-tx" style="display: block;width: 100%;">
+
+                        </div>
                         <div class="clock-small" style="opacity: 0;"> 0</div>
                         <div class="effect"
                             style="background-position-y: 0%; background-image: url(&quot;../images/taixiu/xx4_1.png&quot;), url(&quot;../images/taixiu/xx6_2.png&quot;), url(&quot;../images/taixiu/xx3_3.png&quot;); opacity: 0;">
@@ -459,3 +461,164 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(() => {
+
+        const config = {
+            characterSet: '0123456789',
+            characterWidth: 85,
+            characterHeight: 102,
+            horizontalSpacing: 0,
+            verticalSpacing: 0,
+            columnCount: 10,
+            rowCount: 1,
+        };
+
+        let clock = $('.clock-big');
+        let clockwidth = clock.width();
+
+
+        const canvas = document.createElement('canvas');
+        // canvas.width = 120;
+        // canvas.height = 120
+        canvas.style.width = '60%';
+
+        canvas.className = "clock-big middle"
+
+
+
+
+
+        $("#clock-tx").append(canvas)
+
+        // document.get("clock-big").appendChild(canvas);
+
+        let context = canvas.getContext('2d');
+
+        context.imageSmoothingEnabled = false;
+
+        const image = new Image();
+
+
+        setTimeTX = (time) => {
+            context.clearRect(0, 0, 500, 500);
+            let scale = (canvas.width / config.characterHeight) / 2
+            let imageWidth = getWordWidth(time, scale, 0)
+            let xCenterCanvas = (canvas.width / 2) - imageWidth / 2
+            let yCenterCanvas = (canvas.height / 2) - (config.characterHeight * scale / 2)
+            drawLine(time, { x: xCenterCanvas, y: yCenterCanvas }, scale);
+        }
+
+
+        image.src = '/images/taixiu/font.png';
+
+        function drawCharacter(character, position = { x: 0, y: 0 }, scale = 1) {
+            const characterIndex = config.characterSet.indexOf(character);
+
+            if (characterIndex === -1) {
+                throw new Error(`Font character "${character}" is not defined`);
+            }
+
+            const rowIndex = Math.floor(characterIndex / config.columnCount);
+            const columnIndex = characterIndex % config.columnCount;
+
+            const {
+                characterWidth,
+                characterHeight,
+                horizontalSpacing,
+                verticalSpacing,
+            } = config;
+
+            const sourceX = columnIndex * (characterWidth + horizontalSpacing);
+            const sourceY = rowIndex * (characterHeight + verticalSpacing);
+            const sourceWidth = characterWidth;
+            const sourceHeight = characterHeight;
+
+            const destinationX = position.x;
+            const destinationY = position.y;
+            const destinationWidth = characterWidth * scale;
+            const destinationHeight = characterHeight * scale;
+
+
+
+            context.drawImage(
+                image,
+                sourceX, sourceY, sourceWidth, sourceHeight,
+                destinationX, destinationY, destinationWidth, destinationHeight
+            );
+        }
+
+        function drawWord(word, position = { x: 0, y: 0 }, scale = 1, optCharacterSpacing = 1) {
+            const characters = Array.from(word);
+
+
+
+            characters.forEach((character, characterIndex) => {
+                let characterSpacing = optCharacterSpacing;
+                if (characterIndex === 0) {
+                    characterSpacing = 0;
+                }
+
+                const characterTotalWidth = config.characterWidth * scale + characterSpacing;
+
+                const characterX = position.x + characterIndex * characterTotalWidth;
+                const characterY = position.y;
+
+                const characterPosition = {
+                    x: characterX,
+                    y: characterY,
+                };
+
+                drawCharacter(character, characterPosition, scale);
+            });
+        }
+
+        function getWordWidth(word, scale = 1, optCharacterSpacing = 1) {
+            const allCharactersWidth = word.length * (config.characterWidth * scale);
+            const allSpacingsWidth = (word.length - 1) * optCharacterSpacing;
+
+            const wordWidth = allCharactersWidth + allSpacingsWidth;
+
+            return wordWidth;
+        }
+
+        function drawLine(
+            line,
+            position = { x: 0, y: 0 },
+            scale = 1,
+            optCharacterSpacing = 0,
+        ) {
+            const words = line.split(' ');
+            let prevWordEndX = 0;
+
+            words.forEach((word, wordIndex) => {
+                const wordX = position.x + prevWordEndX;
+                const wordY = position.y;
+                const wordPosition = {
+                    x: wordX,
+                    y: wordY,
+                };
+
+                drawWord(word, wordPosition, scale, optCharacterSpacing);
+
+                const wordWidth = getWordWidth(word, scale, optCharacterSpacing);
+
+                let wordSpacing = config.characterWidth * scale + optCharacterSpacing * 2;
+                if (wordIndex === words.length - 1) {
+                    wordSpacing = 0;
+                }
+
+                const wordTotalWidth = wordWidth + wordSpacing;
+
+                prevWordEndX += wordTotalWidth;
+            });
+        }
+        //test
+        // setInterval(() => {
+        //     setTimeTX("60")
+
+        // }, 1000);
+    })
+</script>

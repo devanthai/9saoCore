@@ -113,7 +113,7 @@ function openTaixiu() {
         return;
     }
     var script = document.createElement('script');
-    script.src = '/taixiu/tx.js?ver=1.2242333524s';
+    script.src = '/taixiu/tx.js?ver=1.22424333524s';
     script.type = 'text/javascript';
     script.id = "jstaixiu"
     document.getElementsByTagName('head')[0].appendChild(script);

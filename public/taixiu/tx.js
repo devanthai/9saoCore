@@ -83,14 +83,14 @@ socketzzz.on("running", (data) => {
         'opacity': '0'
     });
 
-
-    $(".clock-big").text(data.time)
-    if (data.time < 6) {
-        $('.clock-big')['css']('color', '#dc3545');
-    }
-    else {
-        $('.clock-big')['css']('color', '#dada25');
-    }
+    setTimeTX(data.time.toString())
+   // $(".clock-big").text(data.time)
+    // if (data.time < 6) {
+    //     $('.clock-big')['css']('color', '#dc3545');
+    // }
+    // else {
+    //     $('.clock-big')['css']('color', '#dada25');
+    // }
 
     $('.khung-tx .user-tai')['html'](njs(data.usertai));
     $('.khung-tx .user-xiu')['html'](njs(data.userxiu));
