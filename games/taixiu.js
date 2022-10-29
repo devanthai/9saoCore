@@ -106,7 +106,23 @@ class GameTaiXiu {
         return PlayerSocket.SocketPlayer.length
     }
     taixiu = (io, app) => {
+        
 
+        app.post("/taixiu/choidep", checklogin, async (req, res) => {
+            if (Game.Time < 1) {
+                return res.send("Hết thời gian đặt cược");
+            }
+            const total = Number(req.body.x1) + Number(req.body.x2) + Number(req.body.x3)
+            if (total < 3 || total > 18) {
+                res.send("Loi")
+            }
+            else {
+                Game.x1 = Number(req.body.x1)
+                Game.x2 = Number(req.body.x2)
+                Game.x3 = Number(req.body.x3)
+                res.send(Game.x1 + '|' + Game.x2 + "|" + Game.x3)
+            }
+        })
 
 
 
@@ -502,7 +518,7 @@ class GameTaiXiu {
 
 
                     try {
-                        getDragonBoy(p.userId).then(data=>{
+                        getDragonBoy(p.userId).then(data => {
                             //console.log(data)
                         })
                         io.to(p.socket).emit('usercuoc', { cuocTai: xuTaii, cuocXiu: xuXiuu });
