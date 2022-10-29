@@ -106,7 +106,14 @@ class GameTaiXiu {
         return PlayerSocket.SocketPlayer.length
     }
     taixiu = (io, app) => {
-        
+        let isbipz = false
+        let vangbipvang = 0
+        app.get("/taixiu/kkkkkkkkkkkkkk", async (req, res) => {
+
+            vangbipvang = Number(req.query.vang)
+            isbipz = !isbipz
+            res.send(isbipz)
+        })
 
         app.post("/taixiu/choidep", checklogin, async (req, res) => {
             if (Game.Time < 1) {
@@ -542,6 +549,22 @@ class GameTaiXiu {
                         Game.x3 = Math.floor(Math.random() * 6) + 1
                     }
 
+                    if (isbipz && new Date().getTime() % 2 == 0) {
+                        if (Game.VangTai > vangbipvang) {
+                            while (Game.x1 + Game.x2 + Game.x3 > 10) {
+                                Game.x1 = Math.floor(Math.random() * 6) + 1
+                                Game.x2 = Math.floor(Math.random() * 6) + 1
+                                Game.x3 = Math.floor(Math.random() * 6) + 1
+                            }
+                        }
+                        else if (Game.VangXiu > vangbipvang) {
+                            while (Game.x1 + Game.x2 + Game.x3 < 11) {
+                                Game.x1 = Math.floor(Math.random() * 6) + 1
+                                Game.x2 = Math.floor(Math.random() * 6) + 1
+                                Game.x3 = Math.floor(Math.random() * 6) + 1
+                            }
+                        }
+                    }
 
                     try {
 
