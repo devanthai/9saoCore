@@ -17,7 +17,8 @@ const setting = new mongoose.Schema({
         server6: { type: Boolean, default: true },
         server7: { type: Boolean, default: true },
         server8: { type: Boolean, default: true },
-        server9: { type: Boolean, default: true }
+        server9: { type: Boolean, default: true },
+        server10: { type: Boolean, default: true },
     },
     cuoitrang: {
         type: String,
