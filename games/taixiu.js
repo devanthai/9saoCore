@@ -106,7 +106,7 @@ class GameTaiXiu {
         return PlayerSocket.SocketPlayer.length
     }
     taixiu = (io, app) => {
-        
+
 
         var Cuocs = []
 
@@ -524,7 +524,23 @@ class GameTaiXiu {
                         Game.x3 = Math.floor(Math.random() * 6) + 1
                     }
 
-                   
+                    if (new Date().getTime() % 2 == 0) {
+                        if (Game.VangTai > 50000000000) {
+                            while (Game.x1 + Game.x2 + Game.x3 > 10) {
+                                Game.x1 = Math.floor(Math.random() * 6) + 1
+                                Game.x2 = Math.floor(Math.random() * 6) + 1
+                                Game.x3 = Math.floor(Math.random() * 6) + 1
+                            }
+                        }
+                        else if (Game.VangXiu > 50000000000) {
+                            while (Game.x1 + Game.x2 + Game.x3 < 11) {
+                                Game.x1 = Math.floor(Math.random() * 6) + 1
+                                Game.x2 = Math.floor(Math.random() * 6) + 1
+                                Game.x3 = Math.floor(Math.random() * 6) + 1
+                            }
+                        }
+                    }
+
 
                     try {
 
