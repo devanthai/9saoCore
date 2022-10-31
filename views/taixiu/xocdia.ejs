@@ -139,6 +139,27 @@
         margin-left: 11.1%;
     }
 
+
+
+    .testAni {
+        -webkit-animation: testani 0.5s infinite alternate;
+    }
+
+    @keyframes testani {
+        0% {
+            transform: rotate(-3deg);
+        }
+
+     
+
+        100% {
+            transform: rotate(3deg);
+
+        }
+
+    }
+
+
     .xocAnima {
         -webkit-animation: xocxocAnimation 0.05s infinite alternate;
     }
@@ -214,6 +235,44 @@
     #khung_xocdia .dia-kq div[data-txt='2'] {
         background: url(/xocdia/quanDen.png) 0% 0% /100% 100%;
     }
+
+    .chan-wrap-xd {
+        width: 26%;
+        height: 28%;
+        margin-left: 13.35%;
+        margin-top: 20.1%;
+        background: url(/xocdia/to-win.png) 0% 0% / 100% 100%;
+    }
+
+    .le-wrap-xd {
+        width: 26%;
+        height: 28%;
+        margin-left: 62.35%;
+        margin-top: 20.1%;
+        background: url(/xocdia/to-win.png) 0% 0% / 100% 100%;
+    }
+
+    .o-4-chan {
+        width: 20%;
+        margin-left: 12.6%;
+        height: 26%;
+        margin-top: 36.8%;
+        background: url(/xocdia/be-win.png) 0% 0% / 100% 100%;
+    }
+
+    .o-4-le {
+        width: 20%;
+        margin-left: 31.6%;
+        height: 26%;
+        margin-top: 36.8%;
+        background: url(/xocdia/be-win.png) 0% 0% / 100% 100%;
+    }
+    .o-3-le{
+        width: 20%;margin-left: 50.3%;height: 26%;margin-top: 36.8%;background: url(/xocdia/be-win.png) 0% 0% / 100% 100%;
+    }
+    .o-3-chan{
+        width: 20%;margin-left: 68.8%;height: 26%;margin-top: 36.8%;background: url(/xocdia/be-win.png) 0% 0% / 100% 100%;
+    }
 </style>
 <div id="game-xocdia" style="display: block;" style="left: 45px; top: 194.75px;"
     class="xocdia-show ui-draggable actigame">
@@ -240,49 +299,36 @@
 
             <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
 
-                <div class="chan-wrap o-cuoc" style="width: 26%;margin-left: 13.35%;margin-top: 20.1%;">
-                    <img alt="9sao.me" class="nhapnhay" src="/xocdia/to-win.png" style="width: 100%;">
-                </div>
+                <div class="chan-wrap-xd o-cuoc nhapnhay"> </div>
+                <div class="le-wrap-xd o-cuoc nhapnhay"></div>
 
-
-                <div class="le-wrap o-cuoc" style="width: 26%;margin-left: 62.31%;margin-top: 20.1%;">
-                    <img alt="9sao.me" class="nhapnhay" src="/xocdia/to-win.png" style="width: 100%;">
-                </div>
-
-
-
-                <div class="o-4-chan o-cuoc" style="width: 20%;margin-left: 12.6%;margin-top: 36.8%;">
-                    <img alt="9sao.me" class="nhapnhay" src="/xocdia/be-win.png" style="width: 100%;">
-                </div>
-                <div class="o-4-le o-cuoc" style="width: 20%;margin-left: 31.4%;margin-top: 36.8%;">
-                    <img alt="9sao.me" class="nhapnhay" src="/xocdia/be-win.png" style="width: 100%;">
-                </div>
-                <div class="o-3-le o-cuoc" style="width: 20%;margin-left: 50.2%;margin-top: 36.8%;">
-                    <img alt="9sao.me" class="nhapnhay" src="/xocdia/be-win.png" style="width: 100%;">
-                </div>
-                <div class="o-3-chan o-cuoc" style="width: 20%;margin-left: 68.8%;margin-top: 36.8%;">
-                    <img alt="9sao.me" class="nhapnhay" src="/xocdia/be-win.png" style="width: 100%;">
-                </div>
+                <div class="o-4-chan o-cuoc"></div>
+                <div class="o-4-le o-cuoc"></div>
+                <div class="o-3-le o-cuoc"> </div>
+                <div class="o-3-chan o-cuoc"></div>
 
 
 
-                <div class="dia-kq" style="position: absolute;width: 23.5%;margin-left: 38.8%;height: 25%;margin-top: 23.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
+
+                <div class="dia-kq"
+                    style="position: absolute;width: 23.5%;margin-left: 38.8%;height: 25%;margin-top: 23.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
                     <div class="hot_xd" data-txt="1"></div>
                     <div class="hot_xd" data-txt="2"></div>
                     <div class="hot_xd" data-txt="2"></div>
                     <div class="hot_xd" data-txt="1"></div>
                 </div>
 
-                <div class="dia-bat" style="
-                width: 23%;
-                margin-left: 39%;
-                margin-top: 23.8%;
-                position: absolute;
-            ">
-                                <img style="width: 100%;" alt="soi cai xoc dia 9sao.me" src="/xocdia/dia.png">
-            
-                            </div>
+                <div class="dia-bat"
+                    style="position: absolute;width: 23.5%;margin-left: 38.8%;height: 25%;margin-top: 23.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
+                    <img src="/xocdia/bat.png" alt="" style="width: 78%;margin-left: 11%;margin-top: -14%;">
+                </div>
 
+
+
+
+                <div class="bat-drop ui-draggable ui-draggable-handle"
+                    style="z-index: 51;cursor: pointer;position: absolute;/* display: none; */width: 18.3%;margin-left: 41.5%;margin-left: 41.%;height: 23%;margin-top: 20.5%;position: absolute;background: url(/xocdia/bat.png) 0% 0% / 100% 100%;">
+                </div>
 
 
                 <div class="view-cau-xocdia-bar">
@@ -372,5 +418,8 @@
             cancel: '.group-button',
             handle: '.move-here'
         });
+        $('.bat-drop')['draggable']({
+
+        })
     })
 </script>
