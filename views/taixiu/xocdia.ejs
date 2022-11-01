@@ -150,7 +150,7 @@
             transform: rotate(-3deg);
         }
 
-     
+
 
         100% {
             transform: rotate(3deg);
@@ -267,13 +267,86 @@
         margin-top: 36.8%;
         /* background: url(/xocdia/be-win.png) 0% 0% / 100% 100%; */
     }
-    .o-3-le{
-        width: 20%;margin-left: 50.3%;height: 26%;margin-top: 36.8%;
+
+    .o-3-le {
+        width: 20%;
+        margin-left: 50.3%;
+        height: 26%;
+        margin-top: 36.8%;
         /* background: url(/xocdia/be-win.png) 0% 0% / 100% 100%; */
     }
-    .o-3-chan{
-        width: 20%;margin-left: 68.8%;height: 26%;margin-top: 36.8%;
+
+    .o-3-chan {
+        width: 20%;
+        margin-left: 68.8%;
+        height: 26%;
+        margin-top: 36.8%;
         /* background: url(/xocdia/be-win.png) 0% 0% / 100% 100%; */
+    }
+
+
+    .thanQuayTay {
+        -webkit-animation: quaytay  0.8s infinite alternate;
+    }
+
+    @keyframes quaytay {
+        0% {
+            transform: rotate(100deg) translate(-3%, -1%);
+            transform-origin: top center;
+        }
+
+        100% {
+            transform: rotate(95deg) translate(0, 1%);
+            transform-origin: top center;
+        }
+
+    }
+
+    .thanUpDown {
+        -webkit-animation: thanTapTheduc 0.8s infinite alternate;
+    }
+
+    @keyframes thanTapTheduc {
+        0% {
+            transform: translate(0, -2%);
+        }
+
+        100% {
+            transform: translate(0, 2%);
+
+        }
+
+    }
+
+    .zoom1 {
+        -webkit-animation: zoom1 0.8s infinite alternate;
+    }
+
+    @keyframes zoom1 {
+        0% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+
+        }
+
+    }
+    .zoom2 {
+        -webkit-animation: zoom2 0.8s infinite alternate;
+    }
+
+    @keyframes zoom2 {
+        0% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+
+        }
+
     }
 </style>
 <div id="game-xocdia" style="display: block;" style="left: 45px; top: 194.75px;"
@@ -301,7 +374,12 @@
 
             <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
 
-                <div class="ongthan-xd"  style="width: 23.5%;margin-left: 38.8%;height: 25%;margin-top: 23.7%;position: absolute;background: url(/xocdia/tengame.png) 21px 200px / 100% 100%;">
+
+
+                <div style="width: 23.5%;margin-left: 38.8%;">
+                    <div class="ongthan-xd">
+
+                    </div>
 
                 </div>
 
@@ -331,7 +409,18 @@
                 </div>
 
 
+                <div class="thanUpDown zoom1" style="position: absolute;width: 20%;margin-left: 21.9%;margin-left: 41.%;z-index: 0;height: 17%;margin-top: 5.5%;position: absolute;background: url(/xocdia/than.png) 0% 0% / 100% 100%;">
+                </div>
+                <div class="thanUpDown zoom2" style="position: absolute;width: 16%;margin-left: 41.6%;margin-left: 41.%;z-index: 0;height: 13%;margin-top: 7.5%;position: absolute;background: url(/xocdia/xox.png) 0% 0% / 100% 100%;">
+                </div>
 
+
+                <div class="than-ngu thanUpDown" style="position: absolute;width: 16%;margin-left: 10.5%;margin-left: 41.%;z-index: -1;height: 32%;margin-top: -1.5%;position: absolute;background: url(/xocdia/thanngu.png) 0% 0% / 100% 100%;">
+                </div>
+
+
+                <div class="tay-than thanQuayTay" style="width: 7%;margin-left: 12.1%;z-index: -2;height: 19%;margin-top: 15%;position: absolute;background: url(/xocdia/tay.png) 0% 0% / 100% 100%;">
+                </div>
 
                 <div class="bat-drop ui-draggable ui-draggable-handle"
                     style="z-index: 51;cursor: pointer;position: absolute;/* display: none; */width: 18.3%;margin-left: 41.5%;margin-left: 41.%;height: 23%;margin-top: 20.5%;position: absolute;background: url(/xocdia/bat.png) 0% 0% / 100% 100%;">
