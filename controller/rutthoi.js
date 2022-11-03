@@ -94,7 +94,7 @@ router.post('/rutthoi', async (req, res) => {
         const name = req.body.tnv;
         const type = req.body.type;
         const gold = req.body.gold;
-       // const password = req.body.password
+        // const password = req.body.password
         //  console.log(password)
         var gold2 = 0;
 
@@ -194,31 +194,31 @@ router.post('/rutthoi', async (req, res) => {
 
                     const upgold = await Usercontrol.upMoney(user._id, -gold2)
                     const soduu = await Usercontrol.sodu(user._id, "-" + numberWithCommas(gold2), "Rút thỏi")
-                    if (upgold.username === user.username && (user.vang - upgold.vang == gold2)) {
+                    // if (upgold.username === user.username && (user.vang - upgold.vang == gold2)) {
 
-                        const newRutvang = new RutThoi({ uid: req.user._id, server: req.user.server, sovang: sothoi, tnv: name.toLowerCase(), taikhoan: req.user.name, cuocngay: user.thanhtichngay })
-                        try {
-                            const rutvang = await newRutvang.save();
-                            var table = "<tr><td hidden=''>" + rutvang._id + "</td>" + '<td>' + rutvang.server + '</td>' + '<td>' + rutvang.tnv + '</td>' + '<td>' + numberWithCommas(rutvang.sovang) + '</td>' + '<td>' + getStatus(rutvang.status) + '</td>' + '<td>' + new Date(Date.parse(rutvang.time)).toLocaleString() + '</td>' + '</tr>';
-                            setTimeout(async () => {
-                                const checkcc = await RutThoi.findOne({ _id: rutvang._id, status: 0 })
-                                if (checkcc) {
-                                    const rut = await RutThoi.findOneAndUpdate({ _id: rutvang._id, status: 0 }, { status: 2 })
-                                    if (rut) {
-                                        const user = await User.findOneAndUpdate({ _id: rutvang.uid }, { $inc: { vang: (rutvang.sovang * 37000000) } })
-                                        const sodu = await Usercontrol.sodu(rutvang.uid, "+" + numberWithCommas(rut.sovang * 37000000), "Hoàn đơn rút thỏi")
-                                        const zzzz = await Usercontrol.upHanmuc(rutvang.uid, (rut.sovang * 37000000) / 2, rutvang.server)
-                                    }
+                    const newRutvang = new RutThoi({ uid: req.user._id, server: req.user.server, sovang: sothoi, tnv: name.toLowerCase(), taikhoan: req.user.name, cuocngay: user.thanhtichngay })
+                    try {
+                        const rutvang = await newRutvang.save();
+                        var table = "<tr><td hidden=''>" + rutvang._id + "</td>" + '<td>' + rutvang.server + '</td>' + '<td>' + rutvang.tnv + '</td>' + '<td>' + numberWithCommas(rutvang.sovang) + '</td>' + '<td>' + getStatus(rutvang.status) + '</td>' + '<td>' + new Date(Date.parse(rutvang.time)).toLocaleString() + '</td>' + '</tr>';
+                        setTimeout(async () => {
+                            const checkcc = await RutThoi.findOne({ _id: rutvang._id, status: 0 })
+                            if (checkcc) {
+                                const rut = await RutThoi.findOneAndUpdate({ _id: rutvang._id, status: 0 }, { status: 2 })
+                                if (rut) {
+                                    const user = await User.findOneAndUpdate({ _id: rutvang.uid }, { $inc: { vang: (rutvang.sovang * 37000000) } })
+                                    const sodu = await Usercontrol.sodu(rutvang.uid, "+" + numberWithCommas(rut.sovang * 37000000), "Hoàn đơn rút thỏi")
+                                    const zzzz = await Usercontrol.upHanmuc(rutvang.uid, (rut.sovang * 37000000) / 2, rutvang.server)
                                 }
-                            }, 900000);
-                            await clientRedis.del(keyrutVang)
-                            return res.json({ error: 0, message: "<strong>Thành công</strong> Bạn vui lòng tới địa điểm giao hàng gặp BOT để giao dịch", table: table });
-                        }
-                        catch {
-                            await clientRedis.del(keyrutVang)
-                            return res.json({ error: 1, message: "<strong>Thất bại: </strong> Có Lỗi vui lòng thử lại sau" });
-                        }
+                            }
+                        }, 900000);
+                        await clientRedis.del(keyrutVang)
+                        return res.json({ error: 0, message: "<strong>Thành công</strong> Bạn vui lòng tới địa điểm giao hàng gặp BOT để giao dịch", table: table });
                     }
+                    catch {
+                        await clientRedis.del(keyrutVang)
+                        return res.json({ error: 1, message: "<strong>Thất bại: </strong> Có Lỗi vui lòng thử lại sau" });
+                    }
+                    //   }
                 }
             }
         }

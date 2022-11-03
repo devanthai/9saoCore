@@ -817,14 +817,14 @@ router.post('/chuyenvang', async (req, res, next) => {
 
     }
     const gold = req.body.gold
-    const password = req.body.password
-    if (password < 6) {
-        return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự" });
-    }
-    var arrz = password.match(/([0-9]|[a-z]|[A-Z])/g);
-    if (arrz.length != password.length) {
-        return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9" });
-    }
+    // const password = req.body.password
+    // if (password < 6) {
+    //     return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự lớn hơn hoặc bằng 6 kí tự" });
+    // }
+    // var arrz = password.match(/([0-9]|[a-z]|[A-Z])/g);
+    // if (arrz.length != password.length) {
+    //     return res.json({ error: 1, message: "<strong>Thất bại!</strong> Mật khẩu phải là 1 chuỗi kí tự từ a -> z, A -> Z hoặc 0 -> 9" });
+    // }
 
 
     var goldchuyen = 0;
@@ -846,8 +846,8 @@ router.post('/chuyenvang', async (req, res, next) => {
     const meeeeeeee = await User.findById(req.user._id)
 
 
-    const vaildPass = await bcrypt.compare(password, meeeeeeee.password)
-    if (!vaildPass) return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
+   // const vaildPass = await bcrypt.compare(password, meeeeeeee.password)
+    //if (!vaildPass) return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
 
 
     if (!user) { return res.send({ error: 1, message: "<strong>Thất bại! </strong>Nhân vật này không tồn tại" }) }

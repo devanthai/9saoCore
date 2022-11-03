@@ -55,6 +55,10 @@
         margin-left: 10%;
     }
 
+    .minipoke-show.actigame {
+        z-index: 500 !important;
+    }
+
     .game-minipoke {
         height: 0;
         width: 100%;
@@ -272,11 +276,11 @@
 <img style="display: none;" src="/minipoke/a3.png">
 <img style="display: none;" src="/minipoke/a4.png">
 
-<div id="game-minipoke" style="display: none;" style="left: 45px; top: 194.75px;" class="minipoke-show ui-draggable actigame">
+<div id="game-minipoke" style="display: none;" style="left: 45px; top: 194.75px;"
+    class="minipoke-show ui-draggable actigame">
     <div id="khung_minipoke">
         <div class="khung_minipoke">
-            <div class="move-here ui-draggable-handle"
-                style="position:absolute;width: 80%;height: 90%;z-index: 1;">
+            <div class="move-here ui-draggable-handle" style="position:absolute;width: 80%;height: 90%;z-index: 1;">
                 <div class="note_here_poke font_size_18"
                     style="position: absolute;display: flex;width: 100%;height:22%;top: 15%;text-align: center;z-index:50;">
                 </div>
@@ -332,8 +336,7 @@
                 </div>
 
                 <div class="btn-quay">
-                    <img onclick="QuayPoke(this)" id="btn-quay" width="100%" height="100%"
-                        src="/minipoke/quay1.png">
+                    <img onclick="QuayPoke(this)" id="btn-quay" width="100%" height="100%" src="/minipoke/quay1.png">
                 </div>
 
 
@@ -379,7 +382,8 @@
             </div>
             <div class="modal-body">
                 <div class="table-wrapper-scroll-y my-custom-scrollbartx">
-                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;" id="lspoketb">
+                    <table class="table table-sm text-center mt-1" style="width:100%;white-space: nowrap;"
+                        id="lspoketb">
                         <thead>
                             <tr class="bg bg-danger text-white">
                                 <th>Thời gian</th>
