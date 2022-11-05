@@ -54,13 +54,15 @@ setInterval(async () => {
         json: DATA
     }, function (error, response, body) {
         var json = (body)
+        console.log(body)
+
         if (json.success == true) {
-            console.log(body)
 
             json.transactions.forEach(async (element) => {
                 const noidung = element.description.toLowerCase()
                 const sotien = Number(element.amount)
                 const magd = element.activeDatetime
+                
                 if (element.type == "IN") {
                     const CheckBank = await Bank.findOne({ magd: magd })
                     //  console.log(CheckBank)
