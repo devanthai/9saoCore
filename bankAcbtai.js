@@ -49,12 +49,14 @@ setInterval(async () => {
         end: end
     }
     console.log(DATA)
+    console.log("2345")
     request.post({
         url: 'http://139.180.133.253/api/acb/transactions',
         json: DATA
     }, function (error, response, body) {
-        var json = (body)
         console.log(body)
+
+        var json = (body)
 
         if (json.success == true) {
 
