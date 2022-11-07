@@ -183,18 +183,18 @@
                                                                                                 Chức năng nhận vip không
                                                                                                 cần đợi:</lable>
                                                                                             <br>
-                                                                                            Bạn sẽ nhận được 50% của
+                                                                                            Bạn sẽ nhận được 55% của
                                                                                             tổng vàng vip của bạn
                                                                                             <br>
                                                                                             <lable class="text-success">
                                                                                                 <%= String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-                                                                                                    %> - 50% = <%=
-                                                                                                        String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                                    %> - 45% = <%=
+                                                                                                        String(Math.round(phanThuongTotal*0.55)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
                                                                                                         %> vàng
                                                                                             </lable>
                                                                                             <br>
                                                                                             <lable class="text-success">
-                                                                                                <%= String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                                                                                <%= String(Math.round(phanThuongTotal*0.55)).replace(/(.)(?=(\d{3})+$)/g,'$1,')
                                                                                                     %>
                                                                                             </lable> là số vàng bạn sẽ
                                                                                             nhận được
@@ -257,16 +257,16 @@
                 </div>
                 <div class="modal-body text-danger text-center ">
                     <b>
-                        Bạn sẽ nhận được 50% của tổng vàng vip của bạn
+                        Bạn sẽ nhận được 55% của tổng vàng vip của bạn
                         <br>
                         <lable class="text-success">
-                            <%= String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> - 50% = <%=
-                                    String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng
+                            <%= String(Math.round(phanThuongTotal)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> - 45% = <%=
+                                    String(Math.round(phanThuongTotal*0.55)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> vàng
                         </lable>
 
                         <br>
                         <lable class="text-success">
-                            <%= String(Math.round(phanThuongTotal/2)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
+                            <%= String(Math.round(phanThuongTotal*0.55)).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
                         </lable> là số vàng bạn sẽ nhận được khi ấn Xác nhận
 
                         <br>
