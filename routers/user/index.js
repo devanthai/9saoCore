@@ -100,7 +100,7 @@ const listPage = {
     "napt9s": '<b style="color:red">Nạp từ ví The9sao.com <img src="/images/hot2.gif"></b>',
     "napbank": 'Nạp Bank',
     "napmomo": "Nạp ví Momo",
-  //  "naptsr": "Nạp từ ví TheSieuRe.Com",
+    //  "naptsr": "Nạp từ ví TheSieuRe.Com",
     "sodu/1": "Lịch sử thay đổi số dư",
     "csmm/1": "Lịch sử con số may mắn",
     "taixiu": "Lịch sử game tài xỉu",
@@ -187,7 +187,7 @@ router.post('/nhanvipall', async (req, res, next) => {
         if (getvip.vip > 0) {
             await clientRedis.set(keyNhanvipu, "dangnhanvip")
             setTimeout(async () => {
-                const vangnhan = getvip.phanThuongTotal / 2
+                const vangnhan = getvip.phanThuongTotal * 0.55
                 try {
                     await User.findByIdAndUpdate(req.user._id, { hanmuc: 0 })
                     await UserControl.sodu(req.user._id, '+' + numberWithCommas(vangnhan), "Nhận vip nhanh");
@@ -846,7 +846,7 @@ router.post('/chuyenvang', async (req, res, next) => {
     const meeeeeeee = await User.findById(req.user._id)
 
 
-   // const vaildPass = await bcrypt.compare(password, meeeeeeee.password)
+    // const vaildPass = await bcrypt.compare(password, meeeeeeee.password)
     //if (!vaildPass) return res.json({ error: 1, message: '<strong>Thất bại! </strong>Mật khẩu không chính xác' })
 
 
