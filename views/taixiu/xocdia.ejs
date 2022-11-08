@@ -17,7 +17,7 @@
     }
 
     .xocdia-show {
-        font-weight: 700;
+        /* font-weight: 700; */
         position: absolute;
         height: 0px;
         z-index: 100;
@@ -360,13 +360,14 @@
         .xocdia-show .font_size_20 {
             font-size: 2.5vw !important;
         }
-       
+
     }
+
     @media (min-width: 0px) and (max-width: 700px) {
         .xocdia-show .font_size_25 {
             font-size: 2.7vw !important;
         }
-       
+
     }
 </style>
 <div id="game-xocdia" style="display: block;" style="left: 45px; top: 194.75px;"
@@ -411,19 +412,19 @@
                         margin-top: 7.5%;
                         position: absolute;
                         color: #ffffff;
-                    ">0</div>
+                    " id="xd-cuoc-chan">0</div>
                     <div style="
                         margin-left: 67%;
                         margin-top: 43.5%;
                         position: absolute;
                         color: #ffc56f;
-                    " id="player-chan">15</div>
+                    " id="xd-player-chan">15</div>
                     <div class="font_size_25" style="
                         margin-left: 11%;
                         margin-top: 42.5%;
                         position: absolute;
                         color: #ffc56f;
-                    " id="total-gold-chan">66tr</div>
+                    " id="xd-gold-chan">66tr</div>
 
                 </div>
                 <div class="chan-wrap-xd o-cuoc nhapnhay o-active-lon"> </div>
@@ -437,19 +438,19 @@
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
-                ">0</div>
+                " id="xd-cuoc-le">0</div>
                     <div style="
                         margin-left: 67%;
                         margin-top: 44.5%;
                         position: absolute;
                         color: #ffc56f;
-                    ">15</div>
-                   <div class="font_size_25" style="
+                    " id="xd-player-le">15</div>
+                    <div class="font_size_25" style="
                         margin-left: 11%;
                         margin-top: 42.5%;
                         position: absolute;
                         color: #ffc56f;
-                    ">66tr</div>
+                    " id="xd-gold-le">66tr</div>
                 </div>
                 <div class="le-wrap-xd o-cuoc"></div>
                 <!--  lẻ  -->
@@ -463,14 +464,14 @@
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
-                ">0</div>
-                    <div style="
+                " id="xd-cuoc-4do">0</div>
+                    <div id="xd-gold-4do" style="
                    margin-left: 14%;
                    margin-top: 51.5%;
                    position: absolute;
                    color: #ffc56f;
                 ">99tr</div>
-                    <div style="
+                    <div id="xd-player-4do" style="
                     margin-left: 60%;
                     margin-top: 50.5%;
                     position: absolute;
@@ -484,19 +485,19 @@
 
                 <!-- 4 chẵn đen -->
                 <div class="o-4-le o-cuoc">
-                    <div style="
+                    <div id="xd-cuoc-4den" style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
                 ">0</div>
-                    <div style="
+                    <div id="xd-gold-4den" style="
                    margin-left: 13%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
                 ">99tr</div>
-                    <div style="
+                    <div id="xd-player-4den" style="
                     margin-left: 60%;
                     margin-top: 54.5%;
                     position: absolute;
@@ -515,19 +516,19 @@
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
-                ">0</div>
+                " id="xd-cuoc-3den">0</div>
                     <div style="
                    margin-left: 13%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
-                ">99tr</div>
+                " id="xd-gold-3den">99tr</div>
                     <div style="
                     margin-left: 60%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
-                ">15</div>
+                " id="xd-player-3den">15</div>
                 </div>
                 <div class="o-3-le o-cuoc"> </div>
                 <!-- 3 ẻ đen -->
@@ -536,7 +537,7 @@
 
                 <!-- 3 lẻ đỏ-->
                 <div class="o-3-chan o-cuoc">
-                    <div c style="
+                    <div id="xd-cuoc-3do" style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
@@ -547,13 +548,13 @@
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
-                ">0tr</div>
+                " id="xd-gold-3do">0tr</div>
                     <div style="
                     margin-left: 60%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
-                ">15</div>
+                " id="xd-player-3do">15</div>
                 </div>
                 <div class="o-3-chan o-cuoc"></div>
                 <!-- 3 lẻ đỏ-->
@@ -602,6 +603,18 @@
                     <img style="width: 100%;" alt="soi cai xoc dia 9sao.me" src="/xocdia/bg-soicau.png">
 
                 </div>
+
+
+                <div id="clock-xocdia" style="
+                    position: absolute;
+                    width: 24.5%;             
+                    margin-left: 51%;
+                    margin-top: 31.7%;
+                    text-align: center;">
+
+                </div>
+
+
 
                 <div class="view-cau-xocdia">
 
@@ -688,5 +701,155 @@
         $('.bat-drop')['draggable']({
 
         })
+    })
+</script>
+
+<script>
+    $(document).ready(() => {
+
+        const config_image_xodia = {
+            characterSet: '0123456789',
+            characterWidth: 103.2,
+            characterHeight: 102,
+            horizontalSpacing: 0,
+            verticalSpacing: 0,
+            columnCount: 10,
+            rowCount: 1,
+        };
+
+     
+
+
+        const canvas_time_xd = document.createElement('canvas');
+        // canvas.width = 120;
+        // canvas.height = 120
+        canvas_time_xd.style.width = '60%';
+        canvas_time_xd.style.left = '51%';
+        canvas_time_xd.style.top = '47%';
+
+
+
+        canvas_time_xd.className = ""
+
+
+
+
+
+        $("#clock-xocdia").append(canvas_time_xd)
+
+
+        let context_xd = canvas_time_xd.getContext('2d');
+
+        context_xd.imageSmoothingEnabled = false;
+
+        const image_time_xd = new Image();
+
+
+        setTimeXocDia = (time) => {
+            context_xd.clearRect(0, 0, 500, 500);
+            let scale = (canvas_time_xd.width / config_image_xodia.characterHeight) / 2
+            let imageWidth = getWordWidth_xodia(time, scale, 0)
+            let xCenterCanvas = (canvas_time_xd.width / 2) - imageWidth / 2
+            let yCenterCanvas = (canvas_time_xd.height / 2) - (config_image_xodia.characterHeight * scale / 2)
+            drawLine_xd(time, { x: xCenterCanvas, y: yCenterCanvas }, scale);
+        }
+
+
+        image_time_xd.src = '/xocdia/fontxanh.png';
+
+        function drawCharacter_xodia(character, position = { x: 0, y: 0 }, scale = 1) {
+            const characterIndex = config_image_xodia.characterSet.indexOf(character);
+
+            if (characterIndex === -1) {
+                throw new Error(`Font character "${character}" is not defined`);
+            }
+            const rowIndex = Math.floor(characterIndex / config_image_xodia.columnCount);
+            const columnIndex = characterIndex % config_image_xodia.columnCount;
+
+            const {
+                characterWidth,
+                characterHeight,
+                horizontalSpacing,
+                verticalSpacing,
+            } = config_image_xodia;
+
+            const sourceX = columnIndex * (characterWidth + horizontalSpacing);
+            const sourceY = rowIndex * (characterHeight + verticalSpacing);
+            const sourceWidth = characterWidth;
+            const sourceHeight = characterHeight;
+
+            const destinationX = position.x;
+            const destinationY = position.y;
+            const destinationWidth = characterWidth * scale;
+            const destinationHeight = characterHeight * scale;
+
+
+
+            context_xd.drawImage(
+                image_time_xd,
+                sourceX, sourceY, sourceWidth, sourceHeight,
+                destinationX, destinationY, destinationWidth, destinationHeight
+            );
+        }
+
+        function drawWord_xd(word, position = { x: 0, y: 0 }, scale = 1, optCharacterSpacing = 1) {
+            const characters = Array.from(word);
+
+
+
+            characters.forEach((character, characterIndex) => {
+                let characterSpacing = optCharacterSpacing;
+                if (characterIndex === 0) {
+                    characterSpacing = 0;
+                }
+
+                const characterTotalWidth = config_image_xodia.characterWidth * scale + characterSpacing;
+
+                const characterX = position.x + characterIndex * characterTotalWidth;
+                const characterY = position.y;
+
+                const characterPosition = {
+                    x: characterX,
+                    y: characterY,
+                };
+
+                drawCharacter_xodia(character, characterPosition, scale);
+            });
+        }
+
+        function getWordWidth_xodia(word, scale = 1, optCharacterSpacing = 1) {
+            const allCharactersWidth = word.length * (config_image_xodia.characterWidth * scale);
+            const allSpacingsWidth = (word.length - 1) * optCharacterSpacing;
+
+            const wordWidth = allCharactersWidth + allSpacingsWidth;
+
+            return wordWidth;
+        }
+
+        function drawLine_xd(
+            line,
+            position = { x: 0, y: 0 },
+            scale = 1,
+            optCharacterSpacing = 0,
+        ) {
+            const words = line.split(' ');
+            let prevWordEndX = 0;
+            words.forEach((word, wordIndex) => {
+                const wordX = position.x + prevWordEndX;
+                const wordY = position.y;
+                const wordPosition = {
+                    x: wordX,
+                    y: wordY,
+                };
+                drawWord_xd(word, wordPosition, scale, optCharacterSpacing);
+                const wordWidth = getWordWidth_xodia(word, scale, optCharacterSpacing);
+                let wordSpacing = config_image_xodia.characterWidth * scale + optCharacterSpacing * 2;
+                if (wordIndex === words.length - 1) {
+                    wordSpacing = 0;
+                }
+                const wordTotalWidth = wordWidth + wordSpacing;
+                prevWordEndX += wordTotalWidth;
+            });
+        }
     })
 </script>
