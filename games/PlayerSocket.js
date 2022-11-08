@@ -5,6 +5,7 @@ const ChanLe = require('./chanle');
 const MiniPoke = require('./miniPoke');
 const BtcGame = require('./bitcoin');
 const HoaQua = require('./hoaqua');
+const XocDia = require('./xocdia');
 
 
 let isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
