@@ -375,10 +375,9 @@
     <div id="khung_xocdia">
 
         <div class="khung_xocdia">
+            <div class="note_here_xocdia font_size_20" style="position: absolute;display: flex;width: 100%;top: 55%;text-align: center;z-index: 10000;"></div>
             <div class="move-here ui-draggable-handle" style="position:absolute;width: 100%;height: 100%;z-index: 1;">
-                <div class="note_here_hoaqua font_size_18"
-                    style="position: absolute;display: flex;width: 60%;height:22%;top: 40%;text-align: center;z-index:50;">
-                </div>
+               
             </div>
 
 
@@ -427,7 +426,7 @@
                     " id="xd-gold-chan">66tr</div>
 
                 </div>
-                <div class="chan-wrap-xd o-cuoc nhapnhay o-active-lon"> </div>
+                <div onclick="cuoc_xocdia('chan')" class="chan-wrap-xd o-cuoc nhapnhay o-active-lon"> </div>
                 <!-- chẵn -->
 
 
@@ -452,7 +451,7 @@
                         color: #ffc56f;
                     " id="xd-gold-le">66tr</div>
                 </div>
-                <div class="le-wrap-xd o-cuoc"></div>
+                <div onclick="cuoc_xocdia('le')" class="le-wrap-xd o-cuoc"></div>
                 <!--  lẻ  -->
 
 
@@ -478,7 +477,7 @@
                     color: #ffc56f;
                 ">15</div>
                 </div>
-                <div class="o-4-chan o-cuoc"></div>
+                <div onclick="cuoc_xocdia('chan4do')" class="o-4-chan o-cuoc"></div>
                 <!-- 4 chẵn đỏ -->
 
 
@@ -504,7 +503,7 @@
                     color: #ffc56f;
                 ">15</div>
                 </div>
-                <div class="o-4-le o-cuoc"></div>
+                <div onclick="cuoc_xocdia('chan4den')" class="o-4-le o-cuoc"></div>
                 <!-- 4 chẵn đen -->
 
 
@@ -530,7 +529,7 @@
                     color: #ffc56f;
                 " id="xd-player-3den">15</div>
                 </div>
-                <div class="o-3-le o-cuoc"> </div>
+                <div onclick="cuoc_xocdia('le3den')" class="o-3-le o-cuoc"> </div>
                 <!-- 3 ẻ đen -->
 
 
@@ -556,7 +555,7 @@
                     color: #ffc56f;
                 " id="xd-player-3do">15</div>
                 </div>
-                <div class="o-3-chan o-cuoc"></div>
+                <div onclick="cuoc_xocdia('le3do')" class="o-3-chan o-cuoc"></div>
                 <!-- 3 lẻ đỏ-->
 
 
@@ -688,8 +687,58 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalcuoc-xocdia" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <div id="typecuocXocDia">
+
+                </div>
+<br>
+                <div class="input-group form-group">
+                    <span class="input-group-prepend" style="border-right: 1px solid red;">
+                        <div class="input-group-text bg-light border-right-1"><i style="color: red;"
+                                class="fa fa-coins"></i>
+                        </div>
+                    </span>
+                    <input class="form-control py-2 border-left-0 border" style="font-weight: bold;" type="search"
+                        value="" id="goldXocDia" placeholder="Nhập số vàng đặt cược">
+                </div>
+                <div class="col text-center">
+                    <button onclick="SelectGoldXocDia(1)" class="btn btn-sm btn-primary font-weight-bold">
+                        10M</button>
+                    <button onclick="SelectGoldXocDia(2)" class="btn btn-sm btn-primary font-weight-bold">
+                        50M</button>
+                    <button onclick="SelectGoldXocDia(3)" class="btn btn-sm btn-primary font-weight-bold">
+                        100M</button>
+                    <button onclick="SelectGoldXocDia(4)" class="btn btn-sm btn-primary font-weight-bold">
+                        500M</button>
+                    <button onclick="SelectGoldXocDia(5)" class="btn btn-sm btn-primary font-weight-bold">
+                        1000M</button>
+                    <button onclick="SelectGoldXocDia(6)" class="btn btn-sm btn-danger font-weight-bold">
+                        Xóa</button>
+                </div>
+                <div class="col  mt-2 text-center">
+                    <button onclick="SelectGoldXocDia(7)"
+                        class="col-lg-5 btn btn-sm btn-warning text-white font-weight-bold">
+                        Đặt ngay</button>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+
+  
     $(document).ready(() => {
+
         $('#game-xocdia')['draggable']({
             start: function () {
                 $('.actigame')['removeClass']('actigame');
@@ -705,6 +754,87 @@
 </script>
 
 <script>
+
+
+    $('#modalcuoc-xocdia').dblclick(function (e) {
+        e.preventDefault();
+    })
+    let typecuocXocDia = ''
+    function cuoc_xocdia(tpyecuoc) {
+        let htmlCuocXd = ''
+        if(tpyecuoc == "le")
+        {
+            htmlCuocXd = 'Dự đoán <img src="/xocdia/le.png"> thắng x1.98 tiền cược'
+        }
+        else if(tpyecuoc == "chan")
+        {
+            htmlCuocXd = 'Dự đoán <img src="/xocdia/chan.png"> thắng x1.98 tiền cược'
+        }
+        else if(tpyecuoc == "chan4do")
+        {
+            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"> thắng x15 tiền cược'
+        }
+        else if(tpyecuoc == "chan4den")
+        {
+            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"> thắng x15 tiền cược'
+        }
+        else if(tpyecuoc == "le3den")
+        {
+            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDo.png"> thắng x3 tiền cược'
+        }
+        else if(tpyecuoc == "le3do")
+        {
+            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDen.png"> thắng x3 tiền cược'
+        }
+        typecuocXocDia = tpyecuoc
+        $("#typecuocXocDia").html(htmlCuocXd)
+        $("#modalcuoc-xocdia").modal()
+    }
+    function SelectGoldXocDia(type) {
+        var inputcuocbc = $("#goldXocDia").val()
+        var ssss = Number(inputcuocbc.replace(/[^0-9 ]/g, ""));
+        if (type == 1) {
+            ssss += 10000000
+            $("#goldXocDia").val(numberWithCommas(ssss))
+        }
+        else if (type == 2) {
+            ssss += 50000000
+            $("#goldXocDia").val(numberWithCommas(ssss))
+        }
+        else if (type == 3) {
+            ssss += 100000000
+            $("#goldXocDia").val(numberWithCommas(ssss))
+        }
+        else if (type == 4) {
+            ssss += 500000000
+            $("#goldXocDia").val(numberWithCommas(ssss))
+        }
+        else if (type == 5) {
+            ssss += 1000000000
+            $("#goldXocDia").val(numberWithCommas(ssss))
+        }
+        else if (type == 6) {
+            $("#goldXocDia").val("")
+        }
+        else if (type == 7) {
+            $['ajax']({
+                type: 'post',
+                url: '/xocdia/putcuoc',
+                data: { vangcuoc: inputcuocbc, type: typecuocXocDia },
+                success: function (data) {
+                    if (data.error == 1) {
+                        note_play('.note_here_xocdia', data.message, 'ff0000');
+                    }
+                    else {
+                        note_play('.note_here_xocdia', data.message, '28a745');
+                    }
+                    $("#goldXocDia").val("")
+                    $("#modalcuoc-xocdia").modal("hide")
+                }
+            });
+        }
+    }
+
     $(document).ready(() => {
 
         const config_image_xodia = {
@@ -717,7 +847,7 @@
             rowCount: 1,
         };
 
-     
+
 
 
         const canvas_time_xd = document.createElement('canvas');

@@ -7,16 +7,75 @@ const User = require("../models/User")
 const checklogin = require("../Middleware/checklogin")
 
 const PlayerSocket = require('./PlayerSocket')
+const redisClient = require("../redisCache")
 
 class GameXocDia {
     xocdia = (io, app) => {
+        let isBaotri = false;
+
+        app.get("/xocdia/baotri", async (req, res) => {
+            isBaotri = !isBaotri
+            res.send(isBaotri)
+        })
+
+        app.post("/xocdia/cuoc", async (req, res) => {
+            if (isBaotri) {
+                return res.send({ error: 1, message: "Bảo trì trong giây lát" })
+            }
+            let { vangcuoc, type } = req.body
+            const gold = Number(vangcuoc.replace(/,/g, ''))
+            if (!req.user.isLogin) {
+                return res.send({ error: 1, message: "Vui lòng đăng nhập" });
+            }
+            if (Game.Time < 1) {
+                return res.send({ error: 1, message: "Hết thời gian đặt cược" });
+            }
+            const user = await User.findOne({ _id: req.session.userId })
+            if (!user) {
+                return res.send({ error: 1, message: "Không tìm thấy user này vui lòng đăng nhập lại" });
+            }
+            if (vangcuoc === "" || type === "") {
+                return res.send({ error: 1, message: "Lỗi" });
+            }
+
+            if (isNaN(gold)) {
+                return res.send({ error: 1, message: "Lỗi vàng cược" });
+            }
+
+            if (type != "chan" && type != "le" && type != "chan4do" && type != "le4do" && type != "le3den" && type != "le3do") {
+                return res.send({ error: 1, message: "Vui lòng chọn lại" });
+            }
+
+            if (gold < 3000000) {
+                return res.send({ error: 1, message: "Chỉ được đặt trên 3 triệu vàng" });
+            }
+
+            if (user.vang < gold2) {
+                return res.send({ error: 1, message: "Bạn không đủ vàng để đặt cược" });
+            }
+
+            
+        })
+
         let Game = {
             vangChan: 0,
+            countPlayerChan: 0,
+
             vangLe: 0,
+            countPlayerLe: 0,
+
             vang4do: 0,
+            countPlayer4do: 0,
+
             vang4den: 0,
+            countPlayer4den: 0,
+
             vang3den: 0,
+            countPlayer3den: 0,
+
             vang3do: 0,
+            countPlayer3do: 0,
+
             TimeWait: 0,
             Time: 0,
             Status: "start",
@@ -28,7 +87,7 @@ class GameXocDia {
 
         }
         function GameStart() {
-            
+
             Game.vangChan = 0
             Game.countPlayerChan = 0
 

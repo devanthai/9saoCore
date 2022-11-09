@@ -86,6 +86,11 @@ for (var i = 0; i < btnSvs.length; i++) {
 
 //Conten Youtube
 $(document).ready(function () {
+
+  $('.bat-drop-csmm')['draggable']({
+
+  })
+
   var indexContent = 0;
   var arrayContent = ["Uy Tín", "Chất lượng", "Dễ chơi", "Dễ thắng", "Nhiều ưu đãi", "Giao dịch nhanh gọn"];;
   setInterval(function () {
