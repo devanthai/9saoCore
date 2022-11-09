@@ -375,9 +375,10 @@
     <div id="khung_xocdia">
 
         <div class="khung_xocdia">
-            <div class="note_here_xocdia font_size_20" style="position: absolute;display: flex;width: 100%;top: 55%;text-align: center;z-index: 10000;"></div>
+            <div class="note_here_xocdia font_size_20"
+                style="position: absolute;display: flex;width: 100%;top: 55%;text-align: center;z-index: 10000;"></div>
             <div class="move-here ui-draggable-handle" style="position:absolute;width: 100%;height: 100%;z-index: 1;">
-               
+
             </div>
 
 
@@ -696,7 +697,7 @@
                 <div id="typecuocXocDia">
 
                 </div>
-<br>
+                <br>
                 <div class="input-group form-group">
                     <span class="input-group-prepend" style="border-right: 1px solid red;">
                         <div class="input-group-text bg-light border-right-1"><i style="color: red;"
@@ -736,7 +737,7 @@
 </div>
 <script>
 
-  
+
     $(document).ready(() => {
 
         $('#game-xocdia')['draggable']({
@@ -762,28 +763,22 @@
     let typecuocXocDia = ''
     function cuoc_xocdia(tpyecuoc) {
         let htmlCuocXd = ''
-        if(tpyecuoc == "le")
-        {
+        if (tpyecuoc == "le") {
             htmlCuocXd = 'Dự đoán <img src="/xocdia/le.png"> thắng x1.98 tiền cược'
         }
-        else if(tpyecuoc == "chan")
-        {
+        else if (tpyecuoc == "chan") {
             htmlCuocXd = 'Dự đoán <img src="/xocdia/chan.png"> thắng x1.98 tiền cược'
         }
-        else if(tpyecuoc == "chan4do")
-        {
+        else if (tpyecuoc == "chan4do") {
             htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"> thắng x15 tiền cược'
         }
-        else if(tpyecuoc == "chan4den")
-        {
+        else if (tpyecuoc == "chan4den") {
             htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"> thắng x15 tiền cược'
         }
-        else if(tpyecuoc == "le3den")
-        {
+        else if (tpyecuoc == "le3den") {
             htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDo.png"> thắng x3 tiền cược'
         }
-        else if(tpyecuoc == "le3do")
-        {
+        else if (tpyecuoc == "le3do") {
             htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDen.png"> thắng x3 tiền cược'
         }
         typecuocXocDia = tpyecuoc
@@ -836,7 +831,22 @@
     }
 
     $(document).ready(() => {
-
+        $("#goldXocDia").on("keyup", function (event) {
+            var selection = window.getSelection().toString();
+            if (selection !== '') {
+                return;
+            }
+            if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
+                return;
+            }
+            var $this = $(this);
+            var input = $this.val();
+            var input = input.replace(/[\D\s\._\-]+/g, "");
+            input = input ? parseInt(input, 10) : 0;
+            $this.val(function () {
+                return (input === 0) ? "" : input.toLocaleString("en-US");
+            });
+        });
         const config_image_xodia = {
             characterSet: '0123456789',
             characterWidth: 103.2,

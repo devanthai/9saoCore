@@ -18,7 +18,7 @@ class GameXocDia {
             res.send(isBaotri)
         })
 
-        app.post("/xocdia/cuoc", async (req, res) => {
+        app.post("/xocdia/putcuoc", checklogin, async (req, res) => {
             if (isBaotri) {
                 return res.send({ error: 1, message: "Bảo trì trong giây lát" })
             }
@@ -50,11 +50,12 @@ class GameXocDia {
                 return res.send({ error: 1, message: "Chỉ được đặt trên 3 triệu vàng" });
             }
 
-            if (user.vang < gold2) {
+            if (user.vang < gold) {
                 return res.send({ error: 1, message: "Bạn không đủ vàng để đặt cược" });
             }
 
-            
+
+
         })
 
         let Game = {
@@ -119,9 +120,32 @@ class GameXocDia {
                 GameStart()
             }
             else if (Game.Status == "running") {
-                for (let i = 0; i < PlayerSocket.SocketPlayer.length; i++) {
+                // for (let i = 0; i < PlayerSocket.SocketPlayer.length; i++) {
 
-                }
+                // }
+                io.sockets.emit("running-xocdia",
+                    {
+                        time: Game.Time,
+                        vangChan: Game.vangChan,
+                        countPlayerChan: Game.countPlayerChan,
+
+                        vangLe: Game.vangLe,
+                        countPlayerLe: Game.countPlayerLe,
+
+                        vang4do: Game.vang4do,
+                        countPlayer4do: Game.countPlayer4do,
+
+                        vang4den: Game.vang4den,
+                        countPlayer4den: Game.countPlayer4den,
+
+                        vang3den: Game.vang3den,
+                        countPlayer3den: Game.countPlayer3den,
+
+                        vang3do: Game.vang3do,
+                        countPlayer3do: Game.countPlayer3do,
+                    }
+                );
+
                 Game.Time--
                 if (Game.Time <= -1) {
                     Game.x1 = Math.floor(Math.random() * 2) + 1
