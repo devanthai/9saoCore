@@ -5,6 +5,7 @@ const ChanLe = require('./chanle');
 const MiniPoke = require('./miniPoke');
 const BtcGame = require('./bitcoin');
 const HoaQua = require('./hoaqua');
+const XocDia = require('./xocdia');
 
 
 let isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
@@ -68,7 +69,7 @@ let io = (io, app) => {
     Lucky.gamestart(io, app)
     MiniPoke.game(io)
     HoaQua.game(io)
-    BtcGame.start(io,app)
+  //  BtcGame.start(io,app)
 }
 module.exports = { io, SocketPlayer }
 exports.SocketPlayer = SocketPlayer
