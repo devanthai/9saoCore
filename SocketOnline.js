@@ -7,6 +7,9 @@ const io = require('socket.io')(server, {
     cors: {
         origin: ["http://localhost:3000", "https://9sao.me", "https://fbnguvcl.xyz", "https://socket.9sao.me"
 
+        , "https://socket.10sao.me",
+        'https://www.10sao.me',
+        'https://10sao.me',
 
             ,
             'https://www.9sao.me',

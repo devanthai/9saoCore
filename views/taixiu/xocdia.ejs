@@ -829,7 +829,9 @@
             });
         }
     }
-
+    socketzzz.on("running-xocdia",(data)=>{
+        console.log(data)
+    })
     $(document).ready(() => {
         $("#goldXocDia").on("keyup", function (event) {
             var selection = window.getSelection().toString();

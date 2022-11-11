@@ -114,6 +114,9 @@ class GameXocDia {
             Game.x2 = -1
             Game.x3 = -1
             Game.x4 = -1
+
+            Game.Status = "running"
+
         }
         setInterval(() => {
             if (Game.Status == "start") {
