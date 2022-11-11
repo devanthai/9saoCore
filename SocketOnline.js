@@ -7,9 +7,9 @@ const io = require('socket.io')(server, {
     cors: {
         origin: ["http://localhost:3000", "https://9sao.me", "https://fbnguvcl.xyz", "https://socket.9sao.me"
 
-        , "https://socket.10sao.me",
-        'https://www.10sao.me',
-        'https://10sao.me',
+            , "https://socket.10sao.me",
+            'https://www.10sao.me',
+            'https://10sao.me',
 
             ,
             'https://www.9sao.me',
@@ -42,7 +42,7 @@ let SocketPlayer = {}
 
 io.on("connection", (socket) => {
 
-   // console.log(socket)
+    // console.log(socket)
     let Requsername = socket.handshake.query.username
     let ReqTenhienthi = socket.handshake.query.tenhienthi
     let Ip = socket.handshake.headers['x-forwarded-for']
@@ -54,8 +54,7 @@ io.on("connection", (socket) => {
     console.log(SocketPlayer[socket.id])
 
 
-    if(referer.includes("fbnguvcl.xyz"))
-    {
+    if (referer.includes("fbnguvcl.xyz")) {
         socket.join("admin")
         socket.on("mess-admin", (data) => {
             const { password, type } = data
@@ -74,11 +73,11 @@ io.on("connection", (socket) => {
         })
     }
 
-    io.to("admin").emit("addPlayer",SocketPlayer[socket.id])
-    
+    io.to("admin").emit("addPlayer", SocketPlayer[socket.id])
+
     socket.on("disconnect", () => {
         //remove player
-        io.to("admin").emit("removePlayer",SocketPlayer[socket.id])
+        io.to("admin").emit("removePlayer", SocketPlayer[socket.id])
         delete SocketPlayer[socket.id]
     })
 })
