@@ -2,3 +2,4 @@ node_modules
 public/images/avatar
 package-lock.json
 package.json
+config/countvongquay.json
