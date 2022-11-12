@@ -1,8 +1,7 @@
 node_modules
 public/images/avatar
+public/9saoAcb.apk
 package-lock.json
 package.json
-<<<<<<< HEAD
-=======
-config/countvongquay.json
->>>>>>> 5b493358bed7d5618e154013fae6526aa3fc4a1a
+public/countvongquay.json
+public/waitRoom.html
