@@ -13,8 +13,8 @@ const Sodu = require('../../models/Sodu')
 
 const Cuoc = require('../../models/Cuoc')
 
-const Cuoctx = require('../../models/taixiu/Lichsu')
-const CuocChanLe = require('../../models/chanle/Lichsu')
+const Cuoctx = require('../../models/taixiu/Cuoc')
+const CuocChanLe = require('../../models/chanle/Cuoc')
 const CuocBaucua = require('../../models/baucua/Lichsu')
 
 
@@ -855,17 +855,17 @@ router.post('/chuyenvang', async (req, res, next) => {
     if (user.server != req.user.server) {
         return res.send({ error: 1, message: "<strong>Thất bại! </strong>Người nhận không cùng Server" })
     }
-    var setting = await Setting.findOne({ setting: "setting" })
-    var sucvat = "server" + req.user.server
-    var ishanmuc = setting.hanmuc[sucvat]
+    let setting = await Setting.findOne({ setting: "setting" })
+    let sucvat = "server" + req.user.server
+    let ishanmuc = setting.hanmuc[sucvat]
     if (meeeeeeee.hanmuc < goldchuyen && ishanmuc) {
         return res.json({ error: 1, message: "<strong>Thất bại: </strong> Hạn mức của bạn không đủ để rút" });
     }
 
-    var cuocszz = await Cuoc.findOne({ uid: req.user._id, status: -1 })
-    var cuoctxszz = await Cuoctx.findOne({ uid: req.user._id.toString(), status: -1 })
-    var cuocchanle = await CuocChanLe.findOne({ uid: req.user._id.toString(), status: -1 })
-    var cuocbaucua = await CuocBaucua.findOne({ uid: req.user._id.toString(), status: -1 })
+    let cuocszz = await Cuoc.findOne({ uid: req.user._id, status: -1 })
+    let cuoctxszz = await Cuoctx.findOne({ uid: req.user._id.toString(), status: -1 })
+    let cuocchanle = await CuocChanLe.findOne({ uid: req.user._id.toString(), status: -1 })
+    let cuocbaucua = await CuocBaucua.findOne({ uid: req.user._id.toString(), status: -1 })
 
     if (cuocszz || cuoctxszz || cuocchanle || cuocbaucua) {
         return res.send({ error: 1, message: "<strong>Thất bại: </strong> Không thể chuyển khi đang cược" });

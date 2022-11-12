@@ -1,7 +1,7 @@
 const CuocChanLe = require("../models/chanle/Cuoc")
 const GameChanLe = require("../models/chanle/Game")
 const Setting = require("../models/Setting")
-const LichsuChanLe = require("../models/chanle/Lichsu")
+// const LichsuChanLe = require("../models/chanle/Lichsu")
 const User = require("../models/User")
 const UserControl = require("../controller/user")
 const checklogin = require("../Middleware/checklogin")
@@ -195,21 +195,21 @@ class GameChanLezzzz {
         async function TraoThuong(ketqua, x1, x2, x3) {
             const setting = await Setting.findOne({ setting: "setting" })
             var ischan = ketqua % 2 == 0
-            await new GameChanLe({ ketqua: ketqua, type: (ischan ? "chan" : "le"), status: 1, x1: x1, x2: x2, x3: x3 }).save()
+            let zzzPhien = await new GameChanLe({ ketqua: ketqua, type: (ischan ? "chan" : "le"), status: 1, x1: x1, x2: x2, x3: x3 }).save()
             Cuocs.map(async (cuoc) => {
                 var vangnhan = 0
                 if (cuoc.type == (ischan ? "chan" : "le")) {
                     vangnhan = cuoc.xu * setting.tile.cltx;
                     await UserControl.upMoney(cuoc.userId, vangnhan)
                     await UserControl.sodu(cuoc.userId, "Thắng game chẵn lẻ", "+" + numberWithCommas(vangnhan))
-                    await CuocChanLe.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 1, ketqua: ketqua, vangnhan: vangnhan })
-                    await new LichsuChanLe({ uid: cuoc.userId, status: 1, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
+                    await CuocChanLe.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 1, ketqua: ketqua, vangnhan: vangnhan, phien: zzzPhien._id })
+                    // await new LichsuChanLe({ uid: cuoc.userId, status: 1, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
                 }
                 else {
                     var user = await UserControl.upMoney(cuoc.userId, vangnhan)
                     await UserControl.upHanmuc(cuoc.userId, -cuoc.xu, user.server)
-                    await CuocChanLe.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 2, ketqua: ketqua, vangnhan: vangnhan })
-                    await new LichsuChanLe({ uid: cuoc.userId, status: 2, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
+                    await CuocChanLe.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 2, ketqua: ketqua, vangnhan: vangnhan, phien: zzzPhien._id })
+                    // await new LichsuChanLe({ uid: cuoc.userId, status: 2, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
                 }
             })
             WinGame(ketqua)

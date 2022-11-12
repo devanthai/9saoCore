@@ -45,4 +45,4 @@ const GameSchema = new mongoose.Schema({
         type: String,
     }
 })
-module.exports = mongoose.model('TaiXiuCuoc', GameSchema)
+module.exports = mongoose.model('Xocdiacuoc', GameSchema)

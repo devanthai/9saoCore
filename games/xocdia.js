@@ -1,7 +1,7 @@
 
 const CuocXD = require("../models/xocdia/Cuoc")
 const GameXD = require("../models/xocdia/Game")
-const LichsuXD = require("../models/xocdia/Lichsu")
+// const LichsuXD = require("../models/xocdia/Lichsu")
 const Setting = require("../models/Setting")
 const User = require("../models/User")
 const checklogin = require("../Middleware/checklogin")
@@ -23,6 +23,7 @@ class GameXocDia {
                 return res.send({ error: 1, message: "Bảo trì trong giây lát" })
             }
             let { vangcuoc, type } = req.body
+            console.log(type)
             const gold = Number(vangcuoc.replace(/,/g, ''))
             if (!req.user.isLogin) {
                 return res.send({ error: 1, message: "Vui lòng đăng nhập" });
@@ -42,7 +43,7 @@ class GameXocDia {
                 return res.send({ error: 1, message: "Lỗi vàng cược" });
             }
 
-            if (type != "chan" && type != "le" && type != "chan4do" && type != "le4do" && type != "le3den" && type != "le3do") {
+            if (type != "chan" && type != "le" && type != "chan4do" && type != "chan4den" && type != "le3den" && type != "le3do") {
                 return res.send({ error: 1, message: "Vui lòng chọn lại" });
             }
 
@@ -54,9 +55,117 @@ class GameXocDia {
                 return res.send({ error: 1, message: "Bạn không đủ vàng để đặt cược" });
             }
 
+            AddCuocs(user._id, type, gold, user)
+
+            return res.send({ error: 0, message: "Đặt cược thành công" });
 
 
         })
+
+        function getCuocUser(userId) {
+            return Game.CuocUsers[userId] ? {
+                chan: Game.CuocUsers[userId].chan,
+                le: Game.CuocUsers[userId].le,
+                chan4do: Game.CuocUsers[userId].chan4do,
+                chan4den: Game.CuocUsers[userId].chan4den,
+                le3den: Game.CuocUsers[userId].le3den,
+                le3do: Game.CuocUsers[userId].le3do,
+            } : {
+                chan: 0,
+                le: 0,
+                chan4do: 0,
+                chan4den: 0,
+                le3den: 0,
+                le3do: 0,
+            }
+        }
+        function AddCuocs(userId, type, xu, user) {
+
+            if (!Game.CuocUsers[userId]) {
+                Game.CuocUsers[userId] = { chan: 0, le: 0, chan4do: 0, chan4den: 0, le3den: 0, le3do: 0 }
+            }
+            if (type == "chan") {
+                Game.CuocUsers[userId].chan += xu
+            }
+            else if (type == "le") {
+                Game.CuocUsers[userId].le += xu
+            }
+            else if (type == "chan4do") {
+                Game.CuocUsers[userId].chan4do += xu
+            }
+            else if (type == "chan4den") {
+                Game.CuocUsers[userId].chan4den += xu
+            }
+            else if (type == "le3den") {
+                Game.CuocUsers[userId].le3den += xu
+            }
+            else if (type == "le3do") {
+                Game.CuocUsers[userId].le3do += xu
+            }
+
+
+            if (type == "chan") {
+                Game.vangChan += xu
+            }
+            else if (type == "le") {
+                Game.vangLe += xu
+            }
+            else if (type == "chan4do") {
+                Game.vang4do += xu
+            }
+            else if (type == "chan4den") {
+                Game.vang4den += xu
+            }
+            else if (type == "le3den") {
+                Game.vang3den += xu
+            }
+            else if (type == "le3do") {
+                Game.vang3do += xu
+            }
+
+
+            if (Game.Cuocs.some(cuoc => cuoc.userId.toString() === userId.toString() && cuoc.type === type)) {
+                updateCuoc(userId.toString(), type, xu)
+            }
+            else {
+                if (type == "chan") {
+                    Game.countPlayerChan += 1
+                }
+                else if (type == "le") {
+                    Game.countPlayerLe += 1
+                }
+                else if (type == "chan4do") {
+                    Game.countPlayer4do += 1
+                }
+                else if (type == "chan4den") {
+                    Game.countPlayer4den += 1
+                }
+                else if (type == "le3den") {
+                    Game.countPlayer3den += 1
+                }
+                else if (type == "le3do") {
+                    Game.countPlayer3do += 1
+                }
+
+                Game.Cuocs.push({
+                    userId: userId.toString(),
+                    type: type,
+                    xu: xu,
+                    username: user.tenhienthi
+                })
+            }
+
+
+        }
+        function updateCuoc(userId, type, xu) {
+            for (let cuoc of Game.Cuocs) {
+                if (cuoc.userId.toString() == userId.toString() && cuoc.type == type) {
+                    cuoc.xu += xu;
+                    break;
+                }
+            }
+        }
+
 
         let Game = {
             vangChan: 0,
@@ -84,7 +193,8 @@ class GameXocDia {
             x2: -1,
             x3: -1,
             x4: -1,
-            Cuocs: []
+            Cuocs: [],
+            CuocUsers: {}
 
         }
         function GameStart() {
@@ -110,6 +220,7 @@ class GameXocDia {
             Game.Time = 30
             Game.TimeWait = 10
             Game.Cuocs = []
+            Game.CuocUsers = {}
             Game.x1 = -1
             Game.x2 = -1
             Game.x3 = -1
@@ -123,9 +234,11 @@ class GameXocDia {
                 GameStart()
             }
             else if (Game.Status == "running") {
-                // for (let i = 0; i < PlayerSocket.SocketPlayer.length; i++) {
 
-                // }
+                for (let p of PlayerSocket.SocketPlayer) {
+                    io.to(p.socket).emit('cuoc-xd-user', getCuocUser(p.userId));
+                }
+
                 io.sockets.emit("running-xocdia",
                     {
                         time: Game.Time,

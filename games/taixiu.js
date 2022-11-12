@@ -4,7 +4,7 @@
 const Cuoctx = require("../models/taixiu/Cuoc")
 const Gametx = require("../models/taixiu/Game")
 const Setting = require("../models/Setting")
-const Lichsutx = require("../models/taixiu/Lichsu")
+// const Lichsutx = require("../models/taixiu/Lichsu")
 const HuTx = require("../models/taixiu/HuTx")
 const User = require("../models/User")
 const UserControl = require("../controller/user")
@@ -134,7 +134,7 @@ class GameTaiXiu {
             res.send(isBaotri)
         })
         app.get("/taixiu/getcuoc", async (req, res) => {
-            const gamess = await Cuoctx.find({}, 'nhanvat time vangdat vangnhan status type').sort({ 'time': -1 }).limit(50)
+            const gamess = await Cuoctx.find({}, 'nhanvat time vangdat vangnhan status type').sort({ 'time': -1 }).limit(100)
             res.send(gamess)
         })
         app.get("/taixiu/gethis", async (req, res) => {
@@ -325,12 +325,12 @@ class GameTaiXiu {
 
         async function TraoThuong(ketqua, x1, x2, x3, cuocs) {
 
-            var cuocssss = cuocs
+            let cuocssss = cuocs
             const setting = await Setting.findOne({ setting: "setting" })
-            var istai = ketqua > 10
+            let istai = ketqua > 10
             console.log("x1 ", x1, " x2 ", x2, " x3", x3)
             console.log("ketqua: ", ketqua, " istai: " + istai)
-            await new Gametx({ ketqua: ketqua, type: (istai ? "tai" : "xiu"), status: 1, x1: x1, x2: x2, x3: x3 }).save()
+            let gamenew = await new Gametx({ ketqua: ketqua, type: (istai ? "tai" : "xiu"), status: 1, x1: x1, x2: x2, x3: x3 }).save()
             cuocssss.forEach(async (cuoc) => {
                 console.log(cuocssss)
                 var vangnhan = 0
@@ -340,15 +340,15 @@ class GameTaiXiu {
                     vangnhan = cuoc.xu * setting.tile.cltx;
                     await UserControl.upMoney(cuoc.userId, vangnhan)
                     await UserControl.sodu(cuoc.userId, "Thắng game tài xỉu", "+" + numberWithCommas(vangnhan))
-                    await Cuoctx.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 1, ketqua: ketqua, vangnhan: vangnhan })
-                    await new Lichsutx({ uid: cuoc.userId, status: 1, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
+                    await Cuoctx.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 1, ketqua: ketqua, vangnhan: vangnhan, phien: gamenew._id })
+                    //await new Lichsutx({ uid: cuoc.userId, status: 1, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
                     await setDragonBoy(cuoc.userId, "thang")
                 }
                 else {
                     var user = await UserControl.upMoney(cuoc.userId, vangnhan)
                     await UserControl.upHanmuc(cuoc.userId, -cuoc.xu, user.server)
-                    await Cuoctx.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 2, ketqua: ketqua, vangnhan: vangnhan })
-                    await new Lichsutx({ uid: cuoc.userId, status: 2, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
+                    await Cuoctx.updateMany({ uid: new ObjectId(cuoc.userId), status: -1 }, { status: 2, ketqua: ketqua, vangnhan: vangnhan, phien: gamenew._id })
+                    // await new Lichsutx({ uid: cuoc.userId, status: 2, ketqua: ketqua, vangnhan: vangnhan, type: cuoc.type, vangdat: cuoc.xu }).save()
                     await setDragonBoy(cuoc.userId, "thua")
                 }
             })
@@ -524,22 +524,7 @@ class GameTaiXiu {
                         Game.x3 = Math.floor(Math.random() * 6) + 1
                     }
 
-                    if (new Date().getTime() % 2 == 0) {
-                        if (Game.VangTai > 50000000000) {
-                            while (Game.x1 + Game.x2 + Game.x3 > 10) {
-                                Game.x1 = Math.floor(Math.random() * 6) + 1
-                                Game.x2 = Math.floor(Math.random() * 6) + 1
-                                Game.x3 = Math.floor(Math.random() * 6) + 1
-                            }
-                        }
-                        else if (Game.VangXiu > 50000000000) {
-                            while (Game.x1 + Game.x2 + Game.x3 < 11) {
-                                Game.x1 = Math.floor(Math.random() * 6) + 1
-                                Game.x2 = Math.floor(Math.random() * 6) + 1
-                                Game.x3 = Math.floor(Math.random() * 6) + 1
-                            }
-                        }
-                    }
+
 
 
                     try {

@@ -1,8 +1,8 @@
 const User = require('../models/User')
 const Usercontrol = require('./user')
 const Cuockeno = require('../models/Cuockeno')
-const Cuoctx = require("../models/taixiu/Lichsu")
-const CuocChanle = require("../models/chanle/Lichsu")
+const Cuoctx = require("../models/taixiu/Cuoc")
+const CuocChanle = require("../models/chanle/Cuoc")
 const CuocBauCua = require("../models/baucua/Lichsu")
 var ObjectId = require('mongoose').Types.ObjectId;
 const router = require('express').Router()
@@ -93,19 +93,20 @@ router.post('/rutvang', async (req, res) => {
         const gold = req.body.gold;
         // const password = req.body.password
         //  console.log(password)
-        var gold2 = 0;
+        let gold2 = 0;
 
-        var vang2 = Number(gold.replace(/,/g, ''))
-        var nameee = name.toLowerCase().match(/([0-9]|[a-z]|[A-Z])/g);
+        let vang2 = Number(gold.replace(/,/g, ''))
+        let nameee = name.toLowerCase().match(/([0-9]|[a-z]|[A-Z])/g);
 
-        var cuocszz = await Cuoc.findOne({ uid: req.user._id, status: -1 })
-        var cuoctxszz = await Cuoctx.findOne({ uid: req.user._id.toString(), status: -1 })
-        var cuocchanle = await CuocChanle.findOne({ uid: req.user._id.toString(), status: -1 })
-        var cuocbaucua = await CuocBauCua.findOne({ uid: req.user._id.toString(), status: -1 })
+        let cuocszz = await Cuoc.findOne({ uid: req.user._id, status: -1 })
+        let cuoctxszz = await Cuoctx.findOne({ uid: req.user._id, status: -1 })
+        let cuocchanle = await CuocChanle.findOne({ uid: req.user._id, status: -1 })
         // var cuockenozz = await Cuockeno.findOne({ uid: req.user._id, status: -1 })
-        var setting = await Setting.findOne({ setting: "setting" })
-
-        if (cuocszz || cuoctxszz || cuocchanle || cuocbaucua) {
+        let setting = await Setting.findOne({ setting: "setting" })
+        console.log(cuocszz)
+        console.log(cuoctxszz)
+        console.log(cuocchanle)
+        if (cuocszz || cuoctxszz || cuocchanle) {
             await clientRedis.del(keyrutVang)
             return res.send({ error: 1, message: "Không thể rút khi đang cược" });
         }

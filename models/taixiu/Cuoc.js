@@ -44,4 +44,4 @@ const GameSchema = new mongoose.Schema({
         type: String,
     }
 })
-module.exports = mongoose.model('XocDiauoc', GameSchema)
+module.exports = mongoose.model('TaiXiuCuoc', GameSchema)
