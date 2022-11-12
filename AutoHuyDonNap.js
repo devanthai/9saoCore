@@ -17,15 +17,15 @@ setInterval(async () => {
     let napvangs = await hisNapvang.find({ status: 0 })
     for (let thoi of napthois) {
         if (secondSince(thoi.time) > 300) {
-            await hisNapThoi.deleteOne({ _id: thoi._id})
-            console.log("rm "+thoi._id)
+            await hisNapThoi.updateOne({ _id: thoi._id }, { status: 2 })
+            console.log("rm " + thoi._id)
 
         }
     }
     for (let vang of napvangs) {
         if (secondSince(vang.time) > 300) {
-            await hisNapvang.deleteOne({ _id: vang._id})
-            console.log("rm "+vang._id)
+            await hisNapvang.updateOne({ _id: vang._id }, { status: 2 })
+            console.log("rm " + vang._id)
         }
     }
 }, 10000);
