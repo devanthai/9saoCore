@@ -433,7 +433,7 @@ router.post('/napmomoGd', async (req, res, next) => {
     else {
         const magd = req.body.magd
         const setting = await Setting.findOne({})
-        request.get('http://momo.500kz.com/getgd?sdt=' + setting.naptien.momo.sdt, async function (error, response, body) {
+        request.get('http://momovip.10sao.me/getgd?sdt=' + setting.naptien.momo.sdt, async function (error, response, body) {
             if (!error) {
                 const check = await checkNapMomoRedis(body, magd)
                 if (check == "exits") {
