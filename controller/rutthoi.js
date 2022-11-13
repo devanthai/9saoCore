@@ -109,7 +109,7 @@ router.post('/rutthoi', async (req, res) => {
 
         let setting = await Setting.findOne({ setting: "setting" })
 
-       
+
         if (cuocszz || cuoctxszz || cuocchanle) {
             await clientRedis.del(keyrutVang)
             return res.send({ error: 1, message: "Không thể rút khi đang cược" });
@@ -171,8 +171,10 @@ router.post('/rutthoi', async (req, res) => {
             var solancuoc = 0;
             const cuocs = await Cuoc.countDocuments({ uid: user._id, status: { $ne: 5 } })
             const cuockenos = await Cuockeno.countDocuments({ uid: user._id, status: { $ne: 5 } })
-            const cuoctxs = await Cuoctx.countDocuments({ uid: user._id.toString() })
-            solancuoc = cuocs + cuockenos + cuoctxs
+            const cuoctxs = await Cuoctx.countDocuments({ uid: user._id })
+            const cuocchanle = await CuocChanle.countDocuments({ uid: user._id })
+
+            solancuoc = cuocs + cuockenos + cuoctxs + cuocchanle
             if (solancuoc < 5) {
                 await clientRedis.del(keyrutVang)
                 return res.json({ error: 1, message: "<strong>Thất bại: </strong> Đặt cược trên 5 ván mới có thể rút !!!" });

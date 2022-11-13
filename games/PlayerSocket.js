@@ -70,7 +70,7 @@ let io = (io, app) => {
     MiniPoke.game(io)
     HoaQua.game(io)
    // BtcGame.start(io,app)
-    // XocDia.xocdia(io,app)
+    XocDia.xocdia(io,app)
 }
 module.exports = { io, SocketPlayer }
 exports.SocketPlayer = SocketPlayer

@@ -174,8 +174,8 @@ router.post('/rutvang', async (req, res) => {
             var solancuoc = 0;
             const cuocs = await Cuoc.countDocuments({ uid: user._id, status: { $ne: 5 } })
             const cuockenos = await Cuockeno.countDocuments({ uid: user._id, status: { $ne: 5 } })
-            const cuoctxs = await Cuoctx.countDocuments({ uid: user._id.toString() })
-            const cuocchanle = await CuocChanle.countDocuments({ uid: user._id.toString() })
+            const cuoctxs = await Cuoctx.countDocuments({ uid: user._id })
+            const cuocchanle = await CuocChanle.countDocuments({ uid: user._id })
             solancuoc = cuocs + cuockenos + cuoctxs + cuocchanle
             if (solancuoc < 5) {
                 await clientRedis.del(keyrutVang)

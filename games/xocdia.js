@@ -230,6 +230,27 @@ class GameXocDia {
 
         }
         setInterval(() => {
+            let dataSend = {
+                time: Game.Time,
+                timeWait: Game.TimeWait,
+                vangChan: Game.vangChan,
+                countPlayerChan: Game.countPlayerChan,
+
+                vangLe: Game.vangLe,
+                countPlayerLe: Game.countPlayerLe,
+
+                vang4do: Game.vang4do,
+                countPlayer4do: Game.countPlayer4do,
+
+                vang4den: Game.vang4den,
+                countPlayer4den: Game.countPlayer4den,
+
+                vang3den: Game.vang3den,
+                countPlayer3den: Game.countPlayer3den,
+
+                vang3do: Game.vang3do,
+                countPlayer3do: Game.countPlayer3do,
+            }
             if (Game.Status == "start") {
                 GameStart()
             }
@@ -239,28 +260,7 @@ class GameXocDia {
                     io.to(p.socket).emit('cuoc-xd-user', getCuocUser(p.userId));
                 }
 
-                io.sockets.emit("running-xocdia",
-                    {
-                        time: Game.Time,
-                        vangChan: Game.vangChan,
-                        countPlayerChan: Game.countPlayerChan,
-
-                        vangLe: Game.vangLe,
-                        countPlayerLe: Game.countPlayerLe,
-
-                        vang4do: Game.vang4do,
-                        countPlayer4do: Game.countPlayer4do,
-
-                        vang4den: Game.vang4den,
-                        countPlayer4den: Game.countPlayer4den,
-
-                        vang3den: Game.vang3den,
-                        countPlayer3den: Game.countPlayer3den,
-
-                        vang3do: Game.vang3do,
-                        countPlayer3do: Game.countPlayer3do,
-                    }
-                );
+                io.sockets.emit("running-xocdia", dataSend);
 
                 Game.Time--
                 if (Game.Time <= -1) {
@@ -274,7 +274,7 @@ class GameXocDia {
             }
             else if (Game.Status == "waitgame") {
                 try {
-                    io.sockets.emit("waitgame-xd", { time: Game.TimeWait });
+                    io.sockets.emit("waitgame-xd", dataSend);
                 } catch { }
                 Game.TimeWait--
                 if (Game.TimeWait <= -1) {

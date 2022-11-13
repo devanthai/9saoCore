@@ -895,6 +895,26 @@
         $("#xd-player-3den").text(data.countPlayer3den)
         $("#xd-player-3do").text(data.countPlayer3do)
     })
+
+    socketzzz.on("waitgame-xd", (data) => {
+      
+        $('#clock-xocdia')['css']({
+            'display': 'none',
+        })
+        setTimeXocDia(data.time.toString())
+        $("#xd-gold-chan").text(data.vangChan == 0 ? "" : formatNumberToStr(data.vangChan))
+        $("#xd-gold-le").text(data.vangLe == 0 ? "" : formatNumberToStr(data.vangLe))
+        $("#xd-gold-4do").text(data.vang4do == 0 ? "" : formatNumberToStr(data.vang4do))
+        $("#xd-gold-4den").text(data.vang4den == 0 ? "" : formatNumberToStr(data.vang4den))
+        $("#xd-gold-3den").text(data.vang3den == 0 ? "" : formatNumberToStr(data.vang3den))
+        $("#xd-gold-3do").text(data.vang3do == 0 ? "" : formatNumberToStr(data.vang3do))
+        $("#xd-player-chan").text(data.countPlayerChan)
+        $("#xd-player-le").text(data.countPlayerLe)
+        $("#xd-player-4do").text(data.countPlayer4do)
+        $("#xd-player-4den").text(data.countPlayer4den)
+        $("#xd-player-3den").text(data.countPlayer3den)
+        $("#xd-player-3do").text(data.countPlayer3do)
+    })
     $(document).ready(() => {
         $("#goldXocDia").on("keyup", function (event) {
             var selection = window.getSelection().toString();
