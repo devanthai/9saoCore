@@ -1,3 +1,18 @@
+var inputchattttt = document.getElementById("chatContent");
+
+// Execute a function when the user presses a key on the keyboard
+inputchattttt.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    sendChat()
+  }
+});
+
+
+
 
 function set_img(_0x90f8x4, _0x90f8x2a, _0x90f8x11) {
     _0x90f8x4 = (100 / Math['floor'](_0x90f8x2a)) * Math['floor'](_0x90f8x4);

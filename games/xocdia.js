@@ -273,9 +273,7 @@ class GameXocDia {
                 }
             }
             else if (Game.Status == "waitgame") {
-                try {
-                    io.sockets.emit("waitgame-xd", dataSend);
-                } catch { }
+                io.sockets.emit("waitgame-xd", dataSend);
                 Game.TimeWait--
                 if (Game.TimeWait <= -1) {
                     Game.Status = "start"

@@ -203,9 +203,7 @@ $("#btnChatBox").click(function () {
 
 
 
-
-
-$("#chatButton").click(function () {
+sendChat = () => {
     var noidung = $("#chatContent").val();
     if (noidung.length < 5 || noidung.length > 200) {
         thongbao2("Nội dung phải có 5 kí tự và nhỏ hơn 200 kí tự", "error");
@@ -292,4 +290,8 @@ $("#chatButton").click(function () {
                 }
             }
         });
+}
+
+$("#chatButton").click(function () {
+    sendChat()
 })
