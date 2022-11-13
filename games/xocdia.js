@@ -194,7 +194,8 @@ class GameXocDia {
             x3: -1,
             x4: -1,
             Cuocs: [],
-            CuocUsers: {}
+            CuocUsers: {},
+            ketqua: ""
 
         }
         function GameStart() {
@@ -217,18 +218,22 @@ class GameXocDia {
             Game.vang3do = 0
             Game.countPlayer3do = 0
 
-            Game.Time = 30
-            Game.TimeWait = 10
+            Game.Time = 41
+            Game.TimeWait = 15
             Game.Cuocs = []
             Game.CuocUsers = {}
             Game.x1 = -1
             Game.x2 = -1
             Game.x3 = -1
             Game.x4 = -1
+            Game.ketqua = ""
 
             Game.Status = "running"
 
         }
+
+
+
         setInterval(() => {
             let dataSend = {
                 time: Game.Time,
@@ -269,14 +274,42 @@ class GameXocDia {
                     Game.x3 = Math.floor(Math.random() * 2) + 1
                     Game.x4 = Math.floor(Math.random() * 2) + 1
 
+                    let ketquas = { "1": 0, "2": 0 }
+                    ketquas[Game.x1]++
+                    ketquas[Game.x2]++
+                    ketquas[Game.x3]++
+                    ketquas[Game.x4]++
+
+
+                    if (ketquas["1"] == 2 && ketquas["2"] == 2) {
+                        Game.ketqua = "chan"
+                    }
+                    if (ketquas["1"] == 1 && ketquas["2"] == 3) {
+                        Game.ketqua = "le3den"
+                    }
+                    if (ketquas["1"] == 3 && ketquas["2"] == 1) {
+                        Game.ketqua = "le3do"
+                    }
+                    if (ketquas["1"] == 4) {
+                        Game.ketqua = "chan4do"
+                    }
+                    if (ketquas["2"] == 4) {
+                        Game.ketqua = "chan4den"
+                    }
+
+
+
+
+                    io.sockets.emit("ketqua-xd", { data: dataSend, ketqua: { x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4 }, ketqua2: Game.ketqua });
                     Game.Status = "waitgame"
                 }
             }
             else if (Game.Status == "waitgame") {
-                io.sockets.emit("waitgame-xd", dataSend);
+                io.sockets.emit("waitgame-xd", { data: dataSend, ketqua: { x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4 }, ketqua2: Game.ketqua });
                 Game.TimeWait--
                 if (Game.TimeWait <= -1) {
                     Game.Status = "start"
+
                 }
             }
         }, 1000)

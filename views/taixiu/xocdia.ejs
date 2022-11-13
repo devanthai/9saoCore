@@ -183,7 +183,7 @@
 
 
     .nhapnhay {
-        animation: blinker 0.5s linear infinite;
+        animation: blinker 0.2s linear infinite;
     }
 
     @keyframes blinker {
@@ -225,7 +225,7 @@
 
     #khung_xocdia .dia-kq div:nth-child(4) {
         left: 55%;
-        top: 49%;
+        top: 47%;
     }
 
     #khung_xocdia .dia-kq div[data-txt='1'] {
@@ -375,6 +375,9 @@
     <div id="khung_xocdia">
 
         <div class="khung_xocdia">
+
+
+
             <div class="note_here_xocdia font_size_20"
                 style="position: absolute;display: flex;width: 100%;top: 55%;text-align: center;z-index: 10000;"></div>
             <div class="move-here ui-draggable-handle" style="position:absolute;width: 100%;height: 100%;z-index: 1;">
@@ -396,6 +399,7 @@
             <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
 
 
+                <div style="    width: 14%;position: absolute;left: 56%;top: 57%;text-align: center;z-index: 1;"><p class="time-wait-xocdia"  style="display: block;background: rgb(0 0 0 / 32%);color: #00c0ef;padding: 0px 14px;text-align: center;border-radius: 6px;">15</p></div>
 
                 <div style="width: 23.5%;margin-left: 38.8%;">
                     <div class="ongthan-xd">
@@ -429,7 +433,7 @@
                     " id="xd-gold-chan"></div>
 
                 </div>
-                <div onclick="cuoc_xocdia('chan')" class="chan-wrap-xd o-cuoc nhapnhay o-active-lon"> </div>
+                <div onclick="cuoc_xocdia('chan')" class="chan-wrap-xd chan-wrap-xd-v o-cuoc "> </div>
                 <!-- chẵn -->
 
 
@@ -456,7 +460,7 @@
                         color: #ffc56f;
                     " id="xd-gold-le"></div>
                 </div>
-                <div onclick="cuoc_xocdia('le')" class="le-wrap-xd o-cuoc"></div>
+                <div onclick="cuoc_xocdia('le')" class="le-wrap-xd le-wrap-xd-v o-cuoc"></div>
                 <!--  lẻ  -->
 
 
@@ -484,7 +488,7 @@
     width: 20%;
                 ">0</div>
                 </div>
-                <div onclick="cuoc_xocdia('chan4do')" class="o-4-chan o-cuoc"></div>
+                <div onclick="cuoc_xocdia('chan4do')" class="o-4-chan o-4-chan-v o-cuoc"></div>
                 <!-- 4 chẵn đỏ -->
 
 
@@ -512,7 +516,7 @@
                     width: 20%;
                 ">0</div>
                 </div>
-                <div onclick="cuoc_xocdia('chan4den')" class="o-4-le o-cuoc"></div>
+                <div onclick="cuoc_xocdia('chan4den')" class="o-4-le o-4-le-v o-cuoc"></div>
                 <!-- 4 chẵn đen -->
 
 
@@ -540,7 +544,7 @@
                     text-align: right;
                 " id="xd-player-3den">0</div>
                 </div>
-                <div onclick="cuoc_xocdia('le3den')" class="o-3-le o-cuoc"> </div>
+                <div onclick="cuoc_xocdia('le3den')" class="o-3-le o-3-le-v o-cuoc"> </div>
                 <!-- 3 ẻ đen -->
 
 
@@ -568,7 +572,7 @@
                     color: #ffc56f;
                 " id="xd-player-3do">0</div>
                 </div>
-                <div onclick="cuoc_xocdia('le3do')" class="o-3-chan o-cuoc"></div>
+                <div onclick="cuoc_xocdia('le3do')" class="o-3-chan o-3-chan-v o-cuoc"></div>
                 <!-- 3 lẻ đỏ-->
 
 
@@ -576,10 +580,10 @@
 
                 <div class="dia-kq"
                     style="position: absolute;width: 28.5%;margin-left: 49.3%;height: 24%;margin-top: 30.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
-                    <div class="hot_xd" data-txt="1"></div>
-                    <div class="hot_xd" data-txt="2"></div>
-                    <div class="hot_xd" data-txt="2"></div>
-                    <div class="hot_xd" data-txt="1"></div>
+                    <div class="hot_xd hot_xd1" data-txt="1"></div>
+                    <div class="hot_xd hot_xd2" data-txt="2"></div>
+                    <div class="hot_xd hot_xd3" data-txt="2"></div>
+                    <div class="hot_xd hot_xd4" data-txt="1"></div>
                 </div>
 
                 <div class="dia-bat"
@@ -865,6 +869,25 @@
             });
         }
     }
+
+    function note_play_xocdia(ob, text, color) {
+        var note_id = Math['floor']((Math['random']() * 99999999) + 1);
+        $('' + ob)['html']('<p  class=\"note_play id' + note_id + '\">' + text + '</p>');
+        $('.note_play.id' + note_id)['css']({
+            'color': '#' + color
+        })['slideDown']('slow');
+        setTimeout(function () {
+            $('.note_play.id' + note_id)['animate']({
+                opacity: '0.0',
+                height: 'toggle'
+            }, 500)['promise']()['done'](function () {
+                $(this)['remove']()
+            })
+        }, 1000);
+        return false
+    }
+
+
     socketzzz.on("cuoc-xd-user", (data) => {
         $("#xd-cuoc-chan").text((data.chan == 0 ? "" : "Đặt: " + formatNumberToStr(data.chan)))
         $("#xd-cuoc-le").text((data.le == 0 ? "" : "Đặt: " + formatNumberToStr(data.le)))
@@ -875,6 +898,12 @@
     })
 
     socketzzz.on("running-xocdia", (data) => {
+        $(".time-wait-xocdia").hide()
+
+        setDefauftocuoc()
+        $('.dia-bat')['css']({
+            'display': 'block',
+        })
         $('.bat-drop')['css']({
             'display': 'none',
         })
@@ -896,24 +925,103 @@
         $("#xd-player-3do").text(data.countPlayer3do)
     })
 
+    socketzzz.on("ketqua-xd", (data) => {
+        note_play_xocdia('.note_here_xocdia', "Đến giờ Mở bát", 'fd7e14');
+
+
+        $('.bat-drop')['css']({
+            'left': '11%',
+            'top': '8%',
+        })
+        $("#xd-gold-chan").text(data.data.vangChan == 0 ? "" : formatNumberToStr(data.data.vangChan))
+        $("#xd-gold-le").text(data.data.vangLe == 0 ? "" : formatNumberToStr(data.data.vangLe))
+        $("#xd-gold-4do").text(data.data.vang4do == 0 ? "" : formatNumberToStr(data.data.vang4do))
+        $("#xd-gold-4den").text(data.data.vang4den == 0 ? "" : formatNumberToStr(data.data.vang4den))
+        $("#xd-gold-3den").text(data.data.vang3den == 0 ? "" : formatNumberToStr(data.data.vang3den))
+        $("#xd-gold-3do").text(data.data.vang3do == 0 ? "" : formatNumberToStr(data.data.vang3do))
+        $("#xd-player-chan").text(data.data.countPlayerChan)
+        $("#xd-player-le").text(data.data.countPlayerLe)
+        $("#xd-player-4do").text(data.data.countPlayer4do)
+        $("#xd-player-4den").text(data.data.countPlayer4den)
+        $("#xd-player-3den").text(data.data.countPlayer3den)
+        $("#xd-player-3do").text(data.data.countPlayer3do)
+        $(".hot_xd1").attr("data-txt", data.ketqua.x1);
+        $(".hot_xd2").attr("data-txt", data.ketqua.x2);
+        $(".hot_xd3").attr("data-txt", data.ketqua.x3);
+        $(".hot_xd4").attr("data-txt", data.ketqua.x4);
+
+
+
+
+    })
+    setDefauftocuoc = () => {
+        $(".chan-wrap-xd-v").removeClass("o-active-lon nhapnhay")
+        $(".le-wrap-xd-v").removeClass("o-active-lon nhapnhay")
+        $(".o-3-le-v").removeClass("o-active-be nhapnhay")
+        $(".o-3-chan-v").removeClass("o-active-be nhapnhay")
+        $(".o-4-chan-v").removeClass("o-active-be nhapnhay")
+        $(".o-4-le-v").removeClass("o-active-be nhapnhay")
+    }
     socketzzz.on("waitgame-xd", (data) => {
-      
+        $(".time-wait-xocdia").show()
+        $(".time-wait-xocdia").text(data.data.timeWait)
+
+        $(".hot_xd1").attr("data-txt", data.ketqua.x1);
+        $(".hot_xd2").attr("data-txt", data.ketqua.x2);
+        $(".hot_xd3").attr("data-txt", data.ketqua.x3);
+        $(".hot_xd4").attr("data-txt", data.ketqua.x4);
+
+        if (data.data.timeWait < 5) {
+            $('.bat-drop')['css']({
+                'display': 'none',
+            })
+            if (data.ketqua2 == "chan") {
+                $(".chan-wrap-xd-v").addClass("o-active-lon nhapnhay")
+            }
+            else if (data.ketqua2 == "le3den") {
+                $(".le-wrap-xd-v").addClass("o-active-lon nhapnhay")
+                $(".o-3-le-v").addClass("o-active-be nhapnhay")
+            }
+            else if (data.ketqua2 == "le3do") {
+                $(".le-wrap-xd-v").addClass("o-active-lon nhapnhay")
+                $(".o-3-chan-v").addClass("o-active-be nhapnhay")
+            }
+            else if (data.ketqua2 == "chan4do") {
+                $(".chan-wrap-xd-v").addClass("o-active-lon nhapnhay")
+                $(".o-4-chan-v").addClass("o-active-be nhapnhay")
+            }
+            else if (data.ketqua2 == "chan4den") {
+                $(".chan-wrap-xd-v").addClass("o-active-lon nhapnhay")
+                $(".o-4-le-v").addClass("o-active-be nhapnhay")
+            }
+        }
+        else {
+            $('.bat-drop')['css']({
+                'display': 'block',
+            })
+        }
+
+
+
+        $('.dia-bat')['css']({
+            'display': 'none',
+        })
         $('#clock-xocdia')['css']({
             'display': 'none',
         })
-        setTimeXocDia(data.time.toString())
-        $("#xd-gold-chan").text(data.vangChan == 0 ? "" : formatNumberToStr(data.vangChan))
-        $("#xd-gold-le").text(data.vangLe == 0 ? "" : formatNumberToStr(data.vangLe))
-        $("#xd-gold-4do").text(data.vang4do == 0 ? "" : formatNumberToStr(data.vang4do))
-        $("#xd-gold-4den").text(data.vang4den == 0 ? "" : formatNumberToStr(data.vang4den))
-        $("#xd-gold-3den").text(data.vang3den == 0 ? "" : formatNumberToStr(data.vang3den))
-        $("#xd-gold-3do").text(data.vang3do == 0 ? "" : formatNumberToStr(data.vang3do))
-        $("#xd-player-chan").text(data.countPlayerChan)
-        $("#xd-player-le").text(data.countPlayerLe)
-        $("#xd-player-4do").text(data.countPlayer4do)
-        $("#xd-player-4den").text(data.countPlayer4den)
-        $("#xd-player-3den").text(data.countPlayer3den)
-        $("#xd-player-3do").text(data.countPlayer3do)
+        setTimeXocDia(data.data.time.toString())
+        $("#xd-gold-chan").text(data.data.vangChan == 0 ? "" : formatNumberToStr(data.data.vangChan))
+        $("#xd-gold-le").text(data.data.vangLe == 0 ? "" : formatNumberToStr(data.data.vangLe))
+        $("#xd-gold-4do").text(data.data.vang4do == 0 ? "" : formatNumberToStr(data.data.vang4do))
+        $("#xd-gold-4den").text(data.data.vang4den == 0 ? "" : formatNumberToStr(data.data.vang4den))
+        $("#xd-gold-3den").text(data.data.vang3den == 0 ? "" : formatNumberToStr(data.data.vang3den))
+        $("#xd-gold-3do").text(data.data.vang3do == 0 ? "" : formatNumberToStr(data.data.vang3do))
+        $("#xd-player-chan").text(data.data.countPlayerChan)
+        $("#xd-player-le").text(data.data.countPlayerLe)
+        $("#xd-player-4do").text(data.data.countPlayer4do)
+        $("#xd-player-4den").text(data.data.countPlayer4den)
+        $("#xd-player-3den").text(data.data.countPlayer3den)
+        $("#xd-player-3do").text(data.data.countPlayer3do)
     })
     $(document).ready(() => {
         $("#goldXocDia").on("keyup", function (event) {
@@ -971,6 +1079,9 @@
 
 
         setTimeXocDia = (time) => {
+            if (time == "-1") {
+                time = "0"
+            }
             context_xd.clearRect(0, 0, 500, 500);
             let scale = (canvas_time_xd.width / config_image_xodia.characterHeight) / 2
             let imageWidth = getWordWidth_xodia(time, scale, 0)
