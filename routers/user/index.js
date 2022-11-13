@@ -755,14 +755,14 @@ router.get('/taixiu', async (req, res, next) => {
         return res.redirect('/user/login');
     }
 
-    var data = await Cuoctx.find({ uid: req.user._id.toString() }).sort({ 'time': -1 });
+    var data = await Cuoctx.find({ uid: req.user._id }).sort({ 'time': -1 });
     return res.render('index', { page: "pages/user/lstaixiu", menu: menuAction('taixiu'), data: req.user, products: data })
 })
 router.get('/chanle', async (req, res, next) => {
     if (!req.user.isLogin) {
         return res.redirect('/user/login');
     }
-    var data = await CuocChanLe.find({ uid: req.user._id.toString() }).sort({ 'time': -1 });
+    var data = await CuocChanLe.find({ uid: req.user._id }).sort({ 'time': -1 });
 
     return res.render('index', { page: "pages/user/lschanle", menu: menuAction('chanle'), data: req.user, products: data })
 })
