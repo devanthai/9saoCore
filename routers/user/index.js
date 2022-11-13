@@ -863,9 +863,9 @@ router.post('/chuyenvang', async (req, res, next) => {
     }
 
     let cuocszz = await Cuoc.findOne({ uid: req.user._id, status: -1 })
-    let cuoctxszz = await Cuoctx.findOne({ uid: req.user._id.toString(), status: -1 })
-    let cuocchanle = await CuocChanLe.findOne({ uid: req.user._id.toString(), status: -1 })
-    let cuocbaucua = await CuocBaucua.findOne({ uid: req.user._id.toString(), status: -1 })
+    let cuoctxszz = await Cuoctx.findOne({ uid: req.user._id, status: -1 })
+    let cuocchanle = await CuocChanLe.findOne({ uid: req.user._id, status: -1 })
+    let cuocbaucua = await CuocBaucua.findOne({ uid: req.user._id, status: -1 })
 
     if (cuocszz || cuoctxszz || cuocchanle || cuocbaucua) {
         return res.send({ error: 1, message: "<strong>Thất bại: </strong> Không thể chuyển khi đang cược" });
@@ -1386,7 +1386,7 @@ router.post('/vongquayfree', async (req, res) => {
 
             const cuocs = await Cuoc.countDocuments({ uid: user._id, status: { $ne: 5 }, time: { $gte: startOfToday } })
             // const cuockenos = await Cuockeno.countDocuments({ uid: user._id, status: { $ne: 5 }, time: { $gte: startOfToday } })
-            const cuoctxs = await Cuoctx.countDocuments({ uid: user._id.toString(), time: { $gte: startOfToday } })
+            const cuoctxs = await Cuoctx.countDocuments({ uid: user._id, time: { $gte: startOfToday } })
 
             // const tsrr = await Tsr.countDocuments({ uid: user._id, time: { $gte: startOfToday } })
             // const momoo = await Momo.countDocuments({ sotien: { $gt: 9999 }, uid: user._id, time: { $gte: startOfToday } })
