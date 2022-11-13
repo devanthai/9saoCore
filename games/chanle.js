@@ -65,6 +65,7 @@ class GameChanLezzzz {
             res.send(gamess)
         })
         app.post("/chanle/putcuoc", createAccountLimiter, checklogin, async (req, res) => {
+            let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
 
             if (isBaotri) {
                 return res.send({ error: 1, message: "Bảo trì trong giây lát" })
@@ -133,7 +134,7 @@ class GameChanLezzzz {
                     }
                     var checklastcuoc = await CuocChanLe.findOneAndUpdate({ status: -1, uid: new ObjectId(user._id) }, { $inc: { vangdat: gold2 } })
                     if (!checklastcuoc) {
-                        const addCuoc = new CuocChanLe({ vangdat: gold2, uid: user._id, nhanvat: user.tenhienthi, type: type })
+                        const addCuoc = new CuocChanLe({ vangdat: gold2, uid: user._id, nhanvat: user.tenhienthi, type: type, ip: ip })
                         console.log(addCuoc)
 
                         var savecuoc = null;
