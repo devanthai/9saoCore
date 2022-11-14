@@ -16,6 +16,10 @@ const GameSchema = new mongoose.Schema({
         type: Number,
         default: -1
     },
+    x4: {
+        type: Number,
+        default: -1
+    },
     vangdat: {
         type: Number
     },

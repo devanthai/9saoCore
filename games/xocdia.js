@@ -5,14 +5,18 @@ const GameXD = require("../models/xocdia/Game")
 const Setting = require("../models/Setting")
 const User = require("../models/User")
 const checklogin = require("../Middleware/checklogin")
+const UserControl = require("../controller/user")
 
 const PlayerSocket = require('./PlayerSocket')
 const redisClient = require("../redisCache")
-
+const keyHisXocDia = "xocdiahis"
 class GameXocDia {
+    
     xocdia = (io, app) => {
         let isBaotri = false;
-
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         app.get("/xocdia/baotri", async (req, res) => {
             isBaotri = !isBaotri
             res.send(isBaotri)
@@ -54,12 +58,17 @@ class GameXocDia {
             if (user.vang < gold) {
                 return res.send({ error: 1, message: "Bạn không đủ vàng để đặt cược" });
             }
-
-            AddCuocs(user._id, type, gold, user)
-
-            return res.send({ error: 0, message: "Đặt cược thành công" });
-
-
+            let check = await UserControl.upMoney(user._id, -gold)
+            if(check)
+            {
+                AddCuocs(user._id, type, gold, user)
+                await UserControl.sodu(user._id.toString(), "Cược game xóc đĩa", "-" + numberWithCommas(gold))
+                return res.send({ error: 0, message: "Đặt cược thành công" });
+            }
+            else
+            {
+                return res.send({ error: q, message: "Đặt cược thất bại" });
+            }
         })
 
         function getCuocUser(userId) {
@@ -232,9 +241,40 @@ class GameXocDia {
 
         }
 
+        let TraoThuong = async (ketqua) => {
+            let phienXd = await new GameXD({ x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4, ketqua: Game.ketqua, status: 1 }).save()
+            let arrPlayer = []
+            for (let cuoc of Game.Cuocs) {
+                let tienWin = 0
+                if ((cuoc.type == "chan" && ketqua.includes("chan")) || (cuoc.type == "le" && ketqua.includes("le"))) {
+                    tienWin = cuoc.xu * 1.98
+                }
+                else if ((cuoc.type == "chan4do" && ketqua == cuoc.type) || (cuoc.type == "chan4den" && ketqua == cuoc.type)) {
+                    tienWin = cuoc.xu * 15
+                }
+                else if ((cuoc.type == "le3den" && ketqua == cuoc.type) || (cuoc.type == "le3do" && ketqua == cuoc.type)) {
+                    tienWin = cuoc.xu * 3
+                }
+                else {
+                    tienWin = -cuoc.xu
+                }
+                if (tienWin > 0) {
+                    let user = await UserControl.upMoney(cuoc.userId, tienWin)
+                    await UserControl.upHanmuc(cuoc.userId, cuoc.xu, user.server)
+                    await UserControl.upThanhtich(cuoc.userId, cuoc.xu)
+                    await UserControl.sodu(cuoc.userId, "Thắng game xóc đĩa", "+" + numberWithCommas(tienWin))
+                }
 
+                await new CuocXD({
+                    phien: phienXd._id, x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4, vangdat: cuoc.xu, vangnhan: tienWin, uid: cuoc.userId, nhanvat: cuoc.username, type: cuoc.type,
+                    status: (tienWin >= 0 ? 1 : 2)
+                }).save()
+                arrPlayer.push({ tienWin, userId: cuoc.userId })
+            }
 
-        setInterval(() => {
+        }
+
+        setInterval(async () => {
             let dataSend = {
                 time: Game.Time,
                 timeWait: Game.TimeWait,
@@ -301,6 +341,10 @@ class GameXocDia {
 
 
                     io.sockets.emit("ketqua-xd", { data: dataSend, ketqua: { x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4 }, ketqua2: Game.ketqua });
+
+                    await TraoThuong(Game.ketqua)
+
+
                     Game.Status = "waitgame"
                 }
             }
