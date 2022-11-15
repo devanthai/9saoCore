@@ -6,20 +6,61 @@ const Setting = require("../models/Setting")
 const User = require("../models/User")
 const checklogin = require("../Middleware/checklogin")
 const UserControl = require("../controller/user")
+const { v4: uuidv4 } = require('uuid');
 
 const PlayerSocket = require('./PlayerSocket')
 const redisClient = require("../redisCache")
 const keyHisXocDia = "xocdiahis"
 class GameXocDia {
-    
+
     xocdia = (io, app) => {
         let isBaotri = false;
+
+        let addHisToRedis = async (his) => {
+            let cuocGlobal = await redisClient.get(keyHisXocDia)
+            if (!cuocGlobal) {
+                await redisClient.set(keyHisXocDia, JSON.stringify([his]))
+            }
+            else {
+                let cuocsJ = JSON.parse(cuocGlobal)
+                cuocsJ.unshift(his)
+                if (cuocsJ.length > 200) {
+                    cuocsJ.pop();
+                }
+                await redisClient.set(keyHisXocDia, JSON.stringify(cuocsJ))
+            }
+        }
+        let updateCuocRedis = async (his) => {
+            const cuocs = await redisClient.get(keyHisXocDia)
+            if (cuocs) {
+                let cuocsJ = JSON.parse(cuocs)
+                let index = cuocsJ.findIndex(x => x.id.toString() == his.id.toString())
+                if (index != -1) {
+                    cuocsJ[index] = his
+                }
+                await redisClient.set(keyHisXocDia, JSON.stringify(cuocsJ))
+            }
+        }
+
+
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         app.get("/xocdia/baotri", async (req, res) => {
             isBaotri = !isBaotri
             res.send(isBaotri)
+        })
+
+
+        app.get("/xocdia/getHis", async (req, res) => {
+            let cuocGlobal = await redisClient.get(keyHisXocDia)
+            if (!cuocGlobal) {
+                res.send([])
+            }
+            else {
+                let cuocsJ = JSON.parse(cuocGlobal)
+                res.send(cuocsJ)
+            }
         })
 
         app.post("/xocdia/putcuoc", checklogin, async (req, res) => {
@@ -59,14 +100,14 @@ class GameXocDia {
                 return res.send({ error: 1, message: "Bạn không đủ vàng để đặt cược" });
             }
             let check = await UserControl.upMoney(user._id, -gold)
-            if(check)
-            {
-                AddCuocs(user._id, type, gold, user)
+            if (check) {
+                await AddCuocs(user._id, type, gold, user)
                 await UserControl.sodu(user._id.toString(), "Cược game xóc đĩa", "-" + numberWithCommas(gold))
+
+
                 return res.send({ error: 0, message: "Đặt cược thành công" });
             }
-            else
-            {
+            else {
                 return res.send({ error: q, message: "Đặt cược thất bại" });
             }
         })
@@ -88,7 +129,7 @@ class GameXocDia {
                 le3do: 0,
             }
         }
-        function AddCuocs(userId, type, xu, user) {
+        async function AddCuocs(userId, type, xu, user) {
 
             if (!Game.CuocUsers[userId]) {
                 Game.CuocUsers[userId] = { chan: 0, le: 0, chan4do: 0, chan4den: 0, le3den: 0, le3do: 0 }
@@ -132,7 +173,6 @@ class GameXocDia {
                 Game.vang3do += xu
             }
 
-
             if (Game.Cuocs.some(cuoc => cuoc.userId.toString() === userId.toString() && cuoc.type === type)) {
                 updateCuoc(userId.toString(), type, xu)
             }
@@ -155,26 +195,37 @@ class GameXocDia {
                 else if (type == "le3do") {
                     Game.countPlayer3do += 1
                 }
-
+                let id = uuidv4()
+                let cuocRedis = {
+                    id,
+                    username: user.tenhienthi,
+                    vangdat: xu,
+                    cuadat: type,
+                    status: -1,
+                    vangthang: -1,
+                    time: Date.now()
+                }
                 Game.Cuocs.push({
+                    id,
                     userId: userId.toString(),
                     type: type,
                     xu: xu,
-                    username: user.tenhienthi
+                    username: user.tenhienthi,
+                    cuocRedis
                 })
+                await addHisToRedis(cuocRedis)
             }
-
-
         }
         function updateCuoc(userId, type, xu) {
             for (let cuoc of Game.Cuocs) {
                 if (cuoc.userId.toString() == userId.toString() && cuoc.type == type) {
                     cuoc.xu += xu;
+                    cuoc.cuocRedis.vangdat = cuoc.xu;
+                    updateCuocRedis(cuoc.cuocRedis)
                     break;
                 }
             }
         }
-
 
         let Game = {
             vangChan: 0,
@@ -227,7 +278,7 @@ class GameXocDia {
             Game.vang3do = 0
             Game.countPlayer3do = 0
 
-            Game.Time = 41
+            Game.Time = 20
             Game.TimeWait = 15
             Game.Cuocs = []
             Game.CuocUsers = {}
@@ -236,9 +287,7 @@ class GameXocDia {
             Game.x3 = -1
             Game.x4 = -1
             Game.ketqua = ""
-
             Game.Status = "running"
-
         }
 
         let TraoThuong = async (ketqua) => {
@@ -270,8 +319,18 @@ class GameXocDia {
                     status: (tienWin >= 0 ? 1 : 2)
                 }).save()
                 arrPlayer.push({ tienWin, userId: cuoc.userId })
+                if (tienWin > 0) {
+                    cuoc.cuocRedis.vangthang = tienWin
+                    cuoc.cuocRedis.status = 1
+                }
+                else
+                {
+                    cuoc.cuocRedis.vangthang = 0
+                    cuoc.cuocRedis.status = 2
+                }
+                await updateCuocRedis(cuoc.cuocRedis)
             }
-
+            return arrPlayer
         }
 
         setInterval(async () => {
@@ -300,13 +359,10 @@ class GameXocDia {
                 GameStart()
             }
             else if (Game.Status == "running") {
-
                 for (let p of PlayerSocket.SocketPlayer) {
                     io.to(p.socket).emit('cuoc-xd-user', getCuocUser(p.userId));
                 }
-
                 io.sockets.emit("running-xocdia", dataSend);
-
                 Game.Time--
                 if (Game.Time <= -1) {
                     Game.x1 = Math.floor(Math.random() * 2) + 1
@@ -319,8 +375,6 @@ class GameXocDia {
                     ketquas[Game.x2]++
                     ketquas[Game.x3]++
                     ketquas[Game.x4]++
-
-
                     if (ketquas["1"] == 2 && ketquas["2"] == 2) {
                         Game.ketqua = "chan"
                     }
@@ -336,16 +390,20 @@ class GameXocDia {
                     if (ketquas["2"] == 4) {
                         Game.ketqua = "chan4den"
                     }
-
-
-
-
                     io.sockets.emit("ketqua-xd", { data: dataSend, ketqua: { x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4 }, ketqua2: Game.ketqua });
-
-                    await TraoThuong(Game.ketqua)
-
-
                     Game.Status = "waitgame"
+                    let winners = await TraoThuong(Game.ketqua)
+                    const result = Object.values(winners.reduce((cuoc, { tienWin, userId }) =>
+                        ((cuoc[userId] = cuoc[userId] || { userId, tienWin: 0 }).tienWin += tienWin, cuoc), {}));
+
+                    setTimeout(() => {
+                        for (let cuoc of result) {
+                            try {
+                                let socket = PlayerSocket.SocketPlayer.find(player => player.userId.toString() === cuoc.userId.toString());
+                                io.to(socket.socket).emit('traothuong-xd', { status: (cuoc.tienWin > 0 ? "win" : "thua"), message: (cuoc.tienWin > 0 ? "+" : "") + numberWithCommas(cuoc.tienWin) });
+                            } catch { }
+                        }
+                    }, (Game.TimeWait * 1000) - 2000);
                 }
             }
             else if (Game.Status == "waitgame") {
@@ -353,11 +411,9 @@ class GameXocDia {
                 Game.TimeWait--
                 if (Game.TimeWait <= -1) {
                     Game.Status = "start"
-
                 }
             }
         }, 1000)
     }
 }
-
 module.exports = new GameXocDia

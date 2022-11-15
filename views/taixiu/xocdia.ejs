@@ -392,14 +392,19 @@
                 <img class="his-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-history.png">
                 <img class="top-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-honor.png">
                 <img class="soi-cau" style="width: 100%;" alt="xóc đĩa 9sao.me" src="/xocdia/btn-soicau.png">
-                <img class="nan" style="width: 100%;" alt="xóc đĩa 9sao.me" src="/xocdia/btn-nan.png">
+                <img id="button-nan-xocdia" class="nan" style="width: 100%;" alt="xóc đĩa 9sao.me"
+                    src="/xocdia/btn-nan.png">
             </div>
 
 
             <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
 
 
-                <div style="    width: 14%;position: absolute;left: 56%;top: 57%;text-align: center;z-index: 1;"><p class="time-wait-xocdia"  style="display: block;background: rgb(0 0 0 / 32%);color: #00c0ef;padding: 0px 14px;text-align: center;border-radius: 6px;">15</p></div>
+                <div style="    width: 14%;position: absolute;left: 56%;top: 57%;text-align: center;z-index: 1;">
+                    <p class="time-wait-xocdia"
+                        style="display: block;background: rgb(0 0 0 / 32%);color: #00c0ef;padding: 0px 14px;text-align: center;border-radius: 6px;">
+                        15</p>
+                </div>
 
                 <div style="width: 23.5%;margin-left: 38.8%;">
                     <div class="ongthan-xd">
@@ -751,26 +756,37 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="cuocsModal-xocdia" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbartx">
+                    <table class="table table-sm text-center mt-1" style="width:100%">
+                        <tbody id="tablecuoc-xocdia">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalHelp-Xocdia" tabindex="-1" style="overflow: scroll; display: none;" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <img src="/xocdia/xocxoc-thele.png" alt="" style="
+           background-color: black;width: 100%;position: relative;
+       ">
+    </div>
+</div>
 <script>
-
-
-    $(document).ready(() => {
-
-        $('#game-xocdia')['draggable']({
-            start: function () {
-                $('.actigame')['removeClass']('actigame');
-                $(this)['addClass']('actigame')
-            },
-            cancel: '.group-button',
-            handle: '.move-here'
-        });
-        $('.bat-drop')['draggable']({
-
-        })
-    })
-</script>
-
-<script>
+    let isNanXocdia = true
     function formatNumberToStr(number) {
 
         var text = "";
@@ -897,6 +913,17 @@
         $("#xd-cuoc-3do").text((data.le3do == 0 ? "" : "Đặt: " + formatNumberToStr(data.le3do)))
     })
 
+    socketzzz.on("traothuong-xd", (data) => {
+        if (data.status == "thua") {
+            note_play('.note_here_xocdia', data.message, 'ff0000');
+        }
+        else {
+            note_play('.note_here_xocdia', data.message, '28a745');
+
+        }
+    })
+
+
     socketzzz.on("running-xocdia", (data) => {
         $(".time-wait-xocdia").hide()
 
@@ -971,7 +998,7 @@
         $(".hot_xd3").attr("data-txt", data.ketqua.x3);
         $(".hot_xd4").attr("data-txt", data.ketqua.x4);
 
-        if (data.data.timeWait < 5) {
+        if (data.data.timeWait < 5 || !isNanXocdia) {
             $('.bat-drop')['css']({
                 'display': 'none',
             })
@@ -996,9 +1023,11 @@
             }
         }
         else {
+
             $('.bat-drop')['css']({
                 'display': 'block',
             })
+
         }
 
 
@@ -1023,7 +1052,78 @@
         $("#xd-player-3den").text(data.data.countPlayer3den)
         $("#xd-player-3do").text(data.data.countPlayer3do)
     })
+    getImageCuaDat = (tpyecuoc) => {
+        let htmlCuocXd = ''
+        if (tpyecuoc == "le") {
+            htmlCuocXd = ' <img style="width: 8%;" src="/xocdia/le.png">'
+        }
+        else if (tpyecuoc == "chan") {
+            htmlCuocXd = ' <img style="width: 21%;" src="/xocdia/chan.png">'
+        }
+        else if (tpyecuoc == "chan4do") {
+            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png">'
+        }
+        else if (tpyecuoc == "chan4den") {
+            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"> '
+        }
+        else if (tpyecuoc == "le3den") {
+            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDo.png"> '
+        }
+        else if (tpyecuoc == "le3do") {
+            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDen.png"> '
+        }
+        else {
+            htmlCuocXd = tpyecuoc
+        }
+        return htmlCuocXd
+    }
     $(document).ready(() => {
+
+        $('#game-xocdia')['draggable']({
+            start: function () {
+                $('.actigame')['removeClass']('actigame');
+                $(this)['addClass']('actigame')
+            },
+            cancel: '.group-button',
+            handle: '.move-here'
+        });
+        $('.bat-drop')['draggable']({
+
+        })
+
+        $('#khung_xocdia .his-game')['on']('click ', function () {
+            $['ajax']({
+                type: 'get',
+                url: '/xocdia/getHis',
+                success: function (data) {
+                    var cuoccccc = "";
+                    data.map((cuoc) => {
+                        cuoccccc += '<tr><td>' + cuoc.username + '</td><td>' + numberWithCommas(cuoc.vangdat) + '</td><td>' + getImageCuaDat(cuoc.cuadat) + '</td><td>' + getstatustx(cuoc.status, cuoc.vangthang) + '</td><td>' + new Date(cuoc.time).toLocaleTimeString() + '</td></tr>'
+                    })
+                    cuoccccc = '<tr class="bg bg-danger text-white"><th>Nhân vật</th><th>Vàng đặt</th> <th>Cửa đặt</th><th>Trạng thái</th><th>Thời gian</th></tr>' + cuoccccc
+                    document.getElementById("tablecuoc-xocdia").innerHTML = cuoccccc
+                    $("#cuocsModal-xocdia").modal()
+                }
+            })
+        });
+        $('#khung_xocdia .help-game')['on']('click ', function () {
+            $('#modalHelp-Xocdia').modal()
+        });
+
+        $('#khung_xocdia .clogame')['on']('click ', function () {
+            $('#game-xocdia')['hide']('fade', {}, 500)
+        });
+
+        $('#khung_xocdia .nan')['on']('click ', function () {
+            isNanXocdia = !isNanXocdia
+            if (isNanXocdia) {
+                $("#button-nan-xocdia").attr("src", "/xocdia/btn-nan.png");
+            }
+            else {
+                $("#button-nan-xocdia").attr("src", "/xocdia/btn-nan-off.png");
+            }
+        });
+
         $("#goldXocDia").on("keyup", function (event) {
             var selection = window.getSelection().toString();
             if (selection !== '') {
