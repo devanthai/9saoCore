@@ -778,6 +778,47 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="soicauModal-xocdia" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style="
+        background-color: #000000b3;
+    ">
+            <div class="modal-header">
+                <h5 class="modal-title " style="
+                color: cadetblue;
+            " id="modalLabel">Soi cầu sóc đĩa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              
+                    <table class="text-center" style="width:100%">
+                        <style>
+                            #den-soicau {
+                                width: 100%;
+                            }
+                            #do-soicau {
+                                width: 100%;
+                            }
+                            #table-soicau-xocdia th {
+                                padding: 4px;
+                            }
+                            #table-soicau-xocdia table tbody tr:nth-child(odd) {
+                                background: rgb(0 0 0 / 0%);
+                            }
+                        </style>
+                        <tbody
+                            style="background: url(/xocdia/bangcau-big.png) 0% 0% / 100% 100%;background-color: black;"
+                            id="table-soicau-xocdia">
+                            
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modalHelp-Xocdia" tabindex="-1" style="overflow: scroll; display: none;" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <img src="/xocdia/xocxoc-thele.png" alt="" style="
@@ -1077,6 +1118,17 @@
         }
         return htmlCuocXd
     }
+    getImageDenDo = (type) => {
+        if (type == "l") {
+            return `<img id="den-soicau" src="/xocdia/den.png">`
+        }
+        else if (type == "c") {
+            return `<img id="do-soicau" src="/xocdia/do.png">`
+        }
+        else {
+            return ""
+        }
+    }
     $(document).ready(() => {
 
         $('#game-xocdia')['draggable']({
@@ -1106,12 +1158,34 @@
                 }
             })
         });
+
+        $('#khung_xocdia .soi-cau')['on']('click ', function () {
+            $['ajax']({
+                type: 'get',
+                url: '/xocdia/soicau',
+                success: function (data) {
+                    var table = "";
+                    for (let line of data) {
+                        table += "<tr style='background: rgb(0 0 0 / 0%);'>" + line.map(cau => `<th>${getImageDenDo(cau)} </th>`).join('') + "</tr>"
+                    }
+                    console.log(table)
+                    document.getElementById("table-soicau-xocdia").innerHTML = table
+                    $("#soicauModal-xocdia").modal()
+                }
+            })
+        });
+
+
         $('#khung_xocdia .help-game')['on']('click ', function () {
             $('#modalHelp-Xocdia').modal()
         });
 
         $('#khung_xocdia .clogame')['on']('click ', function () {
             $('#game-xocdia')['hide']('fade', {}, 500)
+        });
+
+        $('#khung_xocdia .soi-cau')['on']('click ', function () {
+            $("#soicauModal-xocdia").modal()
         });
 
         $('#khung_xocdia .nan')['on']('click ', function () {

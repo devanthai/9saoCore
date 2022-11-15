@@ -15,7 +15,6 @@ class GameXocDia {
 
     xocdia = (io, app) => {
         let isBaotri = false;
-
         let addHisToRedis = async (his) => {
             let cuocGlobal = await redisClient.get(keyHisXocDia)
             if (!cuocGlobal) {
@@ -62,7 +61,15 @@ class GameXocDia {
                 res.send(cuocsJ)
             }
         })
-
+        let getChanle = (type) => {
+            if (type == "chan" || type.includes("chan")) {
+                return "c"
+            }
+            return "l"
+        }
+        app.get("/xocdia/soicau", async (req, res) => {
+            res.send(soiCaus)
+        })
         app.post("/xocdia/putcuoc", checklogin, async (req, res) => {
             if (isBaotri) {
                 return res.send({ error: 1, message: "Bảo trì trong giây lát" })
@@ -289,6 +296,47 @@ class GameXocDia {
             Game.ketqua = ""
             Game.Status = "running"
         }
+        let getSoiCau = async () => {
+            let games = await GameXD.find({}).sort({ _id: -1 }).limit(70)
+            let array = games.reverse()
+            let table = [[], [], [], [], []]
+            let x = 0
+            let y = 0
+            for (let i = 0; i < array.length; i++) {
+                let gettype = getChanle(array[i].ketqua)
+                if (y == 5) {
+                    y = 0;
+                    x++
+                }
+                table[y][x] = gettype
+                y++
+                if (array[i + 1] && getChanle(array[i + 1].ketqua) != gettype || array.length - 1 == i) {
+                    while (y < table.length) {
+                        table[y][x] = " "
+                        y++
+                    }
+                    x++
+                    y = 0
+                }
+            }
+            while (x > 18) {
+                table[0].shift()
+                table[1].shift()
+                table[2].shift()
+                table[3].shift()
+                table[4].shift()
+                x--
+            }
+            return table
+        }
+
+        let soiCaus = [[], [], [], [], []]
+
+        let updateSoiCauData = async () => {
+            let caus = await getSoiCau()
+            soiCaus = caus
+        }
+        updateSoiCauData()
 
         let TraoThuong = async (ketqua) => {
             let phienXd = await new GameXD({ x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4, ketqua: Game.ketqua, status: 1 }).save()
@@ -323,13 +371,13 @@ class GameXocDia {
                     cuoc.cuocRedis.vangthang = tienWin
                     cuoc.cuocRedis.status = 1
                 }
-                else
-                {
+                else {
                     cuoc.cuocRedis.vangthang = 0
                     cuoc.cuocRedis.status = 2
                 }
                 await updateCuocRedis(cuoc.cuocRedis)
             }
+            await updateSoiCauData()
             return arrPlayer
         }
 
