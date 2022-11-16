@@ -1,0 +1,368 @@
+.khung_xocdia {
+    display: block;
+    margin-bottom: 11%;
+    max-width: 800px;
+    position: relative;
+    float: left;
+    margin-right: -3%;
+    width: 100%;
+}
+
+
+.xocdia-show.actigame {
+    z-index: 500 !important;
+}
+
+.xocdia-show {
+    /* font-weight: 700; */
+    position: absolute;
+    height: 0px;
+    z-index: 100;
+
+    width: 100%;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+
+.game-xocdia {
+    height: 0;
+    width: 100%;
+    font-weight: 700;
+}
+
+
+#game-xocdia #khung_xocdia {
+    position: relative;
+    margin: auto;
+}
+
+
+
+.khung_xocdia .button-xocdia {
+    right: 0%;
+    top: 13%;
+    z-index: 2;
+    width: 9%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.khung_xocdia .button-xocdia img {
+    width: 77%;
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+}
+
+.khung_xocdia .clogame {
+    margin-left: -37%;
+    margin-top: 78%;
+}
+
+.khung_xocdia .top-game {
+    margin-left: -340%;
+    margin-top: 14%;
+}
+
+.khung_xocdia .help-game {
+    margin-left: -225%;
+    margin-top: 13%;
+}
+
+.khung_xocdia .his-game {
+    margin-left: -113%;
+    margin-top: 29%;
+}
+
+.khung_xocdia .soi-cau {
+    margin-left: -992%;
+    margin-top: 377%;
+}
+
+.khung_xocdia .nan {
+    margin-left: -19%;
+    margin-top: 384%;
+}
+
+
+
+.khung_xocdia .view-cau-xocdia-bar {
+    float: left;
+    /* text-align: center; */
+    margin-left: 27.7%;
+    margin-top: 66.4%;
+    /* height: 14.9%; */
+    /* margin-bottom: -1%; */
+    padding: 2.05% 0;
+    width: 70.5%;
+}
+
+.khung_xocdia .view-cau-xocdia {
+    float: left;
+    text-align: center;
+    position: absolute;
+    width: 94.5%;
+    /* height: 70%; */
+    margin-top: 68.3%;
+    margin-left: 29%;
+}
+
+.khung_xocdia .view-cau-xocdia .cau-xocdia {
+    z-index: 50;
+    float: left;
+    width: 4.6%;
+    margin: 0.1%;
+    position: relative;
+}
+
+.khung_xocdia .view-cau-xocdia .cau-xocdia img {
+
+    width: 100%;
+}
+
+.head-main {
+    position: absolute;
+    width: 79%;
+    height: 30%;
+    margin-top: 19.5%;
+    margin-left: 11.1%;
+}
+
+.four-vuong {
+    position: absolute;
+    width: 79%;
+    height: 30%;
+    margin-top: 36.5%;
+    margin-left: 11.1%;
+}
+
+
+
+.testAni {
+    -webkit-animation: testani 0.5s infinite alternate;
+}
+
+@keyframes testani {
+    0% {
+        transform: rotate(-3deg);
+    }
+
+
+
+    100% {
+        transform: rotate(3deg);
+
+    }
+
+}
+
+
+.xocAnima {
+    -webkit-animation: xocxocAnimation 0.05s infinite alternate;
+}
+
+@keyframes xocxocAnimation {
+    0% {
+        transform: rotate(-3deg);
+    }
+
+    50% {
+        transform: rotate(1.5deg);
+    }
+
+    100% {
+        transform: rotate(3deg);
+
+    }
+
+}
+
+
+
+.nhapnhay {
+    animation: blinker 0.2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.o-cuoc {
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+}
+
+#khung_xocdia .dia-kq .hot_xd {
+    width: 21.7%;
+    position: absolute;
+    height: 20%;
+    margin-left: 1%;
+    color: #000000;
+    font-weight: 900;
+
+}
+
+#khung_xocdia .dia-kq div:nth-child(1) {
+    left: 25%;
+    top: 22%;
+}
+
+#khung_xocdia .dia-kq div:nth-child(2) {
+    left: 52%;
+    top: 25%;
+}
+
+#khung_xocdia .dia-kq div:nth-child(3) {
+    left: 27%;
+    top: 48%;
+}
+
+#khung_xocdia .dia-kq div:nth-child(4) {
+    left: 55%;
+    top: 47%;
+}
+
+#khung_xocdia .dia-kq div[data-txt='1'] {
+    background: url(/xocdia/quanDo.png) 0% 0% /100% 100%;
+}
+
+#khung_xocdia .dia-kq div[data-txt='2'] {
+    background: url(/xocdia/quanDen.png) 0% 0% /100% 100%;
+}
+
+.chan-wrap-xd {
+    width: 33%;
+    height: 28%;
+    margin-left: 16.35%;
+    margin-top: 25.2%;
+}
+
+.le-wrap-xd {
+    width: 33%;
+    height: 28%;
+    margin-left: 77.5%;
+    margin-top: 25.1%;
+}
+
+.o-4-chan {
+    width: 25%;
+    margin-left: 15.6%;
+    height: 25%;
+    margin-top: 46.8%;
+}
+
+.o-4-le {
+    width: 24%;
+    margin-left: 39.6%;
+    height: 25%;
+    margin-top: 46.6%;
+}
+
+.o-3-le {
+    width: 24%;
+    margin-left: 63.3%;
+    height: 25%;
+    margin-top: 46.6%;
+}
+
+.o-3-chan {
+    width: 24%;
+    margin-left: 86.6%;
+    height: 25%;
+    margin-top: 46.5%;
+}
+
+.o-active-lon {
+    background: url(/xocdia/to-win.png) 0% 0% / 100% 100%;
+
+}
+
+.o-active-be {
+    background: url(/xocdia/be-win.png) 0% 0% / 100% 100%;
+
+}
+
+.thanQuayTay {
+    -webkit-animation: quaytay 0.8s infinite alternate;
+}
+
+@keyframes quaytay {
+    0% {
+        transform: rotate(100deg) translate(-3%, -1%);
+        transform-origin: top center;
+    }
+
+    100% {
+        transform: rotate(95deg) translate(0, 1%);
+        transform-origin: top center;
+    }
+
+}
+
+.thanUpDown {
+    -webkit-animation: thanTapTheduc 0.8s infinite alternate;
+}
+
+@keyframes thanTapTheduc {
+    0% {
+        transform: translate(0, -2%);
+    }
+
+    100% {
+        transform: translate(0, 2%);
+
+    }
+
+}
+
+.zoom1 {
+    -webkit-animation: zoom1 0.8s infinite alternate;
+}
+
+@keyframes zoom1 {
+    0% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+
+    }
+
+}
+
+.zoom2 {
+    -webkit-animation: zoom2 0.8s infinite alternate;
+}
+
+@keyframes zoom2 {
+    0% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+
+    }
+
+}
+
+
+
+
+@media (min-width: 0px) and (max-width: 700px) {
+    .xocdia-show .font_size_20 {
+        font-size: 2.5vw !important;
+    }
+
+}
+
+@media (min-width: 0px) and (max-width: 700px) {
+    .xocdia-show .font_size_25 {
+        font-size: 2.7vw !important;
+    }
+
+}

@@ -4,6 +4,9 @@ const GameSchema = new mongoose.Schema({
     phien: {
         type: String
     },
+    ketqua: {
+        type: String
+    },
     x1: {
         type: Number,
         default: -1

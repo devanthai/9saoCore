@@ -44,6 +44,7 @@ const rateLimit = require('express-rate-limit')
 
 const getVip = require("../../controller/getVip")
 const getVip2 = require("../../controller/getVip2")
+const CuocXD = require("../../models/xocdia/Cuoc")
 
 
 const clientRedis = require("../../redisCache")
@@ -105,6 +106,7 @@ const listPage = {
     "csmm/1": "Lịch sử con số may mắn",
     "taixiu": "Lịch sử game tài xỉu",
     "chanle": "Lịch sử game chẵn lẻ",
+    "xocdia": "Lịch sử game Xóc đĩa",
     "chuyenvang": "Chuyển vàng cho người khác",
 
 };
@@ -766,7 +768,13 @@ router.get('/chanle', async (req, res, next) => {
 
     return res.render('index', { page: "pages/user/lschanle", menu: menuAction('chanle'), data: req.user, products: data })
 })
-
+router.get('/xocdia', async (req, res, next) => {
+    if (!req.user.isLogin) {
+        return res.redirect('/user/login');
+    }
+    var data = await CuocXD.find({ uid: req.user._id.toString() }).sort({ 'time': -1 });
+    return res.render('index', { page: "pages/user/lsxocdia", menu: menuAction('xocdia'), data: req.user, products: data })
+})
 function timeSince(date) {
 
     var seconds = Math.floor((new Date() - date) / 1000);

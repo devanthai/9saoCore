@@ -1,428 +1,62 @@
-<!-- dfgdfg -->
+<link href="taixiu/css/xocdia.css" rel="stylesheet">
+<div class="main-game">
 
-<style>
-    .khung_xocdia {
-        display: block;
-        margin-bottom: 11%;
-        max-width: 800px;
-        position: relative;
-        float: left;
-        margin-right: -3%;
-        width: 100%;
-    }
 
+    <div id="game-xocdia" style="display: block;" style="left: 45px; top: 194.75px;"
+        class="xocdia-show ui-draggable actigame">
+        <div id="khung_xocdia">
 
-    .xocdia-show.actigame {
-        z-index: 500 !important;
-    }
+            <div class="khung_xocdia">
 
-    .xocdia-show {
-        /* font-weight: 700; */
-        position: absolute;
-        height: 0px;
-        z-index: 100;
 
-        width: 100%;
-        margin-top: 5%;
-        margin-left: 10%;
-    }
 
-    .game-xocdia {
-        height: 0;
-        width: 100%;
-        font-weight: 700;
-    }
+                <div class="note_here_xocdia font_size_20"
+                    style="position: absolute;display: flex;width: 100%;top: 55%;text-align: center;z-index: 10000;">
+                </div>
+                <div class="move-here ui-draggable-handle"
+                    style="position:absolute;width: 100%;height: 100%;z-index: 1;">
 
-
-    #game-xocdia #khung_xocdia {
-        position: relative;
-        margin: auto;
-    }
-
-
-
-    .khung_xocdia .button-xocdia {
-        right: -29%;
-        top: 13%;
-        z-index: 2;
-        width: 9%;
-        position: absolute;
-        cursor: pointer;
-    }
-
-    .khung_xocdia .button-xocdia img {
-        width: 77%;
-        cursor: pointer;
-        z-index: 100;
-        position: absolute;
-    }
-
-    .khung_xocdia .clogame {
-        margin-left: -352%;
-        margin-top: 78%;
-    }
-
-    .khung_xocdia .top-game {
-        margin-left: -632%;
-        margin-top: 14%;
-    }
-
-    .khung_xocdia .help-game {
-        margin-left: -525%;
-        margin-top: 13%;
-    }
-
-    .khung_xocdia .his-game {
-        margin-left: -425%;
-        margin-top: 29%;
-    }
-
-    .khung_xocdia .soi-cau {
-        margin-left: -1316%;
-        margin-top: 377%;
-    }
-
-    .khung_xocdia .nan {
-        margin-left: -335%;
-        margin-top: 384%;
-    }
-
-
-
-    .khung_xocdia .view-cau-xocdia-bar {
-        float: left;
-        /* text-align: center; */
-        margin-left: 27.7%;
-        margin-top: 66.4%;
-        /* height: 14.9%; */
-        /* margin-bottom: -1%; */
-        padding: 2.05% 0;
-        width: 70.5%;
-    }
-
-    .khung_xocdia .view-cau-xocdia {
-        float: left;
-        text-align: center;
-        position: absolute;
-        width: 94.5%;
-        /* height: 70%; */
-        margin-top: 68.3%;
-        margin-left: 29%;
-    }
-
-    .khung_xocdia .view-cau-xocdia .cau-xocdia {
-        z-index: 50;
-        float: left;
-        width: 4.6%;
-        margin: 0.1%;
-        position: relative;
-    }
-
-    .khung_xocdia .view-cau-xocdia .cau-xocdia img {
-
-        width: 100%;
-    }
-
-    .head-main {
-        position: absolute;
-        width: 79%;
-        height: 30%;
-        margin-top: 19.5%;
-        margin-left: 11.1%;
-    }
-
-    .four-vuong {
-        position: absolute;
-        width: 79%;
-        height: 30%;
-        margin-top: 36.5%;
-        margin-left: 11.1%;
-    }
-
-
-
-    .testAni {
-        -webkit-animation: testani 0.5s infinite alternate;
-    }
-
-    @keyframes testani {
-        0% {
-            transform: rotate(-3deg);
-        }
-
-
-
-        100% {
-            transform: rotate(3deg);
-
-        }
-
-    }
-
-
-    .xocAnima {
-        -webkit-animation: xocxocAnimation 0.05s infinite alternate;
-    }
-
-    @keyframes xocxocAnimation {
-        0% {
-            transform: rotate(-3deg);
-        }
-
-        50% {
-            transform: rotate(1.5deg);
-        }
-
-        100% {
-            transform: rotate(3deg);
-
-        }
-
-    }
-
-
-
-    .nhapnhay {
-        animation: blinker 0.2s linear infinite;
-    }
-
-    @keyframes blinker {
-        50% {
-            opacity: 0;
-        }
-    }
-
-    .o-cuoc {
-        cursor: pointer;
-        z-index: 1;
-        position: absolute;
-    }
-
-    #khung_xocdia .dia-kq .hot_xd {
-        width: 21.7%;
-        position: absolute;
-        height: 20%;
-        margin-left: 1%;
-        color: #000000;
-        font-weight: 900;
-
-    }
-
-    #khung_xocdia .dia-kq div:nth-child(1) {
-        left: 25%;
-        top: 22%;
-    }
-
-    #khung_xocdia .dia-kq div:nth-child(2) {
-        left: 52%;
-        top: 25%;
-    }
-
-    #khung_xocdia .dia-kq div:nth-child(3) {
-        left: 27%;
-        top: 48%;
-    }
-
-    #khung_xocdia .dia-kq div:nth-child(4) {
-        left: 55%;
-        top: 47%;
-    }
-
-    #khung_xocdia .dia-kq div[data-txt='1'] {
-        background: url(/xocdia/quanDo.png) 0% 0% /100% 100%;
-    }
-
-    #khung_xocdia .dia-kq div[data-txt='2'] {
-        background: url(/xocdia/quanDen.png) 0% 0% /100% 100%;
-    }
-
-    .chan-wrap-xd {
-        width: 33%;
-        height: 28%;
-        margin-left: 16.35%;
-        margin-top: 25.2%;
-    }
-
-    .le-wrap-xd {
-        width: 33%;
-        height: 28%;
-        margin-left: 77.5%;
-        margin-top: 25.1%;
-    }
-
-    .o-4-chan {
-        width: 25%;
-        margin-left: 15.6%;
-        height: 25%;
-        margin-top: 46.8%;
-    }
-
-    .o-4-le {
-        width: 24%;
-        margin-left: 39.6%;
-        height: 25%;
-        margin-top: 46.6%;
-    }
-
-    .o-3-le {
-        width: 24%;
-        margin-left: 63.3%;
-        height: 25%;
-        margin-top: 46.6%;
-    }
-
-    .o-3-chan {
-        width: 24%;
-        margin-left: 86.6%;
-        height: 25%;
-        margin-top: 46.5%;
-    }
-
-    .o-active-lon {
-        background: url(/xocdia/to-win.png) 0% 0% / 100% 100%;
-
-    }
-
-    .o-active-be {
-        background: url(/xocdia/be-win.png) 0% 0% / 100% 100%;
-
-    }
-
-    .thanQuayTay {
-        -webkit-animation: quaytay 0.8s infinite alternate;
-    }
-
-    @keyframes quaytay {
-        0% {
-            transform: rotate(100deg) translate(-3%, -1%);
-            transform-origin: top center;
-        }
-
-        100% {
-            transform: rotate(95deg) translate(0, 1%);
-            transform-origin: top center;
-        }
-
-    }
-
-    .thanUpDown {
-        -webkit-animation: thanTapTheduc 0.8s infinite alternate;
-    }
-
-    @keyframes thanTapTheduc {
-        0% {
-            transform: translate(0, -2%);
-        }
-
-        100% {
-            transform: translate(0, 2%);
-
-        }
-
-    }
-
-    .zoom1 {
-        -webkit-animation: zoom1 0.8s infinite alternate;
-    }
-
-    @keyframes zoom1 {
-        0% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-
-        }
-
-    }
-
-    .zoom2 {
-        -webkit-animation: zoom2 0.8s infinite alternate;
-    }
-
-    @keyframes zoom2 {
-        0% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-
-        }
-
-    }
-
-
-
-
-    @media (min-width: 0px) and (max-width: 700px) {
-        .xocdia-show .font_size_20 {
-            font-size: 2.5vw !important;
-        }
-
-    }
-
-    @media (min-width: 0px) and (max-width: 700px) {
-        .xocdia-show .font_size_25 {
-            font-size: 2.7vw !important;
-        }
-
-    }
-</style>
-<div id="game-xocdia" style="display: block;" style="left: 45px; top: 194.75px;"
-    class="xocdia-show ui-draggable actigame">
-    <div id="khung_xocdia">
-
-        <div class="khung_xocdia">
-
-
-
-            <div class="note_here_xocdia font_size_20"
-                style="position: absolute;display: flex;width: 100%;top: 55%;text-align: center;z-index: 10000;"></div>
-            <div class="move-here ui-draggable-handle" style="position:absolute;width: 100%;height: 100%;z-index: 1;">
-
-            </div>
-
-
-
-            <div class="button-xocdia">
-                <img class="clogame" style="width: 119%;" alt="xóc đĩa 9sao.me" src="/xocdia/btn-close.png">
-                <img class="help-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-help.png">
-                <img class="his-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-history.png">
-                <img class="top-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-honor.png">
-                <img class="soi-cau" style="width: 100%;" alt="xóc đĩa 9sao.me" src="/xocdia/btn-soicau.png">
-                <img id="button-nan-xocdia" class="nan" style="width: 100%;" alt="xóc đĩa 9sao.me"
-                    src="/xocdia/btn-nan.png">
-            </div>
-
-
-            <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
-
-
-                <div style="    width: 14%;position: absolute;left: 56%;top: 57%;text-align: center;z-index: 1;">
-                    <p class="time-wait-xocdia"
-                        style="display: block;background: rgb(0 0 0 / 32%);color: #00c0ef;padding: 0px 14px;text-align: center;border-radius: 6px;">
-                        15</p>
                 </div>
 
-                <div style="width: 23.5%;margin-left: 38.8%;">
-                    <div class="ongthan-xd">
+
+
+                <div class="button-xocdia">
+                    <img class="clogame" style="width: 119%;" alt="xóc đĩa 9sao.me" src="/xocdia/btn-close.png">
+                    <img class="help-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-help.png">
+                    <img class="his-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-history.png">
+                    <img class="top-game" alt="xóc đĩa 9sao.me" src="/xocdia/btn-honor.png">
+                    <img class="soi-cau" style="width: 100%;" alt="xóc đĩa 9sao.me" src="/xocdia/btn-soicau.png">
+                    <img id="button-nan-xocdia" class="nan" style="width: 100%;" alt="xóc đĩa 9sao.me"
+                        src="/xocdia/btn-nan.png">
+                </div>
+
+
+                <div class="font_size_20" style="position:absolute;width: 80%;height: 100%;">
+
+
+                    <div style="    width: 14%;position: absolute;left: 56%;top: 57%;text-align: center;z-index: 1;">
+                        <p class="time-wait-xocdia"
+                            style="display: block;background: rgb(0 0 0 / 32%);color: #00c0ef;padding: 0px 14px;text-align: center;border-radius: 6px;">
+                            15</p>
+                    </div>
+
+                    <div style="width: 23.5%;margin-left: 38.8%;">
+                        <div class="ongthan-xd">
+
+                        </div>
 
                     </div>
 
-                </div>
 
-
-                <!-- chẵn -->
-                <div class="chan-wrap-xd o-cuoc">
-                    <div style="
+                    <!-- chẵn -->
+                    <div class="chan-wrap-xd o-cuoc">
+                        <div style="
                         margin-left: 12%;
                         margin-top: 7.5%;
                         position: absolute;
                         color: #ffffff;
                     " id="xd-cuoc-chan"></div>
-                    <div style="
+                        <div style="
                     margin-left: 63%;
                     margin-top: 43.5%;
                     position: absolute;
@@ -430,27 +64,27 @@
                     width: 15%;
                     text-align: right;
                 " id="xd-player-chan">0</div>
-                    <div class="font_size_25" style="
+                        <div class="font_size_25" style="
                         margin-left: 11%;
                         margin-top: 42.5%;
                         position: absolute;
                         color: #ffc56f;
                     " id="xd-gold-chan"></div>
 
-                </div>
-                <div onclick="cuoc_xocdia('chan')" class="chan-wrap-xd chan-wrap-xd-v o-cuoc "> </div>
-                <!-- chẵn -->
+                    </div>
+                    <div onclick="cuoc_xocdia('chan')" class="chan-wrap-xd chan-wrap-xd-v o-cuoc "> </div>
+                    <!-- chẵn -->
 
 
-                <!--  lẻ  -->
-                <div class="le-wrap-xd o-cuoc">
-                    <div style="
+                    <!--  lẻ  -->
+                    <div class="le-wrap-xd o-cuoc">
+                        <div style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
                 " id="xd-cuoc-le"></div>
-                    <div style="
+                        <div style="
                     margin-left: 64%;
                     margin-top: 44.5%;
                     position: absolute;
@@ -458,33 +92,33 @@
                     width: 15%;
                     text-align: right;
                 " id="xd-player-le">0</div>
-                    <div class="font_size_25" style="
+                        <div class="font_size_25" style="
                         margin-left: 11%;
                         margin-top: 42.5%;
                         position: absolute;
                         color: #ffc56f;
                     " id="xd-gold-le"></div>
-                </div>
-                <div onclick="cuoc_xocdia('le')" class="le-wrap-xd le-wrap-xd-v o-cuoc"></div>
-                <!--  lẻ  -->
+                    </div>
+                    <div onclick="cuoc_xocdia('le')" class="le-wrap-xd le-wrap-xd-v o-cuoc"></div>
+                    <!--  lẻ  -->
 
 
 
-                <!-- 4 chẵn đỏ -->
-                <div class="o-4-chan o-cuoc">
-                    <div style="
+                    <!-- 4 chẵn đỏ -->
+                    <div class="o-4-chan o-cuoc">
+                        <div style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
                 " id="xd-cuoc-4do"></div>
-                    <div id="xd-gold-4do" style="
+                        <div id="xd-gold-4do" style="
                    margin-left: 14%;
                    margin-top: 51.5%;
                    position: absolute;
                    color: #ffc56f;
                 "></div>
-                    <div id="xd-player-4do" style="
+                        <div id="xd-player-4do" style="
                     margin-left: 55%;
     margin-top: 51.5%;
     position: absolute;
@@ -492,27 +126,27 @@
     text-align: right;
     width: 20%;
                 ">0</div>
-                </div>
-                <div onclick="cuoc_xocdia('chan4do')" class="o-4-chan o-4-chan-v o-cuoc"></div>
-                <!-- 4 chẵn đỏ -->
+                    </div>
+                    <div onclick="cuoc_xocdia('chan4do')" class="o-4-chan o-4-chan-v o-cuoc"></div>
+                    <!-- 4 chẵn đỏ -->
 
 
 
-                <!-- 4 chẵn đen -->
-                <div class="o-4-le o-cuoc">
-                    <div id="xd-cuoc-4den" style="
+                    <!-- 4 chẵn đen -->
+                    <div class="o-4-le o-cuoc">
+                        <div id="xd-cuoc-4den" style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
                 "></div>
-                    <div id="xd-gold-4den" style="
+                        <div id="xd-gold-4den" style="
                    margin-left: 13%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
                 "></div>
-                    <div id="xd-player-4den" style="
+                        <div id="xd-player-4den" style="
                     margin-left: 55%;
                     margin-top: 54.5%;
                     position: absolute;
@@ -520,27 +154,27 @@
                     text-align: right;
                     width: 20%;
                 ">0</div>
-                </div>
-                <div onclick="cuoc_xocdia('chan4den')" class="o-4-le o-4-le-v o-cuoc"></div>
-                <!-- 4 chẵn đen -->
+                    </div>
+                    <div onclick="cuoc_xocdia('chan4den')" class="o-4-le o-4-le-v o-cuoc"></div>
+                    <!-- 4 chẵn đen -->
 
 
 
-                <!-- 3 ẻ đen -->
-                <div class="o-3-le o-cuoc">
-                    <div style="
+                    <!-- 3 ẻ đen -->
+                    <div class="o-3-le o-cuoc">
+                        <div style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
                 " id="xd-cuoc-3den"></div>
-                    <div style="
+                        <div style="
                    margin-left: 13%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
                 " id="xd-gold-3den"></div>
-                    <div style="
+                        <div style="
                     margin-left: 55%;
                     margin-top: 54.5%;
                     position: absolute;
@@ -548,27 +182,27 @@
                     width: 20%;
                     text-align: right;
                 " id="xd-player-3den">0</div>
-                </div>
-                <div onclick="cuoc_xocdia('le3den')" class="o-3-le o-3-le-v o-cuoc"> </div>
-                <!-- 3 ẻ đen -->
+                    </div>
+                    <div onclick="cuoc_xocdia('le3den')" class="o-3-le o-3-le-v o-cuoc"> </div>
+                    <!-- 3 ẻ đen -->
 
 
 
-                <!-- 3 lẻ đỏ-->
-                <div class="o-3-chan o-cuoc">
-                    <div id="xd-cuoc-3do" style="
+                    <!-- 3 lẻ đỏ-->
+                    <div class="o-3-chan o-cuoc">
+                        <div id="xd-cuoc-3do" style="
                     margin-left: 12%;
                     margin-top: 7.5%;
                     position: absolute;
                     color: #ffffff;
                 "></div>
-                    <div style="
+                        <div style="
                    margin-left: 13%;
                     margin-top: 54.5%;
                     position: absolute;
                     color: #ffc56f;
                 " id="xd-gold-3do"></div>
-                    <div style="
+                        <div style="
                     margin-left: 56%;
                     width: 20%;
                     margin-top: 54.6%;
@@ -576,136 +210,137 @@
                     text-align: right;
                     color: #ffc56f;
                 " id="xd-player-3do">0</div>
-                </div>
-                <div onclick="cuoc_xocdia('le3do')" class="o-3-chan o-3-chan-v o-cuoc"></div>
-                <!-- 3 lẻ đỏ-->
+                    </div>
+                    <div onclick="cuoc_xocdia('le3do')" class="o-3-chan o-3-chan-v o-cuoc"></div>
+                    <!-- 3 lẻ đỏ-->
 
 
 
 
-                <div class="dia-kq"
-                    style="position: absolute;width: 28.5%;margin-left: 49.3%;height: 24%;margin-top: 30.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
-                    <div class="hot_xd hot_xd1" data-txt="1"></div>
-                    <div class="hot_xd hot_xd2" data-txt="2"></div>
-                    <div class="hot_xd hot_xd3" data-txt="2"></div>
-                    <div class="hot_xd hot_xd4" data-txt="1"></div>
-                </div>
+                    <div class="dia-kq"
+                        style="position: absolute;width: 28.5%;margin-left: 49.3%;height: 24%;margin-top: 30.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
+                        <div class="hot_xd hot_xd1" data-txt="1"></div>
+                        <div class="hot_xd hot_xd2" data-txt="2"></div>
+                        <div class="hot_xd hot_xd3" data-txt="2"></div>
+                        <div class="hot_xd hot_xd4" data-txt="1"></div>
+                    </div>
 
-                <div class="dia-bat"
-                    style="position: absolute;width: 28.5%;/* display: none; */margin-left: 49.3%;height: 24.1%;margin-top: 30.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
-                    <img src="/xocdia/bat.png" alt=""
-                        style="width: 78%;margin-left: 11%;margin-top: -14%;/* display: none; */">
-                </div>
-
-
-                <div class="thanUpDown zoom1"
-                    style="position: absolute;width: 24%;margin-left: 28.8%;margin-left: 41.%;z-index: 0;height: 17%;margin-top: 6.2%;position: absolute;background: url(/xocdia/than.png) 0% 0% / 100% 100%;">
-                </div>
-                <div class="thanUpDown zoom2"
-                    style="position: absolute;width: 19%;margin-left: 52.6%;margin-left: 41.%;z-index: 0;height: 13%;margin-top: 9.5%;position: absolute;background: url(/xocdia/xox.png) 0% 0% / 100% 100%;">
-                </div>
+                    <div class="dia-bat"
+                        style="position: absolute;width: 28.5%;/* display: none; */margin-left: 49.3%;height: 24.1%;margin-top: 30.7%;position: absolute;background: url(/xocdia/dia.png) 0% 0% / 100% 100%;">
+                        <img src="/xocdia/bat.png" alt=""
+                            style="width: 78%;margin-left: 11%;margin-top: -14%;/* display: none; */">
+                    </div>
 
 
-                <div class="than-ngu thanUpDown"
-                    style="position: absolute;/* display: none; */width: 20%;margin-left: 13.3%;margin-left: 41.%;z-index: -1;height: 31%;margin-top: -1.5%;position: absolute;background: url(/xocdia/thanngu.png) 0% 0% / 100% 100%;">
-                </div>
+                    <div class="thanUpDown zoom1"
+                        style="position: absolute;width: 24%;margin-left: 28.8%;margin-left: 41.%;z-index: 0;height: 17%;margin-top: 6.2%;position: absolute;background: url(/xocdia/than.png) 0% 0% / 100% 100%;">
+                    </div>
+                    <div class="thanUpDown zoom2"
+                        style="position: absolute;width: 19%;margin-left: 52.6%;margin-left: 41.%;z-index: 0;height: 13%;margin-top: 9.5%;position: absolute;background: url(/xocdia/xox.png) 0% 0% / 100% 100%;">
+                    </div>
 
 
-                <div class="tay-than thanQuayTay"
-                    style="width: 9%;margin-left: 16.1%;z-index: -3;height: 19%;margin-top: 19%;position: absolute;background: url(/xocdia/tay.png) 0% 0% / 100% 100%;">
-                </div>
-
-                <div class="bat-drop ui-draggable ui-draggable-handle"
-                    style="z-index: 51; cursor: pointer; width: 22.3%; margin-left: 41.5%; height: 22.4%; margin-top: 20.5%; position: absolute; background: url(&quot;/xocdia/bat.png&quot;) 0% 0% / 100% 100%; left: 69.6875px; top: 39.4375px;">
-                </div>
+                    <div class="than-ngu thanUpDown"
+                        style="position: absolute;/* display: none; */width: 20%;margin-left: 13.3%;margin-left: 41.%;z-index: -1;height: 31%;margin-top: -1.5%;position: absolute;background: url(/xocdia/thanngu.png) 0% 0% / 100% 100%;">
+                    </div>
 
 
-                <div class="view-cau-xocdia-bar">
-                    <img style="width: 100%;" alt="soi cai xoc dia 9sao.me" src="/xocdia/bg-soicau.png">
+                    <div class="tay-than thanQuayTay"
+                        style="width: 9%;margin-left: 16.1%;z-index: -3;height: 19%;margin-top: 19%;position: absolute;background: url(/xocdia/tay.png) 0% 0% / 100% 100%;">
+                    </div>
 
-                </div>
+                    <div class="bat-drop ui-draggable ui-draggable-handle"
+                        style="z-index: 51; cursor: pointer; width: 22.3%; margin-left: 41.5%; height: 22.4%; margin-top: 20.5%; position: absolute; background: url(&quot;/xocdia/bat.png&quot;) 0% 0% / 100% 100%; left: 69.6875px; top: 39.4375px;">
+                    </div>
 
 
-                <div id="clock-xocdia" style="
+                    <div class="view-cau-xocdia-bar">
+                        <img style="width: 100%;" alt="soi cai xoc dia 9sao.me" src="/xocdia/bg-soicau.png">
+
+                    </div>
+
+
+                    <div id="clock-xocdia" style="
                     position: absolute;
                     width: 24.5%;             
                     margin-left: 51%;
                     margin-top: 31.7%;
                     text-align: center;">
 
+                    </div>
+
+
+
+                    <div class="view-cau-xocdia">
+
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
+
+                        </div>
+                        <div class="cau-xocdia">
+                            <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
+
+                        </div>
+
+
+                    </div>
+
                 </div>
-
-
-
-                <div class="view-cau-xocdia">
-
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/do.png">
-
-                    </div>
-                    <div class="cau-xocdia">
-                        <img alt="soi cai xoc dia 9sao.me" src="/xocdia/den.png">
-
-                    </div>
-
-
-                </div>
-
+                <img alt="cltx nro cltx 9sao.me" src="/xocdia/xocdia2.png" width="100%">
             </div>
-            <img alt="cltx nro cltx 9sao.me" src="/xocdia/xocdia2.png" width="100%">
         </div>
     </div>
 </div>
@@ -793,28 +428,34 @@
                 </button>
             </div>
             <div class="modal-body">
-              
-                    <table class="text-center" style="width:100%">
-                        <style>
-                            #den-soicau {
-                                width: 100%;
-                            }
-                            #do-soicau {
-                                width: 100%;
-                            }
-                            #table-soicau-xocdia th {
-                                padding: 4px;
-                            }
-                            #table-soicau-xocdia table tbody tr:nth-child(odd) {
-                                background: rgb(0 0 0 / 0%);
-                            }
-                        </style>
-                        <tbody
-                            style="background: url(/xocdia/bangcau-big.png) 0% 0% / 100% 100%;background-color: black;"
-                            id="table-soicau-xocdia">
-                            
-                        </tbody>
-                    </table>
+
+                <table class="text-center" style="width:100%">
+                    <style>
+                        #den-soicau {
+                            width: 100%;
+                        }
+
+                        #do-soicau {
+                            width: 100%;
+                        }
+
+                        #table-soicau-xocdia th {
+                            padding: 4px;
+                        }
+
+                        #table-soicau-xocdia th {
+                            border: 1px solid rgb(48, 41, 41);
+                            border-collapse: collapse;
+                        }
+
+                        #table-soicau-xocdia td {
+                            border: 1px solid rgb(48, 41, 41);
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    <tbody id="table-soicau-xocdia">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -826,540 +467,3 @@
        ">
     </div>
 </div>
-<script>
-    let isNanXocdia = true
-    function formatNumberToStr(number) {
-
-        var text = "";
-        var text2 = "";
-        if (number >= 1000000000) {
-            text2 = "tỉ";
-            var num = (number % (1000000000 / 100000000));
-            number = (number / 1000000000);
-            number = Math.round(number * 1000) / 1000
-            text = number;
-            text += text2;
-        }
-        else if (number >= 1000000) {
-            text2 = "tr";
-            var num = (number % (1000000 / 100000));
-            number = (number / 1000000);
-            number = Math.round(number * 1000) / 1000
-            text = number;
-            text += text2;
-        }
-        else {
-            text = numberWithCommas(Math.round(number));
-        }
-        return text;
-    }
-
-    $('#modalcuoc-xocdia').dblclick(function (e) {
-        e.preventDefault();
-    })
-    let typecuocXocDia = ''
-    function cuoc_xocdia(tpyecuoc) {
-        let htmlCuocXd = ''
-        if (tpyecuoc == "le") {
-            htmlCuocXd = 'Dự đoán <img src="/xocdia/le.png"> thắng x1.98 tiền cược'
-        }
-        else if (tpyecuoc == "chan") {
-            htmlCuocXd = 'Dự đoán <img src="/xocdia/chan.png"> thắng x1.98 tiền cược'
-        }
-        else if (tpyecuoc == "chan4do") {
-            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"> thắng x15 tiền cược'
-        }
-        else if (tpyecuoc == "chan4den") {
-            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"> thắng x15 tiền cược'
-        }
-        else if (tpyecuoc == "le3den") {
-            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDen.png"><img src="/xocdia/quanDo.png"> thắng x3 tiền cược'
-        }
-        else if (tpyecuoc == "le3do") {
-            htmlCuocXd = 'Dự đoán <img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDo.png"><img src="/xocdia/quanDen.png"> thắng x3 tiền cược'
-        }
-        typecuocXocDia = tpyecuoc
-        $("#typecuocXocDia").html(htmlCuocXd)
-        $("#modalcuoc-xocdia").modal()
-    }
-    function SelectGoldXocDia(type) {
-        var inputcuocbc = $("#goldXocDia").val()
-        var ssss = Number(inputcuocbc.replace(/[^0-9 ]/g, ""));
-        if (type == 1) {
-            ssss += 10000000
-            $("#goldXocDia").val(numberWithCommas(ssss))
-        }
-        else if (type == 2) {
-            ssss += 50000000
-            $("#goldXocDia").val(numberWithCommas(ssss))
-        }
-        else if (type == 3) {
-            ssss += 100000000
-            $("#goldXocDia").val(numberWithCommas(ssss))
-        }
-        else if (type == 4) {
-            ssss += 500000000
-            $("#goldXocDia").val(numberWithCommas(ssss))
-        }
-        else if (type == 5) {
-            ssss += 1000000000
-            $("#goldXocDia").val(numberWithCommas(ssss))
-        }
-        else if (type == 6) {
-            $("#goldXocDia").val("")
-        }
-        else if (type == 7) {
-            $['ajax']({
-                type: 'post',
-                url: '/xocdia/putcuoc',
-                data: { vangcuoc: inputcuocbc, type: typecuocXocDia },
-                success: function (data) {
-                    if (data.error == 1) {
-                        note_play('.note_here_xocdia', data.message, 'ff0000');
-                    }
-                    else {
-                        note_play('.note_here_xocdia', data.message, '28a745');
-                    }
-                    $("#goldXocDia").val("")
-                    $("#modalcuoc-xocdia").modal("hide")
-                }
-            });
-        }
-    }
-
-    function note_play_xocdia(ob, text, color) {
-        var note_id = Math['floor']((Math['random']() * 99999999) + 1);
-        $('' + ob)['html']('<p  class=\"note_play id' + note_id + '\">' + text + '</p>');
-        $('.note_play.id' + note_id)['css']({
-            'color': '#' + color
-        })['slideDown']('slow');
-        setTimeout(function () {
-            $('.note_play.id' + note_id)['animate']({
-                opacity: '0.0',
-                height: 'toggle'
-            }, 500)['promise']()['done'](function () {
-                $(this)['remove']()
-            })
-        }, 1000);
-        return false
-    }
-
-
-    socketzzz.on("cuoc-xd-user", (data) => {
-        $("#xd-cuoc-chan").text((data.chan == 0 ? "" : "Đặt: " + formatNumberToStr(data.chan)))
-        $("#xd-cuoc-le").text((data.le == 0 ? "" : "Đặt: " + formatNumberToStr(data.le)))
-        $("#xd-cuoc-4do").text((data.chan4do == 0 ? "" : "Đặt: " + formatNumberToStr(data.chan4do)))
-        $("#xd-cuoc-4den").text((data.chan4den == 0 ? "" : "Đặt: " + formatNumberToStr(data.chan4den)))
-        $("#xd-cuoc-3den").text((data.le3den == 0 ? "" : "Đặt: " + formatNumberToStr(data.le3den)))
-        $("#xd-cuoc-3do").text((data.le3do == 0 ? "" : "Đặt: " + formatNumberToStr(data.le3do)))
-    })
-
-    socketzzz.on("traothuong-xd", (data) => {
-        if (data.status == "thua") {
-            note_play('.note_here_xocdia', data.message, 'ff0000');
-        }
-        else {
-            note_play('.note_here_xocdia', data.message, '28a745');
-
-        }
-    })
-
-
-    socketzzz.on("running-xocdia", (data) => {
-        $(".time-wait-xocdia").hide()
-
-        setDefauftocuoc()
-        $('.dia-bat')['css']({
-            'display': 'block',
-        })
-        $('.bat-drop')['css']({
-            'display': 'none',
-        })
-        $('#clock-xocdia')['css']({
-            'display': 'block',
-        })
-        setTimeXocDia(data.time.toString())
-        $("#xd-gold-chan").text(data.vangChan == 0 ? "" : formatNumberToStr(data.vangChan))
-        $("#xd-gold-le").text(data.vangLe == 0 ? "" : formatNumberToStr(data.vangLe))
-        $("#xd-gold-4do").text(data.vang4do == 0 ? "" : formatNumberToStr(data.vang4do))
-        $("#xd-gold-4den").text(data.vang4den == 0 ? "" : formatNumberToStr(data.vang4den))
-        $("#xd-gold-3den").text(data.vang3den == 0 ? "" : formatNumberToStr(data.vang3den))
-        $("#xd-gold-3do").text(data.vang3do == 0 ? "" : formatNumberToStr(data.vang3do))
-        $("#xd-player-chan").text(data.countPlayerChan)
-        $("#xd-player-le").text(data.countPlayerLe)
-        $("#xd-player-4do").text(data.countPlayer4do)
-        $("#xd-player-4den").text(data.countPlayer4den)
-        $("#xd-player-3den").text(data.countPlayer3den)
-        $("#xd-player-3do").text(data.countPlayer3do)
-    })
-
-    socketzzz.on("ketqua-xd", (data) => {
-        note_play_xocdia('.note_here_xocdia', "Đến giờ Mở bát", 'fd7e14');
-
-
-        $('.bat-drop')['css']({
-            'left': '11%',
-            'top': '8%',
-        })
-        $("#xd-gold-chan").text(data.data.vangChan == 0 ? "" : formatNumberToStr(data.data.vangChan))
-        $("#xd-gold-le").text(data.data.vangLe == 0 ? "" : formatNumberToStr(data.data.vangLe))
-        $("#xd-gold-4do").text(data.data.vang4do == 0 ? "" : formatNumberToStr(data.data.vang4do))
-        $("#xd-gold-4den").text(data.data.vang4den == 0 ? "" : formatNumberToStr(data.data.vang4den))
-        $("#xd-gold-3den").text(data.data.vang3den == 0 ? "" : formatNumberToStr(data.data.vang3den))
-        $("#xd-gold-3do").text(data.data.vang3do == 0 ? "" : formatNumberToStr(data.data.vang3do))
-        $("#xd-player-chan").text(data.data.countPlayerChan)
-        $("#xd-player-le").text(data.data.countPlayerLe)
-        $("#xd-player-4do").text(data.data.countPlayer4do)
-        $("#xd-player-4den").text(data.data.countPlayer4den)
-        $("#xd-player-3den").text(data.data.countPlayer3den)
-        $("#xd-player-3do").text(data.data.countPlayer3do)
-        $(".hot_xd1").attr("data-txt", data.ketqua.x1);
-        $(".hot_xd2").attr("data-txt", data.ketqua.x2);
-        $(".hot_xd3").attr("data-txt", data.ketqua.x3);
-        $(".hot_xd4").attr("data-txt", data.ketqua.x4);
-
-
-
-
-    })
-    setDefauftocuoc = () => {
-        $(".chan-wrap-xd-v").removeClass("o-active-lon nhapnhay")
-        $(".le-wrap-xd-v").removeClass("o-active-lon nhapnhay")
-        $(".o-3-le-v").removeClass("o-active-be nhapnhay")
-        $(".o-3-chan-v").removeClass("o-active-be nhapnhay")
-        $(".o-4-chan-v").removeClass("o-active-be nhapnhay")
-        $(".o-4-le-v").removeClass("o-active-be nhapnhay")
-    }
-    socketzzz.on("waitgame-xd", (data) => {
-        $(".time-wait-xocdia").show()
-        $(".time-wait-xocdia").text(data.data.timeWait)
-
-        $(".hot_xd1").attr("data-txt", data.ketqua.x1);
-        $(".hot_xd2").attr("data-txt", data.ketqua.x2);
-        $(".hot_xd3").attr("data-txt", data.ketqua.x3);
-        $(".hot_xd4").attr("data-txt", data.ketqua.x4);
-
-        if (data.data.timeWait < 5 || !isNanXocdia) {
-            $('.bat-drop')['css']({
-                'display': 'none',
-            })
-            if (data.ketqua2 == "chan") {
-                $(".chan-wrap-xd-v").addClass("o-active-lon nhapnhay")
-            }
-            else if (data.ketqua2 == "le3den") {
-                $(".le-wrap-xd-v").addClass("o-active-lon nhapnhay")
-                $(".o-3-le-v").addClass("o-active-be nhapnhay")
-            }
-            else if (data.ketqua2 == "le3do") {
-                $(".le-wrap-xd-v").addClass("o-active-lon nhapnhay")
-                $(".o-3-chan-v").addClass("o-active-be nhapnhay")
-            }
-            else if (data.ketqua2 == "chan4do") {
-                $(".chan-wrap-xd-v").addClass("o-active-lon nhapnhay")
-                $(".o-4-chan-v").addClass("o-active-be nhapnhay")
-            }
-            else if (data.ketqua2 == "chan4den") {
-                $(".chan-wrap-xd-v").addClass("o-active-lon nhapnhay")
-                $(".o-4-le-v").addClass("o-active-be nhapnhay")
-            }
-        }
-        else {
-
-            $('.bat-drop')['css']({
-                'display': 'block',
-            })
-
-        }
-
-
-
-        $('.dia-bat')['css']({
-            'display': 'none',
-        })
-        $('#clock-xocdia')['css']({
-            'display': 'none',
-        })
-        setTimeXocDia(data.data.time.toString())
-        $("#xd-gold-chan").text(data.data.vangChan == 0 ? "" : formatNumberToStr(data.data.vangChan))
-        $("#xd-gold-le").text(data.data.vangLe == 0 ? "" : formatNumberToStr(data.data.vangLe))
-        $("#xd-gold-4do").text(data.data.vang4do == 0 ? "" : formatNumberToStr(data.data.vang4do))
-        $("#xd-gold-4den").text(data.data.vang4den == 0 ? "" : formatNumberToStr(data.data.vang4den))
-        $("#xd-gold-3den").text(data.data.vang3den == 0 ? "" : formatNumberToStr(data.data.vang3den))
-        $("#xd-gold-3do").text(data.data.vang3do == 0 ? "" : formatNumberToStr(data.data.vang3do))
-        $("#xd-player-chan").text(data.data.countPlayerChan)
-        $("#xd-player-le").text(data.data.countPlayerLe)
-        $("#xd-player-4do").text(data.data.countPlayer4do)
-        $("#xd-player-4den").text(data.data.countPlayer4den)
-        $("#xd-player-3den").text(data.data.countPlayer3den)
-        $("#xd-player-3do").text(data.data.countPlayer3do)
-    })
-    getImageCuaDat = (tpyecuoc) => {
-        let htmlCuocXd = ''
-        if (tpyecuoc == "le") {
-            htmlCuocXd = ' <img style="width: 8%;" src="/xocdia/le.png">'
-        }
-        else if (tpyecuoc == "chan") {
-            htmlCuocXd = ' <img style="width: 21%;" src="/xocdia/chan.png">'
-        }
-        else if (tpyecuoc == "chan4do") {
-            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png">'
-        }
-        else if (tpyecuoc == "chan4den") {
-            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"> '
-        }
-        else if (tpyecuoc == "le3den") {
-            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDen.png"><img style="width: 10%;" src="/xocdia/quanDo.png"> '
-        }
-        else if (tpyecuoc == "le3do") {
-            htmlCuocXd = ' <img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDo.png"><img style="width: 10%;" src="/xocdia/quanDen.png"> '
-        }
-        else {
-            htmlCuocXd = tpyecuoc
-        }
-        return htmlCuocXd
-    }
-    getImageDenDo = (type) => {
-        if (type == "l") {
-            return `<img id="den-soicau" src="/xocdia/den.png">`
-        }
-        else if (type == "c") {
-            return `<img id="do-soicau" src="/xocdia/do.png">`
-        }
-        else {
-            return ""
-        }
-    }
-    $(document).ready(() => {
-
-        $('#game-xocdia')['draggable']({
-            start: function () {
-                $('.actigame')['removeClass']('actigame');
-                $(this)['addClass']('actigame')
-            },
-            cancel: '.group-button',
-            handle: '.move-here'
-        });
-        $('.bat-drop')['draggable']({
-
-        })
-
-        $('#khung_xocdia .his-game')['on']('click ', function () {
-            $['ajax']({
-                type: 'get',
-                url: '/xocdia/getHis',
-                success: function (data) {
-                    var cuoccccc = "";
-                    data.map((cuoc) => {
-                        cuoccccc += '<tr><td>' + cuoc.username + '</td><td>' + numberWithCommas(cuoc.vangdat) + '</td><td>' + getImageCuaDat(cuoc.cuadat) + '</td><td>' + getstatustx(cuoc.status, cuoc.vangthang) + '</td><td>' + new Date(cuoc.time).toLocaleTimeString() + '</td></tr>'
-                    })
-                    cuoccccc = '<tr class="bg bg-danger text-white"><th>Nhân vật</th><th>Vàng đặt</th> <th>Cửa đặt</th><th>Trạng thái</th><th>Thời gian</th></tr>' + cuoccccc
-                    document.getElementById("tablecuoc-xocdia").innerHTML = cuoccccc
-                    $("#cuocsModal-xocdia").modal()
-                }
-            })
-        });
-
-        $('#khung_xocdia .soi-cau')['on']('click ', function () {
-            $['ajax']({
-                type: 'get',
-                url: '/xocdia/soicau',
-                success: function (data) {
-                    var table = "";
-                    for (let line of data) {
-                        table += "<tr style='background: rgb(0 0 0 / 0%);'>" + line.map(cau => `<th>${getImageDenDo(cau)} </th>`).join('') + "</tr>"
-                    }
-                    console.log(table)
-                    document.getElementById("table-soicau-xocdia").innerHTML = table
-                    $("#soicauModal-xocdia").modal()
-                }
-            })
-        });
-
-
-        $('#khung_xocdia .help-game')['on']('click ', function () {
-            $('#modalHelp-Xocdia').modal()
-        });
-
-        $('#khung_xocdia .clogame')['on']('click ', function () {
-            $('#game-xocdia')['hide']('fade', {}, 500)
-        });
-
-        $('#khung_xocdia .soi-cau')['on']('click ', function () {
-            $("#soicauModal-xocdia").modal()
-        });
-
-        $('#khung_xocdia .nan')['on']('click ', function () {
-            isNanXocdia = !isNanXocdia
-            if (isNanXocdia) {
-                $("#button-nan-xocdia").attr("src", "/xocdia/btn-nan.png");
-            }
-            else {
-                $("#button-nan-xocdia").attr("src", "/xocdia/btn-nan-off.png");
-            }
-        });
-
-        $("#goldXocDia").on("keyup", function (event) {
-            var selection = window.getSelection().toString();
-            if (selection !== '') {
-                return;
-            }
-            if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
-                return;
-            }
-            var $this = $(this);
-            var input = $this.val();
-            var input = input.replace(/[\D\s\._\-]+/g, "");
-            input = input ? parseInt(input, 10) : 0;
-            $this.val(function () {
-                return (input === 0) ? "" : input.toLocaleString("en-US");
-            });
-        });
-        const config_image_xodia = {
-            characterSet: '0123456789',
-            characterWidth: 103.2,
-            characterHeight: 102,
-            horizontalSpacing: 0,
-            verticalSpacing: 0,
-            columnCount: 10,
-            rowCount: 1,
-        };
-
-
-
-
-        const canvas_time_xd = document.createElement('canvas');
-        // canvas.width = 120;
-        // canvas.height = 120
-        canvas_time_xd.style.width = '60%';
-        canvas_time_xd.style.left = '51%';
-        canvas_time_xd.style.top = '47%';
-
-
-
-        canvas_time_xd.className = ""
-
-
-
-
-
-        $("#clock-xocdia").append(canvas_time_xd)
-
-
-        let context_xd = canvas_time_xd.getContext('2d');
-
-        context_xd.imageSmoothingEnabled = false;
-
-        const image_time_xd = new Image();
-
-
-        setTimeXocDia = (time) => {
-            if (time == "-1") {
-                time = "0"
-            }
-            context_xd.clearRect(0, 0, 500, 500);
-            let scale = (canvas_time_xd.width / config_image_xodia.characterHeight) / 2
-            let imageWidth = getWordWidth_xodia(time, scale, 0)
-            let xCenterCanvas = (canvas_time_xd.width / 2) - imageWidth / 2
-            let yCenterCanvas = (canvas_time_xd.height / 2) - (config_image_xodia.characterHeight * scale / 2)
-            drawLine_xd(time, { x: xCenterCanvas, y: yCenterCanvas }, scale);
-        }
-
-
-        image_time_xd.src = '/xocdia/fontxanh.png';
-
-        function drawCharacter_xodia(character, position = { x: 0, y: 0 }, scale = 1) {
-            const characterIndex = config_image_xodia.characterSet.indexOf(character);
-
-            if (characterIndex === -1) {
-                throw new Error(`Font character "${character}" is not defined`);
-            }
-            const rowIndex = Math.floor(characterIndex / config_image_xodia.columnCount);
-            const columnIndex = characterIndex % config_image_xodia.columnCount;
-
-            const {
-                characterWidth,
-                characterHeight,
-                horizontalSpacing,
-                verticalSpacing,
-            } = config_image_xodia;
-
-            const sourceX = columnIndex * (characterWidth + horizontalSpacing);
-            const sourceY = rowIndex * (characterHeight + verticalSpacing);
-            const sourceWidth = characterWidth;
-            const sourceHeight = characterHeight;
-
-            const destinationX = position.x;
-            const destinationY = position.y;
-            const destinationWidth = characterWidth * scale;
-            const destinationHeight = characterHeight * scale;
-
-
-
-            context_xd.drawImage(
-                image_time_xd,
-                sourceX, sourceY, sourceWidth, sourceHeight,
-                destinationX, destinationY, destinationWidth, destinationHeight
-            );
-        }
-
-        function drawWord_xd(word, position = { x: 0, y: 0 }, scale = 1, optCharacterSpacing = 1) {
-            const characters = Array.from(word);
-
-
-
-            characters.forEach((character, characterIndex) => {
-                let characterSpacing = optCharacterSpacing;
-                if (characterIndex === 0) {
-                    characterSpacing = 0;
-                }
-
-                const characterTotalWidth = config_image_xodia.characterWidth * scale + characterSpacing;
-
-                const characterX = position.x + characterIndex * characterTotalWidth;
-                const characterY = position.y;
-
-                const characterPosition = {
-                    x: characterX,
-                    y: characterY,
-                };
-
-                drawCharacter_xodia(character, characterPosition, scale);
-            });
-        }
-
-        function getWordWidth_xodia(word, scale = 1, optCharacterSpacing = 1) {
-            const allCharactersWidth = word.length * (config_image_xodia.characterWidth * scale);
-            const allSpacingsWidth = (word.length - 1) * optCharacterSpacing;
-
-            const wordWidth = allCharactersWidth + allSpacingsWidth;
-
-            return wordWidth;
-        }
-
-        function drawLine_xd(
-            line,
-            position = { x: 0, y: 0 },
-            scale = 1,
-            optCharacterSpacing = 0,
-        ) {
-            const words = line.split(' ');
-            let prevWordEndX = 0;
-            words.forEach((word, wordIndex) => {
-                const wordX = position.x + prevWordEndX;
-                const wordY = position.y;
-                const wordPosition = {
-                    x: wordX,
-                    y: wordY,
-                };
-                drawWord_xd(word, wordPosition, scale, optCharacterSpacing);
-                const wordWidth = getWordWidth_xodia(word, scale, optCharacterSpacing);
-                let wordSpacing = config_image_xodia.characterWidth * scale + optCharacterSpacing * 2;
-                if (wordIndex === words.length - 1) {
-                    wordSpacing = 0;
-                }
-                const wordTotalWidth = wordWidth + wordSpacing;
-                prevWordEndX += wordTotalWidth;
-            });
-        }
-    })
-</script>

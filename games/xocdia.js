@@ -11,6 +11,8 @@ const { v4: uuidv4 } = require('uuid');
 const PlayerSocket = require('./PlayerSocket')
 const redisClient = require("../redisCache")
 const keyHisXocDia = "xocdiahis"
+const fs = require('fs');
+
 class GameXocDia {
 
     xocdia = (io, app) => {
@@ -45,6 +47,12 @@ class GameXocDia {
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+        app.get("/xocdia/getgame", async (req, res) => {
+            const file = `./views/taixiu/xocdia.ejs`;
+            fs.readFile(file, async function (err, data) {
+                res.send(data);
+            })
+        })
         app.get("/xocdia/baotri", async (req, res) => {
             isBaotri = !isBaotri
             res.send(isBaotri)
@@ -69,6 +77,9 @@ class GameXocDia {
         }
         app.get("/xocdia/soicau", async (req, res) => {
             res.send(soiCaus)
+        })
+        app.get("/xocdia/caus", async (req, res) => {
+            res.send(caus)
         })
         app.post("/xocdia/putcuoc", checklogin, async (req, res) => {
             if (isBaotri) {
@@ -297,14 +308,14 @@ class GameXocDia {
             Game.Status = "running"
         }
         let getSoiCau = async () => {
-            let games = await GameXD.find({}).sort({ _id: -1 }).limit(70)
+            let games = await GameXD.find({}).sort({ _id: -1 }).limit(100)
             let array = games.reverse()
-            let table = [[], [], [], [], []]
+            let table = [[], [], [], [], [], []]
             let x = 0
             let y = 0
             for (let i = 0; i < array.length; i++) {
                 let gettype = getChanle(array[i].ketqua)
-                if (y == 5) {
+                if (y == table.length) {
                     y = 0;
                     x++
                 }
@@ -325,12 +336,13 @@ class GameXocDia {
                 table[2].shift()
                 table[3].shift()
                 table[4].shift()
+                table[5].shift()
                 x--
             }
             return table
         }
 
-        let soiCaus = [[], [], [], [], []]
+        let soiCaus = [[], [], [], [], [], []]
 
         let updateSoiCauData = async () => {
             let caus = await getSoiCau()
@@ -338,6 +350,15 @@ class GameXocDia {
         }
         updateSoiCauData()
 
+        let caus = []
+        let updateCaus = async () => {
+            caus = []
+            const games = await GameXD.find({}).sort({ _id: -1 }).limit(15)
+            for (let game of games) {
+                caus.unshift(getChanle(game.ketqua))
+            }
+        }
+        updateCaus()
         let TraoThuong = async (ketqua) => {
             let phienXd = await new GameXD({ x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4, ketqua: Game.ketqua, status: 1 }).save()
             let arrPlayer = []
@@ -364,7 +385,8 @@ class GameXocDia {
 
                 await new CuocXD({
                     phien: phienXd._id, x1: Game.x1, x2: Game.x2, x3: Game.x3, x4: Game.x4, vangdat: cuoc.xu, vangnhan: tienWin, uid: cuoc.userId, nhanvat: cuoc.username, type: cuoc.type,
-                    status: (tienWin >= 0 ? 1 : 2)
+                    status: (tienWin >= 0 ? 1 : 2),
+                    ketqua: ketqua
                 }).save()
                 arrPlayer.push({ tienWin, userId: cuoc.userId })
                 if (tienWin > 0) {
@@ -405,6 +427,7 @@ class GameXocDia {
             }
             if (Game.Status == "start") {
                 GameStart()
+                io.sockets.emit("phienmoi-xd", "update")
             }
             else if (Game.Status == "running") {
                 for (let p of PlayerSocket.SocketPlayer) {
@@ -444,13 +467,14 @@ class GameXocDia {
                     const result = Object.values(winners.reduce((cuoc, { tienWin, userId }) =>
                         ((cuoc[userId] = cuoc[userId] || { userId, tienWin: 0 }).tienWin += tienWin, cuoc), {}));
 
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         for (let cuoc of result) {
                             try {
                                 let socket = PlayerSocket.SocketPlayer.find(player => player.userId.toString() === cuoc.userId.toString());
                                 io.to(socket.socket).emit('traothuong-xd', { status: (cuoc.tienWin > 0 ? "win" : "thua"), message: (cuoc.tienWin > 0 ? "+" : "") + numberWithCommas(cuoc.tienWin) });
                             } catch { }
                         }
+                        await updateCaus()
                     }, (Game.TimeWait * 1000) - 2000);
                 }
             }

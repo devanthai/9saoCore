@@ -2,7 +2,6 @@
 
 
 <%- include('../taixiu/taixiuthai'); %>
-<%- include('../taixiu/xocdia'); %>
 
 
 
@@ -10,6 +9,7 @@
     <div id="BauCua"></div>
     <div id="Poker"></div>
     <div id="HoaQua"></div>
+    <div id="XocDia"></div>
     <div class="container">
         <h5 class="text-center mt-4 text-dark" style="margin: 0px;" id="darkMode1">HỆ THỐNG MINI GAME NRO</h5>
         <p class="text-center text-dark" style="margin-bottom: 5px;" id="darkMode2">Được đảm bảo uy tín từ <br><span
@@ -188,11 +188,34 @@
             <div class="col text-center">
                 <button onclick="openPoker()" type="button" class="btn border-info font-weight-bold text-info "><img
                         src="/images/new.gif" border="0"> Mini Poker </button>
-                        <button onclick="openHoaQua()" type="button" class="btn border-info font-weight-bold text-info ">Lucky Wild <img src="/images/new.gif" border="0"></button>
+                <button onclick="openHoaQua()" type="button" class="btn border-info font-weight-bold text-info ">Lucky
+                    Wild <img src="/images/new.gif" border="0"></button>
             </div>
         </div>
 
+        <div style="display: block;" class="row mt-3">
+            <div class="col text-center">
+                <button onclick="openXocdia()" type="button" class="zoommmm btn border-info font-weight-bold text-danger "><img
+                        src="/images/new.gif" border="0"> Xóc Đĩa <img src="/images/new.gif" border="0"></button>
+            </div>
+        </div>
+        <style>
+            .zoommmm {
+                -webkit-animation: zoom2vip 0.5s infinite alternate;
+            }
 
+            @keyframes zoom2vip {
+                0% {
+                    transform: scale(1.1);
+                }
+
+                100% {
+                    transform: scale(1);
+
+                }
+
+            }
+        </style>
         <!-- <div class="row mt-3">
             <div class="col text-center">
                 <button onclick="location.href='/user/xosokeno'" type="button"
@@ -208,7 +231,8 @@
                     <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span
                             class="fas fa-history"></span> KẾT QUẢ</div>
                     <div class="card-body bg-light text-dark" id="cardBodyKetQua">
-                        <div class="bat-drop-csmm ui-draggable ui-draggable-handle" style="z-index: 51;cursor: pointer;width: 100px;margin-left: 55.5%;height: 80px;margin-top: 13.5%;position: absolute;background: url(&quot;/xocdia/bat.png&quot;) 0% 0% / 100% 100%;left: 70.875px;top: 39.8125px;">
+                        <div class="bat-drop-csmm ui-draggable ui-draggable-handle"
+                            style="z-index: 51;cursor: pointer;width: 100px;margin-left: 55.5%;height: 80px;margin-top: 13.5%;position: absolute;background: url(&quot;/xocdia/bat.png&quot;) 0% 0% / 100% 100%;left: 70.875px;top: 39.8125px;">
                         </div>
 
                         <!-- <iframe src="http://localhost:2005/" title="Trade 9sao" style="background: rgb(255, 255, 255);
@@ -703,7 +727,7 @@
                             allowfullscreen></iframe>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -1096,7 +1120,7 @@
                         </div>
                         <div id="alertMain">
                             <div class="alertInfo" id="alertInfoPt" style="">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -1238,6 +1262,3 @@
             <script src="js/taixiu.js?alo=cz1334511r235aa2s"></script>
             <script src="js/clan.js?ccc=13451ccc31đ3ttttsaa"></script>
             <script src="js/pickme.js?v=23.01"></script>
-
-
-

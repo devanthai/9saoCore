@@ -194,6 +194,35 @@ function openHoaQua() {
 }
 
 
+var isLoadxocdia = false
+function openXocdia() {
+    if (!isLoadxocdia) {
+        $.ajax({
+            url: '/xocdia/getgame',
+            type: 'GET',
+            success: function (d) {
+                document.getElementById("XocDia").innerHTML = d
+                isLoadxocdia = true
+                openXocdia()
+            }
+        })
+    }
+    else {
+        var jstaixiu = document.getElementById("jsxocdia");
+        if (jstaixiu != null) {
+            $('#game-xocdia')['show']('fade', {}, 500);
+            return;
+        }
+        var script = document.createElement('script');
+        script.src = '/taixiu/xocdia.js?ver=1.0';
+        script.type = 'text/javascript';
+        script.id = "jsxocdia"
+        document.getElementsByTagName('head')[0].appendChild(script);
+        $('#game-xocdia')['show']('fade', {}, 500);
+    }
+}
+
+
 var isLoadChanLe = false
 function openChanLe() {
     if (!isLoadChanLe) {
